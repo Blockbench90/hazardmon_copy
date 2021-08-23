@@ -1,0 +1,62 @@
+.wrap {
+  background-image: url("../../assets/img/footer_bg.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 50px auto;
+  padding: 50px;
+  max-width: 1159px;
+  height: 241px;
+  display: flex;
+  justify-content: space-between;
+  @media screen and (max-width: 700px) {
+    height: 170px;
+    margin: 0 auto;
+  }
+
+  .content {
+
+    .title {
+      font-weight: 300;
+      font-size: 30px;
+      color: #F2F2F2 !important;
+      @media screen and (max-width: 700px) {
+        font-size: 12px;
+      }
+    }
+
+    .description {
+      letter-spacing: -0.03em;
+      color: #F2F2F2;
+      @media screen and (max-width: 700px) {
+        font-size: 8px;
+      }
+    }
+
+    .button {
+      width: 200px;
+      height: 50px;
+      background: #A9CC13;
+      border-radius: 5px;
+      color: white;
+      border: 0;
+      padding: 10px 30px;
+      font-size: 16px;
+      cursor: pointer;
+      text-align: center;
+
+
+
+      @media screen and (max-width: 770px) {
+        padding: 4px 30px;
+        font-size: 12px;
+        width: 125px !important;
+        height: 25px !important;
+      }
+    }
+    .button:hover {
+      background-color: #cdcbc4;
+      cursor: default;
+    }
+  }
+}

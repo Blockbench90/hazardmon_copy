@@ -1,0 +1,15 @@
+.root {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+
+  :global {
+    .ant-spin-show-text {
+      color: black !important;
+    }
+
+    .ant-spin-dot-item {
+      background: #00C09E !important;
+    }
+  }
+}

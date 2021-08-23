@@ -1,0 +1,81 @@
+.editDeviceWrap {
+  :global {
+    .ant-checkbox-checked .ant-checkbox-inner {
+      background-color: #A9CC13;
+    }
+  }
+}
+.warningsWrap {
+  .subtitle {
+    font-weight: bold;
+    font-size: 16px;
+    color: #0F435A;
+    margin-left: 10px;
+  }
+
+    a {
+      font-weight: 800;
+      font-size: 10px;
+      line-height: 12px;
+      text-decoration-line: underline;
+      text-transform: uppercase;
+      color: #2D3C43 !important;
+   }
+}
+
+.inputsWrap {
+  max-width: 100%;
+  max-height: 100%;
+  margin-top: 15px;
+  background: rgba(255, 255, 255, 0.7);
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+
+    .groupInputs {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding-top: 40px;
+
+      .sensor {
+        width: 40%;
+        min-width: 200px;
+        margin-right: 20px;
+      }
+
+      .signWrap {
+        width: 15%;
+        min-width: 230px;
+        margin-right: 20px;
+
+        .sign {
+          width: 128px;
+        }
+      }
+
+      .valueWrap {
+        margin-right: 20px;
+        width: 20%;
+        min-width: 230px;
+
+        .value {
+          width: 128px;
+        }
+      }
+      .addWarningValueWrap {
+        margin-right: 6px !important;
+      }
+    }
+  }
+}
+
+.newField {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-right: 15px;
+}
+
+

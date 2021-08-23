@@ -1,0 +1,84 @@
+.siteRowCompany {
+  color: #00C09E !important;
+}
+
+.row {
+  cursor: pointer;
+}
+
+.headerWrap {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.headerTitle {
+  margin-left: 8px;
+  display: flex;
+  justify-content: space-between;
+  width: 310px;
+}
+
+.modalButton {
+  margin: 5px 0;
+
+  .timePicker {
+    width: 84px;
+    margin-right: 5px;
+  }
+
+  .datePicker {
+    width: 130px;
+    margin-right: 5px;
+  }
+
+  .buttonTitle {
+    font-weight: 700;
+  }
+}
+
+.alertHistoricalWrap {
+  margin-bottom: 5px;
+
+  .icon {
+    color: red;
+  }
+
+  .alertHistorical {
+    background: rgba(241, 77, 73, 0.1) !important;
+    border-radius: 100px !important;
+    font-weight: 600 !important;
+    font-size: 12px !important;
+    color: #F14D49 !important;
+    padding: 8px 15px !important;
+
+    @media screen and (max-width: 1090px) {
+      padding: 5px 10px !important;
+      :global {
+        .ant-alert-description {
+          font-size: 11px !important;
+        }
+      }
+    }
+  }
+}
+
+.alarmed {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.tableWrap {
+  display: flex;
+  justify-content: space-between;
+  max-width: 100%;
+
+}
+
+.graphsWrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}

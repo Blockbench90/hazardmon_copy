@@ -1,0 +1,44 @@
+.editDeviceWrap {
+  :global {
+    .ant-checkbox-checked .ant-checkbox-inner {
+      background-color: #A9CC13;
+    }
+  }
+}
+
+.inputsWrap {
+  max-width: 100%;
+  max-height: 100%;
+  margin-top: 15px;
+  background: rgba(255, 255, 255, 0.7);
+
+  .container {
+    margin: 0 auto;
+
+    .groupInputs {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding-top: 40px;
+
+      .blockWrap {
+        width: 450px;
+      }
+
+      .codeWrap {
+        width: 470px;
+        margin-left: 110px;
+        margin-right: 30px;
+
+        @media screen and (max-width: 1340px) {
+          margin-left: 5px;
+        }
+
+      }
+    }
+  }
+}
+
+
+
+

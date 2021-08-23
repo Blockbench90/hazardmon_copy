@@ -1,0 +1,42 @@
+.wrap {
+  padding: 25px;
+  height: 50px;
+  color: white;
+
+  .logo {
+    @media screen and (max-width: 700px) {
+      width: 75px;
+    }
+  }
+
+  .connect {
+    display: flex;
+
+    .connectWrap {
+      margin-right: 33px;
+      @media screen and (max-width: 700px) {
+        margin-right: 2px;
+      }
+    }
+
+    .contactSelect {
+      color: white;
+      @media screen and (max-width: 700px) {
+        width: 101px;
+        font-size: 12px;
+      }
+    }
+  }
+
+  .linkWrap {
+    margin: 5px 25px 0 0;
+    color: white;
+    cursor: pointer;
+
+    @media screen and (max-width: 700px) {
+      margin: 7px 0 0 0;
+      font-size: 12px;
+    }
+  }
+
+}

@@ -1,0 +1,23 @@
+@import "https://code.highcharts.com/css/stocktools/gui.css";
+@import "https://code.highcharts.com/css/annotations/popup.css";
+
+
+.widget {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.widgetBody {
+  padding: 12px;
+  //background-color: #ffffff;
+  flex: 1 1 auto;
+  margin-bottom: 50px;
+}
+
+.deviceBlock {
+}
+
+.graphsBlockWrap {
+  margin-bottom: 80px;
+}

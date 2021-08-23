@@ -1,0 +1,36 @@
+.inputTitle {
+  font-size: 16px;
+  color: #2D3C43;
+  margin: 40px 0 20px 0 !important;
+
+  @media screen and (max-width: 700px), (max-height: 700px) {
+    font-size: 12px;
+    margin: 0 0 3px 0 !important;
+  }
+}
+
+.loginInput {
+  height: 50px;
+
+  @media screen and (max-width: 700px), (max-height: 700px) {
+    height: 25px !important;
+  }
+}
+
+.button {
+  @media screen and (max-width: 700px), (max-height: 700px) {
+    height: 30px !important;
+    font-size: 12px !important;
+  }
+}
+
+.forgotPassword {
+  color: #A9CC13;
+  text-align: center;
+  margin-top: 40%;
+
+  @media screen and (max-width: 700px), (max-height: 700px) {
+    margin-top: 26%;
+    font-size: 10px;
+  }
+}

@@ -1,0 +1,48 @@
+.wrap {
+  max-width: 100%;
+  margin-top: 15px;
+  background: rgba(255, 255, 255, 0.7);
+
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+
+    .groupInputs {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding-top: 40px;
+
+      .blockWrap {
+        width: 450px;
+
+        .block {
+          display: flex;
+          justify-content: flex-end;
+
+          .title {
+            padding: 5px 10px 0 0;
+          }
+
+          .input {
+            width: 340px;
+          }
+        }
+      }
+    }
+  }
+
+  .button {
+    padding: 20px 5px;
+    display: flex;
+    justify-content: flex-end;
+
+    :global {
+      .ant-layout-sider-collapsed {
+        padding: 2% 6.3% 2% 0;
+      }
+    }
+  }
+}
+
+

@@ -1,0 +1,26 @@
+.wrap {
+  max-width: 100%;
+  background: rgba(255, 255, 255, 0.7);
+
+  .head {
+    font-weight: bold;
+    font-size: 16px;
+    color: #2D3C43;
+    padding: 0 10px;
+
+    a {
+      text-decoration-line: none;
+      text-transform: none;
+    }
+
+    span {
+      font-weight: bold;
+      font-size: 16px;
+      color: #00C09E;
+    }
+  }
+
+  .table {
+    padding: 0 15px;
+  }
+}

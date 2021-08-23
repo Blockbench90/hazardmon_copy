@@ -1,0 +1,93 @@
+.wrap {
+  width: 454px;
+  height: 624px;
+  background: white;
+  box-shadow: 0 0 10px rgba(124, 144, 177, 0.3);
+  border-radius: 20px;
+  color: #28a745;
+  margin-top: 70px;
+  padding-top: 20px;
+
+  @media screen and (max-width: 700px), (max-height: 700px) {
+    padding-top: 5px;
+    border-radius: 20px;
+  }
+
+  :global {
+    .ant-tabs-ink-bar {
+      background: #A9CC13;
+    }
+
+    .ant-tabs-nav-list {
+      margin-left: 50px !important;
+    }
+
+    .ant-tabs-tab,
+    .ant-tabs-tab-active,
+    .ant-tabs-tab-btn {
+      color: #598253 !important;
+    }
+
+    .ant-tabs-tab-active {
+      path {
+        fill: #A9CC13 !important;
+      }
+    }
+  }
+
+  @media screen and (max-width: 800px), (max-height: 800px) {
+    width: 350px;
+    height: 602px;
+  }
+
+  @media screen and (max-width: 700px), (max-height: 700px) {
+    width: 215px;
+    height: 345px;
+    :global {
+      .ant-tabs-nav-list {
+        margin-left: 15px !important;
+      }
+    }
+  }
+
+
+  .tabs {
+    @media screen and (max-width: 700px), (max-height: 700px) {
+      :global {
+        .ant-tabs-nav {
+          margin: 0 0 4px 0 !important;
+        }
+        .ant-form-item-explain-error {
+          font-size: 8px !important;
+        }
+      }
+    }
+  }
+
+  .tab {
+    padding: 0 50px;
+    @media screen and (max-width: 700px), (max-height: 700px) {
+      padding: 0 15px;
+    }
+  }
+
+
+  .historical {
+    padding: 50px;
+  }
+
+  .title {
+    font-weight: bold;
+    font-size: 16px;
+    color: #014B3E;
+    margin-left: 10px;
+
+    @media screen and (max-width: 700px), (max-height: 700px) {
+      font-size: 12px !important;
+      margin-left: 5px;
+    }
+  }
+}
+
+
+

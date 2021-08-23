@@ -1,0 +1,112 @@
+.dropdown {
+  width: 162px;
+
+
+  :global {
+    .ant-dropdown-menu,
+    .ant-dropdown-menu-light,
+    .ant-dropdown-menu-root,
+    .ant-dropdown-menu-vertical {
+      background: #2D3C43;
+      border: 1px solid #D3DCE6;
+      box-sizing: border-box;
+      border-radius: 5px;
+
+      .ant-dropdown-menu-item, a {
+        color: white !important;
+      }
+    }
+
+    .ant-dropdown-menu-item:hover,
+    .ant-dropdown-menu-submenu-title:hover {
+      background-color: darkcyan !important;
+    }
+  }
+}
+
+.menuTitle {
+  cursor: pointer;
+}
+
+.driver {
+  opacity: 0.2;
+}
+
+.mapShortNames {
+  display: flex;
+  justify-content: space-between;
+  color: #7C90B1;
+  background: #F9F9F9;
+  height: 40px;
+  padding: 10px 8px;
+  margin-bottom: 10px;
+
+  .mapName {
+    width: 70%;
+    text-align: start;
+  }
+
+  .mapSign {
+    width: 12%;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.modalWrap {
+  :global {
+    .ant-modal {
+      width: 400px !important;
+      height: 260px !important;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.13);
+      border-radius: 20px !important;
+    }
+
+    .ant-modal-header {
+      border: none !important;
+      border-radius: 20px !important;
+      height: 50px !important;
+    }
+
+    .ant-modal-title {
+      padding-top: 30px;
+    }
+
+    .ant-modal-content {
+      text-align: center !important;
+      border-radius: 20px !important;
+    }
+  }
+
+  .modalTitle {
+    font-weight: bold;
+    font-size: 24px;
+    color: #598253;
+    margin-left: 15px;
+    margin-top: 30px;
+  }
+
+  .modalSubTitleWrap {
+    margin-top: 10px;
+
+    .modalSubTitle {
+      font-size: 14px;
+      color: #7C90B1;
+    }
+  }
+
+  .modalDescriptionWrap {
+    margin-top: 25px;
+
+    .modalDescription {
+      font-weight: bold;
+      font-size: 16px;
+      color: #2D3C43;
+    }
+  }
+
+  .modalButton {
+    margin-top: 40px;
+  }
+}
+

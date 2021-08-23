@@ -1,0 +1,25 @@
+.inputTitle {
+  font-size: 16px;
+  color: #2D3C43;
+  margin: 35px 0 16px 0 !important;
+  @media screen and (max-width: 700px), (max-height: 700px) {
+    margin: 0 0 3px 0 !important;
+    font-size: 12px;
+  }
+}
+
+.loginInput {
+  height: 50px;
+  @media screen and (max-width: 700px), (max-height: 700px) {
+    height: 25px !important;
+  }
+}
+
+.button {
+  @media screen and (max-width: 700px), (max-height: 700px) {
+    height: 30px !important;
+    font-size: 12px;
+  }
+}
+
+

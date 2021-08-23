@@ -1,0 +1,8 @@
+.wrap {
+  :global {
+    .ant-btn-primary {
+      background: red !important;
+      border-color: red !important;
+    }
+  }
+}

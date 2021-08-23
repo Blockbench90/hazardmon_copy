@@ -1,0 +1,98 @@
+.tablet {
+  position: fixed !important;
+  z-index: 10000 !important;
+}
+
+.sidebar {
+  position: fixed !important;
+  z-index: 10000 !important;
+}
+
+
+.logo {
+  padding: 20px;
+  margin-bottom: 13px;
+}
+
+.avatar {
+  padding-left: 20px;
+}
+
+.profileInfo {
+  font-size: 20px !important;
+
+  .profileInfoColumn {
+    font-size: 14px !important;
+  }
+
+}
+
+.smallSubmenu {
+  padding-left: 10px !important;
+}
+
+.menuWrap {
+  height: 85%;
+}
+
+.cssBaseLine {
+  color: white;
+  border-bottom: 1px solid #94A0B7;
+  width: 100%;
+}
+
+.trigger {
+  font-size: 27px;
+  color: #026F5B !important;
+  position: absolute;
+  right: -20px;
+  top: 80px;
+}
+
+.setting {
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: capitalize;
+  color: #7C90B1 !important;
+}
+
+.settingLink {
+  position: absolute !important;
+  bottom: 0 !important;
+}
+
+.modify {
+  position: absolute !important;
+  bottom: 40px !important;
+}
+
+.visual {
+  position: absolute !important;
+  bottom: 80px !important;
+}
+
+.sizeVisualBig {
+  width: 190px;
+  left: 5px !important;
+  transition: width 0.2s !important;
+}
+
+.sizeVisualSmall {
+  width: 72px !important;
+  left: 5px !important;
+  transition: width 0.2s !important;
+}
+
+@media screen and (max-height: 800px) {
+  .settingLink,
+  .modify,
+  .visual {
+    position: inherit !important;
+    bottom: 0 !important;
+  }
+  :global {
+    .ant-menu-item a::before {
+      position: relative !important;
+    }
+  }
+}

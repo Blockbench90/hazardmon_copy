@@ -1,0 +1,12 @@
+.block {
+  display: flex;
+  justify-content: flex-end;
+
+  .title {
+    padding: 5px 10px 0 0;
+  }
+
+  .input {
+    width: 340px;
+  }
+}

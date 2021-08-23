@@ -1,0 +1,65 @@
+.button {
+  background: #A9CC13;
+  border-radius: 5px;
+  color: white;
+  border: 0;
+  padding: 0 30px;
+  font-size: 16px;
+  cursor: pointer;
+
+  &:disabled,
+  &:disabled:hover {
+    background-color: #cdcbc4;
+    cursor: default;
+  }
+
+  &:hover {
+    background-color: lighten(#A9CC13, 2%);
+  }
+
+  &:active {
+    background-color: darken(#A9CC13, 1%);
+    transform: translateY(1px);
+  }
+}
+
+.buttonGreen {
+  background-color: #20bd5f;
+
+  &:hover,
+  &:active {
+    background-color: darken(#20bd5f, 2%);
+  }
+}
+
+.buttonGray {
+  background-color: #7C90B1;
+  color: white;
+
+  &:hover,
+  &:active {
+    background-color: darken(#7C90B1, 5%);
+  }
+}
+
+.buttonGrayClient {
+  background-color: #7C90B1;
+  color: white;
+
+  &:hover,
+  &:active {
+    background: #A9CC13;
+  }
+}
+
+
+.buttonRed {
+  background-color: #F14D49;
+  color: white;
+
+  &:hover,
+  &:active {
+    background-color: darken(#F14D49, 5%);
+  }
+}
+

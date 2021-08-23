@@ -1,0 +1,57 @@
+.headerWrap {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  height: 110px;
+
+  @media screen and (max-width: 940px) {
+    height: 110px;
+  }
+}
+
+.datePicker {
+  width: 190px;
+  margin-right: 5px;
+}
+
+.inputWrap {
+  width: 210px !important;
+}
+
+.tabPane {
+  padding: 15px;
+  background: #EEF0EC;
+  //border: 1px solid #7C90B1;
+  border-radius: 5px;
+}
+
+.tabsWrap {
+  :global {
+    .ant-tabs-nav {
+      margin: 0 !important;
+    }
+
+    .ant-tabs-tab {
+      background: #D9E0EB !important;
+      border-radius: 5px !important;
+      color: rgb(131, 150, 181) !important;
+      font-weight: 900;
+    }
+
+    .ant-tabs-tab-active {
+      .ant-tabs-tab,
+      .ant-tabs-tab-active,
+      .ant-tabs-tab-btn {
+        color: #2D3C43 !important;
+      }
+
+      background: #EEF0EC !important;
+      border-bottom-color: #EEF0EC !important;
+      border-radius: 5px !important;
+    }
+
+    .ant-tabs-content-holder {
+      background: #EEF0EC !important;
+    }
+  }
+}

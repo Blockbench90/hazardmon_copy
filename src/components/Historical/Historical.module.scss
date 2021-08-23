@@ -1,0 +1,109 @@
+.siteRowCompany {
+  color: #00C09E !important;
+}
+
+.row {
+  cursor: pointer;
+}
+
+.headerWrap {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.headerTitle {
+  margin-left: 8px;
+  display: flex;
+  justify-content: space-between;
+  width: 310px;
+}
+
+.modalButton {
+  margin: 5px 0;
+
+  .timePicker {
+    width: 84px;
+    margin-right: 5px;
+  }
+
+  .datePicker {
+    width: 130px;
+    margin-right: 5px;
+  }
+
+  .buttonTitle {
+    font-weight: 700;
+  }
+}
+
+.alarmed {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.tableWrap {
+  display: flex;
+  justify-content: space-between;
+  max-width: 100%;
+  background: #F6F7F6;
+  border: 1px solid rgba(124, 144, 177, 0.5);
+  border-radius: 9px;
+  padding: 10px;
+
+
+  .table {
+    margin-right: 20px;
+    width: 33.3%;
+
+    :global {
+      .ant-table-row > td:first-child {
+        color: #7C90B1 !important;
+      }
+
+      .ant-table-thead > tr > th,
+      .ant-table-tbody > tr > td,
+      .ant-table tfoot > tr > th,
+      .ant-table tfoot > tr > td {
+        padding: 5px 16px;
+      }
+
+    }
+
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 25px 0;
+
+  :global {
+    .ant-pagination-item-active {
+      background: #2D3C43 !important;
+      border-color: #2D3C43 !important;
+      border-radius: 5px !important;
+      a {
+        color: white !important;
+      }
+    }
+    .ant-pagination.mini .ant-pagination-item:not(.ant-pagination-item-active) {
+      background: #FFFFFF !important;
+      border: 1px solid #7C90B1 !important;
+      border-radius: 5px !important;
+    }
+    .ant-pagination.mini .ant-pagination-prev, .ant-pagination.mini .ant-pagination-next {
+      background: #FFFFFF !important;
+      border: 1px solid #7C90B1 !important;
+      border-radius: 5px !important;
+    }
+
+    .ant-pagination, .mini, .ant-table-pagination, .ant-table-pagination-center {
+      li {
+        margin: 0 5px;
+      }
+    }
+  }
+}

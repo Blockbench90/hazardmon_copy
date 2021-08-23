@@ -1,0 +1,23 @@
+.sensorHeaderWrap {
+  display: flex;
+  justify-content: space-between;
+  background-color: #ffffff;
+
+  .headerTitle {
+  padding: 10px 20px;
+  }
+
+  .buttonWrap {
+    display: flex;
+    justify-content: space-between;
+
+    .button {
+      padding: 10px 20px;
+      border-left: 1px solid rgba(124, 144, 177, 0.4);
+      cursor: pointer;
+    }
+  }
+}
+.divider {
+    margin: 0 !important;
+}

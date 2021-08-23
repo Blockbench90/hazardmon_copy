@@ -1,0 +1,22 @@
+.wrap {
+  padding-top: 15px;
+
+  :global {
+    .ant-table-row > td:first-child {
+      color: #2D3C43 !important;
+    }
+
+    .ant-table-thead > tr > th {
+      color: #7C90B1 !important;
+      font-weight: bold !important;
+    }
+
+    .ant-checkbox-checked .ant-checkbox-inner {
+      background-color: #A9CC13;
+    }
+  }
+}
+
+.spin {
+  margin: 20px 50%  !important;
+}

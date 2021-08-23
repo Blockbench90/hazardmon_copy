@@ -1,0 +1,199 @@
+:global {
+  h5.ant-typography, .ant-typography h5 {
+    color: #7C90B1 !important;
+    font-weight: 600;
+    font-size: 10px !important;
+  }
+
+  h2.ant-typography, .ant-typography h2 {
+    margin-top: 0 !important;
+  }
+}
+
+
+.wrap {
+
+  .subtitle {
+    font-weight: bold;
+    font-size: 16px;
+    color: #0F435A;
+    margin-left: 10px;
+  }
+
+  .searchWrap {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+
+    .search {
+      width: 513px;
+      max-width: 513px;
+
+      :global {
+        .anticon,
+        .anticon-search {
+          font-size: 30px !important;
+        }
+
+        .ant-btn-primary {
+          background: #A9CC13 !important;
+          border-color: #A9CC13 !important;
+          border-radius: 0 5px 5px 0
+        }
+      }
+    }
+
+    .exportWrap {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 20px;
+      font-weight: 500;
+      font-size: 12px;
+      color: #7C90B1;
+
+
+      .export {
+        margin-left: 35px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .formWrap {
+    display: flex;
+    justify-content: space-between;
+    @media screen and (max-width: 1430px) {
+      flex-direction: column;
+      width: 500px;
+    }
+
+    .dateIcon {
+      padding-top: 6px;
+      width: 20px;
+    }
+    .rangePickerMedia {
+      @media screen and (max-width: 1430px) {
+        padding-right: 22px;
+      }
+    }
+    .rangePicker {
+      :global {
+        .ant-picker-range {
+          height: 40px;
+        }
+      }
+      .rangePickerInput {
+        min-width: 230px !important;
+      }
+    }
+
+    .select {
+      min-width: 300px !important;
+      margin: 0 5px;
+
+      .options {
+        width: 74% !important;
+      }
+    }
+
+    .button {
+      width: 115px;
+    }
+  }
+
+  .tableWrap {
+    :global {
+      .ant-btn-primary {
+        background: #7C90B1 !important;
+        border-color: #7C90B1 !important;
+      }
+
+      .ant-layout-content {
+        margin: 16px 25px 0 !important;
+      }
+
+      .ant-table-row > td {
+        border-bottom: 1px solid #D4D4D4 !important;
+        border-top: 1px solid transparent !important;
+
+      }
+
+      .ant-table-row > td:first-child {
+        border-left: 1px solid transparent !important;
+      }
+
+      .ant-table-row > td:last-child {
+        border-right: 1px solid transparent !important;
+      }
+
+      .ant-table-row:hover > td {
+        border-bottom: 1px solid #00C09E !important;
+        border-top: 1px solid #00C09E !important;
+
+      }
+
+      .ant-table-row:hover > td:first-child {
+        border-left: 1px solid #00C09E !important;
+        background-image: url("../../assets/icons/flag.svg") !important;
+        background-repeat: no-repeat !important;
+      }
+
+      .ant-table-row:hover > td:last-child {
+        border-right: 1px solid #00C09E !important;
+      }
+
+      .ant-table-row > td:first-child {
+        color: #7C90B1 !important;
+      }
+
+      .ant-table-thead > tr > th {
+        color: #7C90B1 !important;
+        font-weight: bold !important;
+        font-size: 12px !important;
+      }
+
+      .ant-table-tbody > tr > td,
+      .ant-table-thead > tr > th {
+
+        @media screen and (max-width: 1195px) {
+          padding: 10px !important;
+          font-size: 13px !important;
+        }
+        @media screen and (max-width: 1060px) {
+          padding: 3px !important;
+          font-size: 11px !important;
+        }
+
+      }
+
+      .ant-pagination-item-active {
+        background: #2D3C43 !important;
+        border-color: #2D3C43 !important;
+        border-radius: 5px !important;
+        a {
+        color: white !important;
+        }
+      }
+      .ant-pagination.mini .ant-pagination-item:not(.ant-pagination-item-active) {
+        background: #FFFFFF !important;
+        border: 1px solid #7C90B1 !important;
+        border-radius: 5px !important;
+      }
+      .ant-pagination.mini .ant-pagination-prev, .ant-pagination.mini .ant-pagination-next {
+        background: #FFFFFF !important;
+        border: 1px solid #7C90B1 !important;
+        border-radius: 5px !important;
+      }
+
+      .ant-pagination, .mini, .ant-table-pagination, .ant-table-pagination-center {
+        li {
+          margin: 0 5px;
+        }
+      }
+    }
+
+    .date {
+      color: #7C90B1 !important;
+    }
+  }
+}

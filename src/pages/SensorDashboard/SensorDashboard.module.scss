@@ -1,0 +1,317 @@
+:global {
+  h5.ant-typography, .ant-typography h5 {
+    color: #7C90B1 !important;
+    font-weight: 600;
+    font-size: 10px !important;
+  }
+
+  h2.ant-typography, .ant-typography h2 {
+    margin-top: 0 !important;
+  }
+}
+
+.AlignmentSensorWrap {
+  margin: 8px 12px 40px 12px !important;
+}
+
+.sensorWrap {
+  width: 210px;
+  height: 195px;
+  margin: 15px 12px 25px 12px;
+  padding: 10px 20px;
+  border: 1px solid #CAD0D3;
+  border-radius: 3px;
+  background: #FFFFFF;
+
+  .head {
+    margin-bottom: 10px;
+    height: 47px;
+
+    .title {
+      font-weight: bold;
+      font-size: 14px;
+      color: #0F435A;
+      width: 70%;
+      overflow: hidden;
+    }
+  }
+
+  .content {
+    margin-bottom: 10px;
+    height: 80px;
+
+    .device {
+      width: 80%;
+    }
+
+    .infoButton {
+      padding-left: 8px;
+    }
+  }
+
+  .foot {
+    color: #00C09E;
+    font-weight: 600;
+
+    .info {
+      width: 80%;
+      font-size: 10px;
+      padding-top: 3px;
+
+    }
+  }
+}
+
+.SensorDashboardWrap {
+  a {
+    text-decoration-line: none !important;
+    text-transform: none !important;
+    color: #2D3C43 !important;
+  }
+
+  .subtitle {
+    font-weight: bold;
+    font-size: 16px;
+    color: #0F435A;
+    margin-left: 10px;
+  }
+
+  .alignment {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mapBlock {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 100%;
+    background: #EEF0EC;
+    border-radius: 5px;
+  }
+
+
+  .groupName {
+    margin-top: 15px;
+    padding: 7px 15px 0 17px;
+    width: 100%;
+    height: 44px;
+    //border-bottom: 1px solid #D4D9E0;
+    background: #EEF0EC;
+    border-radius: 5px;
+
+
+    div {
+      margin-bottom: 8px;
+    }
+
+    img {
+      margin-right: 10px;
+    }
+
+
+    .groupSubtitle {
+      font-weight: bold;
+      font-size: 17px;
+      line-height: 30px;
+      color: #0F435A;
+      border-bottom: 1px solid #D4D9E0;
+      padding-bottom: 5px;
+    }
+  }
+}
+
+.headerTitle {
+  margin-left: 8px;
+}
+
+.sensorWrapDanger {
+  background: linear-gradient(0deg, rgba(241, 77, 73, 0.1), rgba(241, 77, 73, 0.1)), #FFFFFF;
+  border: 1px solid #F14D49;
+  box-shadow: 0px 0px 12px rgba(241, 77, 73, 0.4);
+  border-radius: 3px;
+}
+
+.sensorWrapWarning {
+  background: linear-gradient(0deg, rgba(255, 185, 131, 0.2), rgba(255, 185, 131, 0.2)), #FFFFFF;
+  border: 1px solid #F47E21;
+  border-radius: 3px;
+}
+
+.sensorWrap:hover {
+  border: 1px solid #00C09E !important;
+  background-image: url("../../assets/icons/flag.svg") !important;
+  background-repeat: no-repeat !important;
+  cursor: pointer;
+}
+
+.statusInfo {
+  font-size: 18px;
+  font-weight: bold;
+  align-items: center;
+  color: #27AE60;
+
+  .statusValue {
+    margin-right: 5px;
+  }
+}
+
+.statusInfoDanger {
+  font-size: 24px;
+  align-items: center;
+  color: #F14D49;
+}
+
+.closed {
+  font-weight: bold;
+  font-size: 14px;
+  color: #7C90B1;
+}
+
+.sensor500Wrap {
+  background: #EEF0EC;
+  border-radius: 5px;
+
+  .sensorHide {
+    display: none;
+  }
+
+  .showAllNodes {
+    display: block;
+  }
+
+  .sensorsGroupHeaderAlignment {
+    width: 100px;
+    padding: 0 !important;
+
+  }
+
+  .sensorsGroupHeader {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 15px 0 17px;
+    width: 98%;
+    height: 44px;
+    border-bottom: 1px solid #D4D9E0;
+
+    .groupTitle {
+      height: 24px;
+      width: 51px;
+      font-weight: bold;
+      font-size: 14px;
+      border-radius: 5px;
+      background-color: #014B3E;
+      padding: 2px 11px;
+      color: white;
+      margin-top: 10px;
+    }
+  }
+
+  .sensorsGroupTitle {
+    color: #2D3C43 !important;
+    font-weight: bold;
+    opacity: 0.7;
+    padding-top: 8px;
+
+
+    .groupTitleAlarm {
+      font-weight: bold;
+      font-size: 16px;
+      color: #F14D49;
+    }
+
+    img {
+      margin-right: 12px;
+      margin-top: -5px;
+    }
+
+    span {
+      font-size: 17px;
+      line-height: 30px;
+    }
+  }
+
+  .sensorsGroupBlock {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+.deviceType500Block {
+  max-width: 100%;
+
+  .sensorsGroupBlockWrap {
+    width: 100%;
+    padding: 0 12px;
+    margin-bottom: 10px;
+    margin-left: 13px;
+  }
+
+  .sensorsGroupBlockTitle {
+    font-weight: 900;
+    font-size: 21px;
+    color: #071E26 !important;
+  }
+}
+
+.panel {
+  font-weight: 500;
+  font-size: 16px;
+  text-transform: capitalize;
+  color: #000000;
+  height: 200px;
+}
+
+.systemTableWrap {
+  display: flex;
+  justify-content: space-between;
+  height: 40px;
+  background: #ECF1F2;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  color: #7C90B1;
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+
+  @media screen and (max-width: 1050px) {
+    font-size: 10px;
+  }
+}
+
+.systemTable {
+  display: flex;
+  justify-content: space-between;
+  height: 40px;
+  background: white;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  color: #2D3C43;
+  border-bottom: 1px solid #ECF1F2;;
+  text-align: center;
+}
+
+.statusOK {
+  color: #27AE60;
+}
+
+.columnNetwork {
+  width: 25%;
+}
+
+.columnStatus {
+  width: 15%;
+}
+
+.columnNumber {
+  width: 35%;
+}
+
+.columnActivity {
+  width: 25%;
+}
+
+:global {
+  .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+    color: #27AE60 !important;
+  }
+}

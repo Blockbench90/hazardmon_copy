@@ -1,0 +1,113 @@
+:global {
+  h5.ant-typography, .ant-typography h5 {
+    color: #7C90B1 !important;
+    font-weight: 600;
+    font-size: 10px !important;
+  }
+
+  h2.ant-typography, .ant-typography h2 {
+    margin-top: 0 !important;
+  }
+}
+
+.wrap {
+  .subtitle {
+    font-weight: bold;
+    font-size: 16px;
+    color: #0F435A;
+    margin-left: 10px;
+  }
+
+  .mapBlock {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 90%;
+
+    a {
+      text-decoration-line: none !important;
+      text-transform: none !important;
+    }
+  }
+}
+
+.devicesBlockWrap {
+  width: 290px;
+  height: 140px;
+  margin: 12px;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #CAD0D3;
+  border-radius: 3px;
+  background: #FFFFFF;
+
+  .pic {
+    width: 40%;
+    padding: 30px 0 0 30px;
+
+    .devicesPic {
+      width: 70px;
+    }
+  }
+
+  .notify {
+    margin: -35px 0 0 50px;
+    width: 30px;
+  }
+
+  .activation {
+    width: 45%;
+    padding: 30px 5px 0 5px;
+
+    img {
+      margin-right: 10px;
+    }
+
+    h4 {
+      font-size: 14px !important;
+      font-weight: bold !important;
+      color: #0F435A !important;
+      margin-top: 15px;
+    }
+
+    .active {
+      color: #27AE60 !important;
+      font-size: 12px;
+    }
+
+    .suspended {
+      color: #7C90B1 !important;
+      font-size: 12px;
+    }
+
+    .offline {
+      font-size: 12px;
+      color: #7C90B1 !important;
+    }
+  }
+
+  .editButton {
+    padding: 15px 12px 0 5px;
+    width: 15%;
+  }
+}
+
+.suspendedBlockWrap {
+  background: #E9EAEC;
+  opacity: 0.6;
+}
+
+.offlineBlockWrap {
+  border: 1px solid #F14D49;
+  box-shadow: 0 0 12px rgba(241, 77, 73, 0.4);
+  border-radius: 3px;
+}
+
+.devicesBlockWrap:hover {
+  border: 1px solid #00C09E !important;
+  box-shadow: none;
+  transition: 0.3s;
+
+  background-image: url("../../assets/icons/flag.svg") !important;
+  background-repeat: no-repeat !important;
+  cursor: pointer;
+}

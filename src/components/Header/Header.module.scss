@@ -1,0 +1,65 @@
+:global {
+  .ant-notification-notice {
+    padding: 9px 10px !important;
+  }
+
+  .ant-notification-notice-with-icon,
+  .ant-notification-notice-message {
+    font-size: 12px !important;
+  }
+}
+
+.header {
+  padding: 0 !important;
+  background: white !important;
+
+  .wrap {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 20px;
+    padding-bottom: 5px;
+
+    :global {
+      .ant-badge-count,
+      .ant-badge-dot,
+      .ant-badge .ant-scroll-number-custom-component {
+        top: 15px;
+        right: 9px;
+      }
+    }
+
+    .container {
+      padding: 0 20px;
+      width: 95%;
+    }
+
+    .headerNotify {
+      margin-right: 17px;
+      border-left: 1px solid #94A0B7;
+      opacity: 0.5;
+    }
+  }
+}
+
+.headerNotification {
+  background: rgba(0, 0, 0, 0.3) !important;
+  font-weight: 500 !important;
+  cursor: pointer;
+
+  a {
+    color: #fff !important;
+  }
+
+  a:hover {
+    color: #fff !important;
+  }
+}
+
+.emailAlerts {
+  display: flex;
+  flex-direction: row-reverse;
+
+  svg {
+    cursor: pointer;
+  }
+}
