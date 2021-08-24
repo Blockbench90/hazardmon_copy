@@ -36,7 +36,7 @@ import AddClient from "../../AddClient"
 import CustomHistoricalGraphs from "../../CustomHistoricalGraphs"
 import AddSite from "../../AddSite"
 import EmailNotifications from "../../EmailNotifications";
-import AddEmailNotificationForm from "../../AddEmailNotification/AddEmailNotificationForm";
+import AddEmailNotification from "../../AddEmailNotification";
 
 
 export const privateRoutes = [
@@ -94,7 +94,7 @@ export const privateRoutes = [
     },
     {
         path: EMAIL_ADD_NOTIFICATIONS,
-        Component: AddEmailNotificationForm
+        Component: AddEmailNotification
     },
     {
         path: [DEVICES, CURRENT_DEVICES],

@@ -5,6 +5,7 @@ import {LoadingStatus} from "../../types";
 import {eventChannel} from "redux-saga";
 import {userAC} from "./actionCreators";
 import {
+    AddEmailNotificationAI,
     FetchHeaderNotificationsAI,
     SearchNotificationsAI,
     SignInAI,
@@ -153,6 +154,21 @@ export function* fetchEmailNotificationsRequest() {
     }
 }
 
+export function* addEmailNotificationRequest({payload}: AddEmailNotificationAI) {
+    try {
+        yield put(userAC.setUserLoadingStatus(LoadingStatus.LOADING));
+        const data = yield call(UserApi.addEmailNotification, payload);
+        if (data.status === 201) {
+            history.push("/user/setting/notification");
+        } else {
+            yield put(userAC.setUserLoadingStatus(LoadingStatus.UPDATED_USER_ERROR));
+            yield put(userAC.setUserLoadingStatus(LoadingStatus.ERROR));
+        }
+    } catch (error) {
+        yield put(userAC.setUserLoadingStatus(LoadingStatus.ERROR));
+    }
+}
+
 export function toggleNotificationSocket(path: string, device_udf_id?: string) {
     return eventChannel((emitter: any) => {
         const ws: any = new WebSocket(`${process.env.REACT_APP_WS_SERVER_URL}${path}`);
@@ -223,4 +239,5 @@ export function* userSaga() {
     yield takeLatest(UserAT.UPDATE_USER_PASSWORD, updateUserPasswordRequest);
     yield takeLatest(UserAT.FETCH_WS_NOTIFICATION, runNotificationsSocket);
     yield takeLatest(UserAT.FETCH_EMAIL_NOTIFICATIONS, fetchEmailNotificationsRequest);
+    yield takeLatest(UserAT.ADD_EMAIL_NOTIFICATION, addEmailNotificationRequest);
 }

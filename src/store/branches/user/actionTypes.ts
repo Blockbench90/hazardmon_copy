@@ -25,6 +25,7 @@ export enum UserAT {
     SET_WS_NOTIFICATION = "user/SET_WS_NOTIFICATION",
     FETCH_EMAIL_NOTIFICATIONS = "user/FETCH_EMAIL_NOTIFICATIONS",
     SET_EMAIL_NOTIFICATIONS = "user/SET_EMAIL_NOTIFICATIONS",
+    ADD_EMAIL_NOTIFICATION = "user/ADD_EMAIL_NOTIFICATION",
 }
 
 
@@ -62,6 +63,11 @@ export interface FetchEmailNotificationsAI extends Action<UserAT> {
 
 export interface SetEmailNotificationsAI extends Action<UserAT> {
     type: UserAT.SET_EMAIL_NOTIFICATIONS;
+    payload: any;
+}
+
+export interface AddEmailNotificationAI extends Action<UserAT> {
+    type: UserAT.ADD_EMAIL_NOTIFICATION;
     payload: any;
 }
 export interface SearchNotificationsAI extends Action<UserAT> {

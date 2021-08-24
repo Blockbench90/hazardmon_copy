@@ -55,4 +55,8 @@ export const UserApi = {
         const data = await axios.get<Promise<any>>("api/v1/notification-settings/")
         return data
     },
+    async addEmailNotification(payload: any): Promise<any> {
+        const data = await axios.post<Promise<any>>("api/v1/notification-settings/", payload)
+        return data
+    },
 }

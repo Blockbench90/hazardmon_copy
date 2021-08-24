@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 import {Form, Typography} from "antd";
-import {CustomButton} from "../Button";
+import {CustomButton} from "../../Button";
 import {useForm} from "antd/lib/form/Form";
 import {useHistory} from "react-router-dom";
 

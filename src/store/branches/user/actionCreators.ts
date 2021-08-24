@@ -1,4 +1,5 @@
 import {
+    AddEmailNotificationAI,
     FetchEmailNotificationsAI,
     FetchHeaderNotificationsAI,
     FetchUserDataAI,
@@ -121,6 +122,11 @@ export const userAC = {
         type: UserAT.SET_EMAIL_NOTIFICATIONS,
         payload
     }),
+
+    addEmailNotifications: (payload: any): AddEmailNotificationAI => ({
+        type: UserAT.ADD_EMAIL_NOTIFICATION,
+        payload
+    }),
 };
 
 export type UserActions =
@@ -142,3 +148,4 @@ export type UserActions =
     | SetWsNotificationAI
     | FetchEmailNotificationsAI
     | SetEmailNotificationsAI
+    | AddEmailNotificationAI
