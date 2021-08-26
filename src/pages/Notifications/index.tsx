@@ -47,11 +47,7 @@ const Notifications: React.FC = () => {
 
     const [searchData, setSearchData] = useState<IFilterData>(initialFilterData);
 
-    const {
-        status,
-        notifications: {results: notifications, count: countNotifications},
-        notificationsFilter: {isActive},
-    } = useSelector(selectUserState);
+    const {status, notifications: {results: notifications = [], count: countNotifications}, notificationsFilter: {isActive}} = useSelector(selectUserState);
 
     const [searchTerm, setSearchTerm] = useState("");
     const [pagination, setPagination] = useState({page: 1, pageSize: 20});

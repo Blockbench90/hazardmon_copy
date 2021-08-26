@@ -6,11 +6,13 @@ import {eventChannel} from "redux-saga";
 import {userAC} from "./actionCreators";
 import {
     AddEmailNotificationAI,
-    FetchHeaderNotificationsAI,
+    FetchCurrentEmailNotification,
+    RemoveCurrentEmailNotification,
     SearchNotificationsAI,
     SignInAI,
     SignUpAI,
     ToggleWsNotificationAI,
+    UpdateCurrentEmailNotification,
     UpdateUserDataAI,
     UpdateUserPasswordAI,
     UserAT,
@@ -41,7 +43,7 @@ export function* fetchUserDataRequest() {
     }
 }
 
-export function* fetchNotificationsRequest({payload}: FetchHeaderNotificationsAI) {
+export function* fetchNotificationsRequest() {
     try {
         yield put(userAC.setUserLoadingStatus(LoadingStatus.LOADING));
         const count = yield call(UserApi.getNotificationsCount);
@@ -59,7 +61,12 @@ export function* searchNotificationsRequest({payload}: SearchNotificationsAI) {
     try {
         yield put(userAC.setUserLoadingStatus(LoadingStatus.LOADING));
         const data = yield call(UserApi.searchNotifications, payload);
-        yield put(userAC.setNotifications(data));
+        if (data.status === 200) {
+            yield put(userAC.setNotifications(data.data));
+        } else {
+            yield put(userAC.setUserLoadingStatus(LoadingStatus.EXPORT_NOTIFICATIONS_ERROR));
+            yield put(userAC.setUserLoadingStatus(LoadingStatus.ERROR));
+        }
     } catch (error) {
         yield put(userAC.setUserLoadingStatus(LoadingStatus.ERROR));
     }
@@ -162,7 +169,36 @@ export function* addEmailNotificationRequest({payload}: AddEmailNotificationAI) 
             history.push("/user/setting/notification");
         } else {
             yield put(userAC.setUserLoadingStatus(LoadingStatus.UPDATED_USER_ERROR));
-            yield put(userAC.setUserLoadingStatus(LoadingStatus.ERROR));
+        }
+    } catch (error) {
+        yield put(userAC.setUserLoadingStatus(LoadingStatus.ERROR));
+    }
+}
+
+export function* updateEmailNotificationRequest({payload}: UpdateCurrentEmailNotification) {
+    try {
+        yield put(userAC.setUserLoadingStatus(LoadingStatus.LOADING));
+        const data = yield call(UserApi.updateEmailNotification, payload);
+        if (data.status === 200) {
+            history.push("/user/setting/notification");
+            yield put(userAC.setUserLoadingStatus(LoadingStatus.LOADED));
+        } else {
+            yield put(userAC.setUserLoadingStatus(LoadingStatus.UPDATED_USER_ERROR));
+        }
+    } catch (error) {
+        yield put(userAC.setUserLoadingStatus(LoadingStatus.ERROR));
+    }
+}
+
+export function* removeEmailNotificationRequest({payload}: RemoveCurrentEmailNotification) {
+    try {
+        yield put(userAC.setUserLoadingStatus(LoadingStatus.LOADING));
+        const data = yield call(UserApi.removeEmailNotification, payload);
+        if (data.status === 204) {
+            history.push("/user/setting/notification");
+            yield put(userAC.setUserLoadingStatus(LoadingStatus.LOADED));
+        } else {
+            yield put(userAC.setUserLoadingStatus(LoadingStatus.UPDATED_USER_ERROR));
         }
     } catch (error) {
         yield put(userAC.setUserLoadingStatus(LoadingStatus.ERROR));
@@ -228,6 +264,21 @@ export function* runNotificationsSocket({payload}: ToggleWsNotificationAI) {
     }
 }
 
+
+export function* fetchCurrentEmailNotificationsRequest({payload}: FetchCurrentEmailNotification) {
+    try {
+        yield put(userAC.setUserLoadingStatus(LoadingStatus.LOADING));
+        const data = yield call(UserApi.getCurrentEmailNotification, payload);
+        if (data.status === 200) {
+            yield put(userAC.setCurrentEmailNotification(data.data));
+            history.push(`/user/setting/add/notification/${payload}`);
+        }
+    } catch (error) {
+        yield put(userAC.setUserLoadingStatus(LoadingStatus.ERROR));
+    }
+}
+
+
 export function* userSaga() {
     yield takeLatest(UserAT.FETCH_SIGN_IN, LoginRequest);
     yield takeLatest(UserAT.SIGN_UP, RegisterRequest);
@@ -239,5 +290,8 @@ export function* userSaga() {
     yield takeLatest(UserAT.UPDATE_USER_PASSWORD, updateUserPasswordRequest);
     yield takeLatest(UserAT.FETCH_WS_NOTIFICATION, runNotificationsSocket);
     yield takeLatest(UserAT.FETCH_EMAIL_NOTIFICATIONS, fetchEmailNotificationsRequest);
+    yield takeLatest(UserAT.FETCH_CURRENT_EMAIL_NOTIFICATIONS, fetchCurrentEmailNotificationsRequest);
     yield takeLatest(UserAT.ADD_EMAIL_NOTIFICATION, addEmailNotificationRequest);
+    yield takeLatest(UserAT.UPDATE_CURRENT_EMAIL_NOTIFICATION, updateEmailNotificationRequest);
+    yield takeLatest(UserAT.REMOVE_CURRENT_EMAIL_NOTIFICATION, removeEmailNotificationRequest);
 }

@@ -1,7 +1,7 @@
 import {ClientsState} from "../../../store/branches/clients/stateTypes"
 
 
-export const tableGeneration = (table: ClientsState["clientsData"]["results"] = []) => {
+export const mapClientsData = (table: ClientsState["clientsData"]["results"] = []) => {
     const clientsTableData: any = []
     table.forEach(el => {
         clientsTableData.push({

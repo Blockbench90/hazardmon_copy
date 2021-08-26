@@ -92,6 +92,21 @@ const UserAlert = () => {
         );
     }
 
+    if (status === LoadingStatus.ADD_EMAIL_NOTIFICATION_WITHOUT_DEVICE_ERROR) {
+        setTimer();
+
+        return (
+            <Alert
+                message={"Please select All Devices or select one of devices!"}
+                type="warning"
+                showIcon
+                closable
+                className={classes.alert}
+            />
+        );
+    }
+
+
     return null;
 };
 export default UserAlert;

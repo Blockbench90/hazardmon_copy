@@ -11,6 +11,7 @@ const initialUserState: UserState = {
     headerNotifications: {results: [], count: 0},
     ws_notify: {device: null, location: null, notifications: []},
     email_notifications: null,
+    current_email_notification: null,
     isApply: true,
     status: LoadingStatus.NEVER,
     registerStatus: LoadingStatus.NEVER,
@@ -69,6 +70,11 @@ export const userReducer = produce((draft: Draft<UserState>, action: UserActions
 
         case UserAT.SET_WS_NOTIFICATION:
             draft.ws_notify = action.payload;
+            break;
+
+        case UserAT.SET_CURRENT_EMAIL_NOTIFICATIONS:
+            draft.current_email_notification = action.payload;
+            draft.status = LoadingStatus.LOADED;
             break;
 
         default:

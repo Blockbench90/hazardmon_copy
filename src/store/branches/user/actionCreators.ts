@@ -1,10 +1,12 @@
 import {
     AddEmailNotificationAI,
+    FetchCurrentEmailNotification,
     FetchEmailNotificationsAI,
     FetchHeaderNotificationsAI,
     FetchUserDataAI,
-    LogOutAI,
-    SearchNotificationsAI, SetEmailNotificationsAI,
+    LogOutAI, RemoveCurrentEmailNotification,
+    SearchNotificationsAI, SetCurrentEmailNotification,
+    SetEmailNotificationsAI,
     SetHeaderNotificationsAI,
     SetIsApplyNotificationsAI,
     SetNotificationsAI,
@@ -16,11 +18,12 @@ import {
     SetWsNotificationAI,
     SignInAI,
     SignUpAI,
-    ToggleWsNotificationAI,
-    UpdateUserDataAI, UpdateUserPasswordAI,
+    ToggleWsNotificationAI, UpdateCurrentEmailNotification,
+    UpdateUserDataAI,
+    UpdateUserPasswordAI,
     UserAT,
 } from "./actionTypes";
-import {ChangePassword, IWsNotify, SearchValues, User, UserState} from "./stateTypes";
+import {ChangePassword, EmailNotification, IWsNotify, SearchValues, User, UserState} from "./stateTypes";
 import {LoginValues} from "../../../components/LoginBlock";
 import {RegisterValues} from "../../../components/RegisterBlock";
 
@@ -120,12 +123,29 @@ export const userAC = {
 
     setEmailNotifications: (payload: any): SetEmailNotificationsAI => ({
         type: UserAT.SET_EMAIL_NOTIFICATIONS,
-        payload
+        payload,
     }),
 
     addEmailNotifications: (payload: any): AddEmailNotificationAI => ({
         type: UserAT.ADD_EMAIL_NOTIFICATION,
-        payload
+        payload,
+    }),
+
+    fetchCurrentEmailNotification: (payload: number): FetchCurrentEmailNotification => ({
+        type: UserAT.FETCH_CURRENT_EMAIL_NOTIFICATIONS,
+        payload,
+    }),
+    updateCurrentEmailNotification: (payload: {id: number, data: EmailNotification}): UpdateCurrentEmailNotification => ({
+        type: UserAT.UPDATE_CURRENT_EMAIL_NOTIFICATION,
+        payload,
+    }),
+    removeCurrentEmailNotification: (payload: number): RemoveCurrentEmailNotification => ({
+        type: UserAT.REMOVE_CURRENT_EMAIL_NOTIFICATION,
+        payload,
+    }),
+    setCurrentEmailNotification: (payload: EmailNotification): SetCurrentEmailNotification => ({
+        type: UserAT.SET_CURRENT_EMAIL_NOTIFICATIONS,
+        payload,
     }),
 };
 
@@ -149,3 +169,7 @@ export type UserActions =
     | FetchEmailNotificationsAI
     | SetEmailNotificationsAI
     | AddEmailNotificationAI
+    | FetchCurrentEmailNotification
+    | SetCurrentEmailNotification
+    | UpdateCurrentEmailNotification
+    | RemoveCurrentEmailNotification

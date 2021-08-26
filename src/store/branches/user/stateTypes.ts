@@ -48,6 +48,30 @@ export interface HeaderNotification {
     forebear?: number
 }
 
+export interface EmailDevice {
+    device_type: string
+    id: number
+    is_online: boolean
+    title: string
+    udf_id: string
+}
+
+export interface EmailNotification {
+    all_devices?: boolean
+    alternative_contact?: string
+    contact_when?: string
+    date_created?: string
+    date_updated?: string
+    delivery_method?: string
+    devices?: EmailDevice[]
+    event_type?: string
+    id?: number
+    number_per_hour?: number
+    periodical?: boolean
+    send_to_alternative?: boolean
+    x?: number
+}
+
 export interface Notification {
     id?: number
     is_trash?: boolean
@@ -143,7 +167,8 @@ export interface UserState {
     notifications: INotificationsResponse;
     headerNotifications: INotificationsResponse;
     ws_notify: IWsNotify
-    email_notifications: []
+    current_email_notification: EmailNotification
+    email_notifications: EmailNotification[]
     isApply: boolean,
     notificationsFilter: {
         isActive: boolean;

@@ -15,8 +15,8 @@ import {
     CLIENTS,
     CURRENT_DEVICES, CUSTOM_HISTORICAL_GRAPHS,
     DEVICES, EDIT_CLIENT,
-    EDIT_DEVICE, EDIT_SENSORS_NAMES, EDIT_SENSORS_TYPES,
-    EDIT_SITES, EDIT_WARNINGS, EMAIL_ADD_NOTIFICATIONS, EMAIL_NOTIFICATIONS, HISTORICAL,
+    EDIT_DEVICE, EDIT_EMAIL_NOTIFICATIONS, EDIT_SENSORS_NAMES, EDIT_SENSORS_TYPES,
+    EDIT_SITES, EDIT_WARNINGS, ADD_EMAIL_NOTIFICATIONS, EMAIL_NOTIFICATIONS, HISTORICAL,
     NOTIFICATIONS,
     SENSOR_DASHBOARD,
     SENSOR_GRAPHS,
@@ -35,7 +35,7 @@ import Historical from "../../Historical"
 import AddClient from "../../AddClient"
 import CustomHistoricalGraphs from "../../CustomHistoricalGraphs"
 import AddSite from "../../AddSite"
-import EmailNotifications from "../../EmailNotifications";
+import EmailNotifications from "../../EmailNotificationsTable";
 import AddEmailNotification from "../../AddEmailNotification";
 
 
@@ -93,7 +93,11 @@ export const privateRoutes = [
         Component: EmailNotifications
     },
     {
-        path: EMAIL_ADD_NOTIFICATIONS,
+        path: ADD_EMAIL_NOTIFICATIONS,
+        Component: AddEmailNotification
+    },
+    {
+        path: EDIT_EMAIL_NOTIFICATIONS,
         Component: AddEmailNotification
     },
     {

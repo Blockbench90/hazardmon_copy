@@ -2,29 +2,61 @@ import React from "react";
 import clsx from "clsx";
 import {Form, Typography} from "antd";
 import {CustomButton} from "../../Button";
-import {useForm} from "antd/lib/form/Form";
-import {useHistory} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 
 const {Title} = Typography;
 
-const HeaderFormAddEmailNotification: React.FC = () => {
-    const [form] = useForm();
-    const history = useHistory()
+interface HeaderEmailNotificationProps {
+    onRemoveEmailNotification: () => void
+}
+
+
+const HeaderFormAddEmailNotification: React.FC<HeaderEmailNotificationProps> = ({onRemoveEmailNotification}) => {
+    const history = useHistory();
+    const {id}: any = useParams();
+
 
     const onCancel = () => {
-        form.resetFields();
-        history.push("/clients");
+        history.push("/user/setting/notification");
     };
 
     return (
         <div className={clsx("d-flex", "d-flex-w")}>
             <div>
-                <Title level={2}>
-                    Add E-mail Notifications
-                </Title>
+                {
+                    id
+                        ?
+                        <Title level={2}>
+                            Edit E-mail Notifications
+                        </Title>
+                        :
+                        <Title level={2}>
+                            Add E-mail Notifications
+                        </Title>
+                }
             </div>
 
             <div className="d-flex">
+                {
+                    id
+                    &&
+                    <div>
+                        <Form.Item>
+                            <CustomButton width="90px"
+                                          height="40px"
+                                          padding="2px 2px"
+                                          fontSize="13px"
+                                          className="mar-right-10"
+                                          htmlType="button"
+                                          color="red"
+                                          onClick={onRemoveEmailNotification}
+                            >
+                                <span>REMOVE</span>
+                            </CustomButton>
+                        </Form.Item>
+                    </div>
+                }
+
                 <div>
                     <Form.Item>
                         <CustomButton width="90px"
@@ -34,7 +66,7 @@ const HeaderFormAddEmailNotification: React.FC = () => {
                                       className="mar-right-10"
                                       htmlType="submit"
                         >
-                            <span>SAVE</span>
+                            <span>{id ? "UPDATE" : "SAVE"}</span>
                         </CustomButton>
                     </Form.Item>
                 </div>

@@ -75,7 +75,6 @@ export function* updateDeviceRequest({payload}: UpdateCurrentDeviceAI) {
         yield put(devicesAC.setDevicesLoadingStatus(LoadingStatus.LOADING));
         const data = yield call(DevicesApi.updateCurrentDevice, payload);
         if (data.status === 200) {
-            yield put(devicesAC.setOperationDevices(LoadingStatus.UPDATE_DEVICE_SUCCESS));
             yield put(devicesAC.setDevicesLoadingStatus(LoadingStatus.LOADED));
             history.push("/devices");
         } else {
@@ -92,7 +91,6 @@ export function* addDeviceRequest({payload}: AddDeviceAI) {
         yield put(devicesAC.setDevicesLoadingStatus(LoadingStatus.LOADING));
         const status = yield call(DevicesApi.addDevice, payload);
         if (status === 201) {
-            yield put(devicesAC.setOperationDevices(LoadingStatus.ADD_DEVICE_SUCCESS));
             yield put(devicesAC.setDevicesLoadingStatus(LoadingStatus.LOADED));
             history.push("/devices");
         } else {
@@ -109,7 +107,6 @@ export function* removeDeviceRequest({payload}: RemoveDeviceAI) {
         yield put(devicesAC.setDevicesLoadingStatus(LoadingStatus.LOADING));
         const status = yield call(DevicesApi.removeDevice, payload);
         if (status === 204) {
-            yield put(devicesAC.setOperationDevices(LoadingStatus.REMOVE_DEVICE_SUCCESS));
             yield put(devicesAC.setDevicesLoadingStatus(LoadingStatus.LOADED));
             history.push("/devices");
         } else {

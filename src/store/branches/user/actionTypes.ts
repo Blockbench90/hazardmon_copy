@@ -1,5 +1,5 @@
 import {Action} from "redux";
-import {ChangePassword, IWsNotify, SearchValues, User, UserState} from "./stateTypes";
+import {ChangePassword, EmailNotification, IWsNotify, SearchValues, User, UserState} from "./stateTypes";
 import {LoadingStatus} from "../../types";
 import {LoginValues} from "../../../components/LoginBlock";
 import {RegisterValues} from "../../../components/RegisterBlock";
@@ -26,6 +26,10 @@ export enum UserAT {
     FETCH_EMAIL_NOTIFICATIONS = "user/FETCH_EMAIL_NOTIFICATIONS",
     SET_EMAIL_NOTIFICATIONS = "user/SET_EMAIL_NOTIFICATIONS",
     ADD_EMAIL_NOTIFICATION = "user/ADD_EMAIL_NOTIFICATION",
+    FETCH_CURRENT_EMAIL_NOTIFICATIONS = "user/FETCH_CURRENT_EMAIL_NOTIFICATIONS",
+    SET_CURRENT_EMAIL_NOTIFICATIONS = "user/SET_CURRENT_EMAIL_NOTIFICATIONS",
+    UPDATE_CURRENT_EMAIL_NOTIFICATION = "user/UPDATE_CURRENT_EMAIL_NOTIFICATION",
+    REMOVE_CURRENT_EMAIL_NOTIFICATION = "user/REMOVE_CURRENT_EMAIL_NOTIFICATION",
 }
 
 
@@ -70,6 +74,27 @@ export interface AddEmailNotificationAI extends Action<UserAT> {
     type: UserAT.ADD_EMAIL_NOTIFICATION;
     payload: any;
 }
+
+export interface FetchCurrentEmailNotification extends Action<UserAT> {
+    type: UserAT.FETCH_CURRENT_EMAIL_NOTIFICATIONS
+    payload: any
+}
+
+export interface SetCurrentEmailNotification extends Action<UserAT> {
+    type: UserAT.SET_CURRENT_EMAIL_NOTIFICATIONS
+    payload: EmailNotification
+}
+
+export interface UpdateCurrentEmailNotification extends Action<UserAT> {
+    type: UserAT.UPDATE_CURRENT_EMAIL_NOTIFICATION
+    payload: { id: number, data: EmailNotification }
+}
+
+export interface RemoveCurrentEmailNotification extends Action<UserAT> {
+    type: UserAT.REMOVE_CURRENT_EMAIL_NOTIFICATION
+    payload: number
+}
+
 export interface SearchNotificationsAI extends Action<UserAT> {
     type: UserAT.SEARCH_NOTIFICATIONS;
     payload: SearchValues;

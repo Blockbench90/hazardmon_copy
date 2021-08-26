@@ -9,10 +9,12 @@ import {devicesAC} from "../../../store/branches/devices/actionCreators";
 import {LoadingStatus} from "../../../store/types";
 
 import classes from "../Notifications.module.scss";
+import { useHistory } from "react-router-dom";
 
 
 const ExportNotifications: React.FC<{ searchPayload: any }> = ({searchPayload}) => {
     const dispatch = useDispatch();
+    const history = useHistory()
     const [notificationsData, setNotificationsData] = useState([]);
     const [loading, setLoading] = useState(false);
     const csvLink = useRef();
@@ -29,7 +31,9 @@ const ExportNotifications: React.FC<{ searchPayload: any }> = ({searchPayload}) 
                 setNotificationsData(r);
                 setLoading(false);
             }).catch((e) => {
+                history.push("/devices")
                 console.log(e);
+                devicesAC.setOperationDevices(LoadingStatus.REMOVE_DEVICE_ERROR)
                 setLoading(false);
             });
         // @ts-ignore

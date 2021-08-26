@@ -1,22 +1,17 @@
 import React from "react";
 import clsx from "clsx";
 import {Typography} from "antd";
-import { CustomButton } from "../../Button";
+import {CustomButton} from "../../Button";
 import {useHistory} from "react-router-dom";
-
-
 
 const {Title} = Typography;
 
-
 const EmailHeader: React.FC = () => {
-    const history = useHistory()
-
+    const history = useHistory();
 
     const onAddEmailNotification = () => {
-        history.push("/user/setting/add/notification")
-    }
-
+        history.push("/user/setting/add/notification");
+    };
 
     return (
         <div className={clsx("d-flex", "d-flex-w")}>

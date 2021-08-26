@@ -20,55 +20,12 @@ const DeviceAlert = () => {
         }, 5000);
     };
 
-
-    // if (status_operation === LoadingStatus.SELECT_DEVICE_SUCCESS) {
-    //     setTimer();
-    //
-    //     return (
-    //         <Alert
-    //             message="Devices selected successfully"
-    //             type="success"
-    //             showIcon
-    //             closable
-    //             className={classes.alert}
-    //         />
-    //     );
-    // }
-
-    if (status_operation === LoadingStatus.ADD_DEVICE_SUCCESS) {
-        setTimer();
-
-        return (
-            <Alert
-                message="Device added successfully"
-                type="success"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
-    }
-
     if (status_operation === LoadingStatus.ADD_DEVICE_ERROR) {
         setTimer();
         return (
             <Alert
                 message={errorMessage || "Not a valid serial number or code!"}
                 type="warning"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
-    }
-
-    if (status_operation === LoadingStatus.UPDATE_DEVICE_SUCCESS) {
-        setTimer();
-
-        return (
-            <Alert
-                message="Device updated successfully"
-                type="success"
                 showIcon
                 closable
                 className={classes.alert}
@@ -89,19 +46,19 @@ const DeviceAlert = () => {
         );
     }
 
-    if (status_operation === LoadingStatus.REMOVE_DEVICE_SUCCESS) {
+    if (status_operation === LoadingStatus.EXPORT_NOTIFICATIONS_ERROR) {
         setTimer();
-
         return (
             <Alert
-                message="Device removed successfully"
-                type="success"
+                message={errorMessage}
+                type="warning"
                 showIcon
                 closable
                 className={classes.alert}
             />
         );
     }
+
 
     if (status_operation === LoadingStatus.REMOVE_DEVICE_ERROR) {
         setTimer();
