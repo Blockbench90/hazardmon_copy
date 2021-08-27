@@ -9,6 +9,8 @@ import {selectUserState} from "../../store/selectors";
 
 import classes from "./Alert.module.scss";
 
+type AlertNotification = "success" | "info" | "warning" | "error"
+
 const RegistrationAlert = () => {
     const {registerStatus} = useSelector(selectUserState);
     const dispatch = useDispatch();
@@ -21,47 +23,29 @@ const RegistrationAlert = () => {
         }, 5000);
     };
 
+    const alertNotification = (message: typeof errorMessage | string, type: AlertNotification) => {
+        return <Alert
+            message={message}
+            type={type}
+            showIcon
+            closable
+            className={classes.alert}
+        />;
+    };
+
     if (registerStatus === LoadingStatus.SUCCESS) {
         setTimer();
-
-        return (
-            <Alert
-                message="Registered successfully"
-                type="success"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "Registered successfully", "success");
     }
 
     if (registerStatus === LoadingStatus.WARNING) {
         setTimer();
-
-        return (
-            <Alert
-                message={errorMessage || "The email address is already registered."}
-                type="warning"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "The email address is already registered.", "warning");
     }
 
     if (registerStatus === LoadingStatus.ERROR) {
         setTimer();
-
-        return (
-            <Alert
-                message={errorMessage || "Registration error"}
-                description="The email address is already registered or problems with network."
-                type="error"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "The email address is already registered or problems with network.", "error");
     }
 
     return null;

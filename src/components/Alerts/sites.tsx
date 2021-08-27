@@ -9,6 +9,8 @@ import {selectSitesState} from "../../store/selectors";
 
 import classes from "./Alert.module.scss";
 
+type AlertNotification = "success" | "info" | "warning" | "error"
+
 const SitesAlert = () => {
     const dispatch = useDispatch();
     const {status_operation} = useSelector(selectSitesState);
@@ -21,172 +23,69 @@ const SitesAlert = () => {
         }, 5000);
     };
 
+    const alertNotification = (message: typeof errorMessage | string, type: AlertNotification) => {
+        return <Alert
+            message={message}
+            type={type}
+            showIcon
+            closable
+            className={classes.alert}
+        />;
+    };
+
     if (status_operation === LoadingStatus.ADD_USER_SUCCESS) {
         setTimer();
-
-        return (
-            <Alert
-                message="User added successfully"
-                type="success"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "User added successfully", "success");
     }
 
     if (status_operation === LoadingStatus.ADD_USER_ERROR) {
         setTimer();
-
-        return (
-            <Alert
-                message={errorMessage || "The email address is already registered."}
-                type="warning"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "The email address is already registered.", "warning");
     }
-
-    // if (status_operation === LoadingStatus.SELECT_SITE_SUCCESS) {
-    //     setTimer();
-    //
-    //     return (
-    //         <Alert
-    //             message="Selected locations successfully"
-    //             type="success"
-    //             showIcon
-    //             closable
-    //             className={classes.alert}
-    //         />
-    //     );
-    // }
 
     if (status_operation === LoadingStatus.SELECT_SITE_ERROR) {
         setTimer();
-
-        return (
-            <Alert
-                message={errorMessage || "An error occured, please try again!"}
-                type="warning"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "An error occured, please try again!", "warning");
     }
 
     if (status_operation === LoadingStatus.ASSIGN_USER_SUCCESS) {
         setTimer();
-
-        return (
-            <Alert
-                message="Operation successfully"
-                type="success"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "Operation successfully", "success");
     }
 
     if (status_operation === LoadingStatus.ASSIGN_USER_ERROR) {
         setTimer();
-
-        return (
-            <Alert
-                message={errorMessage || "User added to another client"}
-                type="warning"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "User added to another client", "warning");
     }
 
     if (status_operation === LoadingStatus.EDIT_SITE_SUCCESS) {
         setTimer();
-
-        return (
-            <Alert
-                message="Operation successfully"
-                type="success"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "Operation successfully", "success");
     }
 
     if (status_operation === LoadingStatus.EDIT_SITE_ERROR) {
         setTimer();
-
-        return (
-            <Alert
-                message={errorMessage || "An error occured, please try again!"}
-                type="warning"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "An error occured, please try again!", "warning");
     }
 
     if (status_operation === LoadingStatus.ACTIVATION_SITE_SUCCESS) {
         setTimer();
-
-        return (
-            <Alert
-                message="Operation successfully"
-                type="success"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "Operation successfully", "success");
     }
 
     if (status_operation === LoadingStatus.ACTIVATION_SITE_ERROR) {
         setTimer();
-
-        return (
-            <Alert
-                message={errorMessage || "An error occured, please try again!"}
-                type="warning"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "An error occured, please try again!", "warning");
     }
 
     if (status_operation === LoadingStatus.ADD_SITE_SUCCESS) {
         setTimer();
-
-        return (
-            <Alert
-                message="Operation successfully"
-                type="success"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "Operation successfully", "success");
     }
 
     if (status_operation === LoadingStatus.ADD_SITE_ERROR) {
         setTimer();
-
-        return (
-            <Alert
-                message={errorMessage || "An error occured, please try again!"}
-                type="warning"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "An error occured, please try again!", "warning");
     }
 
     return null;

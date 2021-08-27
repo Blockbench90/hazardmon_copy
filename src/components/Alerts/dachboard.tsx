@@ -9,6 +9,8 @@ import {WinStorage} from "../../services/AuthSrorage";
 
 import classes from "./Alert.module.scss";
 
+type AlertNotification = "success" | "info" | "warning" | "error"
+
 const DashboardAlert = () => {
     const {status_operation} = useSelector(selectSensorsState);
     const dispatch = useDispatch();
@@ -21,89 +23,40 @@ const DashboardAlert = () => {
         }, 5000);
     };
 
-    // if (status_operation === LoadingStatus.FETCH_SENSORS_SUCCESS) {
-    //     setTimer();
-    //
-    //     return (
-    //         <Alert
-    //             message="Successfully"
-    //             type="success"
-    //             showIcon
-    //             closable
-    //             className={classes.alert}
-    //         />
-    //     );
-    // }
+    const alertNotification = (message: typeof errorMessage | string, type: AlertNotification) => {
+        return <Alert
+            message={message}
+            type={type}
+            showIcon
+            closable
+            className={classes.alert}
+        />;
+    };
 
 
     if (status_operation === LoadingStatus.FETCH_SENSORS_NAMES_SUCCESS) {
         setTimer();
-
-        return (
-            <Alert
-                message="Successfully"
-                type="success"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification("Successfully", "success")
     }
 
     if (status_operation === LoadingStatus.FETCH_SENSORS_ERROR) {
         setTimer();
-
-        return (
-            <Alert
-                message={errorMessage || "You do not have permission to edit warnings!"}
-                type="warning"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "You do not have permission to edit warnings!", "warning")
     }
 
     if (status_operation === LoadingStatus.FETCH_SENSORS_NAMES_ERROR) {
         setTimer();
-
-        return (
-            <Alert
-                message="Please select device before!"
-                type="warning"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "Please select device before!", "warning")
     }
 
     if (status_operation === LoadingStatus.FETCH_SENSORS_WITHOUT_DEVICE) {
         setTimer();
-
-        return (
-            <Alert
-                message="Please select device before!"
-                type="warning"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "Please select device before!", "warning")
     }
 
     if (status_operation === LoadingStatus.FETCH_SENSORS_HISTORICAL_DATE) {
         setTimer();
-
-        return (
-            <Alert
-                message="Please select time before!"
-                type="warning"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "Please select time before!", "warning")
     }
 
     return null;

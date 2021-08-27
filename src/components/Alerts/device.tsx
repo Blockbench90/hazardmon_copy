@@ -8,6 +8,8 @@ import {selectDevicesState} from "../../store/selectors";
 
 import classes from "./Alert.module.scss";
 
+type AlertNotification = "success" | "info" | "warning" | "error"
+
 const DeviceAlert = () => {
     const {status_operation} = useSelector(selectDevicesState);
     const errorMessage = WinStorage.getErrorMessage();
@@ -20,99 +22,50 @@ const DeviceAlert = () => {
         }, 5000);
     };
 
+    const alertNotification = (message: typeof errorMessage | string, type: AlertNotification) => {
+        return <Alert
+            message={message}
+            type={type}
+            showIcon
+            closable
+            className={classes.alert}
+        />;
+    };
+
     if (status_operation === LoadingStatus.ADD_DEVICE_ERROR) {
         setTimer();
-        return (
-            <Alert
-                message={errorMessage || "Not a valid serial number or code!"}
-                type="warning"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "Not a valid serial number or code!", "warning")
     }
 
     if (status_operation === LoadingStatus.UPDATE_DEVICE_ERROR) {
         setTimer();
-        return (
-            <Alert
-                message={errorMessage || "Not a valid serial number or code!"}
-                type="warning"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "Not a valid serial number or code!", "warning")
     }
 
     if (status_operation === LoadingStatus.EXPORT_NOTIFICATIONS_ERROR) {
         setTimer();
-        return (
-            <Alert
-                message={errorMessage}
-                type="warning"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage, "warning")
     }
-
 
     if (status_operation === LoadingStatus.REMOVE_DEVICE_ERROR) {
         setTimer();
-        return (
-            <Alert
-                message={errorMessage || "Not a valid serial number or code!"}
-                type="warning"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "Not a valid serial number or code!", "warning")
     }
 
     if (status_operation === LoadingStatus.ACTIVATION_DEVICE_SUCCESS) {
         setTimer();
-
-        return (
-            <Alert
-                message="Operation successfully"
-                type="success"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "Operation successfully!", "success")
     }
 
     if (status_operation === LoadingStatus.ACTIVATION_DEVICE_ERROR) {
         setTimer();
-        return (
-            <Alert
-                message={errorMessage || "Not a valid serial number or code!"}
-                type="warning"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "Not a valid serial number or code!", "warning")
     }
 
     if (status_operation === LoadingStatus.EXPORT_NOTIFICATIONS_WITHOUT_DATE) {
         setTimer();
-        return (
-            <Alert
-                message="Please select date before!"
-                type="warning"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "Please select date before!", "warning")
     }
-
 
     return null;
 };

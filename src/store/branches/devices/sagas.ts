@@ -63,6 +63,7 @@ export function* fetchCurrentDeviceRequest({payload}: FetchCurrentDeviceAI) {
             yield put(devicesAC.setCurrentDevice(data));
             yield put(devicesAC.setDevicesLoadingStatus(LoadingStatus.LOADED));
         } else {
+            yield put(devicesAC.setOperationDevices(LoadingStatus.UPDATE_DEVICE_ERROR));
             yield put(devicesAC.setDevicesLoadingStatus(LoadingStatus.ERROR));
         }
     } catch (error) {

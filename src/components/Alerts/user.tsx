@@ -9,11 +9,13 @@ import {selectUserState} from "../../store/selectors";
 
 import classes from "./Alert.module.scss";
 
+
+type AlertNotification = "success" | "info" | "warning" | "error"
+
 const UserAlert = () => {
     const {status} = useSelector(selectUserState);
     const dispatch = useDispatch();
     const errorMessage = WinStorage.getErrorMessage();
-
 
     const setTimer = () => {
         setTimeout(() => {
@@ -22,90 +24,45 @@ const UserAlert = () => {
         }, 5000);
     };
 
+    const alertNotification = (message: typeof errorMessage | string, type: AlertNotification) => {
+        return <Alert
+            message={message}
+            type={type}
+            showIcon
+            closable
+            className={classes.alert}
+        />;
+    };
+
     if (status === LoadingStatus.ADD_USER_SUCCESS) {
         setTimer();
-
-        return (
-            <Alert
-                message="User added successfully"
-                type="success"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "User added successfully", "success");
     }
 
     if (status === LoadingStatus.ADD_USER_ERROR) {
         setTimer();
-
-        return (
-            <Alert
-                message={errorMessage || "The email address is already registered."}
-                type="warning"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "The email address is already registered.", "warning");
     }
 
     if (status === LoadingStatus.UPDATED_USER_SUCCESS) {
         setTimer();
-
-        return (
-            <Alert
-                message="User update successfully"
-                type="success"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "User update successfully", "success");
     }
 
     if (status === LoadingStatus.UPDATED_USER_PASSWORD_SUCCESS) {
         setTimer();
-
-        return (
-            <Alert
-                message="New password has been saved"
-                type="success"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "New password has been saved", "success");
     }
 
     if (status === LoadingStatus.UPDATED_USER_ERROR) {
         setTimer();
-
-        return (
-            <Alert
-                message={errorMessage || "An error occured, please try again!"}
-                type="warning"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "An error occured, please try again!", "warning");
     }
 
     if (status === LoadingStatus.ADD_EMAIL_NOTIFICATION_WITHOUT_DEVICE_ERROR) {
         setTimer();
-
-        return (
-            <Alert
-                message={"Please select All Devices or select one of devices!"}
-                type="warning"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "Please select All Devices or select one of devices!", "warning");
     }
-
 
     return null;
 };

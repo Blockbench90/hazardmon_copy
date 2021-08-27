@@ -9,6 +9,9 @@ import {clientsAC} from "../../store/branches/clients/actionCreators";
 
 import classes from "./Alert.module.scss";
 
+type AlertNotification = "success" | "info" | "warning" | "error"
+
+
 const ClientAlert = () => {
     const {status_operation} = useSelector(selectClientsState);
     const dispatch = useDispatch();
@@ -21,103 +24,50 @@ const ClientAlert = () => {
         }, 5000);
     };
 
+    const alertNotification = (message: typeof errorMessage | string, type: AlertNotification) => {
+        return <Alert
+            message={message}
+            type={type}
+            showIcon
+            closable
+            className={classes.alert}
+        />;
+    };
+
 
     if (status_operation === LoadingStatus.ADD_CLIENT_SUCCESS) {
         setTimer();
-
-        return (
-            <Alert
-                message="Client added successfully"
-                type="success"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "Client added successfully", "success")
     }
 
     if (status_operation === LoadingStatus.ADD_CLIENT_ERROR) {
         setTimer();
-
-        return (
-            <Alert
-                message={errorMessage || "An error occured, please try again!"}
-                type="warning"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "An error occured, please try again!", "warning")
     }
 
     if (status_operation === LoadingStatus.REMOVE_CLIENT_SUCCESS) {
         setTimer();
-
-        return (
-            <Alert
-                message="Client removed successfully"
-                type="success"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "Client removed successfully", "success")
     }
 
     if (status_operation === LoadingStatus.REMOVE_CLIENT_ERROR) {
         setTimer();
-
-        return (
-            <Alert
-                message={errorMessage || "An error occured, please try again!"}
-                type="warning"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "An error occured, please try again!", "warning")
     }
 
     if (status_operation === LoadingStatus.UPDATE_CLIENT_SUCCESS) {
         setTimer();
-
-        return (
-            <Alert
-                message="Client updated successfully"
-                type="success"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "Client updated successfully", "success")
     }
 
     if (status_operation === LoadingStatus.UPDATE_CLIENT_ERROR) {
         setTimer();
-
-        return (
-            <Alert
-                message={errorMessage || "An error occured, please try again!"}
-                type="warning"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "An error occured, please try again!", "warning")
     }
 
     if (status_operation === LoadingStatus.SELECT_CLIENT_ERROR) {
         setTimer();
-
-        return (
-            <Alert
-                message={errorMessage || "An error occured, please try again!"}
-                type="warning"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "An error occured, please try again!", "warning")
     }
 
     return null;

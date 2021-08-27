@@ -9,6 +9,8 @@ import {WinStorage} from "../../services/AuthSrorage";
 
 import classes from "./Alert.module.scss";
 
+type AlertNotification = "success" | "info" | "warning" | "error"
+
 const LoginAlert = () => {
     const {status} = useSelector(selectUserState);
     const dispatch = useDispatch();
@@ -21,18 +23,19 @@ const LoginAlert = () => {
         }, 5000);
     };
 
+    const alertNotification = (message: typeof errorMessage | string, type: AlertNotification) => {
+        return <Alert
+            message={message}
+            type={type}
+            showIcon
+            closable
+            className={classes.alert}
+        />;
+    };
+
     if (status === LoadingStatus.ERROR) {
         setTimer();
-
-        return (
-            <Alert
-                message={errorMessage || "Wrong email or password"}
-                type="error"
-                showIcon
-                closable
-                className={classes.alert}
-            />
-        );
+        return alertNotification(errorMessage || "Wrong email or password", "error");
     }
 
     return null;
