@@ -6,7 +6,7 @@ export const apiSeverUrl = process.env.REACT_APP_API_SERVER_URL ? process.env.RE
 export const WSSeverUrl = process.env.REACT_APP_WS_SERVER_URL ? process.env.REACT_APP_WS_SERVER_URL : `wss://${window.location.host}`;
 
 const baseService = axios.create({
-    baseURL: `${apiSeverUrl}/api/v2`,
+    baseURL: `${apiSeverUrl}api/v2`,
     paramsSerializer: (params) => {
         return qs.stringify(params, { indices: false, arrayFormat: 'comma' })
     }
@@ -19,10 +19,11 @@ export const getCSRFToken = () => {
 
 baseService.defaults.headers.common['X-CSRFToken'] = getCSRFToken();
 
-const jwt = cookies.get('Authorization');
+// const jwt = cookies.get('Authorization');
+const token = localStorage.getItem("_token")
 
-if (jwt) {
-    baseService.defaults.headers.common.Authorization = `JWT ${jwt}`;
+if (token) {
+    baseService.defaults.headers.common.Authorization = `JWT ${token}`;
 }
 
 export default baseService;

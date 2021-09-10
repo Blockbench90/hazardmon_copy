@@ -16,22 +16,22 @@ const VisualDashboard: React.FC = () => {
         <div className={clsx("header-link", classes.wrap)}>
             <HeaderVisualDashboard/>
 
-            <div className={"d-flex"}>
-                <div className={classes.mapBlock}>
-                    {customProps?.map((cart, index) => (
-                        <VisualDachBlock title={cart?.title}
-                                         isPublished={cart?.isPublished}
-                                         userRole={cart?.userRole}
-                                         timestamp={cart?.timestamp}
-                                         key={`${cart.title}${index}`}/>
-                    ))}
-                </div>
+            {/*<div className={"d-flex"}>*/}
+            {/*    <div className={classes.mapBlock}>*/}
+            {/*        {customProps?.map((cart, index) => (*/}
+            {/*            <VisualDachBlock title={cart?.title}*/}
+            {/*                             isPublished={cart?.isPublished}*/}
+            {/*                             userRole={cart?.userRole}*/}
+            {/*                             timestamp={cart?.timestamp}*/}
+            {/*                             key={`${cart.title}${index}`}/>*/}
+            {/*        ))}*/}
+            {/*    </div>*/}
 
-                <AddNewBlock text="Add New Site"/>
+            {/*    <AddNewBlock text="Add New Site"/>*/}
                 <div>
                     <Visual/>
                 </div>
-            </div>
+            {/*</div>*/}
         </div>
     )
 }
