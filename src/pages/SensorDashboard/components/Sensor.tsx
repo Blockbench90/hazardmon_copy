@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback} from "react";
 import clsx from "clsx";
 
 import success from "../../../assets/icons/success_sensor.svg";
@@ -14,6 +14,9 @@ import {ReactComponent as Off} from "../../../assets/icons/button_off.svg";
 import {FilterStatus, WsSensor} from "../../../store/branches/sensors/stateTypes";
 
 import classes from "../SensorDashboard.module.scss";
+import {useDispatch, useSelector} from "react-redux";
+import {sensorsAC} from "../../../store/branches/sensors/actionCreators";
+import {selectSensorsState} from "../../../store/selectors";
 
 interface SensorProps {
     sensor: WsSensor,
@@ -41,14 +44,34 @@ const Sensor: React.FC<SensorProps> = ({
                                            isBoolean,
                                            ContactName,
                                        }) => {
+    const dispatch = useDispatch();
+    const {maintenanceIdArray} = useSelector(selectSensorsState);
+
+    const isDisabledForMaintenance = ["18000", "21000"].includes(sensor.Id);
+    const isMaintenanceSensor = maintenanceIdArray.includes(sensor.Id);
+
+    const setMaintenance = useCallback(() => {
+        if (isDisabledForMaintenance) {
+            console.log("id ==> ", sensor.Id);
+            return;
+        }
+        dispatch(sensorsAC.setMaintenance(sensor.Id));
+        console.log("includes ==> ", sensor.Id);
+    }, [sensor, isDisabledForMaintenance, dispatch]);
+
+    console.log("aligment", isAlignment);
+    console.log("name", sensor?.Name);
 
     return (
         <div
             className={clsx(classes.sensorWrap,
                 sensor?.Status === "WARNING" && classes.sensorWrapWarning,
                 sensor?.Alarm && classes.sensorWrapDanger,
+                isMaintenanceSensor && classes.sensorWrapDanger,
                 isAlignment && classes.AlignmentSensorWrap,
-            )}>
+            )}
+            onClick={setMaintenance}
+        >
 
             <div className={clsx("d-flex-100", classes.head)}>
                 <div className={classes.title}>

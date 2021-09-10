@@ -18,6 +18,9 @@ const initialSensorsState: SensorsState = {
     historical_data: null,
     status: LoadingStatus.NEVER,
     status_operation: LoadingStatus.NEVER,
+    isMaintenance: false,
+    maintenanceIdArray: [],
+    maintenance_status_operation: LoadingStatus.NEVER,
     isSelected: false,
 };
 
@@ -72,6 +75,18 @@ export const sensorsReducer = produce((draft: Draft<SensorsState>, action: Senso
 
         case SensorsAT.CLEAR_WS_DATA_SENSORS:
             draft.ws_data = null;
+            break;
+
+        case SensorsAT.SET_MAINTENANCE_STATUS_OPERATION:
+            draft.maintenance_status_operation = action.payload
+            break;
+
+        case SensorsAT.SET_MAINTENANCE_PAGE:
+            draft.isMaintenance = action.payload
+            break;
+
+        case SensorsAT.SET_MAINTENANCE:
+            draft.maintenanceIdArray.push(action.payload)
             break;
 
         default:

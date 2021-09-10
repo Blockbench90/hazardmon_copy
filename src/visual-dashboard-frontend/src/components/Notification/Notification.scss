@@ -1,0 +1,99 @@
+@import "../../styles/variables";
+
+.Toastify {
+  .Toastify__toast {
+    min-height: auto;
+
+    &-container {
+      z-index: 999999;
+      width: 500px;
+      margin-left: -250px;
+    }
+  }
+}
+
+.notification {
+  border-radius: 5px;
+
+  &.success {
+    background-color: $light-green;
+    color: #ffffff;
+
+    & > button {
+      color: #ffffff;
+      opacity: 1;
+    }
+  }
+
+  &.error {
+    background-color: #D85147;
+    color: #ffffff;
+
+    & > button {
+      color: #ffffff;
+      opacity: 1;
+    }
+  }
+
+  & > button {
+    align-self: center;
+  }
+
+  &-body {
+    padding: 5px 0;
+    display: flex;
+    align-items: center;
+    white-space: pre-wrap;
+
+    img {
+      display: block;
+      margin-right: 30px;
+    }
+  }
+}
+
+.alert.Toastify__toast--default {
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+
+  &.red {
+    background: #ee5f5b;
+    border-color: #c43c35 #c43c35 #882a25;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  }
+
+  &.green {
+    color: #000;
+    background: #AAD997;
+    border-color: #AAD997 #AAD997 #AAD997;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  }
+
+  &.amber {
+    color: #000;
+    background: #FFBF00;
+    border-color: #FFBF00 #FFBF00 #FFBF00;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  }
+
+  &.blue {
+    background: #5898b0;
+    border-color: #5898b0 #5898b0 #5898b0;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  }
+
+  a {
+    text-shadow: none;
+    color: #fff;
+  }
+
+  a:hover {
+    color: #fff;
+  }
+
+  &.green a,
+  &.amber a {
+    color: #333;
+  }
+
+}

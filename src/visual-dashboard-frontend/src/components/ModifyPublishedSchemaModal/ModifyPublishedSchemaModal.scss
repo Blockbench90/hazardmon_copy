@@ -1,0 +1,37 @@
+@import "../../styles/variables";
+
+.modify-published-modal {
+  max-width: 330px;
+
+  h3 {
+    font-size: 24px;
+    text-align: center;
+    font-weight: bold;
+    color: $green;
+    margin-bottom: 15px;
+  }
+
+  h4 {
+    margin-bottom: 40px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  input {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 5px 10px;
+  }
+
+  .buttons-container {
+    display: flex;
+    justify-content: center;
+
+    .btn {
+      margin-right: 10px;
+    }
+  }
+}

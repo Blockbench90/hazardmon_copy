@@ -7,6 +7,7 @@ import {customProps} from "./components/columns";
 import HeaderVisualDashboard from "./components/HeaderVisualDashaboard";
 
 import classes from "./VisualDashboard.module.scss"
+import Visual from "../../visual-dashboard-frontend/src";
 
 
 const VisualDashboard: React.FC = () => {
@@ -27,6 +28,9 @@ const VisualDashboard: React.FC = () => {
                 </div>
 
                 <AddNewBlock text="Add New Site"/>
+                <div>
+                    <Visual/>
+                </div>
             </div>
         </div>
     )

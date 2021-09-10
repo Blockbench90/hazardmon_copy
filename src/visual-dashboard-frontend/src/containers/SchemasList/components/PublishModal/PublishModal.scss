@@ -1,0 +1,18 @@
+.publish-modal {
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  textarea {
+    width: 300px;
+    min-height: 70px;
+    margin-bottom: 20px;
+  }
+
+
+  .buttons-container {
+    display: flex;
+    justify-content: flex-end;
+  }
+}

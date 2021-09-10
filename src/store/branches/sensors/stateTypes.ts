@@ -179,5 +179,8 @@ export interface SensorsState {
     historical_data: HistoricalData
     status: LoadingStatus
     status_operation: LoadingStatus
+    maintenanceIdArray: string[]
+    isMaintenance: boolean
+    maintenance_status_operation: LoadingStatus
     isSelected: boolean
 }

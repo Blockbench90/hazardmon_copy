@@ -7,6 +7,7 @@ export interface Device {
     "serial_number"?: string
     "code"?: string
     "device_type"?: string
+    "ip_address"?: string
     "is_trash"?: boolean
     "is_online"?: boolean
     "is_suspended"?: boolean

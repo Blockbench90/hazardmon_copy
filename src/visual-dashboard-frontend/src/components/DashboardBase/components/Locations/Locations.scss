@@ -1,0 +1,49 @@
+@import "../../../../styles/variables";
+
+.locations {
+  margin-bottom: 20px;
+  padding: 10px 0;
+
+  .Collapsible {
+    &__trigger {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 3px 15px;
+      color: $blue;
+      font-size: 13px;
+      line-height: 20px;
+      cursor: pointer;
+
+      svg {
+        flex: 0 0 auto;
+        color: #333;
+      }
+    }
+
+    &__contentOuter {
+      margin-left: 25px;
+
+      .tab {
+        display: block;
+        padding: 0 15px;
+        color: $blue;
+        font-size: 13px;
+        line-height: 20px;
+        cursor: pointer;
+
+        &:hover, &.selected {
+          color: $blue;
+        }
+
+        &.warning {
+          color: $orange !important;
+        }
+
+        &.alarm {
+          color: $red !important;
+        }
+      }
+    }
+  }
+}

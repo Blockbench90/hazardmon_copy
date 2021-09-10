@@ -24,6 +24,9 @@ export enum SensorsAT {
     SET_LOADING_STATE = "sensors_dashboard/SET_LOADING_STATE",
     CHANGE_FILTER_STATUS = "sensors_dashboard/CHANGE_FILTER_STATUS",
     SET_STATUS_OPERATION_STATE = "sensors_dashboard/SET_STATUS_OPERATION_STATE",
+    SET_MAINTENANCE_PAGE = "sensors_dashboard/SET_MAINTENANCE_PAGE",
+    SET_MAINTENANCE_STATUS_OPERATION = "sensors_dashboard/SET_MAINTENANCE_STATUS_OPERATION",
+    SET_MAINTENANCE = "sensors_dashboard/SET_MAINTENANCE",
 }
 
 export interface FetchWsDataSensorsAI extends Action<SensorsAT> {
@@ -119,6 +122,21 @@ export interface SetSensorsLoadingStatusAI extends Action<SensorsAT> {
 export interface SetSensorsStatusOperationAI extends Action<SensorsAT> {
     type: SensorsAT.SET_STATUS_OPERATION_STATE;
     payload: LoadingStatus;
+}
+
+export interface SetMaintenancePageAI extends Action<SensorsAT> {
+    type: SensorsAT.SET_MAINTENANCE_PAGE;
+    payload: boolean;
+}
+
+export interface SetMaintenanceStatusOperationAI extends Action<SensorsAT> {
+    type: SensorsAT.SET_MAINTENANCE_STATUS_OPERATION;
+    payload: LoadingStatus;
+}
+
+export interface SetMaintenanceAI extends Action<SensorsAT> {
+    type: SensorsAT.SET_MAINTENANCE;
+    payload: string;
 }
 
 export interface ClearWsDataSensorsAI extends Action<SensorsAT> {

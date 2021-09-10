@@ -1,0 +1,108 @@
+@import "../../styles/variables";
+
+.schema-details {
+  flex: 1 1 auto;
+
+  &__title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__dropdown {
+    background-color: #fff;
+    box-shadow: 3px 0 20px #ccc;
+
+    & > * {
+      display: block;
+      border-width: 0 0;
+      border-bottom: 1px solid $border-color;
+      white-space: nowrap;
+      font-size: 14px;
+      font-weight: normal;
+      padding: 5px 15px;
+      color: #333;
+      width: 100%;
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: none;
+        background-color: #ebebeb;
+      }
+    }
+  }
+
+  .schema-tabs-container {
+    display: flex;
+
+    .add-tab-button {
+      background-color: $blue;
+      padding: 10px 15px;
+      display: flex;
+      color: #ffffff;
+      font-weight: bold;
+      align-items: center;
+      border-radius: 0;
+      cursor: pointer;
+      white-space: nowrap;
+      text-decoration: none;
+      border: none;
+      border-left: 1px solid $blue;
+      margin: 0;
+    }
+  }
+
+  .details-wrapper {
+    position: relative;
+    overflow: auto;
+
+    .size-controller {
+      background-color: $gray;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .scale-block {
+      position: absolute;
+      transform-origin: top left;
+      width: 100%;
+      height: 100%;
+    }
+
+    .machine {
+      cursor: pointer;
+    }
+
+    .links {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      overflow: visible;
+
+      .connection-line {
+        fill: transparent;
+        stroke: $green;
+        stroke-width: 3px;
+      }
+
+      .connection-point {
+        fill: $green;
+      }
+    }
+  }
+
+  .notifications-wrapper {
+    display: flex;
+
+    .schema-wrapper {
+      width: 80%;
+      flex: 1 1 auto;
+    }
+
+    .notifications {
+      width: 20%;
+    }
+  }
+}

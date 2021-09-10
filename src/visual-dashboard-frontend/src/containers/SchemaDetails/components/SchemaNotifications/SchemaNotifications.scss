@@ -1,0 +1,34 @@
+@import "../../../../styles/variables";
+
+.schema-notifications {
+  padding-left: 20px;
+  max-width: 240px;
+  width: 20%;
+  max-height: 637px;
+  overflow: auto;
+
+  &.notifications-hided {
+    width: auto;
+  }
+
+  h3 {
+    padding: 10px 0;
+    text-align: center;
+  }
+
+  .log-body {
+    padding: 10px;
+    color: #ffffff;
+    margin-bottom: 10px;
+    font-size: 12px;
+    background-color: $mint;
+
+    &.alarm-detected, &.alarm-changed {
+      background-color: $red;
+    }
+
+    &.warning-detected, &.warning-changed, &.device-offline {
+      background-color: $yellow;
+    }
+  }
+}

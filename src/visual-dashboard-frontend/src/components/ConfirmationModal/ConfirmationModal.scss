@@ -1,0 +1,19 @@
+.confirmation-modal {
+  background-color: #fff;
+
+  .body {
+    max-width: 350px;
+  }
+
+  .buttons-container {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+
+    .btn {
+      &:first-child {
+        margin-right: 10px;
+      }
+    }
+  }
+}

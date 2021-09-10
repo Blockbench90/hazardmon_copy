@@ -10,7 +10,7 @@ import {
     FetchWarningsAI,
     FetchWsDataSensorsAI,
     SensorsAT,
-    SetHistoricalGraphsDataAI,
+    SetHistoricalGraphsDataAI, SetMaintenanceAI, SetMaintenancePageAI, SetMaintenanceStatusOperationAI,
     SetSensorNamesAI,
     SetSensorSettingsAI,
     SetSensorsLoadingStatusAI,
@@ -21,6 +21,7 @@ import {
     SetWsDataSensorsAI,
 } from "./actionTypes";
 import {AddWarning, FilterStatus, SensorNames, SensorsState, Unit} from "./stateTypes";
+import {LoadingStatus} from "../../types";
 
 
 
@@ -101,6 +102,16 @@ export const sensorsAC = {
         payload,
     }),
 
+    setMaintenancePage: (payload: boolean): SetMaintenancePageAI => ({
+        type: SensorsAT.SET_MAINTENANCE_PAGE,
+        payload,
+    }),
+
+    setMaintenanceStatusOperation: (payload: LoadingStatus): SetMaintenanceStatusOperationAI => ({
+        type: SensorsAT.SET_MAINTENANCE_STATUS_OPERATION,
+        payload,
+    }),
+
     fetchWsSensorsData: (payload: any): FetchWsDataSensorsAI => ({
         type: SensorsAT.FETCH_WS_DATA_SENSORS,
         payload,
@@ -123,6 +134,11 @@ export const sensorsAC = {
 
     changeFilterStatusSensors: (payload: FilterStatus): ChangeFilterSensorsStatusAI => ({
         type: SensorsAT.CHANGE_FILTER_STATUS,
+        payload,
+    }),
+
+    setMaintenance: (payload: string): SetMaintenanceAI => ({
+        type: SensorsAT.SET_MAINTENANCE,
         payload,
     }),
 
@@ -153,3 +169,6 @@ export type SensorsActions =
     | FetchWsDataSensorsAI
     | SetWsDataSensorsAI
     | ClearWsDataSensorsAI
+    | SetMaintenanceStatusOperationAI
+    | SetMaintenancePageAI
+    | SetMaintenanceAI

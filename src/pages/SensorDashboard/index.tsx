@@ -16,11 +16,19 @@ import {selectSensorsState} from "../../store/selectors";
 import Preloader from "../../components/Preloader";
 
 import classes from "./SensorDashboard.module.scss";
+import Spinner from "../../components/Spinner";
+import {Alert} from "antd";
 
 const SensorDashboard: React.FC = () => {
     const dispatch = useDispatch();
 
-    const {ws_data, filter_status, status} = useSelector(selectSensorsState);
+    const {
+        ws_data,
+        filter_status,
+        status,
+        maintenance_status_operation,
+        isMaintenance,
+    } = useSelector(selectSensorsState);
     const {device} = useCurrentSelection();
 
     useEffect(() => {
@@ -43,11 +51,29 @@ const SensorDashboard: React.FC = () => {
     // fix this after backand will change
     useSocketSensors(`ws/device-data/${device?.udf_id}/`);
 
+    if (maintenance_status_operation === LoadingStatus.LOADING) {
+        return <Spinner/>;
+    }
+
     return (
         <Preloader isLoaded={status === LoadingStatus.LOADING && !ws_data}>
             <div className={classes.SensorDashboardWrap}>
                 <DashboardAlert/>
                 <HeaderSection/>
+
+                {
+                    isMaintenance
+                    &&
+                    <div>
+                        <Alert
+                            message={"Please click on the sensor to start the maintenance test."}
+                            type="warning"
+                            showIcon
+                            closable
+                            className={classes.alert}
+                        />
+                    </div>
+                }
 
                 {
                     device?.device_type === "F500-UDF"

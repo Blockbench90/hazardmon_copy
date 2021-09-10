@@ -1,0 +1,69 @@
+@import "../../../../styles/variables";
+
+.machine-sensors {
+  .device-block {
+    margin-bottom: 20px;
+
+    .device-name {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+  }
+
+  .sensor-group-name {
+    background-color: #e8e7cd;
+    color: #222;
+    padding: 5px;
+    font-size: 13px;
+
+    &.Alarm {
+      color: $red;
+    }
+
+    &.WARNING {
+      color: $yellow;
+    }
+  }
+
+  .sensors {
+    display: flex;
+    flex-wrap: wrap;
+
+    .sensor-info {
+      width: 180px;
+      height: 95px;
+      padding: 10px 6px;
+      box-shadow: 0 0 5px 2px #85cb72;
+      margin: 15px 15px 15px 5px;
+      flex: 0 0 auto;
+
+      &.Alarm {
+        background-color: $red;
+        box-shadow: 0 0 5px 2px $red;
+        color: #ffffff;
+      }
+
+      &.WARNING {
+        background-color: $yellow;
+        box-shadow: 0 0 5px 2px $yellow;
+        color: #ffffff;
+      }
+
+      .sensor-name {
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 5px;
+      }
+
+      .status {
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
+
+      .value {
+        font-size: 13px;
+        text-align: right;
+      }
+    }
+  }
+}

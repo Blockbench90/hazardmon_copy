@@ -167,7 +167,7 @@ const EditDeviceForm: React.FC<EditDeviceFormProps> = ({
                                 {['F500', 'F500-UDF'].includes(currentDeviceType)
                                 &&
                                 (<InputWrap title="IP Address">
-                                    <Form.Item name="ip_address">
+                                    <Form.Item name="ip_address" initialValue={device?.ip_address}>
                                         <Input/>
                                     </Form.Item>
                                 </InputWrap>)}

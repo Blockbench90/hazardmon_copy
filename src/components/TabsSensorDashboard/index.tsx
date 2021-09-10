@@ -13,7 +13,7 @@ import {FilterStatus} from "../../store/branches/sensors/stateTypes";
 import {sensorsAC} from "../../store/branches/sensors/actionCreators";
 import {LoadingStatus} from "../../store/types";
 import {useCurrentSelection} from "../../hooks/useCurrentSelection";
-import { selectSensorsState } from "../../store/selectors";
+import {selectSensorsState} from "../../store/selectors";
 
 import classes from "./TabsSensorDashboard.module.scss";
 
@@ -28,19 +28,47 @@ const TabsSensorDashboard: React.FC = () => {
     const [path, setPath] = useState<"live" | "historical" | "maintenance">("live");
     const [modal, setModal] = useState(false);
 
-    const {ws_data} = useSelector(selectSensorsState);
+    const {ws_data, isMaintenance} = useSelector(selectSensorsState);
     const {device} = useCurrentSelection();
 
     useEffect(() => {
         if (pathname === "/dashboard/historical") {
             setPath("historical");
         } else {
-            setPath("live")
+            setPath("live");
         }
     }, [pathname]);
 
+    useEffect(() => {
+        if (isMaintenance) {
+            setPath("maintenance");
+        }
+    }, [isMaintenance]);
+
+    const liveMaintenance = () => {
+        dispatch(sensorsAC.setMaintenancePage(false));
+    };
+
     const setVisibleModal = () => {
         setModal(true);
+        liveMaintenance();
+    };
+
+    const onLive = () => {
+        history.push(SENSOR_DASHBOARD);
+        liveMaintenance();
+    };
+
+    const setTimer = () => {
+        setTimeout(() => {
+            dispatch(sensorsAC.setMaintenanceStatusOperation(LoadingStatus.NEVER));
+        }, 1500);
+    };
+
+    const onMaintenance = () => {
+        dispatch(sensorsAC.setMaintenanceStatusOperation(LoadingStatus.LOADING));
+        dispatch(sensorsAC.setMaintenancePage(true));
+        setTimer();
     };
 
     const handleSelectNodes = (values: any) => {
@@ -48,7 +76,9 @@ const TabsSensorDashboard: React.FC = () => {
     };
 
     const onSwitchNodes = (checked: boolean) => {
-        checked ? dispatch(sensorsAC.changeFilterStatusSensors(FilterStatus.ALL_NODES)) : dispatch(sensorsAC.changeFilterStatusSensors(FilterStatus.ACTIVE));
+        checked
+            ? dispatch(sensorsAC.changeFilterStatusSensors(FilterStatus.ALL_NODES))
+            : dispatch(sensorsAC.changeFilterStatusSensors(FilterStatus.ACTIVE));
     };
 
     const onCancel = () => {
@@ -69,14 +99,9 @@ const TabsSensorDashboard: React.FC = () => {
         history.push(HISTORICAL);
     };
 
-    const onLive = () => {
-        history.push(SENSOR_DASHBOARD);
-    };
-
     const onChangeTab = (activeKey: any) => {
         setPath(activeKey);
     };
-
 
     return (
         <div className={classes.wrap}>
@@ -107,7 +132,7 @@ const TabsSensorDashboard: React.FC = () => {
 
                         <TabPane className={classes.tab}
                                  tab={
-                                     <div>
+                                     <div onClick={onMaintenance}>
                                          <Maintenance/>
                                          <span className={classes.title}>Maintenance</span>
                                      </div>

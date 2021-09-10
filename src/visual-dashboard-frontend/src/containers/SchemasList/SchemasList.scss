@@ -1,0 +1,33 @@
+.schemas-list-page {
+  min-height: 600px;
+
+  table {
+    width: 100%;
+
+    th {
+      white-space: nowrap;
+
+      &.can-order {
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+
+    .comment-col {
+      width: 350px;
+    }
+
+    .action-buttons {
+      > .btn {
+        width: 100%;
+        min-width: 30px;
+        padding: 4px;
+        margin-bottom: 5px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
