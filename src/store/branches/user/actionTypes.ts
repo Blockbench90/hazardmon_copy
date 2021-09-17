@@ -1,6 +1,6 @@
 import {Action} from "redux";
 import {ChangePassword, EmailNotification, IWsNotify, SearchValues, User, UserState} from "./stateTypes";
-import {LoadingStatus} from "../../types";
+import {LoadingStatus} from "../../status";
 import {LoginValues} from "../../../components/LoginBlock";
 import {RegisterValues} from "../../../components/RegisterBlock";
 

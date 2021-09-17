@@ -6,6 +6,10 @@ import {sitesReducer} from "./branches/sites/reducer";
 import {sensorsReducer} from "./branches/sensors/reducer"
 import {graphsReducer} from "./branches/graphs/reducer";
 import {analyticsReducer} from "./branches/analytics/reducer";
+import authReducer from "./branches/visual-dashboard/authReducer";
+import schemasReducer from "./branches/visual-dashboard/schemasReducer";
+import { reducer as reduxFormReducer } from 'redux-form';
+
 
 export const rootReducer = combineReducers({
     user: userReducer,
@@ -14,5 +18,8 @@ export const rootReducer = combineReducers({
     devices: devicesReducer,
     sensors: sensorsReducer,
     graphs: graphsReducer,
-    analytics: analyticsReducer
+    analytics: analyticsReducer,
+    authReducer,
+    form: reduxFormReducer,
+    schemasReducer,
 });

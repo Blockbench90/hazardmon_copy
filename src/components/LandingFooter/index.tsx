@@ -1,37 +1,22 @@
-import React from "react"
-import clsx from "clsx"
-import {Select} from "antd"
+import React from "react";
+import clsx from "clsx";
+import {Select} from "antd";
 
-import classes from "./LandingFooter.module.scss"
+import classes from "./LandingFooter.module.scss";
 
-const {Option} = Select
+const {Option} = Select;
 
-interface LandingFooterProps {
-    isRegister: boolean
-}
-
-const LandingFooter: React.FC<LandingFooterProps> = ({isRegister}) => {
+const LandingFooter: React.FC= () => {
     return (
         <React.Fragment>
             <div className="cssLine"/>
 
             <div className={clsx("d-flex", classes.footer)}>
                 <div className={classes.connectUs}>
-                    {
-                        isRegister
-                            ?
-
-                            <Select defaultValue="Contact Us" bordered={false} className={classes.select}>
-                                <Option value="Contact Us">Contact Us</Option>
-                                <Option value="Phone">Phone</Option>
-                            </Select>
-                            :
-                            <div className={clsx("d-fl", "mar-top-10")} >
-                                <div className="mar-right-10">Home</div>
-                                <div className="mar-right-10">About Us</div>
-                                <div className="mar-right-10">Go4b.Com</div>
-                            </div>
-                    }
+                    <Select defaultValue="Contact Us" bordered={false} className={classes.select}>
+                        <Option value="Contact Us">Contact Us</Option>
+                        <Option value="Phone">Phone</Option>
+                    </Select>
                 </div>
 
                 <div className={classes.copyright}>
@@ -39,6 +24,6 @@ const LandingFooter: React.FC<LandingFooterProps> = ({isRegister}) => {
                 </div>
             </div>
         </React.Fragment>
-    )
-}
-export default LandingFooter
+    );
+};
+export default LandingFooter;

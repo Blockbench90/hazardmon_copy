@@ -5,7 +5,7 @@ import {useForm} from "antd/lib/form/Form";
 import AddUserForm from "./components/AddUserForm";
 import {useDispatch, useSelector} from "react-redux";
 import {sitesAC} from "../../store/branches/sites/actionCreators";
-import {LoadingStatus} from "../../store/types";
+import {LoadingStatus} from "../../store/status";
 import Preloader from "../Preloader";
 import {selectSitesState} from "../../store/selectors";
 import {SiteAccess, UserData} from "../../store/branches/sites/stateTypes";

@@ -1,6 +1,6 @@
 import {call, put, takeLatest} from "redux-saga/effects";
 import {DevicesApi} from "../../../services/api/devicesApi";
-import {LoadingStatus} from "../../types";
+import {LoadingStatus} from "../../status";
 import {devicesAC} from "./actionCreators";
 import {
     AddDeviceAI,

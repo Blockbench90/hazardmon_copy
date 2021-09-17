@@ -1,0 +1,61 @@
+.Toastify .Toastify__toast {
+  min-height: auto; }
+  .Toastify .Toastify__toast-container {
+    z-index: 999999;
+    width: 500px;
+    margin-left: -250px; }
+
+.notification {
+  border-radius: 5px; }
+  .notification.success {
+    background-color: #00b48d;
+    color: #ffffff; }
+    .notification.success > button {
+      color: #ffffff;
+      opacity: 1; }
+  .notification.error {
+    background-color: #D85147;
+    color: #ffffff; }
+    .notification.error > button {
+      color: #ffffff;
+      opacity: 1; }
+  .notification > button {
+    align-self: center; }
+  .notification-body {
+    padding: 5px 0;
+    display: flex;
+    align-items: center;
+    white-space: pre-wrap; }
+    .notification-body img {
+      display: block;
+      margin-right: 30px; }
+
+.alert.Toastify__toast--default {
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25); }
+  .alert.Toastify__toast--default.red {
+    background: #ee5f5b;
+    border-color: #c43c35 #c43c35 #882a25;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25); }
+  .alert.Toastify__toast--default.green {
+    color: #000;
+    background: #AAD997;
+    border-color: #AAD997 #AAD997 #AAD997;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25); }
+  .alert.Toastify__toast--default.amber {
+    color: #000;
+    background: #FFBF00;
+    border-color: #FFBF00 #FFBF00 #FFBF00;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25); }
+  .alert.Toastify__toast--default.blue {
+    background: #5898b0;
+    border-color: #5898b0 #5898b0 #5898b0;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25); }
+  .alert.Toastify__toast--default a {
+    text-shadow: none;
+    color: #fff; }
+  .alert.Toastify__toast--default a:hover {
+    color: #fff; }
+  .alert.Toastify__toast--default.green a,
+  .alert.Toastify__toast--default.amber a {
+    color: #333; }

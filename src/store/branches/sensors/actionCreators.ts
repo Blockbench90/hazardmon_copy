@@ -21,7 +21,7 @@ import {
     SetWsDataSensorsAI,
 } from "./actionTypes";
 import {AddWarning, FilterStatus, SensorNames, SensorsState, Unit} from "./stateTypes";
-import {LoadingStatus} from "../../types";
+import {LoadingStatus} from "../../status";
 
 
 

@@ -1,13 +1,13 @@
 import {
     ClearGraphsStateAI,
     ExportGraphsPNGAI, FetchCustomGraphsDataAI,
-    FetchGraphsDataAI,
+    FetchGraphsDataAI, GetLiveGraphsDataAI,
     GraphsAT,
     SetGraphsDataAI,
     SetGraphsLoadingStatusAI,
     SetGraphsStatusOperationAI,
-} from "./actionTypes"
-import {LoadingStatus} from "../../types";
+} from "./actionTypes";
+import {LoadingStatus} from "../../status";
 import {FetchCustomGraphs, FetchGraphs} from "./stateTypes"
 
 
@@ -43,6 +43,11 @@ export const graphsAC = {
         type: GraphsAT.CLEAR_GRAPHS_STATE,
     }),
 
+    getLiveGraphsData : (payload: number): GetLiveGraphsDataAI => ({
+        type: GraphsAT.GET_LIVE_GRAPHS_DATA,
+        payload
+    })
+
 }
 
 export type GraphsActions =
@@ -52,4 +57,5 @@ export type GraphsActions =
     | SetGraphsLoadingStatusAI
     | SetGraphsStatusOperationAI
     | ExportGraphsPNGAI
+    | GetLiveGraphsDataAI
     | ClearGraphsStateAI

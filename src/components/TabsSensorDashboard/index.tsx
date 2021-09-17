@@ -11,7 +11,7 @@ import DataModal from "../DataModal";
 import {HISTORICAL, SENSOR_DASHBOARD} from "../PrivateRoute/components/constants";
 import {FilterStatus} from "../../store/branches/sensors/stateTypes";
 import {sensorsAC} from "../../store/branches/sensors/actionCreators";
-import {LoadingStatus} from "../../store/types";
+import {LoadingStatus} from "../../store/status";
 import {useCurrentSelection} from "../../hooks/useCurrentSelection";
 import {selectSensorsState} from "../../store/selectors";
 

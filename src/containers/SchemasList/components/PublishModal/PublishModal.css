@@ -1,0 +1,12 @@
+.publish-modal label {
+  display: block;
+  margin-bottom: 5px; }
+
+.publish-modal textarea {
+  width: 300px;
+  min-height: 70px;
+  margin-bottom: 20px; }
+
+.publish-modal .buttons-container {
+  display: flex;
+  justify-content: flex-end; }

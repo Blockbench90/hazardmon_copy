@@ -59,8 +59,6 @@ const Sensor: React.FC<SensorProps> = ({
         console.log("includes ==> ", sensor.Id);
     }, [sensor, isDisabledForMaintenance, dispatch]);
 
-    console.log("aligment", isAlignment);
-    console.log("name", sensor?.Name);
 
     return (
         <div

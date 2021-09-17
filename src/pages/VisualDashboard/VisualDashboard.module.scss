@@ -15,13 +15,21 @@
     margin-left: 10px;
   }
 
-
   .mapBlock {
     display: flex;
     flex-wrap: wrap;
     max-width: 90%;
   }
 }
+
+.visualLink {
+  font-weight: 800 !important;
+  font-size: 12px !important;
+  text-decoration-line: none !important;
+  text-transform: none !important;
+  color: #2D3C43 !important;
+}
+
 
 .visualDashBlockWrap {
   width: 290px;
@@ -39,7 +47,7 @@
     font-size: 14px !important;
     font-weight: bold !important;
     color: #0F435A !important;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
 
   .description {
@@ -58,4 +66,8 @@
 .visualDashBlockWrap:hover {
   box-shadow: 0 4px 30px rgba(34, 37, 51, 0.2);
   transition: 0.3s;
+}
+
+.comments {
+  font-size: 10px;
 }

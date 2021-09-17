@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Checkbox, Form, Select, Spin, Table} from "antd";
 import {LoadingOutlined} from "@ant-design/icons";
 
-import {LoadingStatus} from "../../store/types";
+import {LoadingStatus} from "../../store/status";
 import {AssignUser, SetMemberShip, UpdateMemberShip} from "../../store/branches/sites/stateTypes";
 import {tableGenerationAssignUsers} from "./components/TableGeneration";
 import {sitesAC} from "../../store/branches/sites/actionCreators";

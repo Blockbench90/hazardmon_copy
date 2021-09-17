@@ -1,5 +1,6 @@
+
 import {call, put, takeLatest} from "redux-saga/effects";
-import {LoadingStatus} from "../../types";
+import {LoadingStatus} from "../../status";
 import {sensorsAC} from "./actionCreators";
 import {
     AddSensorNamesAI, AddSensorSettingsAI,

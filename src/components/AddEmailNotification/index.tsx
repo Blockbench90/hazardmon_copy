@@ -13,7 +13,7 @@ import {Site} from "../../store/branches/sites/stateTypes";
 import {Device} from "../../store/branches/devices/stateTypes";
 import AddEmailNotificationForm from "./components/AddEmailNotificationsForm";
 import UserAlert from "../Alerts/user";
-import {LoadingStatus} from "../../store/types";
+import {LoadingStatus} from "../../store/status";
 import Spinner from "../Spinner";
 import {useParams} from "react-router-dom";
 

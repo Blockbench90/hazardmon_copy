@@ -1,0 +1,18 @@
+.schemas-list-page {
+  min-height: 600px; }
+  .schemas-list-page table {
+    width: 100%; }
+    .schemas-list-page table th {
+      white-space: nowrap; }
+      .schemas-list-page table th.can-order {
+        text-decoration: underline;
+        cursor: pointer; }
+    .schemas-list-page table .comment-col {
+      width: 350px; }
+    .schemas-list-page table .action-buttons > .btn {
+      width: 100%;
+      min-width: 30px;
+      padding: 4px;
+      margin-bottom: 5px; }
+      .schemas-list-page table .action-buttons > .btn:last-child {
+        margin-bottom: 0; }

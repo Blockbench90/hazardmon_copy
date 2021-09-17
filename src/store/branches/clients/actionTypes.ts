@@ -1,5 +1,5 @@
 import {Action} from "redux"
-import {LoadingStatus} from "../../types"
+import {LoadingStatus} from "../../status"
 import {Client, ClientsState, PageRequest} from "./stateTypes"
 
 export enum ClientsAT {

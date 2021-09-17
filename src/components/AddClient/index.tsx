@@ -3,7 +3,7 @@ import {useHistory} from "react-router-dom";
 import {useForm} from "antd/lib/form/Form";
 import AddClientForm from "./components/AddClientForm";
 import {useDispatch, useSelector} from "react-redux";
-import {LoadingStatus} from "../../store/types";
+import {LoadingStatus} from "../../store/status";
 import Preloader from "../Preloader";
 import ClientAlert from "../Alerts/clients";
 import {selectClientsState} from "../../store/selectors";

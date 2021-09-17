@@ -1,7 +1,7 @@
 import {call, put, take, takeLatest} from "redux-saga/effects";
 import {UserApi} from "../../../services/api/userApi";
 import {WinStorage} from "../../../services/AuthSrorage";
-import {LoadingStatus} from "../../types";
+import {LoadingStatus} from "../../status";
 import {eventChannel} from "redux-saga";
 import {userAC} from "./actionCreators";
 import {
@@ -232,6 +232,7 @@ export function toggleNotificationSocket(path: string, device_udf_id?: string) {
             try {
                 message = JSON.parse(e.data);
             } catch (e) {
+                // @ts-ignore
                 console.error(`Error parsing : ${e.data}`);
             }
             if (message.notifications.length > 0) {

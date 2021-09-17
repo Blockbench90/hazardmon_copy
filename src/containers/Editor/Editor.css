@@ -1,0 +1,305 @@
+.tab-editor .editor-title {
+    display: flex;
+}
+
+.editor-title__editor {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    color: #2D3C43;
+    margin: 0 5px;
+}
+
+.tab-editor .editor-title span:first-of-type {
+    margin-right: 8px;
+}
+
+.tab-editor .editor-title input {
+
+    margin-left: 10px;
+    background: #FFFFFF;
+    border: 1px solid #D3DCE6;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.tab-editor .editor-title button {
+    border: none;
+    background: none;
+}
+
+.tab-editor .editor-title button img {
+    height: 20px;
+    width: 20px;
+}
+
+.tab-editor .will-copy-descr {
+    font-size: 14px;
+    color: #ff0000;
+}
+
+.tab-editor .machines-types {
+    background-color: #f4f4f4;
+}
+
+.machines-types__title {
+    height: 60px;
+    padding: 20px 0 20px 10px;
+    /*border-bottom: 1px solid #7C90B1;*/
+    /*opacity: 0.5;*/
+    /*border: 1px solid #7C90B1;*/
+}
+
+.tab-editor .machines-types h4 {
+    background-color: #f4f4f4 !important;
+    font-weight: bold !important;
+    line-height: 17px !important;
+    font-size: 14px !important;
+    color: #2D3C43 !important;
+}
+
+.tab-editor .machines-types .machine-type {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    background: #FFFFFF !important;
+    margin: 10px;
+    border: 1px solid #CAD0D3;
+    box-sizing: border-box;
+    border-radius: 3px;
+}
+
+.tab-editor .machines-types .machine-type:hover > div {
+    color: #85b7de;
+}
+
+.tab-editor .machines-types .machine-type__image-container {
+    height: 78px;
+    width: 78px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex: 0 0 auto;
+    pointer-events: none;
+}
+
+.tab-editor .machines-types .machine-type__image-container img {
+    display: block;
+}
+
+.tab-editor .machines-types .machine-type__image-container .rectangle {
+    height: 64px;
+    width: 64px;
+    border: 3px solid #000;
+    border-radius: 5px;
+}
+
+.tab-editor .machines-types .machine-type__image-container .circle {
+    height: 64px;
+    width: 64px;
+    border: 3px solid #000;
+    border-radius: 50%;
+}
+
+.tab-editor .machines-types .machine-type__image-container .line {
+    height: 3px;
+    width: 64px;
+    background: #000;
+    transform: rotate(-45deg);
+    border-radius: 2px;
+}
+
+.tab-editor .machines-types .machine-type__image-container .label {
+    color: #000;
+}
+
+.tab-editor .machines-types .machine-type > div {
+    font-size: 13px;
+    font-weight: 600;
+    color: #333333;
+}
+
+.tab-editor .diagram-layer {
+    position: relative;
+}
+
+.dimensions {
+    display: flex;
+}
+
+.dimensions-input__title {
+    margin-left: 10px;
+    font-size: 14px;
+    line-height: 17px;
+    color: #2D3C43;
+}
+
+.tab-editor .diagram-layer .dimensions {
+    position: absolute;
+    top: 45px;
+    left: 10px;
+    z-index: 10;
+}
+
+.tab-editor .diagram-layer .dimensions > div {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+}
+
+.tab-editor .diagram-layer .dimensions > div:after {
+    content: 'px';
+    display: block;
+    font-size: 12px;
+    margin-left: 3px;
+}
+
+.tab-editor .diagram-layer .dimensions label {
+    font-size: 12px;
+    margin-right: 5px;
+}
+
+.tab-editor .diagram-layer .dimensions input {
+    width: 50px;
+}
+
+.tab-editor .canvas-wrapper {
+    position: relative;
+    overflow: auto;
+}
+
+.tab-editor .canvas-wrapper .size-controller {
+    background-color: #f4f4f4;
+}
+
+.tab-editor .canvas-wrapper .srd-demo-canvas {
+    height: 100%;
+}
+
+.tab-editor .canvas-wrapper .srd-demo-canvas .srd-default-link path {
+    stroke: #5d9fd3;
+}
+
+.tab-editor .canvas-wrapper .srd-demo-canvas .srd-default-link circle {
+    stroke: #5d9fd3;
+    fill: #5d9fd3;
+}
+
+.tab-editor .canvas-wrapper .srd-demo-canvas .srd-default-link .srd-default-link--path-selected {
+    stroke: #5d9fd3 !important;
+}
+
+.tab-editor .save-button-container {
+    padding: 40px 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.tab-editor .save-button-container .btn {
+    margin-left: 5px;
+}
+
+.sensors-suggest-block {
+    background-color: #ffffff;
+    padding: 30px 40px;
+}
+
+.sensors-suggest-block .wrapper {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 30px;
+}
+
+.sensors-suggest-block .close-button {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: none;
+    border: none;
+}
+
+.sensors-suggest-block .close-button img {
+    height: 14px;
+    width: 14px;
+    display: block;
+}
+
+.sensors-suggest-block h5 {
+    text-align: center;
+    color: #5d9fd3;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.sensors-suggest-block input[type="text"] {
+    display: block;
+    font-size: 14px;
+    background-color: #f7f7f7;
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+    width: 325px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.sensors-suggest-block .select-sensor-filters .filter-wrapper {
+    margin-bottom: 20px;
+}
+
+.sensors-suggest-block .select-sensor-filters .filter-wrapper h6 {
+    font-size: 17px;
+    margin-bottom: 10px;
+}
+
+.sensors-suggest-block .select-sensor-filters .filter-wrapper li label {
+    display: flex;
+    align-items: center;
+}
+
+.sensors-suggest-block .select-sensor-filters .filter-wrapper li label div {
+    font-size: 12px;
+}
+
+.sensors-suggest-block .results-wrapper {
+    position: relative;
+}
+
+.sensors-suggest-block .results-wrapper .results {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
+    height: calc(100% - 46px);
+    width: 100%;
+    top: 46px;
+    left: 0;
+    overflow: auto;
+}
+
+.sensors-suggest-block .results-wrapper .results .result {
+    color: #9cc4e4;
+    font-size: 14px;
+    margin: 5px 0;
+    cursor: pointer;
+}
+
+.sensors-suggest-block .results-wrapper .results .result:hover {
+    color: #bcd7ed;
+}
+
+.sensors-suggest-block .results-wrapper .results .result.disabled {
+    color: #C8C3B5;
+    cursor: not-allowed;
+}
+
+.sensors-suggest-block .results-wrapper .results .result div.already-in-use {
+    margin-top: 3px;
+    font-size: 11px;
+}

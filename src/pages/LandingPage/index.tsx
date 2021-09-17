@@ -72,7 +72,7 @@ export const LandingPage: React.FC = () => {
                     </div>
                 </div>
 
-                <LandingFooter isRegister={isRegister}/>
+                <LandingFooter/>
 
             </div>
         </div>

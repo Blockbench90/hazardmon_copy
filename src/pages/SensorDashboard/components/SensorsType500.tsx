@@ -7,6 +7,9 @@ import success from "../../../assets/icons/success_sensor.svg";
 import notify from "../../../assets/icons/notify_sensor.svg";
 import not_scanned from "../../../assets/icons/not_scaned.svg";
 
+import {ReactComponent as TemperatureDown} from "../../../assets/icons/temperature_down.svg";
+import {ReactComponent as Celsium} from "../../../assets/icons/celsium.svg";
+
 import classes from "../SensorDashboard.module.scss";
 
 interface SensorsType500Props {
@@ -17,6 +20,7 @@ interface SensorsType500Props {
     isAlarmedGroup?: boolean
 }
 
+
 const SensorsType500: React.FC<SensorsType500Props> = ({
                                                            wsGroup,
                                                            groupNumber,
@@ -24,6 +28,14 @@ const SensorsType500: React.FC<SensorsType500Props> = ({
                                                            filter_status,
                                                            isAlarmedGroup,
                                                        }) => {
+    let ambient;
+    wsGroup?.sensors?.forEach((item, index) => {
+        if (item?.Name === "Ambient") {
+            ambient = item.Value;
+            return;
+        }
+    });
+
     let _Type;
     for (let i in wsGroup.sensors) {
         let sensor = wsGroup.sensors[i];
@@ -47,7 +59,7 @@ const SensorsType500: React.FC<SensorsType500Props> = ({
                     {
                         ["OK", "Alarm"].includes(wsGroup.Status)
                             ?
-                             <img src={   wsGroup.Status === "OK" ? success : notify} alt="success"/>
+                            <img src={wsGroup.Status === "OK" ? success : notify} alt="success"/>
                             :
                             <img src={not_scanned} alt="not_scanned"/>
                     }
@@ -55,8 +67,20 @@ const SensorsType500: React.FC<SensorsType500Props> = ({
                     {
                         ["OK", "Alarm"].includes(wsGroup.Status)
                             ?
-                            <span
-                                className={clsx(wsGroup.Status === "Alarm" && classes.groupTitleAlarm)}>{`${wsGroup.Name}: ${wsGroup.Status}`}</span>
+                            <span className={clsx(wsGroup.Status === "Alarm" && classes.groupTitleAlarm)}>
+                                {`${wsGroup.Name}: ${wsGroup.Status}`}
+                                {
+                                    ambient
+                                    &&
+                                    <React.Fragment>
+                                        <TemperatureDown className={classes.groupTemperatureDown}
+                                                         style={{fontSize: "16px"}}/>
+                                        <span className={classes.groupDegrees}>{ambient ? ambient : ""}</span>
+                                        <Celsium className={classes.groupCelsium}/>
+                                    </React.Fragment>
+                                }
+                            </span>
+
                             :
                             <span style={{fontSize: "12px"}}>{`${wsGroup.Name}: Not Scanned`}</span>
                     }
@@ -75,6 +99,9 @@ const SensorsType500: React.FC<SensorsType500Props> = ({
             <div className={classes.sensorsGroupBlock}>
                 {
                     wsGroup?.sensors?.map((item, index) => {
+                        if (item?.Name === "Ambient") {
+                            return null;
+                        }
                         return (
                             <SensorWrap sensor={item} key={`${item.Id}${index}1-1`}
                                         sensorNumber={index + 1}

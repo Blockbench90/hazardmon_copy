@@ -2,7 +2,7 @@ import React from "react";
 import {Alert} from "antd";
 import {useDispatch, useSelector} from "react-redux";
 
-import {LoadingStatus} from "../../store/types";
+import {LoadingStatus} from "../../store/status";
 import {userAC} from "../../store/branches/user/actionCreators";
 import {selectUserState} from "../../store/selectors";
 import {WinStorage} from "../../services/AuthSrorage";

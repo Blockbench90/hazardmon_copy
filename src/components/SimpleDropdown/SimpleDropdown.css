@@ -1,0 +1,13 @@
+.simple-dropdown {
+  position: relative;
+  display: flex; }
+  .simple-dropdown__trigger {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0; }
+  .simple-dropdown__value {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    z-index: 9999; }

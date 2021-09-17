@@ -1,22 +1,32 @@
-import Clients from "../../../pages/Clients"
-import Sites from "../../../pages/Sites"
-import EditSite from "../../EditSite"
-import Devices from "../../../pages/Devices"
-import SensorDashboard from "../../../pages/SensorDashboard"
-import SensorGraphsPage from "../../../pages/SensorGraphs"
-import Notifications from "../../../pages/Notifications"
-import Analytics from "../../../pages/Analytics"
-import VisualDashboard from "../../../pages/VisualDashboard"
+import Clients from "../../../pages/Clients";
+import Sites from "../../../pages/Sites";
+import EditSite from "../../EditSite";
+import Devices from "../../../pages/Devices";
+import SensorDashboard from "../../../pages/SensorDashboard";
+import SensorGraphsPage from "../../../pages/SensorGraphs";
+import Notifications from "../../../pages/Notifications";
+import Analytics from "../../../pages/Analytics";
+import VisualDashboard from "../../../pages/VisualDashboard";
 import {
     ADD_CLIENT,
-    ADD_DEVICE, ADD_SITE,
+    ADD_DEVICE,
+    ADD_EMAIL_NOTIFICATIONS,
+    ADD_SITE,
     ADD_USER,
     ANALYTICS,
     CLIENTS,
-    CURRENT_DEVICES, CUSTOM_HISTORICAL_GRAPHS,
-    DEVICES, EDIT_CLIENT,
-    EDIT_DEVICE, EDIT_EMAIL_NOTIFICATIONS, EDIT_SENSORS_NAMES, EDIT_SENSORS_TYPES,
-    EDIT_SITES, EDIT_WARNINGS, ADD_EMAIL_NOTIFICATIONS, EMAIL_NOTIFICATIONS, HISTORICAL,
+    CURRENT_DEVICES,
+    CUSTOM_HISTORICAL_GRAPHS,
+    DEVICES,
+    EDIT_CLIENT,
+    EDIT_DEVICE,
+    EDIT_EMAIL_NOTIFICATIONS,
+    EDIT_SENSORS_NAMES,
+    EDIT_SENSORS_TYPES,
+    EDIT_SITES,
+    EDIT_WARNINGS,
+    EMAIL_NOTIFICATIONS,
+    HISTORICAL,
     NOTIFICATIONS,
     SENSOR_DASHBOARD,
     SENSOR_GRAPHS,
@@ -24,119 +34,141 @@ import {
     USER_SETTING,
     VISUAL_DASHBOARD,
 } from "./constants";
-import AddUser from "../../AddUser"
-import UserSetting from "../../UserSetting"
-import AddDevice from "../../AddDevice"
-import EditDevice from "../../EditDevice"
-import EditSensorsNames from "../../EditSensorNames"
-import EditWarnings from "../../EditWarnings"
-import EditSensorsSettings from "../../EditSensorSettings"
-import Historical from "../../Historical"
-import AddClient from "../../AddClient"
-import CustomHistoricalGraphs from "../../CustomHistoricalGraphs"
-import AddSite from "../../AddSite"
+import AddUser from "../../AddUser";
+import UserSetting from "../../UserSetting";
+import AddDevice from "../../AddDevice";
+import EditDevice from "../../EditDevice";
+import EditSensorsNames from "../../EditSensorNames";
+import EditWarnings from "../../EditWarnings";
+import EditSensorsSettings from "../../EditSensorSettings";
+import Historical from "../../Historical";
+import AddClient from "../../AddClient";
+import CustomHistoricalGraphs from "../../CustomHistoricalGraphs";
+import AddSite from "../../AddSite";
 import EmailNotifications from "../../EmailNotificationsTable";
 import AddEmailNotification from "../../AddEmailNotification";
+import urls from "../../../constants/urls";
 
 
 export const privateRoutes = [
     {
         path: CLIENTS,
-        Component: Clients
+        Component: Clients,
     },
     {
         path: ADD_CLIENT,
-        Component: AddClient
+        Component: AddClient,
     },
     {
         path: EDIT_CLIENT,
-        Component: AddClient
+        Component: AddClient,
     },
     {
         path: SITES,
-        Component: Sites
+        Component: Sites,
     },
     {
         path: ADD_SITE,
-        Component: AddSite
+        Component: AddSite,
     },
     {
         path: EDIT_SITES,
-        Component: EditSite
+        Component: EditSite,
     },
     {
         path: EDIT_WARNINGS,
-        Component: EditWarnings
+        Component: EditWarnings,
     },
     {
         path: HISTORICAL,
-        Component: Historical
+        Component: Historical,
     },
     {
         path: EDIT_SENSORS_NAMES,
-        Component: EditSensorsNames
+        Component: EditSensorsNames,
     },
     {
         path: EDIT_SENSORS_TYPES,
-        Component: EditSensorsSettings
+        Component: EditSensorsSettings,
     },
     {
         path: ADD_USER,
-        Component: AddUser
+        Component: AddUser,
     },
     {
         path: USER_SETTING,
-        Component: UserSetting
+        Component: UserSetting,
     },
     {
         path: EMAIL_NOTIFICATIONS,
-        Component: EmailNotifications
+        Component: EmailNotifications,
     },
     {
         path: ADD_EMAIL_NOTIFICATIONS,
-        Component: AddEmailNotification
+        Component: AddEmailNotification,
     },
     {
         path: EDIT_EMAIL_NOTIFICATIONS,
-        Component: AddEmailNotification
+        Component: AddEmailNotification,
     },
     {
         path: [DEVICES, CURRENT_DEVICES],
-        Component: Devices
+        Component: Devices,
     },
     {
         path: ADD_DEVICE,
-        Component: AddDevice
+        Component: AddDevice,
     },
     {
         path: EDIT_DEVICE,
-        Component: EditDevice
+        Component: EditDevice,
     },
     {
         path: SENSOR_DASHBOARD,
-        Component: SensorDashboard
+        Component: SensorDashboard,
     },
     {
         path: SENSOR_GRAPHS,
-        Component: SensorGraphsPage
+        Component: SensorGraphsPage,
     },
     {
         path: CUSTOM_HISTORICAL_GRAPHS,
-        Component: CustomHistoricalGraphs
+        Component: CustomHistoricalGraphs,
     },
     {
         path: NOTIFICATIONS,
-        Component: Notifications
-    }
-]
+        Component: Notifications,
+    },
+];
+
 
 export const adminRoutes = [
     {
         path: ANALYTICS,
-        Component: Analytics
+        Component: Analytics,
     },
     {
         path: VISUAL_DASHBOARD,
-        Component: VisualDashboard
-    }
-]
+        Component: VisualDashboard,
+    },
+    {
+        path: urls.newSchema,
+        Component: VisualDashboard,
+    },
+    {
+        path: urls.schemaDetails,
+        Component: VisualDashboard,
+    },
+    {
+        path: urls.tabNew,
+        Component: VisualDashboard,
+    },
+    {
+        path: urls.tabEdit,
+        Component: VisualDashboard,
+    },
+    {
+        path: urls.machineDetails,
+        Component: VisualDashboard,
+    },
+];

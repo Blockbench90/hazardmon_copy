@@ -9,7 +9,7 @@ import {Device} from "../../store/branches/devices/stateTypes";
 import {sitesAC} from "../../store/branches/sites/actionCreators";
 import DeviceAlert from "../Alerts/device";
 import {usePermissions} from "../../hooks/usePermissions";
-import {LoadingStatus} from "../../store/types";
+import {LoadingStatus} from "../../store/status";
 import Preloader from "../Preloader";
 import {selectDevicesState, selectSitesState} from "../../store/selectors";
 import {getKeyByValue} from "../../helpers/getKeyByValue";

@@ -1,0 +1,44 @@
+.machine-sensors .device-block {
+  margin-bottom: 20px; }
+  .machine-sensors .device-block .device-name {
+    font-size: 18px;
+    margin-bottom: 10px; }
+
+.machine-sensors .sensor-group-name {
+  background-color: #e8e7cd;
+  color: #222;
+  padding: 5px;
+  font-size: 13px; }
+  .machine-sensors .sensor-group-name.Alarm {
+    color: #ff0000; }
+  .machine-sensors .sensor-group-name.WARNING {
+    color: #ffbf00; }
+
+.machine-sensors .sensors {
+  display: flex;
+  flex-wrap: wrap; }
+  .machine-sensors .sensors .sensor-info {
+    width: 180px;
+    height: 95px;
+    padding: 10px 6px;
+    box-shadow: 0 0 5px 2px #85cb72;
+    margin: 15px 15px 15px 5px;
+    flex: 0 0 auto; }
+    .machine-sensors .sensors .sensor-info.Alarm {
+      background-color: #ff0000;
+      box-shadow: 0 0 5px 2px #ff0000;
+      color: #ffffff; }
+    .machine-sensors .sensors .sensor-info.WARNING {
+      background-color: #ffbf00;
+      box-shadow: 0 0 5px 2px #ffbf00;
+      color: #ffffff; }
+    .machine-sensors .sensors .sensor-info .sensor-name {
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 5px; }
+    .machine-sensors .sensors .sensor-info .status {
+      font-size: 14px;
+      margin-bottom: 10px; }
+    .machine-sensors .sensors .sensor-info .value {
+      font-size: 13px;
+      text-align: right; }

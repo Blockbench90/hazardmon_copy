@@ -9,7 +9,7 @@ import NotificationsForm from "./components/NotificationsForm";
 import {mapNotificationsData} from "./components/Colums";
 import TableNotifications from "./components/TableNotifications";
 import {userAC} from "../../store/branches/user/actionCreators";
-import {LoadingStatus} from "../../store/types";
+import {LoadingStatus} from "../../store/status";
 import Preloader from "../../components/Preloader";
 
 import {Site} from "../../store/branches/sites/stateTypes";

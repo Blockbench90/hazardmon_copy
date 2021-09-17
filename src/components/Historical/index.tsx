@@ -5,7 +5,7 @@ import Empty from "antd/lib/empty";
 import HistoricalHeader from "./components/HistoricalHeader";
 import SearchBlock from "./components/SearchBlock";
 import DashboardAlert from "../Alerts/dachboard";
-import {LoadingStatus} from "../../store/types";
+import {LoadingStatus} from "../../store/status";
 import Preloader from "../Preloader";
 import HistoricalTable from "./components/HistoricalTable";
 import {sensorsAC} from "../../store/branches/sensors/actionCreators";

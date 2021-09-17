@@ -1,0 +1,22 @@
+.modify-published-modal {
+  max-width: 330px; }
+  .modify-published-modal h3 {
+    font-size: 24px;
+    text-align: center;
+    font-weight: bold;
+    color: #025230;
+    margin-bottom: 15px; }
+  .modify-published-modal h4 {
+    margin-bottom: 40px; }
+  .modify-published-modal label {
+    display: block;
+    margin-bottom: 5px; }
+  .modify-published-modal input {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 5px 10px; }
+  .modify-published-modal .buttons-container {
+    display: flex;
+    justify-content: center; }
+    .modify-published-modal .buttons-container .btn {
+      margin-right: 10px; }

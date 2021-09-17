@@ -6,7 +6,7 @@ import moment from "moment";
 import {CustomButton} from "../../../components/Button";
 import InputWrap from "../../../components/InputWrap";
 import {useCurrentSelection} from "../../../hooks/useCurrentSelection";
-import {LoadingStatus} from "../../../store/types";
+import {LoadingStatus} from "../../../store/status";
 import {getCorrectDate} from "../../../helpers/getDateAnalytics";
 import { analyticsAC } from "../../../store/branches/analytics/actionCreators";
 
@@ -51,7 +51,7 @@ const SearchBlockAnalytics: React.FC<SearchProps> = ({
                 <InputWrap title="From" className={classes.inputWrap}>
                     <DatePicker
                         size="large"
-                        defaultValue={moment(moment().startOf("month").format("YY-MM-DD"), dateFormatList)}
+                        value={moment(from, dateFormatList)}
                         className={classes.datePicker}
                         placeholder="Data"
                         inputReadOnly={true}
@@ -65,7 +65,7 @@ const SearchBlockAnalytics: React.FC<SearchProps> = ({
                     <DatePicker
                         size="large"
                         className={classes.datePicker}
-                        defaultValue={moment(moment().format("YY-MM-DD"), dateFormatList)}
+                        value={moment(to, dateFormatList)}
                         placeholder="Data"
                         inputReadOnly={true}
                         onChange={onSelectTo}

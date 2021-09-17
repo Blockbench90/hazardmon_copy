@@ -1,5 +1,5 @@
 import produce, {Draft} from "immer"
-import {LoadingStatus} from "../../types"
+import {LoadingStatus} from "../../status"
 import {ClientsState} from "./stateTypes"
 import {ClientsActions} from "./actionCreators"
 import {ClientsAT} from "./actionTypes"

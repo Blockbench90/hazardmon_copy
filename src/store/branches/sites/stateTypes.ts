@@ -1,4 +1,4 @@
-import {LoadingStatus} from "../../types"
+import {LoadingStatus} from "../../status"
 import {Device} from "../devices/stateTypes"
 
 export interface AddSite {

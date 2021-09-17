@@ -163,10 +163,10 @@ const SideBarComponent: React.FC<SideBarProps> = ({
                     {
                         isVisualDashboard
                         &&
-                        <Menu.Item key="visual" icon={<Visual/>}
+                        <Menu.Item key="visual-dashboard" icon={<Visual/>}
                                    className={clsx(classes.visual,
                                        collapsed ? classes.sizeVisualSmall : classes.sizeVisualBig)}>
-                            <Link to="/visual">
+                            <Link to="/visual-dashboard/site/4/schemas">
                                 Visual Dashboard
                             </Link>
                         </Menu.Item>

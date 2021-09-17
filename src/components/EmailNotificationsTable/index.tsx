@@ -6,7 +6,7 @@ import EmailNotificationsTable from "./components/EmailNotificationsTable";
 import {userAC} from "../../store/branches/user/actionCreators";
 import {selectUserState} from "../../store/selectors";
 import Preloader from "../Preloader";
-import {LoadingStatus} from "../../store/types";
+import {LoadingStatus} from "../../store/status";
 import {mapEmailNotificationsData} from "./components/Colums";
 
 

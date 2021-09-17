@@ -9,7 +9,7 @@ import {AddNewBlock} from "../../components/AddNewBlock";
 import SitesBlock from "./components/SitesBlock";
 import HeaderSites from "./components/HeaderSites";
 import Preloader from "../../components/Preloader";
-import {LoadingStatus} from "../../store/types";
+import {LoadingStatus} from "../../store/status";
 import SitesAlert from "../../components/Alerts/sites";
 import UserAlert from "../../components/Alerts/user";
 

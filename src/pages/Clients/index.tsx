@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
 
-import {LoadingStatus} from "../../store/types";
+import {LoadingStatus} from "../../store/status";
 import HeaderClients from "./components/HeaderClients";
 import {sitesAC} from "../../store/branches/sites/actionCreators";
 import ClientAlert from "../../components/Alerts/clients";

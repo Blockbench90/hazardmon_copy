@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import {sensorsAC} from "../store/branches/sensors/actionCreators";
-import {LoadingStatus} from "../store/types";
+import {LoadingStatus} from "../store/status";
 
 export const useSocketSensors = (path: string) => {
     const dispatch = useDispatch()

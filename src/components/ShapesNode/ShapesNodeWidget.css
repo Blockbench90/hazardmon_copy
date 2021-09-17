@@ -1,0 +1,23 @@
+.vd-shape {
+  position: relative; }
+  .vd-shape.rectangle {
+    box-sizing: border-box;
+    border: 3px solid #000;
+    border-radius: 5px; }
+  .vd-shape.circle {
+    box-sizing: border-box;
+    border: 3px solid #000;
+    border-radius: 50%; }
+  .vd-shape.line {
+    box-sizing: border-box;
+    background: #000;
+    border: 1.5px solid #000;
+    border-radius: 3px; }
+  .srd-node--selected .vd-shape {
+    border-color: #00c0ff; }
+
+.single-resizer {
+  display: none;
+  border: none; }
+  .srd-node--selected .single-resizer {
+    display: block; }

@@ -1,0 +1,117 @@
+.fullscreen-enabled {
+    overflow: auto;
+    background: #ffffff;
+}
+
+.dashboard-base {
+    /*background: linear-gradient(to bottom, #dddddd 0%, #ffffff 4%, #ffffff 100%);*/
+    padding: 10px;
+    /*border: 1px solid #ddd;*/
+    position: relative;
+    /*max-width: 1200px;*/
+    margin: 30px auto 0;
+}
+
+.dashboard-base.full-screen {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    max-width: none;
+}
+
+.dashboard-base.sidebar-hided h1 {
+    margin-left: 45px;
+}
+
+.dashboard-base.sidebar-hided .main-wrapper aside {
+    width: auto;
+}
+
+.dashboard-base .extend-sidebar-button-container {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.dashboard-base h1 {
+    font-size: 24px;
+    color: #333;
+    padding: 14px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dashboard-base h1 > div {
+    flex: 1;
+}
+
+.dashboard-base h1 .toggle-button {
+    border: none;
+    padding: 0;
+    background: none;
+    font-size: 20px;
+    display: block;
+    height: 20px;
+    margin-left: 10px;
+}
+
+.dashboard-base .main-wrapper {
+    display: flex;
+    background-color: #EEF0EC;
+    padding: 10px;
+}
+.dashboard-base .details-wrapper {
+    background-color: #F9F9F9 !important;
+}
+
+.list-wrapper {
+    flex-direction: row-reverse;
+}
+
+.editor-types {
+    background: #F1F1F1;
+    border: 1px solid #CAD0D3;
+    box-sizing: border-box;
+    border-radius: 3px;
+}
+
+.list-content {
+    width: 100% !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+}
+.list-wrapper a {
+     font-size: 14px !important;
+     line-height: 1.5715 !important;
+     text-decoration-line: none !important;
+     text-transform: none !important;
+}
+
+.dashboard-base .main-wrapper.full-height {
+    height: 100%;
+}
+
+.dashboard-base .main-wrapper aside {
+    width: calc(17% - 10px);
+    padding-right: 10px;
+    max-width: 240px;
+}
+
+@media (max-width: 768px) {
+    .dashboard-base .main-wrapper aside {
+        width: calc(27% - 10px);
+    }
+}
+
+.dashboard-base .main-wrapper .content {
+    width: 80%;
+    flex: 1 1 auto;
+}
+
+@media (max-width: 768px) {
+    .dashboard-base .main-wrapper .content {
+        width: 70%;
+        overflow: auto;
+    }
+}

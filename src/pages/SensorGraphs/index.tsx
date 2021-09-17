@@ -5,7 +5,7 @@ import {GraphsDate} from "../../store/branches/graphs/stateTypes";
 import HeaderSensorGraphs from "./components/HeaderSensorGraphs";
 import SensorGraph from "../../components/GraphsChart/SensorGraph";
 import GraphsAlert from "../../components/Alerts/graphs";
-import {LoadingStatus} from "../../store/types";
+import {LoadingStatus} from "../../store/status";
 import {useCurrentSelection} from "../../hooks/useCurrentSelection";
 import {selectGraphsState} from "../../store/selectors";
 import { graphsAC } from "../../store/branches/graphs/actionCreators";

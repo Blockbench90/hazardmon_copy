@@ -6,7 +6,7 @@ import {Spin} from "antd";
 
 import {ReactComponent as ExportLink} from "../../../assets/icons/export_link.svg";
 import {devicesAC} from "../../../store/branches/devices/actionCreators";
-import {LoadingStatus} from "../../../store/types";
+import {LoadingStatus} from "../../../store/status";
 
 import classes from "../Notifications.module.scss";
 import { useHistory } from "react-router-dom";

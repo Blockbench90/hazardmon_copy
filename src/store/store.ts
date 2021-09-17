@@ -30,6 +30,9 @@ export interface RootState {
     sensors: SensorsState
     graphs: GraphsState
     analytics: AnalyticsState
+    authReducer: any
+    form: any
+    schemasReducer: any
 }
 
 export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(sagaMiddleware)));

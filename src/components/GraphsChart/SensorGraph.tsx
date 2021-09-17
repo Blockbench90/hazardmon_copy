@@ -2,7 +2,7 @@ import React from "react";
 import _ from "lodash";
 import Empty from "antd/lib/empty";
 
-import {LoadingStatus} from "../../store/types";
+import {LoadingStatus} from "../../store/status";
 import {GraphsState} from "../../store/branches/graphs/stateTypes";
 
 import RenderGraph from "../../pages/SensorGraphs/components/RenderGraph";

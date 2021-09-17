@@ -6,6 +6,8 @@ import {sitesSaga} from "./branches/sites/sagas";
 import {sensorsSaga} from "./branches/sensors/sagas";
 import {graphsSaga} from "./branches/graphs/sagas";
 import {analyticsSaga} from "./branches/analytics/sagas";
+import authSaga from "./branches/visual-dashboard/authSaga";
+import schemaSaga from "./branches/visual-dashboard/schemaSagas";
 
 export default function* rootSaga() {
     yield all([
@@ -15,6 +17,8 @@ export default function* rootSaga() {
         devicesSaga(),
         sensorsSaga(),
         graphsSaga(),
-        analyticsSaga()
+        analyticsSaga(),
+        authSaga(),
+        schemaSaga()
     ]);
 }

@@ -5,7 +5,7 @@ import {useForm} from "antd/lib/form/Form";
 import UserSettingForm from "./components/UserSettingForm";
 import {useDispatch, useSelector} from "react-redux";
 import {userAC} from "../../store/branches/user/actionCreators";
-import {LoadingStatus} from "../../store/types";
+import {LoadingStatus} from "../../store/status";
 import UserAlert from "../Alerts/user";
 import Empty from "antd/lib/empty";
 import {WinStorage} from "../../services/AuthSrorage";

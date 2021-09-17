@@ -1,4 +1,4 @@
-import {LoadingStatus} from "../../types";
+import {LoadingStatus} from "../../status";
 
 export enum GraphsDate {
     hour = "hour",

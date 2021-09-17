@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Alert} from "antd";
 
 import {WinStorage} from "../../services/AuthSrorage";
-import {LoadingStatus} from "../../store/types";
+import {LoadingStatus} from "../../store/status";
 import {selectGraphsState} from "../../store/selectors";
 import {graphsAC} from "../../store/branches/graphs/actionCreators";
 

@@ -1,19 +1,21 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import {DatePicker, TimePicker} from "antd";
 
 import {sensorsAC} from "../../../store/branches/sensors/actionCreators";
 import {CustomButton} from "../../Button";
 import {useCurrentSelection} from "../../../hooks/useCurrentSelection";
-import {LoadingStatus} from "../../../store/types";
+import {LoadingStatus} from "../../../store/status";
 
 import classes from "../Historical.module.scss";
+import {WinStorage} from "../../../services/AuthSrorage";
+import moment from "moment";
 
 interface SearchProps {
     limit: number
     offset: number
     setCurrentTime: ({date, time}: { date: string, time: string }) => void
-    setPagination: ({page, pageSize}: {page: number, pageSize: number}) => void
+    setPagination: ({page, pageSize}: { page: number, pageSize: number }) => void
 }
 
 const SearchBlock: React.FC<SearchProps> = ({limit, offset, setCurrentTime, setPagination}) => {
@@ -25,9 +27,11 @@ const SearchBlock: React.FC<SearchProps> = ({limit, offset, setCurrentTime, setP
     const dateFormatList = ["YYYY-MM-DD"];
     const format = "HH:mm";
 
+    const initTime = WinStorage.getLocalTime();
+
     const onSearch = () => {
         setCurrentTime({date, time});
-        setPagination({page: 1, pageSize: 60})
+        setPagination({page: 1, pageSize: 60});
 
         if (!device) {
             dispatch(sensorsAC.setSensorsStatusOperation(LoadingStatus.FETCH_SENSORS_WITHOUT_DEVICE));
@@ -39,6 +43,12 @@ const SearchBlock: React.FC<SearchProps> = ({limit, offset, setCurrentTime, setP
         };
         dispatch(sensorsAC.fetchHistoricalGraphs(payload));
     };
+    useEffect(() => {
+        if (initTime) {
+            setTime(initTime.time);
+            setDate(initTime.date);
+        }
+    }, [initTime]);
 
     return (
         <React.Fragment>
@@ -49,6 +59,8 @@ const SearchBlock: React.FC<SearchProps> = ({limit, offset, setCurrentTime, setP
                             size="large"
                             className={classes.datePicker}
                             placeholder="Data"
+                            value={moment(initTime.date, dateFormatList)}
+                            // defaultValue={moment(initTime.date, dateFormatList)}
                             inputReadOnly={true}
                             onChange={(date: any, dateString: string) => setDate(dateString)}
                             format={dateFormatList}
@@ -58,6 +70,7 @@ const SearchBlock: React.FC<SearchProps> = ({limit, offset, setCurrentTime, setP
                                     inputReadOnly={true}
                                     placeholder="Time"
                                     size="large"
+                                    value={moment(initTime.time, format)}
                                     className={classes.timePicker}
                                     onChange={(value: any, timeString: string) => setTime(timeString)}
                         />
@@ -66,7 +79,6 @@ const SearchBlock: React.FC<SearchProps> = ({limit, offset, setCurrentTime, setP
                                       height="40px"
                                       padding="0"
                                       htmlType="button"
-                                      disabled={!date || !time}
                                       className={classes.buttonTitle}
                                       onClick={onSearch}
                         >

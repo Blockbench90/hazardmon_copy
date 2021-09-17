@@ -8,7 +8,7 @@ import {sensorsAC} from "../../store/branches/sensors/actionCreators";
 import {useCurrentSelection} from "../../hooks/useCurrentSelection";
 import EditSensorsSettingsForm from "./components/EditSensorsSettingsForm";
 import DashboardAlert from "../Alerts/dachboard";
-import {LoadingStatus} from "../../store/types";
+import {LoadingStatus} from "../../store/status";
 import {selectSensorsState} from "../../store/selectors";
 import Spinner from "../Spinner";
 
@@ -20,7 +20,7 @@ const EditSensorsSettings: React.FC = () => {
 
     const {device} = useCurrentSelection();
     const {status, sensorSettings, units} = useSelector(selectSensorsState);
-
+    
     const isCorrectDevice = ["0005", "0006"].includes(device?.device_type);
 
     const onSubmit = (values: any) => {
@@ -37,6 +37,7 @@ const EditSensorsSettings: React.FC = () => {
             }
             obj[valueId][valueName] = newValue;
         });
+
         dispatch(sensorsAC.addSensorSettings({device_id: device.id, data: {"sensor_types": obj}}));
     };
 

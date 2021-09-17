@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Tabs} from "antd";
 import {useDispatch} from "react-redux";
 import {useHistory} from "react-router-dom";
@@ -8,13 +8,13 @@ import {ReactComponent as HR} from "../../assets/icons/HR.svg";
 import {ReactComponent as Day} from "../../assets/icons/Day.svg";
 import {ReactComponent as Custom} from "../../assets/icons/custom.svg";
 
-import {LoadingStatus} from "../../store/types";
+import {LoadingStatus} from "../../store/status";
 import {GraphsDate} from "../../store/branches/graphs/stateTypes";
 import {CUSTOM_HISTORICAL_GRAPHS, SENSOR_GRAPHS} from "../PrivateRoute/components/constants";
 import CustomModal from "./CustomModal";
 import {useCurrentSelection} from "../../hooks/useCurrentSelection";
 import {WinStorage} from "../../services/AuthSrorage";
-import { graphsAC } from "../../store/branches/graphs/actionCreators";
+import {graphsAC} from "../../store/branches/graphs/actionCreators";
 
 import classes from "../TabsSensorDashboard/TabsSensorDashboard.module.scss";
 
@@ -26,6 +26,9 @@ const TabsSensorGraphs: React.FC = () => {
 
     const [active, setActive] = useState<boolean>(true);
     const [modal, setModal] = useState(false);
+
+    // const [isLive, setLive] = useState(false);
+    // const [intervalId, setIntervalId] = useState<NodeJS.Timeout>();
 
     const {device} = useCurrentSelection();
 
@@ -66,6 +69,31 @@ const TabsSensorGraphs: React.FC = () => {
         WinStorage.setTimescale(date);
     };
 
+    const onLive = () => {
+        console.log("device ===>", device.id, "<=== done");
+        // setLive(true);
+        // dispatch(graphsAC.getLiveGraphsData(device.id));
+    };
+
+    // useEffect(() => {
+    //     if (isLive) {
+    //         if (!device) {
+    //             dispatch(graphsAC.setGraphsStatusOperation(LoadingStatus.WITHOUT_SELECTED_DEVICE_GRAPHS_ERROR));
+    //             return;
+    //         }
+    //         const id: NodeJS.Timeout = setInterval(() => {
+    //             // dispatch(graphsAC.getLiveGraphsData(device.id));
+    //             console.log("tik ===> ", id);
+    //         }, 2000);
+    //         setIntervalId(id);
+    //     }
+    //
+    //     return () => {
+    //         clearInterval(intervalId);
+    //         setLive(false)
+    //     };
+    // }, [isLive]);
+
     return (
         <div className={classes.wrap}>
             <div className="d-flex">
@@ -83,7 +111,7 @@ const TabsSensorGraphs: React.FC = () => {
 
                         <TabPane className={classes.tab}
                                  tab={
-                                     <div>
+                                     <div onClick={onLive}>
                                          <Live/>
                                          <span className={classes.title}>Live</span>
                                      </div>

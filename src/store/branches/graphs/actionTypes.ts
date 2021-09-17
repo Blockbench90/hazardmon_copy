@@ -1,11 +1,12 @@
 import {Action} from "redux";
-import {LoadingStatus} from "../../types";
+import {LoadingStatus} from "../../status";
 import {FetchCustomGraphs, FetchGraphs} from "./stateTypes"
 
 export enum GraphsAT {
     FETCH_GRAPHS_DATA = "graphs/FETCH_GRAPHS_DATA",
     FETCH_CUSTOM_GRAPHS_DATA = "graphs/FETCH_CUSTOM_GRAPHS_DATA",
     SET_GRAPHS_DATA = "graphs/SET_GRAPHS_DATA",
+    GET_LIVE_GRAPHS_DATA = "graphs/GET_LIVE_GRAPHS_DATA",
     SET_LOADING_STATUS_GRAPHS = "graphs/SET_LOADING_STATUS_GRAPHS",
     SET_GRAPHS_STATUS_OPERATION = "graphs/SET_GRAPHS_STATUS_OPERATION",
     EXPORT_GRAPHS_PNG = "graphs/EXPORT_GRAPHS_PNG",
@@ -45,6 +46,11 @@ export interface ExportGraphsPNGAI extends Action<GraphsAT> {
 
 export interface ClearGraphsStateAI extends Action<GraphsAT> {
     type: GraphsAT.CLEAR_GRAPHS_STATE;
+}
+
+export interface GetLiveGraphsDataAI extends Action<GraphsAT> {
+    type: GraphsAT.GET_LIVE_GRAPHS_DATA;
+    payload: number
 }
 
 

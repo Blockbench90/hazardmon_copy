@@ -5,7 +5,7 @@ import clsx from "clsx";
 import {Checkbox, Form, Input} from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import {Client} from "../../../store/branches/clients/stateTypes";
-import {LoadingStatus} from "../../../store/types";
+import {LoadingStatus} from "../../../store/status";
 import InputWrap from "../../InputWrap";
 import Preloader from "../../Preloader";
 import HeaderFormAddClient from "./HeaderForm";

@@ -1,0 +1,30 @@
+.locations {
+  margin-bottom: 20px;
+  padding: 10px 0; }
+  .locations .Collapsible__trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 3px 15px;
+    color: #3a89c9;
+    font-size: 13px;
+    line-height: 20px;
+    cursor: pointer; }
+    .locations .Collapsible__trigger svg {
+      flex: 0 0 auto;
+      color: #333; }
+  .locations .Collapsible__contentOuter {
+    margin-left: 25px; }
+    .locations .Collapsible__contentOuter .tab {
+      display: block;
+      padding: 0 15px;
+      color: #3a89c9;
+      font-size: 13px;
+      line-height: 20px;
+      cursor: pointer; }
+      .locations .Collapsible__contentOuter .tab:hover, .locations .Collapsible__contentOuter .tab.selected {
+        color: #3a89c9; }
+      .locations .Collapsible__contentOuter .tab.warning {
+        color: #F6A20A !important; }
+      .locations .Collapsible__contentOuter .tab.alarm {
+        color: #ff0000 !important; }

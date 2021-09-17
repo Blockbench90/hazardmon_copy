@@ -7,7 +7,7 @@ import {CustomButton} from "../../Button";
 
 import { graphsAC } from "../../../store/branches/graphs/actionCreators";
 import {useCurrentSelection} from "../../../hooks/useCurrentSelection";
-import {LoadingStatus} from "../../../store/types";
+import {LoadingStatus} from "../../../store/status";
 
 import classes from "../CustomHistoricalGraphs.module.scss";
 

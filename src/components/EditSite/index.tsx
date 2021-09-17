@@ -8,7 +8,7 @@ import {sitesAC} from "../../store/branches/sites/actionCreators";
 import EditSiteInputs from "../EditSiteInputs";
 import HeaderFormEditSite from "./components/HeaderForm";
 import SitesAlert from "../Alerts/sites";
-import {LoadingStatus} from "../../store/types";
+import {LoadingStatus} from "../../store/status";
 import Preloader from "../Preloader";
 import {useCurrentSelection} from "../../hooks/useCurrentSelection";
 import {selectSitesState} from "../../store/selectors";

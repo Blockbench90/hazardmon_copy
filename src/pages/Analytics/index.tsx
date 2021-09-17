@@ -7,7 +7,7 @@ import SearchBlockAnalytics from "./components/SearchBlockAnalytics";
 import AnalyticTabs from "./components/AnalyticTabs";
 import AnalyticsAlert from "../../components/Alerts/analytics";
 import {useCurrentSelection} from "../../hooks/useCurrentSelection";
-import {LoadingStatus} from "../../store/types";
+import {LoadingStatus} from "../../store/status";
 import Preloader from "../../components/Preloader";
 import {getCorrectDate} from "../../helpers/getDateAnalytics";
 import {selectAnalyticsState} from "../../store/selectors";
@@ -16,8 +16,10 @@ import {analyticsAC} from "../../store/branches/analytics/actionCreators";
 import classes from "./Analytics.module.scss";
 
 const Analytics: React.FC = () => {
-    const [from, setFrom] = useState<string>("");
-    const [to, setTo] = useState<string>("");
+    const startMonth = moment().startOf("month").format("YYYY-MM-DD");
+    const today = moment().format("YYYY-MM-DD");
+    const [from, setFrom] = useState<string>(startMonth);
+    const [to, setTo] = useState<string>(today);
 
     const dispatch = useDispatch();
     const {device} = useCurrentSelection();
@@ -42,20 +44,16 @@ const Analytics: React.FC = () => {
         };
     }, [dispatch, device]);
 
+
     useEffect(() => {
-        const from = moment().startOf("month").format("YYYY-MM-DD");
-        const to = moment().format("YYYY-MM-DD");
-
-        onSelectFrom("", from);
-        onSelectTo("", to);
-
         const data = {
-            from: getCorrectDate(from),
-            to: getCorrectDate(to),
+            from: getCorrectDate(startMonth),
+            to: getCorrectDate(today),
             device_id: device?.id,
         };
+        
         dispatch(analyticsAC.fetchAnalytics(data));
-    }, [onSelectFrom, onSelectTo, device, dispatch]);
+    }, [today, startMonth, device, dispatch]);
 
 
     return (

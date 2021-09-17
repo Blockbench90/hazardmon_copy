@@ -1,5 +1,5 @@
 import {Action} from "redux";
-import {LoadingStatus} from "../../types";
+import {LoadingStatus} from "../../status";
 import {AnalyticsState, RequestPayloadAnalytics} from "./stateTypes";
 
 

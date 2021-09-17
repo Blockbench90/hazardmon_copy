@@ -1,0 +1,10 @@
+.confirmation-modal {
+  background-color: #fff; }
+  .confirmation-modal .body {
+    max-width: 350px; }
+  .confirmation-modal .buttons-container {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center; }
+    .confirmation-modal .buttons-container .btn:first-child {
+      margin-right: 10px; }

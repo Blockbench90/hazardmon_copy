@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {Route, useHistory} from "react-router-dom";
@@ -55,13 +56,13 @@ const HeaderComponent: React.FC<HeaderProps> = ({className}) => {
             <Header className={clsx(className, "site-layout-background", classes.header)}>
                 <div className={classes.wrap}>
                     <div className={classes.container}>
-                        <Route path="/dashboard" exac>
+                        <Route path="/dashboard">
                             <TabsSensorDashboard/>
                         </Route>
-                        <Route path="/graphs" exac>
+                        <Route path="/graphs" >
                             <TabsSensorGraphs/>
                         </Route>
-                        <Route path="/notifications" exac>
+                        <Route path="/notifications">
                             <TabsNotifications/>
                         </Route>
                         <Route path={["/user/setting", "/user/setting/notification"]}>

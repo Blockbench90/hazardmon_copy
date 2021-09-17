@@ -1,0 +1,92 @@
+.machine-details .breadcrumbs {
+  display: flex;
+  align-items: center;
+  padding: 10px 0 20px;
+  font-size: 13px; }
+  .machine-details .breadcrumbs .icon {
+    height: 10px; }
+
+.machine-details .sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+  .machine-details .sidebar .btn {
+    margin-bottom: 8px; }
+
+.machine-details .details-wrapper {
+  background-color: #f4f4f4;
+  padding: 20px; }
+  .machine-details .details-wrapper .row {
+    display: flex;
+    margin-bottom: 20px; }
+    .machine-details .details-wrapper .row:last-of-type {
+      margin-bottom: 0; }
+    .machine-details .details-wrapper .row > div {
+      flex: 0 0 auto; }
+      .machine-details .details-wrapper .row > div:nth-of-type(1) {
+        width: calc(55% - 20px);
+        margin-right: 20px; }
+      .machine-details .details-wrapper .row > div:nth-of-type(2) {
+        width: 45%; }
+      .machine-details .details-wrapper .row > div.machine-sensors {
+        width: calc(50% - 20px); }
+      .machine-details .details-wrapper .row > div.graphs-widget {
+        width: 50%; }
+    .machine-details .details-wrapper .row .widget {
+      display: flex;
+      flex-direction: column; }
+      .machine-details .details-wrapper .row .widget h2 {
+        font-size: 20px;
+        font-weight: 600;
+        color: #333333;
+        margin-bottom: 12px; }
+      .machine-details .details-wrapper .row .widget__body {
+        padding: 12px;
+        background-color: #ffffff;
+        flex: 1 1 auto; }
+      .machine-details .details-wrapper .row .widget .view-all-block {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 20px; }
+        .machine-details .details-wrapper .row .widget .view-all-block a {
+          color: #333;
+          text-decoration: none;
+          font-weight: 600;
+          font-size: 13px; }
+          .machine-details .details-wrapper .row .widget .view-all-block a:hover {
+            color: #4d4d4d; }
+    .machine-details .details-wrapper .row .machine-info {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: visible;
+      min-height: 400px; }
+    .machine-details .details-wrapper .row .alarms .log-body {
+      padding: 10px;
+      color: #ffffff;
+      margin-bottom: 10px;
+      font-size: 12px;
+      background-color: #aad997; }
+      .machine-details .details-wrapper .row .alarms .log-body.alarm-detected {
+        background-color: #ff0000; }
+      .machine-details .details-wrapper .row .alarms .log-body.warning-detected {
+        background-color: #ffbf00; }
+    .machine-details .details-wrapper .row .alarms .widget {
+      max-height: 400px;
+      overflow: auto; }
+    .machine-details .details-wrapper .row .maintenance .info {
+      font-size: 12px;
+      font-weight: 600;
+      color: #222;
+      padding: 10px 0;
+      border-bottom: 1px solid #C8C3B5; }
+      .machine-details .details-wrapper .row .maintenance .info:last-of-type {
+        border: none; }
+    .machine-details .details-wrapper .row .maintenance .view-all-block {
+      margin: 0;
+      font-size: 13px; }
+
+.alarms-maintenance-tabs .react-tabs__tab-list .react-tabs__tab {
+  font-size: 14px; }
+  .alarms-maintenance-tabs .react-tabs__tab-list .react-tabs__tab--selected {
+    background: #f4f4f4; }

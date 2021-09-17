@@ -1,0 +1,23 @@
+.vd-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 5px;
+  color: #000;
+  font-size: 1rem;
+  text-align: center;
+  white-space: nowrap;
+  cursor: grab;
+  border: 3px solid transparent; }
+  .vd-label:focus {
+    outline: none; }
+  .srd-node--selected .vd-label {
+    border-color: #00c0ff;
+    border-radius: 3px; }

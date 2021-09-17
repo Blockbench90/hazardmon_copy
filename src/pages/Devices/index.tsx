@@ -12,7 +12,7 @@ import {FilterStatus} from "../../store/branches/sensors/stateTypes";
 import {AddNewBlock} from "../../components/AddNewBlock";
 import DevicesBlock from "./components/DevicesBlock";
 import HeaderDevices from "./components/HeaderDevices";
-import {LoadingStatus} from "../../store/types";
+import {LoadingStatus} from "../../store/status";
 import Preloader from "../../components/Preloader";
 import DeviceAlert from "../../components/Alerts/device";
 import {selectDevicesState} from "../../store/selectors";

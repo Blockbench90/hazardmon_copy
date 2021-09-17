@@ -5,6 +5,7 @@ import InputWrap from "../../InputWrap";
 import {SensorSettings, SettingsSensor, Unit} from "../../../store/branches/sensors/stateTypes";
 
 import classes from "../EditSensorsTypes.module.scss";
+import {log} from "util";
 
 
 interface Device0005Props {
@@ -80,7 +81,7 @@ const DeviceSettingsForm: React.FC<Device0005Props> = ({
                                     <Select>
                                         {
                                             units?.map((item: Unit, index: number) => (
-                                                <Option value={item?.id}
+                                                <Option value={item?.name}
                                                         key={`option_unit${item?.id}_${item?.name}${index}`}>{item?.name}</Option>
                                             ))
                                         }

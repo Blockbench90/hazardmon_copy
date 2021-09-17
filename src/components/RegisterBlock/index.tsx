@@ -6,7 +6,7 @@ import {useForm} from "antd/lib/form/Form";
 import {CustomButton} from "../Button";
 
 import {userAC} from "../../store/branches/user/actionCreators";
-import {LoadingStatus} from "../../store/types";
+import {LoadingStatus} from "../../store/status";
 import {selectUserState} from "../../store/selectors";
 
 import classes from "./Register.module.scss";

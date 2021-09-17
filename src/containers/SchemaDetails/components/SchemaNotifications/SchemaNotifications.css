@@ -1,0 +1,21 @@
+.schema-notifications {
+  padding-left: 20px;
+  max-width: 240px;
+  width: 20%;
+  max-height: 637px;
+  overflow: auto; }
+  .schema-notifications.notifications-hided {
+    width: auto; }
+  .schema-notifications h3 {
+    padding: 10px 0;
+    text-align: center; }
+  .schema-notifications .log-body {
+    padding: 10px;
+    color: #ffffff;
+    margin-bottom: 10px;
+    font-size: 12px;
+    background-color: #aad997; }
+    .schema-notifications .log-body.alarm-detected, .schema-notifications .log-body.alarm-changed {
+      background-color: #ff0000; }
+    .schema-notifications .log-body.warning-detected, .schema-notifications .log-body.warning-changed, .schema-notifications .log-body.device-offline {
+      background-color: #ffbf00; }

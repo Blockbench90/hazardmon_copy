@@ -9,7 +9,7 @@ import {useCurrentSelection} from "../../hooks/useCurrentSelection";
 import {sitesAC} from "../../store/branches/sites/actionCreators";
 import HeaderFormAddSite from "./components/HeaderForm";
 import SitesAlert from "../Alerts/sites";
-import {LoadingStatus} from "../../store/types";
+import {LoadingStatus} from "../../store/status";
 import Preloader from "../Preloader";
 import AddSiteForm from "./components/AddSiteForm";
 import {selectSitesState} from "../../store/selectors";

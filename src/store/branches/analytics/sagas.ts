@@ -1,5 +1,5 @@
 import {call, put, takeLatest} from "redux-saga/effects";
-import {LoadingStatus} from "../../types";
+import {LoadingStatus} from "../../status";
 import {AnalyticsAT, FetchAnalyticsAI} from "./actionTypes";
 import {AnalyticsApi} from "../../../services/api/analyticsApi";
 import { analyticsAC } from "./actionCreators";

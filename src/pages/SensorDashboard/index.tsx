@@ -1,5 +1,6 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
+import {Alert, Empty} from "antd";
 
 import HeaderSection from "./components/HeaderSection";
 import SensorsGroups from "./components/SensorsGroups";
@@ -11,13 +12,12 @@ import {useSocketSensors} from "../../hooks/useSocketTestSensors";
 import {useCurrentSelection} from "../../hooks/useCurrentSelection";
 import {sensorsAC} from "../../store/branches/sensors/actionCreators";
 
-import {LoadingStatus} from "../../store/types";
+import {LoadingStatus} from "../../store/status";
 import {selectSensorsState} from "../../store/selectors";
 import Preloader from "../../components/Preloader";
+import Spinner from "../../components/Spinner";
 
 import classes from "./SensorDashboard.module.scss";
-import Spinner from "../../components/Spinner";
-import {Alert} from "antd";
 
 const SensorDashboard: React.FC = () => {
     const dispatch = useDispatch();
@@ -55,11 +55,20 @@ const SensorDashboard: React.FC = () => {
         return <Spinner/>;
     }
 
+    
+    console.log("ws ===>", ws_data, "<=== done")
+
+
     return (
         <Preloader isLoaded={status === LoadingStatus.LOADING && !ws_data}>
             <div className={classes.SensorDashboardWrap}>
                 <DashboardAlert/>
                 <HeaderSection/>
+                {
+                    !ws_data
+                    &&
+                    <Empty description="Data is empty!"/>
+                }
 
                 {
                     isMaintenance

@@ -3,7 +3,7 @@ import clsx from "clsx";
 import Empty from "antd/lib/empty";
 import {useDispatch, useSelector} from "react-redux";
 
-import {LoadingStatus} from "../../store/types";
+import {LoadingStatus} from "../../store/status";
 import {sensorsAC} from "../../store/branches/sensors/actionCreators";
 
 import DashboardAlert from "../Alerts/dachboard";

@@ -7,7 +7,7 @@ import Empty from "antd/lib/empty";
 import EditSensorsNamesForm from "./components/EditSensorsNamesForm";
 import {sensorsAC} from "../../store/branches/sensors/actionCreators";
 import {useCurrentSelection} from "../../hooks/useCurrentSelection";
-import {LoadingStatus} from "../../store/types";
+import {LoadingStatus} from "../../store/status";
 import DashboardAlert from "../Alerts/dachboard";
 import {selectSensorsState} from "../../store/selectors";
 import Spinner from "../Spinner";
