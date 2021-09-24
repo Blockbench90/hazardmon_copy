@@ -62,7 +62,7 @@ class TabDetailsPage extends React.Component<TabDetailsProps> {
         return (
             <div className="schema-details">
                 <div className="details-wrapper">
-                    <div className="size-controller" style={{height: tabDetails && tabDetails.height || 600, width: tabDetails && tabDetails.width || 776}}>
+                    <div className="size-controller" style={{height: tabDetails ? tabDetails.height : 600, width: tabDetails ? tabDetails.width : 776}}>
                         <div className="scale-block" style={{
                             left,
                             top,

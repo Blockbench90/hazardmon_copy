@@ -70,7 +70,9 @@ const DevicesBlock: React.FC<Device> = ({
             </div>
 
             <div className={classes.editButton}>
-                <Edit onClick={(event) => onEdit(event)}/>
+                <div className={classes.editButtonIcon}>
+                    <Edit onClick={(event) => onEdit(event)}/>
+                </div>
             </div>
         </div>
     );

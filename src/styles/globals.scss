@@ -134,23 +134,23 @@ a {
   margin-left: 200px;
 }
 
-
-.green {
-  background: #AAD997 !important;
-  color: #000 !important;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25) !important;
-}
-
 .red {
-  background: #ee5f5b !important;
-  border-color: #c43c35 #c43c35 #882a25 !important;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 12px;
+  color: #FFFFFF;
+  background: #F14D49 !important;
+  padding: 2px 10px !important;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25) !important;
 }
 
 .green {
-  color: #000 !important;
-  background: #AAD997 !important;
-  border-color: #AAD997 #AAD997 #AAD997 !important;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 12px;
+  color: #FFFFFF;
+  background: #27AE60 !important;
+  padding: 2px 10px !important;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25) !important;
 
   a {
@@ -159,9 +159,12 @@ a {
 }
 
 .amber {
-  color: #000 !important;
-  background: #FFBF00 !important;
-  border-color: #FFBF00 #FFBF00 #FFBF00 !important;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 12px;
+  color: #FFFFFF;
+  background: #F47E21 !important;
+  padding: 2px 10px !important;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25) !important;
 
   a {
@@ -170,9 +173,13 @@ a {
 }
 
 .blue {
-  background: #5898b0 !important;
-  border-color: #5898b0 #5898b0 #5898b0 !important;
+  cursor: pointer;
+  background: #2F80ED !important;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25) !important;
+  font-weight: 600;
+  font-size: 12px;
+  color: #FFFFFF;
+  padding: 2px 10px !important;
 }
 
 $black: #000;

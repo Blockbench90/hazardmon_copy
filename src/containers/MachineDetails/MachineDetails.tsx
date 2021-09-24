@@ -89,12 +89,12 @@ class MachineDetails extends React.Component<MachineDetailsProps> {
             >
                 {machineDetails &&
                 <div className="breadcrumbs">
-                    {canEdit &&
+                    {canEdit ?
                     <Link
                         to={urls.schemasList
                             .replace(':siteId', `${machineDetails.schema.location.id}`)
                         }
-                    >{machineDetails.schema.location.title}</Link> || <span>{machineDetails.schema.location.title}</span>
+                    >{machineDetails.schema.location.title}</Link> : <span>{machineDetails.schema.location.title}</span>
                     }
                     <FaChevronRight className="icon"/>
                     <Link

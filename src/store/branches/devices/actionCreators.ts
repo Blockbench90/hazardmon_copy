@@ -5,7 +5,7 @@ import {
     ClearSelectDevicesAI, DeactivateDeviceAI,
     DevicesAT, FetchAllDevicesAI,
     FetchCurrentDeviceAI,
-    FetchDevicesAI, RemoveDeviceAI,
+    FetchDevicesAI, NotificationSelectAI, RemoveDeviceAI,
     SelectDeviceAI,
     SelectDevicesAI,
     SetAllDevicesAI,
@@ -81,6 +81,11 @@ export const devicesAC = {
         payload,
     }),
 
+    notificationSelect: (payload?: {locationId: number, deviceId: number}): NotificationSelectAI => ({
+        type: DevicesAT.NOTIFICATION_SELECT,
+        payload,
+    }),
+
     setDevicesLoadingStatus: (payload: DevicesState["status"]): SetDevicesLoadingStatusAI => ({
         type: DevicesAT.SET_LOADING_STATE,
         payload,
@@ -117,6 +122,7 @@ export type DevicesActions =
     | SelectDevicesAI
     | SelectDeviceAI
     | ClearDevicesAI
+    | NotificationSelectAI
     | ClearSelectDevicesAI
     | SetDevicesLoadingStatusAI
     | SetOperationStatusDevicesAI

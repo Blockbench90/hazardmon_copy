@@ -22,6 +22,7 @@ const Notify: React.FC<NotifyProps> = React.memo(({
             wsNotification && openNotification();
         }, [openNotification, wsNotification]);
 
+
         return (
             <React.Fragment>
                 <Link to="/notifications">

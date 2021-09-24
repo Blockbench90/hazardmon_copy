@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
 import clsx from "clsx";
 import {Checkbox, Form, Input} from "antd";
+
 import TextArea from "antd/lib/input/TextArea";
 import {Client} from "../../../store/branches/clients/stateTypes";
 import {LoadingStatus} from "../../../store/status";
@@ -17,7 +18,9 @@ import classes from "../AddClient.module.scss";
 interface UserSettingFormProps {
     onSubmit?: (values: any) => void
     onCancel?: () => void
+    onChecked?: () => void
     form?: any
+    isChecked: boolean
 }
 
 
@@ -25,21 +28,18 @@ const AddClientForm: React.FC<UserSettingFormProps> = ({
                                                            onSubmit,
                                                            onCancel,
                                                            form,
+                                                           isChecked,
+                                                           onChecked,
                                                        }) => {
 
     const dispatch = useDispatch();
 
-    const [isChecked, setChecked] = useState<boolean>(true);
 
     const {current_client, status} = useSelector(selectClientsState);
     const {next_client_number} = useSelector(selectClientsState);
     const {id}: any = useParams();
 
     const [client, setClient] = useState<Client>(null);
-
-    const onChecked = () => {
-        setChecked(!isChecked);
-    };
 
     const onRemoveClient = () => {
         dispatch(clientsAC.removeClient(id));

@@ -25,7 +25,9 @@ const Sites: React.FC = () => {
 
     const isUpdatedSuccess = status === LoadingStatus.EDIT_SITE_SUCCESS;
 
-    const onAddSite = () => {
+    const onAddSite = (event: React.MouseEvent<HTMLDivElement>) => {
+        event.preventDefault()
+        event.stopPropagation()
         history.push("/sites/add/site");
     };
 

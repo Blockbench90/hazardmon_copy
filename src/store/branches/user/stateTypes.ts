@@ -165,7 +165,7 @@ export interface UserState {
     status: LoadingStatus
     registerStatus: LoadingStatus
     notifications: INotificationsResponse;
-    headerNotifications: INotificationsResponse;
+    headerNotificationCount: number | null;
     ws_notify: IWsNotify
     current_email_notification: EmailNotification
     email_notifications: EmailNotification[]

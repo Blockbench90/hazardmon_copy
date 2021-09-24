@@ -88,7 +88,7 @@ class Editor extends React.Component<SchemaEditorProps, SchemaEditorState> {
                 key={props.index}
                 className="schema-tab"
             >
-                <img src={tabIcon} className="schema-tab__icon"/>
+                <img src={tabIcon} className="schema-tab__icon" alt={"schema"}/>
                 <div className="schema-tab__body">
                     <div>
                         {props.tab.name}
@@ -97,7 +97,7 @@ class Editor extends React.Component<SchemaEditorProps, SchemaEditorState> {
             </Link>
         ) : tabDetails && (
             <div className="schema-tab selected" key={props.index}>
-                <img src={tabIcon} className="schema-tab__icon"/>
+                <img src={tabIcon} className="schema-tab__icon" alt={"schema"}/>
                 <input type="text" name="name" value={name ? name : ""} onChange={this.handleNameInputChange}/>
             </div>
         );
@@ -117,7 +117,7 @@ class Editor extends React.Component<SchemaEditorProps, SchemaEditorState> {
                 ))}
                 {!tabDetails &&
                 <div className="schema-tab selected">
-                    <img src={tabIcon} className="schema-tab__icon"/>
+                    <img src={tabIcon} className="schema-tab__icon" alt={"schema"}/>
                     <input type="text" name="name" value={name ? name : ""} onChange={this.handleNameInputChange}/>
                 </div>
                 }
@@ -376,17 +376,21 @@ class Editor extends React.Component<SchemaEditorProps, SchemaEditorState> {
                     <span>
                         Editor: Edit
                     </span>
-                    {showSchemaNameForm &&
-                    <input type="text" value={schemaName ? schemaName : ""} onChange={this.handleSchemaNameInputChange}
-                           placeholder="Schema name"/> ||
-                    <React.Fragment>
-                    <span>
-                        {schemaName}
-                    </span>
-                        <button onClick={this.onEditSchemaNameClick}>
-                            <img src={editIcon} alt="edit"/>
-                        </button>
-                    </React.Fragment>
+                    {
+                        showSchemaNameForm
+                            ?
+                            <input type="text" value={schemaName ? schemaName : ""}
+                                   onChange={this.handleSchemaNameInputChange}
+                                   placeholder="Schema name"/>
+                            :
+                            <React.Fragment>
+                                <span>
+                                    {schemaName}
+                                </span>
+                                <button onClick={this.onEditSchemaNameClick}>
+                                    <img src={editIcon} alt="edit"/>
+                                </button>
+                            </React.Fragment>
                     }
                 </div>
                 {schemaDetails && schemaDetails.is_published && <div className="will-copy-descr">
@@ -400,7 +404,8 @@ class Editor extends React.Component<SchemaEditorProps, SchemaEditorState> {
                     <span className="editor-title__editor">
                         Editor: Create
                     </span>
-                    <input type="text" value={schemaName ? schemaName : ""} onChange={this.handleSchemaNameInputChange} />
+                    <input type="text" value={schemaName ? schemaName : ""}
+                           onChange={this.handleSchemaNameInputChange}/>
                 </div>
 
                 {/*<this.SortableList onSortEnd={this.onSortEnd} axis="x" pressDelay={100} helperClass="dragging"/>*/}
@@ -432,9 +437,9 @@ class Editor extends React.Component<SchemaEditorProps, SchemaEditorState> {
         if (event.dataTransfer.getData("storm-diagram-node")) {
             const data = JSON.parse(event.dataTransfer.getData("storm-diagram-node"));
 
-            const node = data.type === "custom" && new CustomNodeModel(data.anchor_points) ||
-                data.type === "shape" && new ShapesNodeModel(data.shape) ||
-                data.type === "label" && new LabelNodeModel();
+            const node = data.type === "custom" ? new CustomNodeModel(data.anchor_points) :
+                data.type === "shape" ? new ShapesNodeModel(data.shape) :
+                    data.type === "label" && new LabelNodeModel();
 
             node.extras = {...node.extras, ...data, sensors: [], scale: 1};
             const points = this.props.app.getDiagramEngine().getRelativeMousePoint(event);
@@ -582,9 +587,9 @@ const mapDispatchToProps = (dispatch: any, ownProps: any) => {
                 connector.additional_points = additionalPoints.map((point: any) => ({
                     x_coord: point.x,
                     y_coord: point.y,
-                })),
+                }));
 
-                    formData.connectors.push(connector);
+                formData.connectors.push(connector);
             });
 
             dispatch({

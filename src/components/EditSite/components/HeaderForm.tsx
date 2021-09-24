@@ -1,11 +1,11 @@
-import React from "react"
-import clsx from "clsx"
-import {Typography} from "antd"
-import {CustomButton} from "../../Button"
-import {DeleteFilled} from "@ant-design/icons"
-import {Site} from "../../../store/branches/sites/stateTypes"
+import React from "react";
+import clsx from "clsx";
+import {Typography} from "antd";
+import {CustomButton} from "../../Button";
+import {DeleteFilled} from "@ant-design/icons";
+import {Site} from "../../../store/branches/sites/stateTypes";
 
-const {Title} = Typography
+const {Title} = Typography;
 
 interface HeaderFormProps {
     onDeactivateSite: () => void
@@ -15,11 +15,11 @@ interface HeaderFormProps {
 }
 
 const HeaderFormEditSite: React.FC<HeaderFormProps> = ({
-   onDeactivateSite,
-   onRemoveSite,
-   is_suspended = false,
-   currentLocation,
-}) => {
+                                                           onDeactivateSite,
+                                                           onRemoveSite,
+                                                           is_suspended = false,
+                                                           currentLocation,
+                                                       }) => {
     return (
         <div className={clsx("d-flex", "d-flex-w")}>
             <div>
@@ -33,7 +33,13 @@ const HeaderFormEditSite: React.FC<HeaderFormProps> = ({
                               htmlType="button"
                               onClick={onDeactivateSite}
                               className="mar-right-10">
-                    {is_suspended ? <span>REACTIVATE SITE</span> : <span>DEACTIVATE SITE</span>}
+                    {
+                        is_suspended
+                            ?
+                            <span>REACTIVATE SITE</span>
+                            :
+                            <span>DEACTIVATE SITE</span>
+                    }
 
                 </CustomButton>
                 <CustomButton width="170px"
@@ -47,7 +53,7 @@ const HeaderFormEditSite: React.FC<HeaderFormProps> = ({
                 </CustomButton>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default HeaderFormEditSite
+export default HeaderFormEditSite;

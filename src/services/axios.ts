@@ -24,9 +24,13 @@ axios.interceptors.response.use(response => {
     }
     if (error.response.status === 403) {
         console.log(error.response.data.detail);
+        const message: any = Object.values(error.response.data)[0];
+        WinStorage.setErrorMessage(message);
     }
     if (error.response.status === 404) {
         console.log("404 Server not found!");
+        const message: any = Object.values(error.response.data)[0];
+        WinStorage.setErrorMessage(message);
     }
     return error;
 });

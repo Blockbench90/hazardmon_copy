@@ -24,24 +24,6 @@ class AuthStorage {
         return window.localStorage.getItem("_client")
     }
 
-    setLocalTime(payload: { date: string, time: string }) {
-        if (payload) {
-            window.localStorage.setItem("_d", payload.date)
-            window.localStorage.setItem("_t", payload.time)
-        }
-    }
-
-    getLocalTime() {
-        const date = window.localStorage.getItem("_d")
-        const time = window.localStorage.getItem("_t")
-        return {date, time}
-    }
-
-    removeLocalTime() {
-        window.localStorage.removeItem("_d")
-        window.localStorage.removeItem("_t")
-    }
-
     setTimescale(timescale: string) {
         if (timescale) {
             window.localStorage.setItem("_timescale", timescale)

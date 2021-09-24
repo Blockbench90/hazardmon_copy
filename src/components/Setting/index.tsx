@@ -9,7 +9,7 @@ import {EDIT_SENSORS_NAMES, EDIT_SENSORS_TYPES, EDIT_WARNINGS} from "../PrivateR
 import {ReactComponent as Key} from "../../assets/icons/key_setting.svg";
 import {CustomButton} from "../Button";
 import {useCurrentSelection} from "../../hooks/useCurrentSelection";
-import { selectSensorsState } from "../../store/selectors";
+import {selectSensorsState} from "../../store/selectors";
 
 import classes from "./SettingPopup.module.scss";
 
@@ -48,14 +48,16 @@ const SettingPopup: React.FC = () => {
             <Menu.Item key="1" icon={<ToolFilled/>}>
                 <Link to={EDIT_SENSORS_NAMES}>Sensor Names</Link>
             </Menu.Item>
-            <Menu.Divider className={classes.driver}/>
 
             {
                 ["0005", "0006"].includes(device?.device_type)
                 &&
-                <Menu.Item key="2" icon={<ToolFilled/>}>
-                    <Link to={EDIT_SENSORS_TYPES}>Sensor Settings</Link>
-                </Menu.Item>
+                <React.Fragment>
+                    <Menu.Divider className={classes.driver}/>
+                    <Menu.Item key="2" icon={<ToolFilled/>}>
+                        <Link to={EDIT_SENSORS_TYPES}>Sensor Settings</Link>
+                    </Menu.Item>
+                </React.Fragment>
             }
         </Menu>
     );
@@ -127,7 +129,7 @@ const SettingPopup: React.FC = () => {
                                   htmlType="button"
                                   onClick={onAddWarning}
                     >
-                        { warnings?.length > 0 ? "MODIFY" : "ADD"}
+                        {warnings?.length > 0 ? "MODIFY" : "ADD"}
                     </CustomButton>
                 </div>
             </Modal>

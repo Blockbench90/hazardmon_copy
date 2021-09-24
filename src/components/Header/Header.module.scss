@@ -41,20 +41,6 @@
   }
 }
 
-.headerNotification {
-  background: rgba(0, 0, 0, 0.3) !important;
-  font-weight: 500 !important;
-  cursor: pointer;
-
-  a {
-    color: #fff !important;
-  }
-
-  a:hover {
-    color: #fff !important;
-  }
-}
-
 .emailAlerts {
   display: flex;
   flex-direction: row-reverse;

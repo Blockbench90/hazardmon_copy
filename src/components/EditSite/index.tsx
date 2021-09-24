@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import clsx from "clsx";
@@ -20,6 +20,9 @@ const {Title} = Typography;
 const EditSite: React.FC = () => {
     const dispatch = useDispatch();
 
+    const [isModal, setModal] = useState<boolean>(false);
+    const [isDeactivateModal, setDeactivateModal] = useState<boolean>(false);
+
     const {current_location: currentLocation} = useSelector(selectSitesState);
     const {status} = useSelector(selectSitesState);
     const {client} = useCurrentSelection();
@@ -29,6 +32,7 @@ const EditSite: React.FC = () => {
     const onDeactivateSite = () => {
         dispatch(sitesAC.deactivateCurrentLocation(id));
         dispatch(sitesAC.changeActivateCurLoc(!currentLocation?.is_suspended));
+        setDeactivateModal(false)
     };
 
     const onRemoveSite = () => {
@@ -47,23 +51,46 @@ const EditSite: React.FC = () => {
         };
     }, [dispatch]);
 
+    const onOpenModal = () => {
+        setModal(true);
+    };
+
+    const onOpenDeactivateModal = () => {
+        setDeactivateModal(true);
+    };
+
+    const onCancelModal = () => {
+        setModal(false);
+    };
+    const onCancelDeactivateModal = () => {
+        setDeactivateModal(false);
+    };
 
     return (
         <Preloader isLoaded={status === LoadingStatus.LOADING}>
             <React.Fragment>
                 <SitesAlert/>
+
+
                 <div className={clsx("header-link", classes.wrap)}>
                     <Title level={5}> <Link to="/sites">{client?.company}/</Link> {currentLocation?.title || "Site"}
                     </Title>
 
-                    <HeaderFormEditSite onRemoveSite={onRemoveSite}
-                                        onDeactivateSite={onDeactivateSite}
+                    <HeaderFormEditSite onRemoveSite={onOpenModal}
+                                        onDeactivateSite={onOpenDeactivateModal}
                                         is_suspended={currentLocation?.is_suspended}
                                         currentLocation={currentLocation}
 
                     />
 
-                    <EditSiteInputs/>
+                    <EditSiteInputs onRemoveSite={onRemoveSite}
+                                    onDeactivateSite={onDeactivateSite}
+                                    onCancelModal={onCancelModal}
+                                    onCancelDeactivateModal={onCancelDeactivateModal}
+                                    isModal={isModal}
+                                    is_suspended={currentLocation?.is_suspended}
+                                    isDeactivateModal={isDeactivateModal}
+                    />
 
                 </div>
             </React.Fragment>

@@ -1,12 +1,11 @@
-import React, {useState} from "react"
-import {DatePicker, TimePicker} from "antd"
-import Modal from "antd/lib/modal"
+import React, {useState} from "react";
+import {DatePicker, TimePicker} from "antd";
+import Modal from "antd/lib/modal";
 
-import {ReactComponent as HistoricalG} from "../../assets/icons/historical_green.svg"
-import {CustomButton} from "../Button"
+import {ReactComponent as HistoricalG} from "../../assets/icons/historical_green.svg";
+import {CustomButton} from "../Button";
 
-import classes from "../TabsSensorDashboard/TabsSensorDashboard.module.scss"
-import {WinStorage} from "../../services/AuthSrorage";
+import classes from "./DataModal.module.scss";
 
 interface ModalProps {
     is_modal: boolean
@@ -26,7 +25,6 @@ const DataModal: React.FC<ModalProps> = ({
 
     const onSearch = () => {
         const data = {date, time};
-        WinStorage.setLocalTime(data)
         onHandleSearch(data);
     };
 
@@ -53,7 +51,7 @@ const DataModal: React.FC<ModalProps> = ({
                     <DatePicker
                         size="large"
                         className={classes.datePicker}
-                        placeholder="Data"
+                        placeholder="Date"
                         inputReadOnly={true}
                         onChange={(date: any, dateString: string) => setDate(dateString)}
                         format={dateFormatList}

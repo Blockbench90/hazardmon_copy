@@ -12,18 +12,38 @@ import {CustomButton} from "../Button";
 import AssignUsers from "../AssignUsers";
 import InputWrap from "../InputWrap";
 import {randomInteger} from "../../helpers/getRandomNumber";
+import CustomConfirmationModal from "../CustomConfirmationModal";
 
 import classes from "./EditSiteInputs.module.scss";
 
 const {Option} = Select;
 
-const EditSiteInputs: React.FC = () => {
+interface EditSiteProps {
+    isModal?: boolean
+    isDeactivateModal?: boolean
+    is_suspended?: boolean
+    onRemoveSite?: () => void
+    onDeactivateSite?: () => void
+    onCancelDeactivateModal?: () => void
+    onCancelModal?: () => void
+}
+
+const EditSiteInputs: React.FC<EditSiteProps> = ({
+                                                     onRemoveSite,
+                                                     onCancelModal,
+                                                     isModal,
+                                                     isDeactivateModal,
+                                                     onDeactivateSite,
+                                                     onCancelDeactivateModal,
+                                                     is_suspended,
+                                                 }) => {
     const [form] = useForm();
     const dispatch = useDispatch();
     const history = useHistory();
 
     const [users, setUsers] = useState<AssignUser[]>([]);
     const [currentLocation, setLocation] = useState<CurrentLocation>(null);
+
 
     const {assign_users, current_location, timezones} = useSelector(selectSitesState);
 
@@ -48,6 +68,7 @@ const EditSiteInputs: React.FC = () => {
         history.push("/sites");
     };
 
+
     useEffect(() => {
         if (assign_users) {
             setUsers(assign_users);
@@ -64,6 +85,8 @@ const EditSiteInputs: React.FC = () => {
 
     return (
         <div className={classes.wrap}>
+
+
             <Form name="edit_site_inputs"
                   form={form}
                   initialValues={{remember: true}}
@@ -189,6 +212,17 @@ const EditSiteInputs: React.FC = () => {
                     </Form.Item>
                 </div>
             </Form>
+            <CustomConfirmationModal is_modal={isModal} onCancel={onCancelModal} onApply={onRemoveSite}
+                                     message={"Please confirm you want to delete this site"}
+            />
+            <CustomConfirmationModal is_modal={isDeactivateModal} onCancel={onCancelDeactivateModal}
+                                     onApply={onDeactivateSite}
+                                     message={`Please confirm you want to ${ is_suspended
+                                         ?
+                                         "reactivate"
+                                         :
+                                         "deactivate"} this site`}
+            />
         </div>
     );
 };

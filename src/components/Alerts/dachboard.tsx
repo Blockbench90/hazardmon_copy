@@ -33,12 +33,6 @@ const DashboardAlert = () => {
         />;
     };
 
-
-    if (status_operation === LoadingStatus.FETCH_SENSORS_NAMES_SUCCESS) {
-        setTimer();
-        return alertNotification("Successfully", "success")
-    }
-
     if (status_operation === LoadingStatus.FETCH_SENSORS_ERROR) {
         setTimer();
         return alertNotification(errorMessage || "You do not have permission to edit warnings!", "warning")

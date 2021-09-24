@@ -5,7 +5,6 @@ import InputWrap from "../../InputWrap";
 import {SensorSettings, SettingsSensor, Unit} from "../../../store/branches/sensors/stateTypes";
 
 import classes from "../EditSensorsTypes.module.scss";
-import {log} from "util";
 
 
 interface Device0005Props {

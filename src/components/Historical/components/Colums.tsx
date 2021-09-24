@@ -2,12 +2,6 @@ import clsx from "clsx"
 
 import classes from "../Historical.module.scss"
 
-// const handleChangeCollum = (event: React.MouseEvent<HTMLElement>, id: number) => {
-//     event.preventDefault()
-//     event.stopPropagation()
-//     console.log("change user:" ,id)
-// }
-
 export const columns = [
     {
         title: "DATE",

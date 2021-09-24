@@ -8,14 +8,13 @@ import {ReactComponent as Historical} from "../../assets/icons/historical.svg";
 import {ReactComponent as Maintenance} from "../../assets/icons/maintenance.svg";
 
 import DataModal from "../DataModal";
-import {HISTORICAL, SENSOR_DASHBOARD} from "../PrivateRoute/components/constants";
 import {FilterStatus} from "../../store/branches/sensors/stateTypes";
 import {sensorsAC} from "../../store/branches/sensors/actionCreators";
 import {LoadingStatus} from "../../store/status";
 import {useCurrentSelection} from "../../hooks/useCurrentSelection";
 import {selectSensorsState} from "../../store/selectors";
 
-import classes from "./TabsSensorDashboard.module.scss";
+import classes from "./modal.module.scss";
 
 const {Option} = Select;
 const {TabPane} = Tabs;
@@ -32,7 +31,7 @@ const TabsSensorDashboard: React.FC = () => {
     const {device} = useCurrentSelection();
 
     useEffect(() => {
-        if (pathname === "/dashboard/historical") {
+        if (pathname.split("/").includes("historical")) {
             setPath("historical");
         } else {
             setPath("live");
@@ -55,7 +54,7 @@ const TabsSensorDashboard: React.FC = () => {
     };
 
     const onLive = () => {
-        history.push(SENSOR_DASHBOARD);
+        history.push("/dashboard");
         liveMaintenance();
     };
 
@@ -96,7 +95,7 @@ const TabsSensorDashboard: React.FC = () => {
         };
         dispatch(sensorsAC.fetchHistoricalGraphs(payload));
         setModal(false);
-        history.push(HISTORICAL);
+        history.push(`/dashboard/historical/${date}&${time}`);
     };
 
     const onChangeTab = (activeKey: any) => {

@@ -52,11 +52,6 @@ const DeviceAlert = () => {
         return alertNotification(errorMessage || "Not a valid serial number or code!", "warning")
     }
 
-    if (status_operation === LoadingStatus.ACTIVATION_DEVICE_SUCCESS) {
-        setTimer();
-        return alertNotification(errorMessage || "Operation successfully!", "success")
-    }
-
     if (status_operation === LoadingStatus.ACTIVATION_DEVICE_ERROR) {
         setTimer();
         return alertNotification(errorMessage || "Not a valid serial number or code!", "warning")

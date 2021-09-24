@@ -1,31 +1,31 @@
-import React from "react"
+import React from "react";
 
-import {PlusOutlined} from "@ant-design/icons"
-import {Typography} from "antd"
+import {PlusOutlined} from "@ant-design/icons";
 
-import classes from "./AddNewBlock.module.scss"
+import classes from "./AddNewBlock.module.scss";
 
 interface AddNewBlockProps {
     onClick?: (event: React.MouseEvent<HTMLDivElement>) => void
     text?: string
 }
 
-const {Text} = Typography
 
-export const AddNewBlock: React.FC<AddNewBlockProps> =
-    ({onClick, text}) => {
+export const AddNewBlock: React.FC<AddNewBlockProps> = ({
+                                                            onClick,
+                                                            text,
+                                                        }) => {
 
-        return (
-            <div className={classes.wrap} onClick={onClick}>
-                <div className={classes.container}>
-                    <div className={classes.icon}>
-                        <PlusOutlined/>
-                    </div>
-                    <div className={classes.text}>
-                        <Text>{text}</Text>
-                    </div>
+    return (
+        <div className={classes.wrap}>
+            <div className={classes.container} onClick={onClick}>
+                <div className={classes.icon}>
+                    <PlusOutlined/>
+                </div>
+                <div className={classes.text}>
+                    <p>{text}</p>
                 </div>
             </div>
-        )
-    }
+        </div>
+    );
+};
 

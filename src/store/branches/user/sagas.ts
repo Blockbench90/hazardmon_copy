@@ -43,12 +43,11 @@ export function* fetchUserDataRequest() {
     }
 }
 
-export function* fetchNotificationsRequest() {
+export function* fetchNotificationsCountRequest() {
     try {
-        yield put(userAC.setUserLoadingStatus(LoadingStatus.LOADING));
         const count = yield call(UserApi.getNotificationsCount);
         if (count) {
-            yield put(userAC.setHeaderNotification({results: [], count}));
+            yield put(userAC.setHeaderNotificationCount(count));
         } else {
             yield put(userAC.setUserLoadingStatus(LoadingStatus.ERROR));
         }
@@ -285,7 +284,7 @@ export function* userSaga() {
     yield takeLatest(UserAT.SIGN_UP, RegisterRequest);
     yield takeLatest(UserAT.LOG_OUT, LogOutRequest);
     yield takeLatest(UserAT.FETCH_USER_DATA, fetchUserDataRequest);
-    yield takeLatest(UserAT.FETCH_HEADER_NOTIFICATIONS, fetchNotificationsRequest);
+    yield takeLatest(UserAT.FETCH_HEADER_NOTIFICATIONS_COUNT, fetchNotificationsCountRequest);
     yield takeLatest(UserAT.SEARCH_NOTIFICATIONS, searchNotificationsRequest);
     yield takeLatest(UserAT.UPDATE_USER_DATA, updateUserDataRequest);
     yield takeLatest(UserAT.UPDATE_USER_PASSWORD, updateUserPasswordRequest);

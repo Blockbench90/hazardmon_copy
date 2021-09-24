@@ -141,8 +141,7 @@ class Machine extends React.Component<MachineProps> {
             });
 
             const sensorLastTimeInAlarmData = sensorDetails && lastTimeInAlarmData && lastTimeInAlarmData[sensorDetails.sensor.id];
-            const sensorLastTimeInAlarmEventType = sensorLastTimeInAlarmData && 
-            sensorLastTimeInAlarmData.event_type || 'Last time in alarm';
+            const sensorLastTimeInAlarmEventType = sensorLastTimeInAlarmData ? sensorLastTimeInAlarmData.event_type : 'Last time in alarm';
             const sensorLastTimeInAlarm = sensorLastTimeInAlarmData &&
                 moment.unix(sensorLastTimeInAlarmData.date_created).format('MM/DD/YYYY hh:mm:ss Z');
 

@@ -1,7 +1,7 @@
 .wrap {
-  cursor: pointer;
 
   .container {
+    cursor: pointer;
     width: 100px;
     height: 100px;
     background: #FFFFFF;
@@ -11,33 +11,16 @@
     margin-top: 15px;
     margin-right: 55px;
 
-
     .icon {
       color: #7C90B1;
       font-size: 30px;
 
-      svg {
-        :hover {
-          path {
-          fill: #A9CC13;
-            color: #00C09E;
-          }
-        }
-      }
     }
 
     .text {
       font-weight: bold;
       padding: 0 15px;
-
-      :global {
-        .ant-typography {
-          color: #7C90B1 !important;
-          :hover{
-            color: #A9CC13 !important;
-          }
-        }
-      }
+      color: #7C90B1;
     }
   }
 }
@@ -47,3 +30,13 @@
   border: 1px solid #A9CC13;
 }
 
+.container:hover .icon svg {
+  path {
+    fill: #A9CC13;
+    color: #00C09E;
+  }
+}
+
+.container:hover .text {
+  color: #A9CC13 !important;
+}

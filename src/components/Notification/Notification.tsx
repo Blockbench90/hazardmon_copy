@@ -34,7 +34,7 @@ class Notification {
     public render(text: string, icon: any) {
         return (
             <div className="notification-body">
-                {icon && <img src={icon} />}
+                {icon && <img src={icon} alt={"notification"}/>}
                 {text}
             </div>
         );

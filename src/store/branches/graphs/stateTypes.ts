@@ -5,7 +5,6 @@ export enum GraphsDate {
     day = "day",
     week = "week",
     month = "month"
-
 }
 
 export interface FetchGraphs {

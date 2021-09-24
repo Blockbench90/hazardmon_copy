@@ -5,7 +5,7 @@ import {devicesAC} from "./actionCreators";
 import {
     AddDeviceAI,
     DevicesAT,
-    FetchCurrentDeviceAI,
+    FetchCurrentDeviceAI, NotificationSelectAI,
     RemoveDeviceAI, SelectDeviceAI,
     SelectDevicesAI,
     UpdateCurrentDeviceAI,
@@ -40,9 +40,11 @@ export function* getSelectedDeviceRequest({payload}: SelectDeviceAI) {
         const status = yield call(DevicesApi.selectDevice, payload);
         yield put(userAC.fetchUserData());
         if (status === 200) {
+
             // change for websocket
             // const selectDevices = yield call(DevicesApi.getDevices);
             // yield put(setDevicesAC(selectDevices));
+
             yield put(devicesAC.setDevicesLoadingStatus(LoadingStatus.LOADED));
             history.push("/dashboard");
             yield put(devicesAC.setOperationDevices(LoadingStatus.SELECT_DEVICE_SUCCESS));
@@ -50,6 +52,31 @@ export function* getSelectedDeviceRequest({payload}: SelectDeviceAI) {
             yield put(devicesAC.setDevicesLoadingStatus(LoadingStatus.ERROR));
             yield put(sitesAC.setOperationStatusSite(LoadingStatus.SELECT_SITE_ERROR));
         }
+    } catch (error) {
+        yield put(devicesAC.setDevicesLoadingStatus(LoadingStatus.ERROR));
+    }
+}
+
+export function* fetchNotificationSelectRequest({payload}: NotificationSelectAI) {
+    try {
+        yield put(devicesAC.setDevicesLoadingStatus(LoadingStatus.LOADING));
+        const statusLocation = yield call(DevicesApi.selectDevices, payload.locationId.toString());
+        if (statusLocation === 200) {
+            const status = yield call(DevicesApi.selectDevice, payload.deviceId.toString());
+            yield put(userAC.fetchUserData());
+            if (status === 200) {
+                yield put(devicesAC.setDevicesLoadingStatus(LoadingStatus.LOADED));
+                yield put(devicesAC.setOperationDevices(LoadingStatus.SELECT_DEVICE_SUCCESS));
+                history.push("/dashboard");
+            } else {
+                yield put(devicesAC.setDevicesLoadingStatus(LoadingStatus.ERROR));
+                yield put(sitesAC.setOperationStatusSite(LoadingStatus.SELECT_SITE_ERROR));
+            }
+        } else {
+            yield put(devicesAC.setDevicesLoadingStatus(LoadingStatus.ERROR));
+            yield put(sitesAC.setOperationStatusSite(LoadingStatus.SELECT_SITE_ERROR));
+        }
+
     } catch (error) {
         yield put(devicesAC.setDevicesLoadingStatus(LoadingStatus.ERROR));
     }
@@ -125,7 +152,6 @@ export function* deactivateDeviceRequest({payload}: RemoveDeviceAI) {
         const status = yield call(DevicesApi.deactivateDevice, payload);
         if (status === 200) {
             yield put(devicesAC.changeActiveCurDev());
-            yield put(devicesAC.setOperationDevices(LoadingStatus.ACTIVATION_DEVICE_SUCCESS));
             yield put(devicesAC.setDevicesLoadingStatus(LoadingStatus.LOADED));
         } else {
             yield put(devicesAC.setOperationDevices(LoadingStatus.ACTIVATION_DEVICE_ERROR));
@@ -162,6 +188,7 @@ export function* devicesSaga() {
     yield takeLatest(DevicesAT.FETCH_DEVICES, fetchDevicesRequest);
     yield takeLatest(DevicesAT.FETCH_CURRENT_DEVICE, fetchCurrentDeviceRequest);
     yield takeLatest(DevicesAT.FETCH_ALL_DEVICES, fetchAllDevicesRequest);
+    yield takeLatest(DevicesAT.NOTIFICATION_SELECT, fetchNotificationSelectRequest);
     yield takeLatest(DevicesAT.UPDATE_CURRENT_DEVICE, updateDeviceRequest);
     yield takeLatest(DevicesAT.ADD_DEVICE, addDeviceRequest);
     yield takeLatest(DevicesAT.REMOVE_CURRENT_DEVICE, removeDeviceRequest);

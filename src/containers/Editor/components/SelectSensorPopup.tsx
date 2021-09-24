@@ -175,14 +175,16 @@ class SelectSensorPopup extends React.Component<SelectSensorPopupProps, SelectSe
 
                                     machineName = onOtherTabSensorInfo && onOtherTabSensorInfo[sensor.id].machine_name;
                                 } else if (isUsedOnCurrentTab) {
-                                    const node = app.serialize().nodes.find((nodeObj: any) => nodeObj.extras.sensors.find((sensorObj: any) => sensorObj.sensor.id === sensor.id) || nodeObj.extras.system_state_sensor && (nodeObj.extras.system_state_sensor.id === sensor.id));
+                                    const node = app.serialize().nodes.find((nodeObj: any) => nodeObj.extras.sensors.find(
+                                        (sensorObj: any) => sensorObj.sensor.id === sensor.id)
+                                        || (nodeObj.extras.system_state_sensor && (nodeObj.extras.system_state_sensor.id === sensor.id)));
 
                                     machineName = node.extras.machineName;
                                 }
 
                                 const disabled = usedOnTabObj || isUsedOnCurrentTab;
 
-                                const usedOn = usedOnTabObj && usedOnTabObj.name || isUsedOnCurrentTab && tabName;
+                                const usedOn = (usedOnTabObj && usedOnTabObj.name) || (isUsedOnCurrentTab && tabName);
                                 const handleSensorClick = disabled ? undefined : () => handleSelectSensor(sensor);
                                 const resultClassName = classNames({
                                     disabled,

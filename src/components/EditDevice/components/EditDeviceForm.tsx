@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import clsx from "clsx";
 import {Link} from "react-router-dom";
 import {Form, Input, Select, Typography} from "antd";
@@ -8,6 +8,7 @@ import HeaderFormEditDevice from "./HeaderForm";
 import {Site} from "../../../store/branches/sites/stateTypes";
 import {Device} from "../../../store/branches/devices/stateTypes";
 import {useCurrentSelection} from "../../../hooks/useCurrentSelection";
+import CustomConfirmationModal from "../../CustomConfirmationModal";
 
 import classes from "../EditDevise.module.scss";
 
@@ -48,7 +49,27 @@ const EditDeviceForm: React.FC<EditDeviceFormProps> = ({
                                                            isEmulatedAs,
                                                            isOEM,
                                                        }) => {
+    const [isDeactivateModal, setDeactivateModal] = useState<boolean>(false);
+    const [isRemoveModal, setRemoveModal] = useState<boolean>(false);
+
     const {client, site} = useCurrentSelection();
+
+    const onRemoveOpen = () => {
+        setRemoveModal(true);
+    };
+
+    const onRemoveCancel = () => {
+        setRemoveModal(false);
+    };
+
+    const onDeactivateOpen = () => {
+        setDeactivateModal(true);
+    };
+
+
+    const onDeactivateCancel = () => {
+        setDeactivateModal(false);
+    };
 
     return (
         <div className={clsx("header-link", classes.editDeviceWrap)}>
@@ -63,8 +84,8 @@ const EditDeviceForm: React.FC<EditDeviceFormProps> = ({
                 </Title>
 
                 <HeaderFormEditDevice onCancel={onCancel}
-                                      onDeactivateDevice={onDeactivateDevice}
-                                      onRemoveDevice={onRemoveDevice}
+                                      onDeactivateDevice={onDeactivateOpen}
+                                      onRemoveDevice={onRemoveOpen}
                 />
 
                 <div className={classes.inputsWrap}>
@@ -164,7 +185,7 @@ const EditDeviceForm: React.FC<EditDeviceFormProps> = ({
                                     </Form.Item>
                                 </InputWrap>)}
 
-                                {['F500', 'F500-UDF'].includes(currentDeviceType)
+                                {["F500", "F500-UDF"].includes(currentDeviceType)
                                 &&
                                 (<InputWrap title="IP Address">
                                     <Form.Item name="ip_address" initialValue={device?.ip_address}>
@@ -197,6 +218,18 @@ const EditDeviceForm: React.FC<EditDeviceFormProps> = ({
                     </div>
                 </div>
             </Form>
+            <CustomConfirmationModal is_modal={isRemoveModal} message={"Please confirm you want to remove this device`"}
+                                     onCancel={onRemoveCancel}
+                                     onApply={onRemoveDevice}/>
+            <CustomConfirmationModal is_modal={isDeactivateModal} onCancel={onDeactivateCancel}
+                                     onApply={onDeactivateDevice}
+                                     message={`Please confirm you want to ${
+                                         device?.is_suspended
+                                             ?
+                                             "reactivate"
+                                             :
+                                             "deactivate"} this device`}
+            />
         </div>
     );
 };

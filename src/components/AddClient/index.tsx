@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
 import {useForm} from "antd/lib/form/Form";
 import AddClientForm from "./components/AddClientForm";
@@ -16,6 +16,8 @@ const AddClient: React.FC = () => {
     const dispatch = useDispatch();
 
     const {current_client, status} = useSelector(selectClientsState);
+    const [isChecked, setChecked] = useState<boolean>(false);
+
 
     const onSubmit = async (values: any) => {
         const data = {
@@ -25,7 +27,7 @@ const AddClient: React.FC = () => {
             phone: values.phone,
             full_name: values.full_name,
             email: values.email,
-            is_active: true,
+            is_active: isChecked,
             alternative_name: values.alternative_name,
             alternative_email: values.alternative_email,
             alternative_phone: values.alternative_phone,
@@ -40,6 +42,10 @@ const AddClient: React.FC = () => {
     };
 
 
+    const onChecked = () => {
+        setChecked((isChecked) => !isChecked);
+    };
+
     const onCancel = () => {
         form.resetFields();
         history.push("/clients");
@@ -49,12 +55,20 @@ const AddClient: React.FC = () => {
         dispatch(clientsAC.fetchAccountNumber());
     }, [dispatch]);
 
+    useEffect(() => {
+        if (current_client) {
+            setChecked(current_client?.is_active);
+        }
+    }, [current_client]);
+
 
     return (
         <Preloader isLoaded={status === LoadingStatus.LOADING}>
             <React.Fragment>
                 <ClientAlert/>
                 <AddClientForm form={form}
+                               isChecked={isChecked}
+                               onChecked={onChecked}
                                onSubmit={onSubmit}
                                onCancel={onCancel}
                 />

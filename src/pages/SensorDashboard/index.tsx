@@ -35,7 +35,6 @@ const SensorDashboard: React.FC = () => {
         if (!device) {
             dispatch(sensorsAC.setSensorsStatusOperation(LoadingStatus.FETCH_SENSORS_WITHOUT_DEVICE));
         }
-
         return () => {
             dispatch(sensorsAC.clearWsSensorsData());
         };
@@ -55,10 +54,6 @@ const SensorDashboard: React.FC = () => {
         return <Spinner/>;
     }
 
-    
-    console.log("ws ===>", ws_data, "<=== done")
-
-
     return (
         <Preloader isLoaded={status === LoadingStatus.LOADING && !ws_data}>
             <div className={classes.SensorDashboardWrap}>
@@ -67,7 +62,7 @@ const SensorDashboard: React.FC = () => {
                 {
                     !ws_data
                     &&
-                    <Empty description="Data is empty!"/>
+                    <Empty description="Device is Offline! No notifications can occur until the device is back online! Please check the device’s internet connection"/>
                 }
 
                 {

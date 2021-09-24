@@ -85,33 +85,20 @@ const AddSiteForm: React.FC<AddSiteProps> = ({form, onSubmit, timezones, onCance
                                 </Form.Item>
                             </InputWrap>
 
-                            <InputWrap title="Full name*">
-                                <Form.Item name="full_name"
-                                           rules={[{
-                                               required: true,
-                                               message: "Please input your full name",
-                                           }]}>
+                            <InputWrap title="Full name">
+                                <Form.Item name="full_name">
                                     <Input/>
                                 </Form.Item>
                             </InputWrap>
 
-                            <InputWrap title="Mobile*">
-                                <Form.Item name="mobile"
-                                           rules={[{
-                                               required: true,
-                                               message: "Please input your mobile",
-                                           }]}>
+                            <InputWrap title="Mobile">
+                                <Form.Item name="mobile">
                                     <Input/>
                                 </Form.Item>
                             </InputWrap>
 
-                            <InputWrap title="Email*">
-                                <Form.Item name="email"
-                                           rules={[{
-                                               type: "email",
-                                               required: true,
-                                               message: "The input is not valid E-mail!",
-                                           }]}>
+                            <InputWrap title="Email">
+                                <Form.Item name="email">
                                     <Input/>
                                 </Form.Item>
                             </InputWrap>
@@ -129,7 +116,7 @@ const AddSiteForm: React.FC<AddSiteProps> = ({form, onSubmit, timezones, onCance
                                       htmlType="submit"
                                       className="mar-right-10"
                         >
-                            SAVE CHANGES
+                            SAVE
                         </CustomButton>
                     </Form.Item>
                     <Form.Item>

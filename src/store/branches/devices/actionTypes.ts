@@ -13,6 +13,7 @@ export enum DevicesAT {
     REMOVE_CURRENT_DEVICE = "devices/REMOVE_CURRENT_DEVICE",
     DEACTIVATE_CURRENT_DEVICE = "devices/DEACTIVATE_CURRENT_DEVICE",
     CHANGE_ACTIVE_CURRENT_DEVICE = "devices/CHANGE_ACTIVE_CURRENT_DEVICE",
+    NOTIFICATION_SELECT = "devices/NOTIFICATION_SELECT",
     SELECT_DEVICES = "devices/SELECT_DEVICES",
     SELECT_DEVICE = "devices/SELECT_DEVICE",
     SET_DEVICES = "devices/SET_DEVICES",
@@ -89,6 +90,11 @@ export interface SetDevicesAI extends Action<DevicesAT> {
 export interface SetDevicesLoadingStatusAI extends Action<DevicesAT> {
     type: DevicesAT.SET_LOADING_STATE;
     payload: LoadingStatus;
+}
+
+export interface NotificationSelectAI extends Action<DevicesAT> {
+    type: DevicesAT.NOTIFICATION_SELECT;
+    payload: {locationId: number, deviceId: number};
 }
 
 export interface SetOperationStatusDevicesAI extends Action<DevicesAT> {

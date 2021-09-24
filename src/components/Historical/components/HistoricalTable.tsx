@@ -7,6 +7,7 @@ import {TableDataItem} from "../index";
 import {generationDate, generationTime} from "../../../pages/Notifications/components/Colums";
 
 import classes from "../Historical.module.scss";
+import {useHistory} from "react-router-dom";
 
 
 interface TableProps {
@@ -21,6 +22,8 @@ const HistoricalTable: React.FC<TableProps> = ({
                                                    onPageChange,
                                                    pagination,
                                                }) => {
+    const history = useHistory();
+
     const tableData1: TableDataItem[] = [];
     const tableData2: TableDataItem[] = [];
     const tableData3: TableDataItem[] = [];
@@ -65,6 +68,12 @@ const HistoricalTable: React.FC<TableProps> = ({
 
     });
 
+    const handleSelectCollum = (collum: any) => {
+        const timescale = collum.key.split(" ");
+        console.log("colum ===>", collum.key.split(" "), "<=== done");
+        history.push(`/graphs/historical/graphs/${timescale[0]}&${timescale[1]}`);
+    };
+
     return (
         <React.Fragment>
             <div className={classes.tableWrap}>
@@ -74,7 +83,7 @@ const HistoricalTable: React.FC<TableProps> = ({
                            onRow={(collum) => {
                                return {
                                    onClick: () => {
-                                       console.log(collum.key);
+                                       handleSelectCollum(collum);
                                    },
                                };
                            }}
@@ -90,7 +99,7 @@ const HistoricalTable: React.FC<TableProps> = ({
                            onRow={(collum) => {
                                return {
                                    onClick: () => {
-                                       console.log(collum.key);
+                                       handleSelectCollum(collum);
                                    },
                                };
                            }}
@@ -106,7 +115,7 @@ const HistoricalTable: React.FC<TableProps> = ({
                            onRow={(collum) => {
                                return {
                                    onClick: () => {
-                                       console.log(collum.key);
+                                       handleSelectCollum(collum);
                                    },
                                };
                            }}

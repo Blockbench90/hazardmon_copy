@@ -139,7 +139,9 @@ const Sensor: React.FC<SensorProps> = ({
                 </div>
 
                 <div>
-                    #{groupNumber}.{sensorNumber}
+                    <span>
+                        #{groupNumber}.{sensorNumber}
+                    </span>
                 </div>
             </div>
         </div>

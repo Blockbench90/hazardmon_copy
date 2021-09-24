@@ -65,7 +65,9 @@ const SitesBlock: React.FC<Site> = ({
 
             <div className={classes.editButton}>
                 <Tooltip placement="right" title={"Edit site"}>
-                    <Edit onClick={onEditCart}/>
+                    <div className={classes.editButtonIcon}>
+                        <Edit onClick={onEditCart}/>
+                    </div>
                 </Tooltip>
             </div>
         </div>

@@ -68,12 +68,11 @@ export const userAC = {
         payload,
     }),
 
-    fetchHeaderNotifications: (payload: SearchValues): FetchHeaderNotificationsAI => ({
-        type: UserAT.FETCH_HEADER_NOTIFICATIONS,
-        payload,
+    fetchHeaderNotificationCount: (): FetchHeaderNotificationsAI => ({
+        type: UserAT.FETCH_HEADER_NOTIFICATIONS_COUNT,
     }),
 
-    setHeaderNotification: (payload: { count: number; results: Notification[] }) => ({
+    setHeaderNotificationCount: (payload: { count: number; results: Notification[] }) => ({
         type: UserAT.SET_HEADER_NOTIFICATIONS,
         payload,
     }),

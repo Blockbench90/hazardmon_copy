@@ -33,11 +33,6 @@ const SitesAlert = () => {
         />;
     };
 
-    if (status_operation === LoadingStatus.ADD_USER_SUCCESS) {
-        setTimer();
-        return alertNotification(errorMessage || "User added successfully", "success");
-    }
-
     if (status_operation === LoadingStatus.ADD_USER_ERROR) {
         setTimer();
         return alertNotification(errorMessage || "The email address is already registered.", "warning");
@@ -48,19 +43,9 @@ const SitesAlert = () => {
         return alertNotification(errorMessage || "An error occured, please try again!", "warning");
     }
 
-    if (status_operation === LoadingStatus.ASSIGN_USER_SUCCESS) {
-        setTimer();
-        return alertNotification(errorMessage || "Operation successfully", "success");
-    }
-
     if (status_operation === LoadingStatus.ASSIGN_USER_ERROR) {
         setTimer();
         return alertNotification(errorMessage || "User added to another client", "warning");
-    }
-
-    if (status_operation === LoadingStatus.EDIT_SITE_SUCCESS) {
-        setTimer();
-        return alertNotification(errorMessage || "Operation successfully", "success");
     }
 
     if (status_operation === LoadingStatus.EDIT_SITE_ERROR) {
@@ -68,20 +53,11 @@ const SitesAlert = () => {
         return alertNotification(errorMessage || "An error occured, please try again!", "warning");
     }
 
-    if (status_operation === LoadingStatus.ACTIVATION_SITE_SUCCESS) {
-        setTimer();
-        return alertNotification(errorMessage || "Operation successfully", "success");
-    }
-
     if (status_operation === LoadingStatus.ACTIVATION_SITE_ERROR) {
         setTimer();
         return alertNotification(errorMessage || "An error occured, please try again!", "warning");
     }
 
-    if (status_operation === LoadingStatus.ADD_SITE_SUCCESS) {
-        setTimer();
-        return alertNotification(errorMessage || "Operation successfully", "success");
-    }
 
     if (status_operation === LoadingStatus.ADD_SITE_ERROR) {
         setTimer();

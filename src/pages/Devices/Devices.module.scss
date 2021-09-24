@@ -91,6 +91,13 @@
   }
 }
 
+.editButtonIcon:hover svg {
+  path {
+    fill: #A9CC13;
+    color: #00C09E;
+  }
+}
+
 .suspendedBlockWrap {
   background: #E9EAEC;
   opacity: 0.6;

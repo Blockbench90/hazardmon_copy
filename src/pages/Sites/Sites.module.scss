@@ -77,22 +77,13 @@
     width: 10%;
     padding: 15px;
     color: #7C90B1;
-
-    :hover {
-      -webkit-box-shadow: 0px 7px 52px 73px rgba(43, 176, 58, 0.23) inset;
-      -moz-box-shadow: 0px 7px 52px 73px rgba(43, 176, 58, 0.23) inset;
-      box-shadow: 0px 7px 52px 73px rgba(43, 176, 58, 0.23) inset;
-
-    }
   }
 }
 
-.editButton {
-  svg {
-    :hover {
-      fill: rgba(43, 176, 58, 0.57);
-      color: rgba(43, 176, 58, 0.57);
-    }
+.editButtonIcon:hover svg {
+  path {
+    fill: #A9CC13;
+    color: #00C09E;
   }
 }
 
@@ -104,7 +95,6 @@
 }
 
 :global {
-
   .ant-tooltip-inner {
     min-height: 36px !important;
     border-radius: 8px !important;

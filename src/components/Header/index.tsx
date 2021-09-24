@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {Route, useHistory} from "react-router-dom";
@@ -13,7 +12,7 @@ import TabsNotifications from "../TabsNotifications";
 
 import HeaderNotifications from "./components/HeaderNotifications";
 import {userAC} from "../../store/branches/user/actionCreators";
-import {Notification, WsNotification} from "../../store/branches/user/stateTypes";
+import {WsNotification} from "../../store/branches/user/stateTypes";
 import {selectUserState} from "../../store/selectors";
 
 import classes from "./Header.module.scss";
@@ -28,13 +27,12 @@ const HeaderComponent: React.FC<HeaderProps> = ({className}) => {
 
     const dispatch = useDispatch();
     const history = useHistory();
-    const {ws_notify: {notifications}, headerNotifications: requestNotifications} = useSelector(selectUserState);
+    const {ws_notify: {notifications}, headerNotificationCount} = useSelector(selectUserState);
 
     useEffect(() => {
-        dispatch(userAC.fetchHeaderNotifications({limit: 1, offset: 0, is_active: true, ordering: "-date_created"}));
+        dispatch(userAC.fetchHeaderNotificationCount());
     }, [dispatch]);
 
-    const [message, setMessage] = useState<Notification | null>(null);
     const [wsNotification, setNotification] = useState<WsNotification | null>(null);
 
     const handleAlerts = () => {
@@ -44,12 +42,10 @@ const HeaderComponent: React.FC<HeaderProps> = ({className}) => {
     useEffect(() => {
         if (notifications.length > 0) {
             setNotification(notifications[0]);
+            dispatch(userAC.fetchHeaderNotificationCount());
             return;
         }
-        if (requestNotifications?.results?.length > 0) {
-            setMessage(requestNotifications?.results[0]);
-        }
-    }, [requestNotifications, notifications]);
+    }, [dispatch, notifications]);
 
     return (
         <React.Fragment>
@@ -59,7 +55,7 @@ const HeaderComponent: React.FC<HeaderProps> = ({className}) => {
                         <Route path="/dashboard">
                             <TabsSensorDashboard/>
                         </Route>
-                        <Route path="/graphs" >
+                        <Route path="/graphs">
                             <TabsSensorGraphs/>
                         </Route>
                         <Route path="/notifications">
@@ -76,8 +72,7 @@ const HeaderComponent: React.FC<HeaderProps> = ({className}) => {
 
                     </div>
 
-                    <HeaderNotifications messageCount={requestNotifications && requestNotifications?.count}
-                                         message={message}
+                    <HeaderNotifications messageCount={headerNotificationCount}
                                          wsNotification={wsNotification}
                     />
 

@@ -1,7 +1,5 @@
 import classNames from "classnames";
-import _ from "lodash";
 import * as React from "react";
-import {IoIosWarning} from "react-icons/io";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 
@@ -21,8 +19,6 @@ import "react-tabs/style/react-tabs.css";
 import "./SchemaDetails.css";
 
 // images
-import alarmIcon from "../../assets/img/alarm-icon.png";
-import tabIcon from "../../assets/img/tab-icon.png";
 import {ReactComponent as Edit} from "../../assets/icons/visual_edit.svg";
 import {ReactComponent as Copy} from "../../assets/icons/visual_copy.svg";
 import {ReactComponent as Delete} from "../../assets/icons/visual_delete.svg";
@@ -154,7 +150,7 @@ class SchemaDetailsPage extends React.Component<SchemaDetailsProps> {
             deleteSchema,
             toggleModifyPublishedModal,
             cloneTab,
-            schemaNotifications,
+            // schemaNotifications,
             currentUser,
         } = this.props;
 
@@ -250,18 +246,18 @@ class SchemaDetailsPage extends React.Component<SchemaDetailsProps> {
                                         // selected: `${tab.id}` === match.params.tabId,
                                     });
 
-                                    const notificationsForThisTab = schemaNotifications.filter((notification: any) => _.some(tab.sensors_ids, (sensorIdObj: any) => {
-                                        return _.some(sensorIdObj, (obj: any, sensorId: string) => notification.full_sensor_id === sensorId);
-                                    }));
+                                    // const notificationsForThisTab = schemaNotifications.filter((notification: any) => _.some(tab.sensors_ids, (sensorIdObj: any) => {
+                                    //     return _.some(sensorIdObj, (obj: any, sensorId: string) => notification.full_sensor_id === sensorId);
+                                    // }));
 
-                                    let TabIconImg = () => <img src={tabIcon} className="schema-tab__icon"/>;
-
-                                    if (_.some(notificationsForThisTab, (notification: any) => ["Alarm Detected", "Alarm Changed"].includes(notification.event_type))) {
-                                        TabIconImg = () => <img src={alarmIcon} className="schema-tab__icon"/>;
-                                    } else if (_.some(notificationsForThisTab, (notification: any) => ["Warning Detected", "Warning Changed"].includes(notification.event_type))) {
-                                        TabIconImg = () => <IoIosWarning className="schema-tab__icon" color="#fffeb2"
-                                                                         size="15"/>;
-                                    }
+                                    // let TabIconImg = () => <img src={tabIcon} className="schema-tab__icon" alt={"schema"}/>;
+                                    //
+                                    // if (_.some(notificationsForThisTab, (notification: any) => ["Alarm Detected", "Alarm Changed"].includes(notification.event_type))) {
+                                    //     TabIconImg = () => <img src={alarmIcon} className="schema-tab__icon" alt={"schema"}/>;
+                                    // } else if (_.some(notificationsForThisTab, (notification: any) => ["Warning Detected", "Warning Changed"].includes(notification.event_type))) {
+                                    //     TabIconImg = () => <IoIosWarning className="schema-tab__icon" color="#fffeb2"
+                                    //                                      size="15"/>;
+                                    // }
 
 
                                     return (

@@ -21,6 +21,7 @@
 
 .profileInfo {
   font-size: 20px !important;
+  margin-bottom: 30px;
 
   .profileInfoColumn {
     font-size: 14px !important;
@@ -59,28 +60,29 @@
 
 .settingLink {
   position: absolute !important;
-  bottom: 0 !important;
+  bottom: 130px !important;
+  width: 100%;
 }
 
 .modify {
   position: absolute !important;
-  bottom: 40px !important;
+  bottom: 160px !important;
+  width: 100%;
 }
 
 .visual {
+  background: #014B3E;
   position: absolute !important;
-  bottom: 80px !important;
+  bottom: 200px !important;
 }
 
 .sizeVisualBig {
-  width: 190px;
-  left: 5px !important;
+  width: 100%;
   transition: width 0.2s !important;
 }
 
 .sizeVisualSmall {
   width: 72px !important;
-  left: 5px !important;
   transition: width 0.2s !important;
 }
 
@@ -97,3 +99,28 @@
     }
   }
 }
+
+:global {
+  .ant-menu.ant-menu-root.ant-menu-vertical.ant-menu-dark {
+    position: relative;
+    height: 100%;
+  }
+
+}
+
+.sideTitle {
+  color: #7C90B1;
+}
+
+.lineBottom {
+  color: white;
+  border-bottom: 1px solid #94A0B7;
+  margin-top: 35px;
+  width: 100%;
+}
+
+.userSetting {
+  font-size: 20px;
+  color: #A9CC13;
+}
+

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {Tabs} from "antd";
 import {useDispatch} from "react-redux";
 import {useHistory} from "react-router-dom";
@@ -10,13 +10,13 @@ import {ReactComponent as Custom} from "../../assets/icons/custom.svg";
 
 import {LoadingStatus} from "../../store/status";
 import {GraphsDate} from "../../store/branches/graphs/stateTypes";
-import {CUSTOM_HISTORICAL_GRAPHS, SENSOR_GRAPHS} from "../PrivateRoute/components/constants";
+import {SENSOR_GRAPHS} from "../PrivateRoute/components/constants";
 import CustomModal from "./CustomModal";
 import {useCurrentSelection} from "../../hooks/useCurrentSelection";
 import {WinStorage} from "../../services/AuthSrorage";
 import {graphsAC} from "../../store/branches/graphs/actionCreators";
 
-import classes from "../TabsSensorDashboard/TabsSensorDashboard.module.scss";
+import classes from "../TabsSensorDashboard/modal.module.scss";
 
 const {TabPane} = Tabs;
 
@@ -32,7 +32,7 @@ const TabsSensorGraphs: React.FC = () => {
 
     const {device} = useCurrentSelection();
 
-    const setVisibleModal = () => {
+    const handleCustomGraphs = () => {
         setModal(true);
     };
 
@@ -56,7 +56,7 @@ const TabsSensorGraphs: React.FC = () => {
         };
         dispatch(graphsAC.fetchCustomGraphsData(payload));
         setModal(false);
-        history.push(CUSTOM_HISTORICAL_GRAPHS);
+        history.push(`/graphs/historical/graphs/${date}&${time}`);
     };
 
     const onChoiceDate = (date: string) => {
@@ -103,7 +103,7 @@ const TabsSensorGraphs: React.FC = () => {
                                  onHandleSearch={onSearchModal}
                     />
 
-                    <Tabs defaultActiveKey={(history?.location?.pathname === "/graphs/historical/graphs") ? "6" : "3"}
+                    <Tabs defaultActiveKey={(history?.location?.pathname.split("/").includes("historical")) ? "6" : "3"}
                           className={classes.tabs}
                           style={{paddingTop: "7px"}}
                           centered
@@ -156,7 +156,7 @@ const TabsSensorGraphs: React.FC = () => {
 
                         <TabPane className={classes.tab}
                                  tab={
-                                     <div onClick={setVisibleModal}>
+                                     <div onClick={handleCustomGraphs}>
                                          <Custom/>
                                          <span className={classes.title}>Custom</span>
                                      </div>

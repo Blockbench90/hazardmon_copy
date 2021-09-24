@@ -223,7 +223,7 @@ class SensorGraph extends React.Component<SensorGraphProps> {
             },
             tooltip: ({
                 formatter(): any {
-                    let res = moment(this.x).format("D MMM YYYY, HH:mm:ss") + ' ' + '<br/>';
+                    let res = moment(this.x).format("D MMM YYYY, HH:mm:ss") + ' ' + <br/>;
 
                     const formatters = {
                         'Minutes': (value: any) => `${Math.floor(value / 60)}h:${value % 60}m`

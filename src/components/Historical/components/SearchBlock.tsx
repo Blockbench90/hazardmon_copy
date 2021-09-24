@@ -1,6 +1,8 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {useDispatch} from "react-redux";
 import {DatePicker, TimePicker} from "antd";
+import {useParams} from "react-router-dom";
+import moment from "moment";
 
 import {sensorsAC} from "../../../store/branches/sensors/actionCreators";
 import {CustomButton} from "../../Button";
@@ -8,8 +10,6 @@ import {useCurrentSelection} from "../../../hooks/useCurrentSelection";
 import {LoadingStatus} from "../../../store/status";
 
 import classes from "../Historical.module.scss";
-import {WinStorage} from "../../../services/AuthSrorage";
-import moment from "moment";
 
 interface SearchProps {
     limit: number
@@ -20,14 +20,18 @@ interface SearchProps {
 
 const SearchBlock: React.FC<SearchProps> = ({limit, offset, setCurrentTime, setPagination}) => {
     const dispatch = useDispatch();
-    const [date, setDate] = useState<string>();
-    const [time, setTime] = useState<string>();
     const {device} = useCurrentSelection();
+    const {times}: any = useParams();
+
+    const initTime = times?.split("&");
+    const startMonth = moment().startOf("month").format("YYYY-MM-DD");
+    const today = moment().format("HH:MM");
+
+    const [date, setDate] = useState<string>(initTime ? initTime[0] : startMonth);
+    const [time, setTime] = useState<string>(initTime ? initTime[1] : today);
 
     const dateFormatList = ["YYYY-MM-DD"];
-    const format = "HH:mm";
-
-    const initTime = WinStorage.getLocalTime();
+    const timeFormat = "HH:mm";
 
     const onSearch = () => {
         setCurrentTime({date, time});
@@ -43,12 +47,6 @@ const SearchBlock: React.FC<SearchProps> = ({limit, offset, setCurrentTime, setP
         };
         dispatch(sensorsAC.fetchHistoricalGraphs(payload));
     };
-    useEffect(() => {
-        if (initTime) {
-            setTime(initTime.time);
-            setDate(initTime.date);
-        }
-    }, [initTime]);
 
     return (
         <React.Fragment>
@@ -59,18 +57,17 @@ const SearchBlock: React.FC<SearchProps> = ({limit, offset, setCurrentTime, setP
                             size="large"
                             className={classes.datePicker}
                             placeholder="Data"
-                            value={moment(initTime.date, dateFormatList)}
-                            // defaultValue={moment(initTime.date, dateFormatList)}
+                            defaultValue={moment(date, dateFormatList)}
+                            format={dateFormatList}
                             inputReadOnly={true}
                             onChange={(date: any, dateString: string) => setDate(dateString)}
-                            format={dateFormatList}
                         />
 
-                        <TimePicker format={format}
+                        <TimePicker format={timeFormat}
                                     inputReadOnly={true}
                                     placeholder="Time"
                                     size="large"
-                                    value={moment(initTime.time, format)}
+                                    defaultValue={moment(time, timeFormat)}
                                     className={classes.timePicker}
                                     onChange={(value: any, timeString: string) => setTime(timeString)}
                         />

@@ -2,58 +2,42 @@ import React, {useCallback, useEffect} from "react";
 import {useDispatch} from "react-redux";
 import clsx from "clsx";
 import {notification} from "antd";
-import {InfoCircleOutlined} from "@ant-design/icons";
-import {useHistory} from "react-router-dom";
 
 import {userAC} from "../../../store/branches/user/actionCreators";
 import Notify from "./Notify";
 import {WsNotification} from "../../../store/branches/user/stateTypes";
+import {CloseOutlined} from "@ant-design/icons";
+import {devicesAC} from "../../../store/branches/devices/actionCreators";
 
-import classes from "../Header.module.scss";
 
 interface NotificationsProps {
     messageCount?: number
-    message?: any
     wsNotification?: WsNotification
 }
 
 const HeaderNotifications: React.FC<NotificationsProps> = ({
                                                                messageCount,
-                                                               message,
                                                                wsNotification,
                                                            }) => {
     const dispatch = useDispatch();
-    const history = useHistory();
 
     const onRedirect = useCallback(() => {
-        history.push("/dashboard");
-    }, [history]);
+        dispatch(devicesAC.notificationSelect({
+            locationId: wsNotification.location_pk,
+            deviceId: wsNotification.device_pk,
+        }));
+    }, [wsNotification, dispatch]);
 
-    const get_color = useCallback(() => {
-        if (message) {
-            if (["alarm detected", "alarm changed"].includes(message.event_type.toLowerCase())) {
-                return "red";
-            }
-            if (["alarm cleared", "warning cleared", "device online", "parse_error_off", "site_administration"].includes(message.event_type.toLowerCase())) {
-                return "green";
-            }
-            if (["power up", "warning detected", "test", "device offline", "node_structure_changes", "parse_error_on"].includes(message.event_type.toLowerCase())) {
-                return "amber";
-            }
-        }
-        return "blue";
-    }, [message]);
-
-    const openNotification = () => {
-        notification.info({
+    const openNotification = useCallback(() => {
+        notification.open({
             duration: 4,
             placement: "bottomRight",
-            icon: <InfoCircleOutlined/>,
-            className: clsx(classes.headerNotification, wsNotification ? wsNotification?.color : get_color()),
+            closeIcon: <CloseOutlined style={{color: "white", fontSize: "16px", fontWeight: 700}}/>,
+            className: clsx(wsNotification?.color),
             message: (
                 wsNotification
                 &&
-                <div onClick={onRedirect}>
+                <div onClick={onRedirect} className={clsx(wsNotification?.color)}>
                     <span>
                         {wsNotification?.notification_time} - {wsNotification?.device} - {wsNotification?.event_type}
                     </span>
@@ -62,7 +46,7 @@ const HeaderNotifications: React.FC<NotificationsProps> = ({
                 </div>
             ),
         });
-    };
+    }, [wsNotification, onRedirect]);
 
 
     useEffect(() => {

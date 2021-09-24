@@ -12,7 +12,7 @@ export enum UserAT {
     SET_HEADER_NOTIFICATIONS = "user/SET_HEADER_NOTIFICATIONS",
     SET_IS_APPLY_NOTIFICATIONS = "user/SET_IS_APPLY_NOTIFICATIONS",
     SET_NOTIFICATIONS_FILTER = "user/SET_NOTIFICATIONS_FILTER",
-    FETCH_HEADER_NOTIFICATIONS = "user/FETCH_HEADER_NOTIFICATIONS",
+    FETCH_HEADER_NOTIFICATIONS_COUNT = "user/FETCH_HEADER_NOTIFICATIONS_COUNT",
     SEARCH_NOTIFICATIONS = "user/SEARCH_NOTIFICATIONS",
     FETCH_USER_DATA = "user/FETCH_USER_DATA",
     SIGN_UP = "user/SIGN_UP",
@@ -57,8 +57,7 @@ export interface SetNotificationsFilterAI extends Action<UserAT> {
 }
 
 export interface FetchHeaderNotificationsAI extends Action<UserAT> {
-    type: UserAT.FETCH_HEADER_NOTIFICATIONS;
-    payload: SearchValues;
+    type: UserAT.FETCH_HEADER_NOTIFICATIONS_COUNT;
 }
 
 export interface FetchEmailNotificationsAI extends Action<UserAT> {

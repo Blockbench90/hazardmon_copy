@@ -10,8 +10,8 @@ import Preloader from "../Preloader";
 import HistoricalTable from "./components/HistoricalTable";
 import {sensorsAC} from "../../store/branches/sensors/actionCreators";
 import {useCurrentSelection} from "../../hooks/useCurrentSelection";
-import {WinStorage} from "../../services/AuthSrorage";
 import {selectSensorsState} from "../../store/selectors";
+import {useParams} from "react-router-dom";
 
 export interface TableDataItem {
     id: string
@@ -23,7 +23,9 @@ export interface TableDataItem {
 
 const Historical: React.FC = () => {
         const dispatch = useDispatch();
-        const localTime = WinStorage.getLocalTime();
+
+        const {times}: any = useParams();
+        const initTime = times?.split("&");
 
         const [pagination, setPagination] = useState({page: 1, pageSize: 60});
         const [currentTime, setCurrentTime] = useState<{ date: string, time: string }>(null);
@@ -34,8 +36,8 @@ const Historical: React.FC = () => {
         const onPageChange = (page: number, pageSize: number) => {
             setPagination({page, pageSize});
             const payload = {
-                date: currentTime ? currentTime?.date : localTime.date,
-                time: currentTime ? currentTime?.time : localTime.time,
+                date: currentTime ? currentTime?.date : initTime[0],
+                time: currentTime ? currentTime?.time : initTime[1],
                 device_id: device?.id,
                 limit: pageSize,
                 offset: pageSize * (page - 1),
@@ -44,16 +46,11 @@ const Historical: React.FC = () => {
         };
 
         useEffect(() => {
-            if (!device) {
-                dispatch(sensorsAC.setSensorsStatusOperation(LoadingStatus.FETCH_SENSORS_WITHOUT_DEVICE));
-                return;
-            }
-            if (!currentTime && !localTime) {
+            if (!initTime) {
                 dispatch(sensorsAC.setSensorsStatusOperation(LoadingStatus.FETCH_SENSORS_HISTORICAL_DATE));
                 return;
             }
-
-        }, [dispatch, device, currentTime, localTime]);
+        }, [dispatch, initTime]);
 
         return (
             <Preloader isLoaded={status === LoadingStatus.LOADING}>

@@ -8,7 +8,7 @@ const initialUserState: UserState = {
     userData: undefined,
     auth_key: null,
     notifications: {results: [], count: 0},
-    headerNotifications: {results: [], count: 0},
+    headerNotificationCount: null,
     ws_notify: {device: null, location: null, notifications: []},
     email_notifications: null,
     current_email_notification: null,
@@ -31,8 +31,8 @@ export const userReducer = produce((draft: Draft<UserState>, action: UserActions
             break;
 
         case UserAT.SET_HEADER_NOTIFICATIONS:
-            draft.headerNotifications.results = action.payload.results;
-            draft.headerNotifications.count = action.payload.count;
+            // @ts-ignore
+            draft.headerNotificationCount = action.payload;
             draft.status = LoadingStatus.SUCCESS;
             break;
 
