@@ -6,8 +6,6 @@ import SensorWrap from "./SensorWrap";
 import success from "../../../assets/icons/success_sensor.svg";
 import notify from "../../../assets/icons/notify_sensor.svg";
 import not_scanned from "../../../assets/icons/not_scaned.svg";
-
-import {ReactComponent as TemperatureDown} from "../../../assets/icons/temperature_down.svg";
 import {ReactComponent as Celsium} from "../../../assets/icons/celsium.svg";
 
 import classes from "../SensorDashboard.module.scss";
@@ -73,8 +71,6 @@ const SensorsType500: React.FC<SensorsType500Props> = ({
                                     ambient
                                     &&
                                     <React.Fragment>
-                                        <TemperatureDown className={classes.groupTemperatureDown}
-                                                         style={{fontSize: "16px"}}/>
                                         <span className={classes.groupDegrees}>{ambient ? ambient : ""}</span>
                                         <Celsium className={classes.groupCelsium}/>
                                     </React.Fragment>

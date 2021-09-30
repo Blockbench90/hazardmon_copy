@@ -1,7 +1,7 @@
 import React from "react";
 import {useDispatch} from "react-redux";
 import {useHistory} from "react-router-dom";
-import {Typography} from "antd";
+import {Tooltip, Typography} from "antd";
 import clsx from "clsx";
 
 import suspended from "../../../assets/icons/suspended.svg";
@@ -10,6 +10,7 @@ import success from "../../../assets/icons/succsess_green.svg";
 import notify from "../../../assets/icons/red_notify.svg";
 import active from "../../../assets/icons/active.svg";
 import offline from "../../../assets/icons/offline.svg";
+import suspended_device from "../../../assets/icons/suspended_device.svg";
 
 import {ReactComponent as Edit} from "../../../assets/icons/device_edit.svg";
 
@@ -38,6 +39,9 @@ const DevicesBlock: React.FC<Device> = ({
 
     const handleSelect = (event: React.MouseEvent<HTMLDivElement>) => {
         event.preventDefault();
+        if (is_suspended || !is_online) {
+            return;
+        }
         dispatch(devicesAC.selectDevice(id.toString()));
     };
 
@@ -52,8 +56,8 @@ const DevicesBlock: React.FC<Device> = ({
         >
 
             <div className={classes.pic}>
-                <img src={device} alt="powerHold" className={classes.devicesPic}/>
-                <img src={is_online ? success : notify} alt="notify" className={classes.notify}/>
+                <img src={is_suspended ? suspended_device : device} alt="powerHold" className={classes.devicesPic}/>
+                <img src={is_online ? success : is_suspended ? "" : notify} alt="" className={classes.notify}/>
             </div>
 
             <div className={classes.activation}>
@@ -71,7 +75,9 @@ const DevicesBlock: React.FC<Device> = ({
 
             <div className={classes.editButton}>
                 <div className={classes.editButtonIcon}>
-                    <Edit onClick={(event) => onEdit(event)}/>
+                    <Tooltip placement="topRight" title="Edit device">
+                        <Edit onClick={(event) => onEdit(event)}/>
+                    </Tooltip>
                 </div>
             </div>
         </div>

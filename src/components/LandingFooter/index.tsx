@@ -1,22 +1,33 @@
 import React from "react";
 import clsx from "clsx";
-import {Select} from "antd";
+import {Button, Dropdown, Menu} from "antd";
+import {Link} from "react-router-dom";
 
 import classes from "./LandingFooter.module.scss";
+import {DownOutlined} from "@ant-design/icons";
 
-const {Option} = Select;
 
-const LandingFooter: React.FC= () => {
+const menu = (
+    <Menu key={"feedback"}>
+        <Menu.Item >
+            <Link to="/feedback">
+                Send Feedback
+            </Link>
+        </Menu.Item>
+    </Menu>
+);
+
+
+const LandingFooter: React.FC = () => {
     return (
         <React.Fragment>
             <div className="cssLine"/>
 
             <div className={clsx("d-flex", classes.footer)}>
                 <div className={classes.connectUs}>
-                    <Select defaultValue="Contact Us" bordered={false} className={classes.select}>
-                        <Option value="Contact Us">Contact Us</Option>
-                        <Option value="Phone">Phone</Option>
-                    </Select>
+                    <Dropdown overlay={menu} placement="topRight" arrow>
+                        <Button className={classes.select} type={"text"}>Contact Us <DownOutlined /></Button>
+                    </Dropdown>
                 </div>
 
                 <div className={classes.copyright}>

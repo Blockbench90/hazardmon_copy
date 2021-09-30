@@ -21,7 +21,6 @@
 .tabPane {
   padding: 15px;
   background: #EEF0EC;
-  //border: 1px solid #7C90B1;
   border-radius: 5px;
 }
 
@@ -54,4 +53,8 @@
       background: #EEF0EC !important;
     }
   }
+}
+
+.export{
+  cursor: pointer;
 }

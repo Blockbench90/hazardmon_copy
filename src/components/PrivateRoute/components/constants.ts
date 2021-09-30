@@ -18,6 +18,7 @@ export const CURRENT_DEVICES = "/devices/:id"
 //TODO: need to discussion
 // export const SENSOR_DASHBOARD = ["/dashboard/:id", "/dashboard"]
 export const SENSOR_DASHBOARD = "/dashboard"
+export const FEEDBACK = "/feedback"
 export const SENSOR_GRAPHS = "/graphs"
 export const CUSTOM_HISTORICAL_GRAPHS = ["/graphs/historical/graphs", "/graphs/historical/graphs/:times"]
 export const NOTIFICATIONS = "/notifications"
@@ -27,3 +28,6 @@ export const VISUAL_DASHBOARD_EDITOR = "/visual-dashboard/site/:siteId/schemas/n
 export const EMAIL_NOTIFICATIONS = "/user/setting/notification"
 export const ADD_EMAIL_NOTIFICATIONS = "/user/setting/add/notification"
 export const EDIT_EMAIL_NOTIFICATIONS = "/user/setting/add/notification/:id"
+export const MODIFY_HOMEPAGE = "/modify-homepage"
+export const OEM_SETTING = "/oem/setting"
+export const OEM_SETTING_RSS_EDIT = "/settings/rss/edit"

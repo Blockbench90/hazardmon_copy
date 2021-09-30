@@ -52,13 +52,10 @@ const Sensor: React.FC<SensorProps> = ({
 
     const setMaintenance = useCallback(() => {
         if (isDisabledForMaintenance) {
-            console.log("id ==> ", sensor.Id);
             return;
         }
         dispatch(sensorsAC.setMaintenance(sensor.Id));
-        console.log("includes ==> ", sensor.Id);
     }, [sensor, isDisabledForMaintenance, dispatch]);
-
 
     return (
         <div
@@ -120,14 +117,20 @@ const Sensor: React.FC<SensorProps> = ({
                     {
                         sensor?.Meta?.State !== "Disabled"
                         &&
-                        <div
-                            className={clsx(classes.statusInfo, sensor?.Status === "WARNING" && classes.statusInfoDanger)}>
-                        <span className={classes.statusValue}>
-                            {!isBoolean && ((sensor.Meta.Units === "Minutes") ? `${Math.floor(sensor.Value / 60)}h:${sensor.Value % 60}m` : sensor.Value)}
-                        </span>
-                            <span>
-                            {!isBoolean && (sensor.Meta.Units === "Minutes") ? "" : sensor.Meta.Units === "Seconds" ? "Sec" : sensor.Meta.Units}
-                        </span>
+                        <div className={clsx(classes.statusInfo, sensor?.Status === "WARNING" && classes.statusInfoDanger)}>
+                            <span className={classes.statusValue}>
+                                {!isBoolean && ((sensor.Meta.Units === "Minutes") ? `${Math.floor(sensor.Value / 60)}h:${sensor.Value % 60}m` : sensor.Value)}
+                            </span>
+
+                                <span>
+                                {!isBoolean
+                                &&
+                                (sensor.Meta.Units === "Minutes")
+                                    ? ""
+                                    : sensor.Meta.Units === "Seconds"
+                                        ? "Sec" :
+                                        sensor.Meta.Units === "C" ? <span>&deg;C</span> : sensor.Meta.Units}
+                            </span>
                         </div>
                     }
                 </div>

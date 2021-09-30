@@ -26,8 +26,11 @@ import {
     EDIT_SITES,
     EDIT_WARNINGS,
     EMAIL_NOTIFICATIONS,
+    FEEDBACK,
     HISTORICAL,
     NOTIFICATIONS,
+    OEM_SETTING,
+    OEM_SETTING_RSS_EDIT,
     SENSOR_DASHBOARD,
     SENSOR_GRAPHS,
     SITES,
@@ -48,6 +51,9 @@ import AddSite from "../../AddSite";
 import EmailNotifications from "../../EmailNotificationsTable";
 import AddEmailNotification from "../../AddEmailNotification";
 import urls from "../../../constants/urls";
+import SendFeedback from "../../SendFeedback";
+import OEMSetting from "../../../pages/OEMSetting";
+import RSSEdit from "../../../pages/OEMSetting/components/RSSEdit/RSSEdit";
 
 
 export const privateRoutes = [
@@ -139,6 +145,10 @@ export const privateRoutes = [
         path: NOTIFICATIONS,
         Component: Notifications,
     },
+    {
+        path: FEEDBACK,
+        Component: SendFeedback,
+    },
 ];
 
 
@@ -170,5 +180,13 @@ export const adminRoutes = [
     {
         path: urls.machineDetails,
         Component: VisualDashboard,
+    },
+    {
+        path: OEM_SETTING,
+        Component: OEMSetting,
+    },
+    {
+        path: OEM_SETTING_RSS_EDIT,
+        Component: RSSEdit,
     },
 ];

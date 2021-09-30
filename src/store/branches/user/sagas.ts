@@ -5,10 +5,10 @@ import {LoadingStatus} from "../../status";
 import {eventChannel} from "redux-saga";
 import {userAC} from "./actionCreators";
 import {
-    AddEmailNotificationAI,
+    AddEmailNotificationAI, AddOEMSettingAI,
     FetchCurrentEmailNotification,
     RemoveCurrentEmailNotification,
-    SearchNotificationsAI,
+    SearchNotificationsAI, SendFeedbackAI,
     SignInAI,
     SignUpAI,
     ToggleWsNotificationAI,
@@ -278,6 +278,50 @@ export function* fetchCurrentEmailNotificationsRequest({payload}: FetchCurrentEm
     }
 }
 
+export function* sendFeedbackRequest({payload}: SendFeedbackAI) {
+    try {
+        yield put(userAC.setUserLoadingStatus(LoadingStatus.LOADING));
+        const status = yield call(UserApi.sendFeedback, payload);
+        console.log("status ==>", status)
+        if (status === 201) {
+            history.push("/");
+            yield put(userAC.setUserLoadingStatus(LoadingStatus.SEND_FEEDBACK_SUCCESS));
+        } else {
+            yield put(userAC.setUserLoadingStatus(LoadingStatus.SEND_FEEDBACK_ERROR));
+        }
+    } catch (error) {
+        yield put(userAC.setUserLoadingStatus(LoadingStatus.ERROR));
+    }
+}
+
+export function* fetchOEMSettingsRequest() {
+    try {
+        yield put(userAC.setUserLoadingStatus(LoadingStatus.LOADING));
+        const data = yield call(UserApi.getOEMSettings);
+        if (data) {
+            yield put(userAC.setOEMSettings(data.results));
+        } else {
+            yield put(userAC.setUserLoadingStatus(LoadingStatus.ERROR));
+        }
+    } catch (error) {
+        yield put(userAC.setUserLoadingStatus(LoadingStatus.ERROR));
+    }
+}
+
+export function* addOEMSettingsRequest({payload}: AddOEMSettingAI ) {
+    try {
+        yield put(userAC.setUserLoadingStatus(LoadingStatus.LOADING));
+        const status = yield call(UserApi.addOEMSettings, payload);
+        if (status === 201) {
+            yield call(fetchOEMSettingsRequest);
+        } else {
+            yield put(userAC.setUserLoadingStatus(LoadingStatus.ERROR));
+        }
+    } catch (error) {
+        yield put(userAC.setUserLoadingStatus(LoadingStatus.ERROR));
+    }
+}
+
 
 export function* userSaga() {
     yield takeLatest(UserAT.FETCH_SIGN_IN, LoginRequest);
@@ -294,4 +338,7 @@ export function* userSaga() {
     yield takeLatest(UserAT.ADD_EMAIL_NOTIFICATION, addEmailNotificationRequest);
     yield takeLatest(UserAT.UPDATE_CURRENT_EMAIL_NOTIFICATION, updateEmailNotificationRequest);
     yield takeLatest(UserAT.REMOVE_CURRENT_EMAIL_NOTIFICATION, removeEmailNotificationRequest);
+    yield takeLatest(UserAT.SEND_FEEDBACK, sendFeedbackRequest);
+    yield takeLatest(UserAT.FETCH_OEM_SETTINGS, fetchOEMSettingsRequest);
+    yield takeLatest(UserAT.ADD_OEM_SETTING, addOEMSettingsRequest);
 }

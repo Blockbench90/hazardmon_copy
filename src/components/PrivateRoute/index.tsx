@@ -13,11 +13,12 @@ import LayoutComponent from "../Layout";
 import Preloader from "../Preloader";
 import {adminRoutes, privateRoutes} from "./components/routes";
 import {LANDING_PAGE} from "./components/constants";
+import SendFeedback from "../SendFeedback";
 
 
 interface RouteProps {
     path: string | string[];
-    Component: React.FC<{}>;
+    Component: React.FC<any>;
 }
 
 const PrivateRoute: React.FC<{ isTablet: boolean }> = ({isTablet}) => {
@@ -66,6 +67,7 @@ const PrivateRoute: React.FC<{ isTablet: boolean }> = ({isTablet}) => {
                     :
                     <React.Fragment>
                         <Route exact path="/" component={LandingPage}/>
+                        <Route exact path="/feedback" component={SendFeedback}/>
                         <Redirect to={LANDING_PAGE}/>
                     </React.Fragment>}
             </React.Fragment>

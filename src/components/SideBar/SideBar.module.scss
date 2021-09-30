@@ -21,7 +21,7 @@
 
 .profileInfo {
   font-size: 20px !important;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 
   .profileInfoColumn {
     font-size: 14px !important;
@@ -68,6 +68,7 @@
   position: absolute !important;
   bottom: 160px !important;
   width: 100%;
+  color: #7C90B1;
 }
 
 .visual {
@@ -109,7 +110,17 @@
 }
 
 .sideTitle {
-  color: #7C90B1;
+  color: white;
+}
+
+:global {
+  .ant-layout-sider .ant-menu-dark .ant-menu-item > span > a{
+    color: inherit;
+  }
+
+  .ant-layout-sider .ant-menu-dark .ant-menu-item {
+    color: #7C90B1;
+  }
 }
 
 .lineBottom {
@@ -120,7 +131,18 @@
 }
 
 .userSetting {
+  :global {
+    .ant-menu-title-content {
+      color: #A9CC13 !important;
+    }
+    .ant-menu-inline-collapsed-noicon {
+      color: #A9CC13 !important;
+    }
+    .ant-menu-submenu, .ant-menu-submenu-vertical, .ant-menu-submenu-arrow:before, .ant-menu-submenu-arrow:after {
+      background: #A9CC13 !important;
+    }
+  }
+
   font-size: 20px;
-  color: #A9CC13;
 }
 

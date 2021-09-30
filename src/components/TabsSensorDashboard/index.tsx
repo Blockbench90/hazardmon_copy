@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Select, Switch, Tabs} from "antd";
+import {Checkbox, Select, Tabs} from "antd";
 import {useHistory, useLocation} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 
@@ -74,10 +74,10 @@ const TabsSensorDashboard: React.FC = () => {
         dispatch(sensorsAC.changeFilterStatusSensors(values));
     };
 
-    const onSwitchNodes = (checked: boolean) => {
-        checked
-            ? dispatch(sensorsAC.changeFilterStatusSensors(FilterStatus.ALL_NODES))
-            : dispatch(sensorsAC.changeFilterStatusSensors(FilterStatus.ACTIVE));
+    const onSwitchNodes = (e: any) => {
+        e.target.checked
+            ? dispatch(sensorsAC.changeFilterStatusSensors(FilterStatus.ACTIVE))
+            : dispatch(sensorsAC.changeFilterStatusSensors(FilterStatus.ALL_NODES))
     };
 
     const onCancel = () => {
@@ -154,8 +154,8 @@ const TabsSensorDashboard: React.FC = () => {
                         </div>
                         :
                         <div>
-                            <span className={classes.switchNodes}>Show all nodes</span>
-                            <Switch onChange={onSwitchNodes}/>
+                            <span className={classes.switchNodes}>Hide disabled sensors</span>
+                            <Checkbox onChange={onSwitchNodes} defaultChecked={true} className={classes.hideSensorsCheckbox}/>
                         </div>
                 }
 

@@ -59,6 +59,16 @@ const UserAlert = () => {
         return alertNotification(errorMessage || "An error occured, please try again!", "warning");
     }
 
+    if (status === LoadingStatus.SEND_FEEDBACK_ERROR) {
+        setTimer();
+        return alertNotification(errorMessage || "An error occured, please try again!", "warning");
+    }
+
+    if (status === LoadingStatus.SEND_FEEDBACK_SUCCESS) {
+        setTimer();
+        return alertNotification("Your feedback has been saved successfully.", "success");
+    }
+
     if (status === LoadingStatus.ADD_EMAIL_NOTIFICATION_WITHOUT_DEVICE_ERROR) {
         setTimer();
         return alertNotification(errorMessage || "Please select All Devices or select one of devices!", "warning");

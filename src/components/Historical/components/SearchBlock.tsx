@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
 import {DatePicker, TimePicker} from "antd";
-import {useParams} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 import moment from "moment";
 
 import {sensorsAC} from "../../../store/branches/sensors/actionCreators";
@@ -21,6 +21,7 @@ interface SearchProps {
 const SearchBlock: React.FC<SearchProps> = ({limit, offset, setCurrentTime, setPagination}) => {
     const dispatch = useDispatch();
     const {device} = useCurrentSelection();
+    const history = useHistory()
     const {times}: any = useParams();
 
     const initTime = times?.split("&");
@@ -46,6 +47,8 @@ const SearchBlock: React.FC<SearchProps> = ({limit, offset, setCurrentTime, setP
             date, time, device_id: device?.id, limit: 60, offset: 0,
         };
         dispatch(sensorsAC.fetchHistoricalGraphs(payload));
+        history.push(`/dashboard/historical/${date}&${time}`);
+
     };
 
     return (

@@ -42,6 +42,11 @@
     padding: 0 50px;
   }
 
+  .tabTitleWrap {
+    display: flex;
+    align-items: center;
+  }
+
   .title {
     font-family: Lato, serif;
     font-style: normal;
@@ -54,6 +59,14 @@
     @media screen and (max-width: 940px) {
       font-size: 12px !important;
 
+    }
+  }
+}
+
+.hideSensorsCheckbox {
+  :global {
+    .ant-checkbox-checked .ant-checkbox-inner {
+      background-color: #A9CC13;
     }
   }
 }
@@ -122,7 +135,7 @@
     margin-top: 40px;
     margin-bottom: 10px;
     display: flex;
-    flex-direction: row-reverse;
+    justify-content: center;
 
     .timePicker {
       width: 84px;

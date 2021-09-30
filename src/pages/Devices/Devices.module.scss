@@ -77,6 +77,7 @@
     .suspended {
       color: #7C90B1 !important;
       font-size: 12px;
+      font-weight: bold;
     }
 
     .offline {
@@ -99,8 +100,13 @@
 }
 
 .suspendedBlockWrap {
+  //background: #E9EAEC;
+  //opacity: 0.6;
+  //border: none !important;
+  box-shadow: none !important;
   background: #E9EAEC;
-  opacity: 0.6;
+  border: 1px solid #CAD0D3 !important;
+  border-radius: 3px;
 }
 
 .offlineBlockWrap {

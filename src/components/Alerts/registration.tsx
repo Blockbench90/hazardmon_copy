@@ -12,7 +12,7 @@ import classes from "./Alert.module.scss";
 type AlertNotification = "success" | "info" | "warning" | "error"
 
 const RegistrationAlert = () => {
-    const {registerStatus} = useSelector(selectUserState);
+    const {registerStatus, status} = useSelector(selectUserState);
     const dispatch = useDispatch();
     const errorMessage = WinStorage.getErrorMessage();
 
@@ -47,6 +47,13 @@ const RegistrationAlert = () => {
         setTimer();
         return alertNotification(errorMessage || "The email address is already registered or problems with network.", "error");
     }
+
+
+    if (status === LoadingStatus.SEND_FEEDBACK_SUCCESS) {
+        setTimer();
+        return alertNotification("Your feedback has been saved successfully.", "success");
+    }
+
 
     return null;
 };

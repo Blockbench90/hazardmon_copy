@@ -180,7 +180,8 @@ const RenderGraph: React.FC<RenderGraphProps> = ({
                         'Minutes': (value: any) => `${Math.floor(value / 60)}h:${value % 60}m`
                     };
 
-                    res += '<span style="color:' + item.point.series.color + '">' + item.point.series.name + '</span>: <b>';
+                    // eslint-disable-next-line no-useless-concat
+                    res += '<span style="color:' + item.point.series.color + '">' + ' ' + item.point.series.name + '</span>: <b>';
 
                     // get formatting function or return unchached
                     // @ts-ignore

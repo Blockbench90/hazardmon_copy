@@ -8,13 +8,14 @@ interface SensorGraphProps {
     sensorGraphDataInitial: any,
     from: string
     to: string
-
+    chartRef: any
 }
 
 const SensorGraph: React.FC<SensorGraphProps> = ({
                                                      sensorGraphDataInitial,
                                                      from,
                                                      to,
+                                                     chartRef,
                                                  }) => {
 
     const categories = sensorGraphDataInitial?.map((item: any) => item.sensor_name);
@@ -87,7 +88,7 @@ const SensorGraph: React.FC<SensorGraphProps> = ({
         <React.Fragment>
             <div className={classes.graphsBlockWrap}>
 
-                <ReactHighcharts config={config}/>
+                <ReactHighcharts config={config} ref={chartRef}/>
             </div>
         </React.Fragment>
     );

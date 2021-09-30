@@ -1,5 +1,5 @@
 import {Action} from "redux";
-import {ChangePassword, EmailNotification, IWsNotify, SearchValues, User, UserState} from "./stateTypes";
+import {ChangePassword, EmailNotification, IWsNotify, oem_setting, SearchValues, User, UserState} from "./stateTypes";
 import {LoadingStatus} from "../../status";
 import {LoginValues} from "../../../components/LoginBlock";
 import {RegisterValues} from "../../../components/RegisterBlock";
@@ -30,6 +30,11 @@ export enum UserAT {
     SET_CURRENT_EMAIL_NOTIFICATIONS = "user/SET_CURRENT_EMAIL_NOTIFICATIONS",
     UPDATE_CURRENT_EMAIL_NOTIFICATION = "user/UPDATE_CURRENT_EMAIL_NOTIFICATION",
     REMOVE_CURRENT_EMAIL_NOTIFICATION = "user/REMOVE_CURRENT_EMAIL_NOTIFICATION",
+    SEND_FEEDBACK = "user/SEND_FEEDBACK",
+    FETCH_OEM_SETTINGS = "user/FETCH_OEM_SETTINGS",
+    SET_OEM_SETTINGS = "user/SET_OEM_SETTINGS",
+    ADD_OEM_SETTING = "user/ADD_OEM_SETTING",
+
 }
 
 
@@ -153,6 +158,25 @@ export interface ToggleWsNotificationAI extends Action<UserAT> {
 export interface SetWsNotificationAI extends Action<UserAT> {
     type: UserAT.SET_WS_NOTIFICATION;
     payload: IWsNotify;
+}
+
+export interface SendFeedbackAI extends Action<UserAT> {
+    type: UserAT.SEND_FEEDBACK;
+    payload: {about: string, text: string};
+}
+
+export interface FetchOEMSettingsAI extends Action<UserAT> {
+    type: UserAT.FETCH_OEM_SETTINGS;
+}
+
+export interface SetOEMSettingsAI extends Action<UserAT> {
+    type: UserAT.SET_OEM_SETTINGS;
+    payload: oem_setting[];
+}
+
+export interface AddOEMSettingAI extends Action<UserAT> {
+    type: UserAT.ADD_OEM_SETTING;
+    payload: oem_setting[];
 }
 
 

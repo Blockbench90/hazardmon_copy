@@ -1,7 +1,7 @@
 import React from "react";
 import {Button, Form, Input, Select} from "antd";
 import clsx from "clsx";
-import {MinusCircleOutlined, PlusOutlined} from "@ant-design/icons";
+import {MinusCircleOutlined} from "@ant-design/icons";
 import {useHistory} from "react-router-dom";
 import {useForm} from "antd/lib/form/Form";
 
@@ -159,7 +159,7 @@ const WarningForm: React.FC<WarningFormProps> = ({
                                                                     height: "40px",
                                                                     borderRadius: "7px",
                                                                 }}
-                                                                onClick={() => add()} block icon={<PlusOutlined/>}>
+                                                                onClick={() => add()} block>
                                                             Add field
                                                         </Button>
                                                     </Form.Item>

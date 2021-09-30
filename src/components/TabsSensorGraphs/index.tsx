@@ -111,7 +111,7 @@ const TabsSensorGraphs: React.FC = () => {
 
                         <TabPane className={classes.tab}
                                  tab={
-                                     <div onClick={onLive}>
+                                     <div className={classes.tabTitleWrap} onClick={onLive}>
                                          <Live/>
                                          <span className={classes.title}>Live</span>
                                      </div>
@@ -120,43 +120,44 @@ const TabsSensorGraphs: React.FC = () => {
 
                         <TabPane className={classes.tab}
                                  tab={
-                                     <div onClick={() => onChoiceDate(GraphsDate.hour)}>
+                                     <div className={classes.tabTitleWrap} onClick={() => onChoiceDate(GraphsDate.hour)}>
                                          <HR/>
-                                         <span className={classes.title}>1HR</span>
+                                         <span className={classes.title}>1 HR</span>
                                      </div>
                                  }
                                  key="2"/>
 
                         <TabPane className={classes.tab}
                                  tab={
-                                     <div onClick={() => onChoiceDate(GraphsDate.day)}>
+                                     <div className={classes.tabTitleWrap} onClick={() => onChoiceDate(GraphsDate.day)}>
                                          <HR/>
-                                         <span className={classes.title}>24HR</span>
+                                         <span className={classes.title}>24 HR</span>
                                      </div>
                                  }
                                  key="3"/>
 
                         <TabPane className={classes.tab}
                                  tab={
-                                     <div onClick={() => onChoiceDate(GraphsDate.week)}>
-                                         <Day/>
-                                         <span className={classes.title}>7Day</span>
+                                     <div className={classes.tabTitleWrap} onClick={() => onChoiceDate(GraphsDate.week)}>
+                                             <Day/>
+                                         <span className={classes.title}>7 Days</span>
+
                                      </div>
                                  }
                                  key="4"/>
 
                         <TabPane className={classes.tab}
                                  tab={
-                                     <div onClick={() => onChoiceDate(GraphsDate.month)}>
+                                     <div className={classes.tabTitleWrap} onClick={() => onChoiceDate(GraphsDate.month)}>
                                          <Day/>
-                                         <span className={classes.title}>30Day</span>
+                                         <span className={classes.title}>30 Days</span>
                                      </div>
                                  }
                                  key="5"/>
 
                         <TabPane className={classes.tab}
                                  tab={
-                                     <div onClick={handleCustomGraphs}>
+                                     <div className={classes.tabTitleWrap} onClick={handleCustomGraphs}>
                                          <Custom/>
                                          <span className={classes.title}>Custom</span>
                                      </div>

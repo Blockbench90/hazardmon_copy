@@ -1,7 +1,5 @@
 import React from "react";
 import Modal from "antd/lib/modal";
-
-import {ReactComponent as HistoricalG} from "../../assets/icons/historical_green.svg";
 import {CustomButton} from "../Button";
 
 import classes from "../TabsSensorDashboard/modal.module.scss";
@@ -9,6 +7,7 @@ import classes from "../TabsSensorDashboard/modal.module.scss";
 interface ModalProps {
     is_modal: boolean
     message: string
+    title: string
     onCancel: () => void
     onApply: () => void
 }
@@ -18,6 +17,7 @@ const CustomConfirmationModal: React.FC<ModalProps> = ({
                                                            onCancel,
                                                            onApply,
                                                            message,
+                                                           title,
                                                        }) => {
 
     const handleCloseModal = () => {
@@ -36,7 +36,7 @@ const CustomConfirmationModal: React.FC<ModalProps> = ({
                 footer={null}
                 title={
                     <div>
-                        <HistoricalG/><span className={classes.modalTitle}>Attention!</span>
+                        <span className={classes.modalTitle}>{title}</span>
                     </div>
                 }
                 centered

@@ -1,15 +1,16 @@
 import React from "react";
 import ReactHighcharts from "react-highcharts";
 import Highcharts from "highcharts";
+import _ from "lodash";
 
 import classes from "../Analytics.module.scss";
-import _ from "lodash";
 
 
 interface TypeGraphProps {
     typeGraphDataInitial: any,
     from: string
     to: string
+    chartRef: any
 
 }
 
@@ -17,35 +18,40 @@ const TypeGraph: React.FC<TypeGraphProps> = ({
                                                  typeGraphDataInitial,
                                                  from,
                                                  to,
+                                                 chartRef,
                                              }) => {
 
 
     const getSeries = function (result: any) {
-        let series = [], total = result[0], data = result[1];
-        for (let i in data) {
-            if (data[i].y > 0) {
-                switch (data[i].name) {
-                    case "Alarm":
-                        data[i].name = "Underspeed Alarm";
-                        series.push(data[i]);
-                        break;
-                    case "Contact Sensor Open / OFF":
-                    case "Contact Sensor Closed / ON":
-                        let index = _.findIndex(series, {name: "Contact Changed"});
-                        if (index > -1) {
-                            series[index].y += data[i].y / total;
-                        } else {
-                            let contactChangedData = {y: data[i].y / total, name: "Contact Changed"};
-                            series.push(contactChangedData);
-                        }
-                        break;
+        let series = [];
+        let total = result[0];
+        let data = result[1];
+        data?.forEach((item, i) => {
+            const newItem = {name: item.name}
+            switch (item.name) {
+                case "Alarm":
+                    newItem["name"] = "Underspeed Alarm";
+                    newItem["y"] = item.y / total;
+                    series.push(newItem);
+                    break;
+                case "Contact Sensor Open / OFF":
+                case "Contact Sensor Closed / ON":
+                    let index = _.findIndex(series, {name: "Contact Changed"});
+                    if (index > -1) {
+                        series[index].y += item.y / total;
+                    } else {
+                        let contactChangedData = {y: item.y / total, name: "Contact Changed"};
+                        series.push(contactChangedData);
+                    }
+                    break;
 
-                    default:
-                        series.push(data[i]);
-                        break;
-                }
+                default:
+                    newItem["y"] = item.y / total;
+                    series.push(newItem);
+                    break;
             }
-        }
+
+        });
         return {series, total};
     };
     const series = getSeries(typeGraphDataInitial);
@@ -66,7 +72,7 @@ const TypeGraph: React.FC<TypeGraphProps> = ({
         tooltip: {
             formatter: function (): string {
                 // @ts-ignore
-                return "<b>" + this.point.name + "</b>: " + Highcharts.numberFormat(this.y / series.total * 100, 2, ".") + " %";
+                return "<b>" + this.point.name + "</b>: " + Highcharts.numberFormat(this.y * 100, 2, ".") + " %";
             },
         },
         plotOptions: {
@@ -79,7 +85,7 @@ const TypeGraph: React.FC<TypeGraphProps> = ({
                     connectorColor: "#000000",
                     formatter: function (): string {
                         // @ts-ignore
-                        return "<b>" + this.point.name + "</b>: " + Highcharts.numberFormat(this.y / series.total * 100, 2, ".") + " %";
+                        return "<b>" + this.point.name + "</b>: " + Highcharts.numberFormat(this.y * 100, 2, ".") + " %";
                     },
                 },
             },
@@ -96,7 +102,7 @@ const TypeGraph: React.FC<TypeGraphProps> = ({
         <React.Fragment>
             <div className={classes.graphsBlockWrap}>
 
-                <ReactHighcharts config={config}/>
+                <ReactHighcharts config={config} ref={chartRef}/>
             </div>
         </React.Fragment>
     );

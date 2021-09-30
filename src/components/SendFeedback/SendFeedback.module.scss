@@ -1,0 +1,16 @@
+.wrap {
+  width: 100%;
+
+  .container {
+    padding: 150px 100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+  }
+
+  .button {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 0 0 65px;
+  }
+}

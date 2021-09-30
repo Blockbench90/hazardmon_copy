@@ -220,9 +220,15 @@ const EditDeviceForm: React.FC<EditDeviceFormProps> = ({
             </Form>
             <CustomConfirmationModal is_modal={isRemoveModal} message={"Please confirm you want to remove this device`"}
                                      onCancel={onRemoveCancel}
+                                     title={"Deletion"}
                                      onApply={onRemoveDevice}/>
             <CustomConfirmationModal is_modal={isDeactivateModal} onCancel={onDeactivateCancel}
                                      onApply={onDeactivateDevice}
+                                     title={device?.is_suspended
+                                         ?
+                                         "Reactivation"
+                                         :
+                                         "Deactivation"}
                                      message={`Please confirm you want to ${
                                          device?.is_suspended
                                              ?

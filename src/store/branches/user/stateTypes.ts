@@ -18,7 +18,13 @@ export interface ChangePassword {
     new_password1: string,
     new_password2: string
 }
-
+export interface oem_setting {
+    id: number
+    title: string
+    description: string
+    url: string
+    delete?: boolean
+}
 export interface HeaderNotification {
     id?: number
     location?: {
@@ -169,6 +175,7 @@ export interface UserState {
     ws_notify: IWsNotify
     current_email_notification: EmailNotification
     email_notifications: EmailNotification[]
+    oem_settings: oem_setting[]
     isApply: boolean,
     notificationsFilter: {
         isActive: boolean;

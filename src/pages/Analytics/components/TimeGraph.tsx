@@ -8,13 +8,15 @@ interface TimeGraphProps {
     timeGraphDataInitial: any,
     from: string
     to: string
+    chartRef:any
 
 }
 
 const TimeGraph: React.FC<TimeGraphProps> = ({
                                                      timeGraphDataInitial,
                                                      from,
-                                                     to,
+                                                     to,chartRef
+
                                                  }) => {
 
     const categories = timeGraphDataInitial?.map((item: any) => item.name);
@@ -89,7 +91,7 @@ const TimeGraph: React.FC<TimeGraphProps> = ({
         <React.Fragment>
             <div className={classes.graphsBlockWrap}>
 
-                <ReactHighcharts config={config}/>
+                <ReactHighcharts config={config} ref={chartRef}/>
             </div>
         </React.Fragment>
     );

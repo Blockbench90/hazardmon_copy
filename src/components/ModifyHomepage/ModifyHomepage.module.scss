@@ -1,0 +1,32 @@
+.wrapper {
+  .container {
+    padding: 0 50px;
+    margin: 0 auto;
+
+    .title {
+
+    }
+
+    .description {
+      margin-bottom: 15px;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    .nodeWrap {
+      margin-bottom: 15px;
+
+    }
+
+    .textArea {
+      margin-bottom: 15px;
+
+    }
+
+    .button {
+      margin-left: 10px;
+    }
+  }
+}

@@ -1,16 +1,16 @@
 import {
-    AddEmailNotificationAI,
+    AddEmailNotificationAI, AddOEMSettingAI,
     FetchCurrentEmailNotification,
     FetchEmailNotificationsAI,
-    FetchHeaderNotificationsAI,
+    FetchHeaderNotificationsAI, FetchOEMSettingsAI,
     FetchUserDataAI,
     LogOutAI, RemoveCurrentEmailNotification,
-    SearchNotificationsAI, SetCurrentEmailNotification,
+    SearchNotificationsAI, SendFeedbackAI, SetCurrentEmailNotification,
     SetEmailNotificationsAI,
     SetHeaderNotificationsAI,
     SetIsApplyNotificationsAI,
     SetNotificationsAI,
-    SetNotificationsFilterAI,
+    SetNotificationsFilterAI, SetOEMSettingsAI,
     SetUserAuthKeyAI,
     SetUserDataAI,
     SetUserLoadingStatusAI,
@@ -146,6 +146,21 @@ export const userAC = {
         type: UserAT.SET_CURRENT_EMAIL_NOTIFICATIONS,
         payload,
     }),
+    sendFeedback: (payload: {about: string, text: string}): SendFeedbackAI => ({
+        type: UserAT.SEND_FEEDBACK,
+        payload,
+    }),
+    fetchOEMSettings: (): FetchOEMSettingsAI => ({
+        type: UserAT.FETCH_OEM_SETTINGS,
+    }),
+    setOEMSettings: (payload): SetOEMSettingsAI => ({
+        type: UserAT.SET_OEM_SETTINGS,
+        payload
+    }),
+    addOEMSetting: (payload): AddOEMSettingAI => ({
+        type: UserAT.ADD_OEM_SETTING,
+        payload
+    }),
 };
 
 export type UserActions =
@@ -172,3 +187,7 @@ export type UserActions =
     | SetCurrentEmailNotification
     | UpdateCurrentEmailNotification
     | RemoveCurrentEmailNotification
+    | SendFeedbackAI
+    | FetchOEMSettingsAI
+    | SetOEMSettingsAI
+    | AddOEMSettingAI

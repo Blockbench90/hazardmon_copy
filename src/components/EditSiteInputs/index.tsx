@@ -146,36 +146,20 @@ const EditSiteInputs: React.FC<EditSiteProps> = ({
                                 </Form.Item>
                             </InputWrap>
 
-                            <InputWrap title="Full name*">
-                                <Form.Item name="full_name"
-                                           initialValue={currentLocation?.full_name}
-                                           rules={[{
-                                               required: true,
-                                               message: "Please input your full name",
-                                           }]}>
+                            <InputWrap title="Full name">
+                                <Form.Item name="full_name" initialValue={currentLocation?.full_name}>
                                     <Input/>
                                 </Form.Item>
                             </InputWrap>
 
-                            <InputWrap title="Mobile*">
-                                <Form.Item name="mobile"
-                                           initialValue={currentLocation?.mobile}
-                                           rules={[{
-                                               required: true,
-                                               message: "Please input your mobile",
-                                           }]}>
+                            <InputWrap title="Mobile">
+                                <Form.Item name="mobile" initialValue={currentLocation?.mobile}>
                                     <Input/>
                                 </Form.Item>
                             </InputWrap>
 
-                            <InputWrap title="Email*">
-                                <Form.Item name="email"
-                                           initialValue={currentLocation?.email}
-                                           rules={[{
-                                               type: "email",
-                                               required: true,
-                                               message: "The input is not valid E-mail!",
-                                           }]}>
+                            <InputWrap title="Email">
+                                <Form.Item name="email" initialValue={currentLocation?.email}>
                                     <Input/>
                                 </Form.Item>
                             </InputWrap>
@@ -214,9 +198,15 @@ const EditSiteInputs: React.FC<EditSiteProps> = ({
             </Form>
             <CustomConfirmationModal is_modal={isModal} onCancel={onCancelModal} onApply={onRemoveSite}
                                      message={"Please confirm you want to delete this site"}
+                                     title={"Deletion"}
             />
             <CustomConfirmationModal is_modal={isDeactivateModal} onCancel={onCancelDeactivateModal}
                                      onApply={onDeactivateSite}
+                                     title={is_suspended
+                                         ?
+                                         "Reactivation"
+                                         :
+                                         "Deactivation"}
                                      message={`Please confirm you want to ${ is_suspended
                                          ?
                                          "reactivate"

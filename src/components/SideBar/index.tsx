@@ -54,9 +54,8 @@ const SideBarComponent: React.FC<SideBarProps> = ({
     const isCorrectDevice = DEVICE_TYPE.includes(device?.device_type);
     const userName = (userData?.first_name || userData?.last_name) ? (`${userData?.first_name} ${userData?.last_name}`) : "Profile";
 
-    const splitLocation = location.pathname.split("/")
-    const isUserSetting = splitLocation.includes("user") && splitLocation.includes("setting")
-    console.log("user =>", isUserSetting);
+    const splitLocation = location.pathname.split("/");
+    const isUserSetting = splitLocation.includes("user") && splitLocation.includes("setting");
 
     const onLogout = () => {
         dispatch(userAC.logOut());
@@ -99,8 +98,8 @@ const SideBarComponent: React.FC<SideBarProps> = ({
                       selectedKeys={[customSelectedKeys()]}
                 >
                     <SubMenu key="sub1"
-                             title={<span className={clsx(isUserSetting && classes.userSetting)}>{userName}</span>}
-                             className={clsx(classes.profileInfo, classes.cssBaseLine)}>
+                             title={userName}
+                             className={clsx(classes.profileInfo, isUserSetting && classes.userSetting)}>
                         <Menu.Item key="7"
                                    onClick={onSettingUser}
                                    className={clsx(collapsed ? classes.smallSubmenu : classes.profileInfoColumn)}>
@@ -113,13 +112,13 @@ const SideBarComponent: React.FC<SideBarProps> = ({
                         </Menu.Item>
                     </SubMenu>
 
+                    <div className={classes.cssBaseLine} style={{marginBottom: "30px"}}/>
+
                     {
                         (isSuperUser || isOEM) && (
                             <Menu.Item key={"clients"} icon={<Clients/>}>
                                 <Link to="/clients">
-                                    <span className={classes.sideTitle}>
-                                        Clients
-                                    </span>
+                                    Clients
                                 </Link>
                             </Menu.Item>
                         )
@@ -127,33 +126,25 @@ const SideBarComponent: React.FC<SideBarProps> = ({
 
                     <Menu.Item key="sites" icon={<Sites/>}>
                         <Link to="/sites">
-                            <span className={classes.sideTitle}>
-                                Sites
-                            </span>
+                            Sites
                         </Link>
                     </Menu.Item>
 
                     <Menu.Item key="devices" icon={<Devices/>}>
                         <Link to="/devices">
-                            <span className={classes.sideTitle}>
-                                Devices
-                            </span>
+                            Devices
                         </Link>
                     </Menu.Item>
 
                     <Menu.Item key="dashboard" icon={<Sensor/>}>
                         <Link to="/dashboard">
-                            <span className={classes.sideTitle}>
-                                Sensor Dashboard
-                            </span>
+                            Sensor Dashboard
                         </Link>
                     </Menu.Item>
 
                     <Menu.Item key="graphs" icon={<Graphs/>}>
                         <Link to="/graphs">
-                            <span className={classes.sideTitle}>
-                                Sensor Graphs
-                            </span>
+                            Sensor Graphs
                         </Link>
                     </Menu.Item>
                     <div className={classes.lineBottom}/>
@@ -172,7 +163,9 @@ const SideBarComponent: React.FC<SideBarProps> = ({
                                    icon={<Analytics/>}
                                    className={classes.hoverNone}>
                             <Link to="/analytics">
+                            <span className={classes.sideTitle}>
                                 Analytics
+                            </span>
                             </Link>
                         </Menu.Item>
                     }
@@ -184,7 +177,9 @@ const SideBarComponent: React.FC<SideBarProps> = ({
                                    className={clsx(classes.visual,
                                        collapsed ? classes.sizeVisualSmall : classes.sizeVisualBig)}>
                             <Link to="/visual-dashboard/site/4/schemas">
-                                Visual Dashboard
+                                 <span className={classes.sideTitle}>
+                                    Visual Dashboard
+                                </span>
                             </Link>
                         </Menu.Item>
                     }
@@ -193,7 +188,9 @@ const SideBarComponent: React.FC<SideBarProps> = ({
                         !collapsed
                         &&
                         <Menu.Item key="set1" className={clsx(classes.setting, classes.modify)}>
-                            Modify homepage
+                            <Link to="/modify-homepage">
+                                Modify homepage
+                            </Link>
                         </Menu.Item>
 
                     }
@@ -202,7 +199,9 @@ const SideBarComponent: React.FC<SideBarProps> = ({
                         !collapsed
                         &&
                         <Menu.Item key="set2" className={clsx(classes.setting, classes.settingLink)}>
-                            Settings
+                            <Link to="/oem/setting">
+                                Settings
+                            </Link>
                         </Menu.Item>
                     }
 
