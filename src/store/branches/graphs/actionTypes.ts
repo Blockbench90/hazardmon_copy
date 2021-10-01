@@ -6,6 +6,8 @@ export enum GraphsAT {
     FETCH_GRAPHS_DATA = "graphs/FETCH_GRAPHS_DATA",
     FETCH_CUSTOM_GRAPHS_DATA = "graphs/FETCH_CUSTOM_GRAPHS_DATA",
     SET_GRAPHS_DATA = "graphs/SET_GRAPHS_DATA",
+    UPDATE_GRAPHS_DATA = "graphs/UPDATE_GRAPHS_DATA",
+    UPDATE_OLD_GRAPHS_DATA = "graphs/UPDATE_OLD_GRAPHS_DATA",
     GET_LIVE_GRAPHS_DATA = "graphs/GET_LIVE_GRAPHS_DATA",
     SET_LOADING_STATUS_GRAPHS = "graphs/SET_LOADING_STATUS_GRAPHS",
     SET_GRAPHS_STATUS_OPERATION = "graphs/SET_GRAPHS_STATUS_OPERATION",
@@ -51,6 +53,16 @@ export interface ClearGraphsStateAI extends Action<GraphsAT> {
 export interface GetLiveGraphsDataAI extends Action<GraphsAT> {
     type: GraphsAT.GET_LIVE_GRAPHS_DATA;
     payload: number
+}
+
+export interface UpdateLiveGraphsDataAI extends Action<GraphsAT> {
+    type: GraphsAT.UPDATE_GRAPHS_DATA;
+    payload: number
+}
+
+export interface UpdateOldLiveGraphsDataAI extends Action<GraphsAT> {
+    type: GraphsAT.UPDATE_OLD_GRAPHS_DATA;
+    payload: any
 }
 
 

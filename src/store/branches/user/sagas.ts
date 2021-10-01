@@ -5,7 +5,7 @@ import {LoadingStatus} from "../../status";
 import {eventChannel} from "redux-saga";
 import {userAC} from "./actionCreators";
 import {
-    AddEmailNotificationAI, AddOEMSettingAI,
+    AddEmailNotificationAI, AddOEMSettingAI, AddSupportContactAI,
     FetchCurrentEmailNotification,
     RemoveCurrentEmailNotification,
     SearchNotificationsAI, SendFeedbackAI,
@@ -308,12 +308,41 @@ export function* fetchOEMSettingsRequest() {
     }
 }
 
+export function* fetchSupportContactsRequest() {
+    try {
+        yield put(userAC.setUserLoadingStatus(LoadingStatus.LOADING));
+        const data = yield call(UserApi.getSupportContacts);
+        if (data) {
+            yield put(userAC.setSupportContacts(data));
+        } else {
+            yield put(userAC.setUserLoadingStatus(LoadingStatus.ERROR));
+        }
+    } catch (error) {
+        yield put(userAC.setUserLoadingStatus(LoadingStatus.ERROR));
+    }
+}
+
 export function* addOEMSettingsRequest({payload}: AddOEMSettingAI ) {
     try {
         yield put(userAC.setUserLoadingStatus(LoadingStatus.LOADING));
         const status = yield call(UserApi.addOEMSettings, payload);
         if (status === 201) {
             yield call(fetchOEMSettingsRequest);
+        } else {
+            yield put(userAC.setUserLoadingStatus(LoadingStatus.ERROR));
+        }
+    } catch (error) {
+        yield put(userAC.setUserLoadingStatus(LoadingStatus.ERROR));
+    }
+}
+
+
+export function* addSupportContactsRequest({payload}: AddSupportContactAI ) {
+    try {
+        yield put(userAC.setUserLoadingStatus(LoadingStatus.LOADING));
+        const data = yield call(UserApi.addSupportContacts, payload);
+        if (data) {
+            yield put(userAC.setSupportContacts(data));
         } else {
             yield put(userAC.setUserLoadingStatus(LoadingStatus.ERROR));
         }
@@ -340,5 +369,7 @@ export function* userSaga() {
     yield takeLatest(UserAT.REMOVE_CURRENT_EMAIL_NOTIFICATION, removeEmailNotificationRequest);
     yield takeLatest(UserAT.SEND_FEEDBACK, sendFeedbackRequest);
     yield takeLatest(UserAT.FETCH_OEM_SETTINGS, fetchOEMSettingsRequest);
+    yield takeLatest(UserAT.FETCH_SUPPORT_CONTACTS, fetchSupportContactsRequest);
     yield takeLatest(UserAT.ADD_OEM_SETTING, addOEMSettingsRequest);
+    yield takeLatest(UserAT.ADD_SUPPORT_CONTACT, addSupportContactsRequest);
 }

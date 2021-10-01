@@ -1,7 +1,7 @@
 import {axios} from "../axios";
 import {LoginValues} from "../../components/LoginBlock";
 import {concatUrl} from "../../helpers/concatUrl";
-import {ChangePassword, EmailNotification, oem_setting} from "../../store/branches/user/stateTypes";
+import {ChangePassword, EmailNotification, oem_setting, support_contacts} from "../../store/branches/user/stateTypes";
 
 interface APIResponse {
     data: any;
@@ -79,8 +79,16 @@ export const UserApi = {
         const {data} = await axios.get<Promise<any>>("api/v1/oem/rss-feed/");
         return data;
     },
+    async getSupportContacts(): Promise<any> {
+        const {data} = await axios.get<Promise<any>>("api/v1/oem/settings/");
+        return data;
+    },
     async addOEMSettings(payload: oem_setting[]): Promise<any> {
         const {status} = await axios.post<Promise<any>>("api/v1/oem/rss-feed/", payload);
         return status;
+    },
+    async addSupportContacts(payload: support_contacts): Promise<any> {
+        const {data} = await axios.patch<Promise<any>>("api/v1/oem/settings/", payload);
+        return data;
     },
 };

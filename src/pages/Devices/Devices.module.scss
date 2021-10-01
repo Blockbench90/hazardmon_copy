@@ -93,6 +93,7 @@
 }
 
 .editButtonIcon:hover svg {
+  cursor: pointer;
   path {
     fill: #A9CC13;
     color: #00C09E;
@@ -100,13 +101,11 @@
 }
 
 .suspendedBlockWrap {
-  //background: #E9EAEC;
-  //opacity: 0.6;
-  //border: none !important;
   box-shadow: none !important;
   background: #E9EAEC;
   border: 1px solid #CAD0D3 !important;
   border-radius: 3px;
+  cursor: default !important;
 }
 
 .offlineBlockWrap {

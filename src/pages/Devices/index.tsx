@@ -26,6 +26,15 @@ const Devices: React.FC = () => {
     const history = useHistory();
 
     const {devicesDate, status, isSelected} = useSelector(selectDevicesState);
+    // const {isManager, isAccountManager} = usePermissions();
+
+    // {% if request.user.profile.is_manager or request.user.profile.is_accounts_management %}
+    // <a href="{% url 'devices.add_device' %}#{{ location.id }}" class="span2">
+    //     <button class="btn btn-small add-device"><i class="icon-plus"></i></button>
+    //     <p>Add new device</p>
+    // </a>
+    // {% endif %}
+
 
     const onAddDevice = (event: React.MouseEvent<HTMLDivElement>) => {
         event.preventDefault();
@@ -64,7 +73,12 @@ const Devices: React.FC = () => {
                         }
                     </div>
 
+                    {/*{*/}
+                    {/*    (isManager || isAccountManager)*/}
+                    {/*    &&*/}
                     <AddNewBlock text="Add New Device" onClick={(event) => onAddDevice(event)}/>
+                    {/*}*/}
+
 
                 </div>
             </div>

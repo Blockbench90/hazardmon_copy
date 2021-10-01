@@ -25,6 +25,13 @@ export interface oem_setting {
     url: string
     delete?: boolean
 }
+export interface support_contacts {
+    css?: string
+    logo?: string
+    support_address?: string
+    support_phone?: string
+    support_email?: string
+}
 export interface HeaderNotification {
     id?: number
     location?: {
@@ -176,6 +183,7 @@ export interface UserState {
     current_email_notification: EmailNotification
     email_notifications: EmailNotification[]
     oem_settings: oem_setting[]
+    support_contacts: support_contacts
     isApply: boolean,
     notificationsFilter: {
         isActive: boolean;

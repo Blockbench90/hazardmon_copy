@@ -1,12 +1,17 @@
 import React from "react";
 import {Typography} from "antd";
 import {BookOutlined, BulbOutlined, PieChartOutlined} from "@ant-design/icons";
+import {useHistory} from "react-router-dom";
 
+import {
+    OEM_PAGE_CSS,
+    OEM_SETTING_CONTACTS,
+    OEM_SETTING_RSS_EDIT,
+} from "../../components/PrivateRoute/components/constants";
 import {CustomButton} from "../../components/Button";
 import BlockWrap from "./components/RSSEdit/BlockWrap";
 
 import classes from "./OEMSetting.module.scss";
-import {useHistory} from "react-router-dom";
 
 const {Title} = Typography;
 
@@ -15,7 +20,14 @@ const OEMSetting: React.FC = () => {
     const history = useHistory()
 
     const handleEditFields = () => {
-        history.push("/settings/rss/edit")
+        history.push(OEM_SETTING_RSS_EDIT)
+    };
+
+    const handleSupportContacts = () => {
+        history.push(OEM_SETTING_CONTACTS)
+    };
+    const handlePageCss = () => {
+        history.push(OEM_PAGE_CSS)
     };
 
     return (
@@ -45,6 +57,8 @@ const OEMSetting: React.FC = () => {
                                <CustomButton width="250px"
                                              padding="0"
                                              height="40px"
+                                             htmlType="button"
+                                             onClick={handlePageCss}
                                >
                                    <BookOutlined/> Static Pages and CSS Settings
                                </CustomButton>
@@ -57,6 +71,8 @@ const OEMSetting: React.FC = () => {
                                <CustomButton width="150px"
                                              padding="0"
                                              height="40px"
+                                             htmlType="button"
+                                             onClick={handleSupportContacts}
                                >
                                    <BulbOutlined/> Contact Settings
                                </CustomButton>

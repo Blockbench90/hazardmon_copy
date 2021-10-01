@@ -5,7 +5,7 @@ import {
     GraphsAT,
     SetGraphsDataAI,
     SetGraphsLoadingStatusAI,
-    SetGraphsStatusOperationAI,
+    SetGraphsStatusOperationAI, UpdateLiveGraphsDataAI, UpdateOldLiveGraphsDataAI,
 } from "./actionTypes";
 import {LoadingStatus} from "../../status";
 import {FetchCustomGraphs, FetchGraphs} from "./stateTypes"
@@ -29,6 +29,16 @@ export const graphsAC = {
         payload,
     }),
 
+    updateOldGraphsData: (payload: any): UpdateOldLiveGraphsDataAI => ({
+        type: GraphsAT.UPDATE_OLD_GRAPHS_DATA,
+        payload,
+    }),
+
+    updateGraphsData: (payload: any): SetGraphsDataAI => ({
+        type: GraphsAT.SET_GRAPHS_DATA,
+        payload,
+    }),
+
     setGraphsLoadingStatus: (payload: LoadingStatus): SetGraphsLoadingStatusAI => ({
         type: GraphsAT.SET_LOADING_STATUS_GRAPHS,
         payload,
@@ -46,6 +56,11 @@ export const graphsAC = {
     getLiveGraphsData : (payload: number): GetLiveGraphsDataAI => ({
         type: GraphsAT.GET_LIVE_GRAPHS_DATA,
         payload
+    }),
+
+    updateLiveGraphsData : (payload: number): UpdateLiveGraphsDataAI => ({
+        type: GraphsAT.UPDATE_GRAPHS_DATA,
+        payload
     })
 
 }
@@ -59,3 +74,5 @@ export type GraphsActions =
     | ExportGraphsPNGAI
     | GetLiveGraphsDataAI
     | ClearGraphsStateAI
+    | UpdateLiveGraphsDataAI
+    | UpdateOldLiveGraphsDataAI

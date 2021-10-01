@@ -13,6 +13,7 @@ const initialUserState: UserState = {
     email_notifications: null,
     current_email_notification: null,
     oem_settings: null,
+    support_contacts: null,
     isApply: true,
     status: LoadingStatus.NEVER,
     registerStatus: LoadingStatus.NEVER,
@@ -80,6 +81,11 @@ export const userReducer = produce((draft: Draft<UserState>, action: UserActions
 
         case UserAT.SET_OEM_SETTINGS:
             draft.oem_settings = action.payload;
+            draft.status = LoadingStatus.LOADED;
+            break;
+
+        case UserAT.SET_SUPPORT_CONTACTS:
+            draft.support_contacts = action.payload;
             draft.status = LoadingStatus.LOADED;
             break;
 

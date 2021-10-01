@@ -1,21 +1,16 @@
 import {SchemaDetails} from "../interfaces/schemasReducer";
-import baseService, {WSSeverUrl} from './baseService';
-import liveService from "./liveService";
+import baseService, {WSSeverUrl} from "./baseService";
 
 export function getLocations() {
-    return baseService.get('/locations/');
+    return baseService.get("/locations/");
 }
 
 export function getSchemasList(params: any) {
-    return baseService.get('/schemas/', {params});
+    return baseService.get("/schemas/", {params});
 }
 
 export function getSchemaDetails(id: number) {
     return id ? baseService.get(`/schemas/${id}/`) : baseService.get(`/schemas/current/`);
-}
-
-export function getLiveGraphsData(id: number) {
-    return liveService.get(`dashboard/${id}/graphs/udf-update/live/`)
 }
 
 export function getTabDetails(id: string) {
@@ -23,19 +18,19 @@ export function getTabDetails(id: string) {
 }
 
 export function getMachineTypesList() {
-    return baseService.get('/type-of-machine/');
+    return baseService.get("/type-of-machine/");
 }
 
 export function searchSensors(params: any) {
-    return baseService.get('/search-sensor/', {params: {...params}});
+    return baseService.get("/search-sensor/", {params: {...params}});
 }
 
 export function saveSchemaForm(data: SchemaDetails) {
-    return data.id ? baseService.patch(`/schemas/${data.id}/`, data) : baseService.post('/schemas/', data);
+    return data.id ? baseService.patch(`/schemas/${data.id}/`, data) : baseService.post("/schemas/", data);
 }
 
 export function saveTabForm(data: SchemaDetails) {
-    return data.id ? baseService.patch(`/tabs/${data.id}/`, data) : baseService.post('/tabs/', data);
+    return data.id ? baseService.patch(`/tabs/${data.id}/`, data) : baseService.post("/tabs/", data);
 }
 
 export function getMachineDetails(id: number) {

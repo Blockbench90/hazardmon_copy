@@ -1,8 +1,8 @@
 import {
-    AddEmailNotificationAI, AddOEMSettingAI,
+    AddEmailNotificationAI, AddOEMSettingAI, AddSupportContactAI,
     FetchCurrentEmailNotification,
     FetchEmailNotificationsAI,
-    FetchHeaderNotificationsAI, FetchOEMSettingsAI,
+    FetchHeaderNotificationsAI, FetchOEMSettingsAI, FetchSupportContactsAI,
     FetchUserDataAI,
     LogOutAI, RemoveCurrentEmailNotification,
     SearchNotificationsAI, SendFeedbackAI, SetCurrentEmailNotification,
@@ -10,7 +10,7 @@ import {
     SetHeaderNotificationsAI,
     SetIsApplyNotificationsAI,
     SetNotificationsAI,
-    SetNotificationsFilterAI, SetOEMSettingsAI,
+    SetNotificationsFilterAI, SetOEMSettingsAI, SetSupportContactsAI,
     SetUserAuthKeyAI,
     SetUserDataAI,
     SetUserLoadingStatusAI,
@@ -134,7 +134,7 @@ export const userAC = {
         type: UserAT.FETCH_CURRENT_EMAIL_NOTIFICATIONS,
         payload,
     }),
-    updateCurrentEmailNotification: (payload: {id: number, data: EmailNotification}): UpdateCurrentEmailNotification => ({
+    updateCurrentEmailNotification: (payload: { id: number, data: EmailNotification }): UpdateCurrentEmailNotification => ({
         type: UserAT.UPDATE_CURRENT_EMAIL_NOTIFICATION,
         payload,
     }),
@@ -146,7 +146,7 @@ export const userAC = {
         type: UserAT.SET_CURRENT_EMAIL_NOTIFICATIONS,
         payload,
     }),
-    sendFeedback: (payload: {about: string, text: string}): SendFeedbackAI => ({
+    sendFeedback: (payload: { about: string, text: string }): SendFeedbackAI => ({
         type: UserAT.SEND_FEEDBACK,
         payload,
     }),
@@ -155,11 +155,22 @@ export const userAC = {
     }),
     setOEMSettings: (payload): SetOEMSettingsAI => ({
         type: UserAT.SET_OEM_SETTINGS,
-        payload
+        payload,
     }),
     addOEMSetting: (payload): AddOEMSettingAI => ({
         type: UserAT.ADD_OEM_SETTING,
-        payload
+        payload,
+    }),
+    fetchSupportContacts: (): FetchSupportContactsAI => ({
+        type: UserAT.FETCH_SUPPORT_CONTACTS,
+    }),
+    setSupportContacts: (payload): SetSupportContactsAI => ({
+        type: UserAT.SET_SUPPORT_CONTACTS,
+        payload,
+    }),
+    addSupportContact: (payload): AddSupportContactAI => ({
+        type: UserAT.ADD_SUPPORT_CONTACT,
+        payload,
     }),
 };
 
@@ -191,3 +202,6 @@ export type UserActions =
     | FetchOEMSettingsAI
     | SetOEMSettingsAI
     | AddOEMSettingAI
+    | FetchSupportContactsAI
+    | SetSupportContactsAI
+    | AddSupportContactAI

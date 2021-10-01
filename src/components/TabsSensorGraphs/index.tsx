@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Tabs} from "antd";
 import {useDispatch} from "react-redux";
 import {useHistory} from "react-router-dom";
@@ -27,8 +27,8 @@ const TabsSensorGraphs: React.FC = () => {
     const [active, setActive] = useState<boolean>(true);
     const [modal, setModal] = useState(false);
 
-    // const [isLive, setLive] = useState(false);
-    // const [intervalId, setIntervalId] = useState<NodeJS.Timeout>();
+    const [isLive, setLive] = useState(false);
+    const [intervalId, setIntervalId] = useState<NodeJS.Timeout>();
 
     const {device} = useCurrentSelection();
 
@@ -71,28 +71,29 @@ const TabsSensorGraphs: React.FC = () => {
 
     const onLive = () => {
         console.log("device ===>", device.id, "<=== done");
-        // setLive(true);
-        // dispatch(graphsAC.getLiveGraphsData(device.id));
+        setLive(true);
+        dispatch(graphsAC.getLiveGraphsData(device.id));
     };
 
-    // useEffect(() => {
-    //     if (isLive) {
-    //         if (!device) {
-    //             dispatch(graphsAC.setGraphsStatusOperation(LoadingStatus.WITHOUT_SELECTED_DEVICE_GRAPHS_ERROR));
-    //             return;
-    //         }
-    //         const id: NodeJS.Timeout = setInterval(() => {
-    //             // dispatch(graphsAC.getLiveGraphsData(device.id));
-    //             console.log("tik ===> ", id);
-    //         }, 2000);
-    //         setIntervalId(id);
-    //     }
-    //
-    //     return () => {
-    //         clearInterval(intervalId);
-    //         setLive(false)
-    //     };
-    // }, [isLive]);
+    useEffect(() => {
+        if (isLive) {
+            if (!device) {
+                dispatch(graphsAC.setGraphsStatusOperation(LoadingStatus.WITHOUT_SELECTED_DEVICE_GRAPHS_ERROR));
+                return;
+            }
+            const id: NodeJS.Timeout = setInterval(() => {
+                dispatch(graphsAC.updateLiveGraphsData(device.id));
+                console.log("tik ===> ", id);
+            }, 2000);
+            setIntervalId(id);
+        }
+
+        return () => {
+            clearInterval(intervalId);
+            setLive(false)
+            console.log("clear interval id ==>", intervalId)
+        };
+    }, [isLive, device, dispatch, intervalId]);
 
     return (
         <div className={classes.wrap}>

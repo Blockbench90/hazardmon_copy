@@ -1,5 +1,14 @@
 import {Action} from "redux";
-import {ChangePassword, EmailNotification, IWsNotify, oem_setting, SearchValues, User, UserState} from "./stateTypes";
+import {
+    ChangePassword,
+    EmailNotification,
+    IWsNotify,
+    oem_setting,
+    SearchValues,
+    support_contacts,
+    User,
+    UserState,
+} from "./stateTypes";
 import {LoadingStatus} from "../../status";
 import {LoginValues} from "../../../components/LoginBlock";
 import {RegisterValues} from "../../../components/RegisterBlock";
@@ -34,6 +43,9 @@ export enum UserAT {
     FETCH_OEM_SETTINGS = "user/FETCH_OEM_SETTINGS",
     SET_OEM_SETTINGS = "user/SET_OEM_SETTINGS",
     ADD_OEM_SETTING = "user/ADD_OEM_SETTING",
+    FETCH_SUPPORT_CONTACTS = "user/FETCH_SUPPORT_CONTACTS",
+    SET_SUPPORT_CONTACTS = "user/SET_SUPPORT_CONTACTS",
+    ADD_SUPPORT_CONTACT = "user/ADD_SUPPORT_CONTACT",
 
 }
 
@@ -177,6 +189,20 @@ export interface SetOEMSettingsAI extends Action<UserAT> {
 export interface AddOEMSettingAI extends Action<UserAT> {
     type: UserAT.ADD_OEM_SETTING;
     payload: oem_setting[];
+}
+
+export interface FetchSupportContactsAI extends Action<UserAT> {
+    type: UserAT.FETCH_SUPPORT_CONTACTS;
+}
+
+export interface SetSupportContactsAI extends Action<UserAT> {
+    type: UserAT.SET_SUPPORT_CONTACTS;
+    payload: support_contacts
+}
+
+export interface AddSupportContactAI extends Action<UserAT> {
+    type: UserAT.ADD_SUPPORT_CONTACT;
+    payload: support_contacts
 }
 
 

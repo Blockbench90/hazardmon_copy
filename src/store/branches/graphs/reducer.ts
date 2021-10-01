@@ -17,6 +17,10 @@ export const graphsReducer = produce((draft: Draft<GraphsState>, action: GraphsA
             draft.status = LoadingStatus.SUCCESS;
             break;
 
+        case GraphsAT.UPDATE_OLD_GRAPHS_DATA:
+            draft.graphsData = action.payload;
+            break;
+
         case GraphsAT.SET_LOADING_STATUS_GRAPHS:
             draft.status = action.payload;
             break;

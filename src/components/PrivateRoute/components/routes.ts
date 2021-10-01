@@ -28,8 +28,8 @@ import {
     EMAIL_NOTIFICATIONS,
     FEEDBACK,
     HISTORICAL,
-    NOTIFICATIONS,
-    OEM_SETTING,
+    NOTIFICATIONS, OEM_PAGE_CSS,
+    OEM_SETTING, OEM_SETTING_CONTACTS,
     OEM_SETTING_RSS_EDIT,
     SENSOR_DASHBOARD,
     SENSOR_GRAPHS,
@@ -53,7 +53,9 @@ import AddEmailNotification from "../../AddEmailNotification";
 import urls from "../../../constants/urls";
 import SendFeedback from "../../SendFeedback";
 import OEMSetting from "../../../pages/OEMSetting";
-import RSSEdit from "../../../pages/OEMSetting/components/RSSEdit/RSSEdit";
+import RSSEdit from "../../../pages/OEMSetting/components/RSSEdit";
+import SupportContacts from "../../../pages/OEMSetting/components/SupportContacts";
+import CssPage from "../../../pages/OEMSetting/components/CssPage";
 
 
 export const privateRoutes = [
@@ -188,5 +190,13 @@ export const adminRoutes = [
     {
         path: OEM_SETTING_RSS_EDIT,
         Component: RSSEdit,
+    },
+    {
+        path: OEM_SETTING_CONTACTS,
+        Component: SupportContacts,
+    },
+    {
+        path: OEM_PAGE_CSS,
+        Component: CssPage,
     },
 ];
