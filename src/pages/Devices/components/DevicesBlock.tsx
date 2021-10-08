@@ -18,6 +18,7 @@ import {devicesAC} from "../../../store/branches/devices/actionCreators";
 import {Device} from "../../../store/branches/devices/stateTypes";
 
 import classes from "../Devices.module.scss";
+import {usePermissions} from "../../../hooks/usePermissions";
 
 const {Title} = Typography;
 
@@ -29,6 +30,7 @@ const DevicesBlock: React.FC<Device> = ({
                                         }) => {
     const history = useHistory();
     const dispatch = useDispatch();
+    const {isOEM, isSuperUser} = usePermissions();
 
     const onEdit = (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
         event.preventDefault();
@@ -40,6 +42,10 @@ const DevicesBlock: React.FC<Device> = ({
     const handleSelect = (event: React.MouseEvent<HTMLDivElement>) => {
         event.preventDefault();
         if (is_suspended || !is_online) {
+            if (isOEM || isSuperUser) {
+                dispatch(devicesAC.selectDevice(id.toString()));
+                return;
+            }
             return;
         }
         dispatch(devicesAC.selectDevice(id.toString()));

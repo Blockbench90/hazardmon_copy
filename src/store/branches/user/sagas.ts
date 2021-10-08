@@ -208,7 +208,7 @@ export function toggleNotificationSocket(path: string, device_udf_id?: string) {
     return eventChannel((emitter: any) => {
         const ws: any = new WebSocket(`${process.env.REACT_APP_WS_SERVER_URL}${path}`);
         const token = window.localStorage.getItem("_token");
-
+        
         const authCmd = {
             cmd: "auth",
             token: token,

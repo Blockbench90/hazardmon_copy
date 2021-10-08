@@ -1,9 +1,9 @@
-
 import {call, put, takeLatest} from "redux-saga/effects";
 import {LoadingStatus} from "../../status";
 import {sensorsAC} from "./actionCreators";
 import {
-    AddSensorNamesAI, AddSensorSettingsAI,
+    AddSensorNamesAI,
+    AddSensorSettingsAI,
     AddWarningAI,
     FetchHistoricalGraphsAI,
     FetchSensorNamesAI,
@@ -12,6 +12,8 @@ import {
     FetchWarningsAI,
     FetchWsDataSensorsAI,
     SensorsAT,
+    SetMaintenanceAI,
+    StopSensorMaintenanceAI,
 } from "./actionTypes";
 import {SensorsApi} from "../../../services/api/sensorsApi";
 import history from "../../../helpers/history";
@@ -157,6 +159,32 @@ export function* fetchHistoricalGraphsRequest({payload}: FetchHistoricalGraphsAI
     }
 }
 
+export function* setMaintenanceRequest({payload}: SetMaintenanceAI) {
+    try {
+        const data = yield call(SensorsApi.setMaintenance, payload);
+        console.log("data main ==>", data);
+        if (data.status !== 200) {
+            yield put(sensorsAC.setSensorsStatusOperation(LoadingStatus.MAINTENANCE_SENSORS_ERROR));
+        }
+    } catch {
+        yield put(sensorsAC.setSensorsLoadingStatus(LoadingStatus.ERROR));
+    }
+}
+
+export function* stopSensorMaintenanceRequest({payload}: StopSensorMaintenanceAI) {
+    try {
+        const data = yield call(SensorsApi.setMaintenance, payload);
+        console.log("saga stopSensorMaintenanceRequest=>", payload);
+        console.log("set saga data setMaintenanceRequest=>", data);
+
+        if (data.status !== 200) {
+            yield put(sensorsAC.setSensorsStatusOperation(LoadingStatus.MAINTENANCE_SENSORS_ERROR));
+        }
+    } catch {
+        yield put(sensorsAC.setSensorsLoadingStatus(LoadingStatus.ERROR));
+    }
+}
+
 
 export function* sensorsSaga() {
     yield takeLatest(SensorsAT.FETCH_WARNINGS_SENSORS, fetchWarningsSensorsRequest);
@@ -168,4 +196,6 @@ export function* sensorsSaga() {
     yield takeLatest(SensorsAT.ADD_SENSOR_SETTINGS, addSensorSettingsRequest);
     yield takeLatest(SensorsAT.FETCH_WS_DATA_SENSORS, fetchWsDataSensorsRequest);
     yield takeLatest(SensorsAT.FETCH_HISTORICAL_GRAPHS_SENSORS, fetchHistoricalGraphsRequest);
+    yield takeLatest(SensorsAT.SET_MAINTENANCE, setMaintenanceRequest);
+    yield takeLatest(SensorsAT.STOP_SENSOR_MAINTENANCE, stopSensorMaintenanceRequest);
 }

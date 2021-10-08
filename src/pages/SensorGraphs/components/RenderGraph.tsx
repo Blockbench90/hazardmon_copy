@@ -4,12 +4,13 @@ import SensorGraphHeader from "../../../components/GraphsChartHeader/SensorGraph
 // @ts-ignore
 import ReactHighstock from "react-highcharts/ReactHighstock";
 import moment from "moment";
+import _ from "lodash";
 
 interface RenderGraphProps {
     sensorGraphDataInitial: any,
     groupName: string,
     sensorGraphDataArray: any,
-    insertEmptySlots: any,
+    isLivePage?: boolean
     isLostComms: any,
     defaultOptions: any,
     sensorId: number
@@ -19,12 +20,43 @@ const RenderGraph: React.FC<RenderGraphProps> = ({
                                                      sensorGraphDataInitial,
                                                      groupName,
                                                      sensorGraphDataArray,
-                                                     insertEmptySlots,
                                                      isLostComms,
                                                      defaultOptions,
                                                      sensorId,
+                                                     isLivePage,
                                                  }) => {
     const chartRef = useRef();
+
+
+    const insertEmptySlots = (sensorGraphData: any, maxPeriodParam: number) => {
+        return _.map(sensorGraphData, (graphObj: any) => {
+            const isBooleanGraph = ["BOOL", "ENUM"].indexOf(graphObj.sensor_type) !== -1;
+
+            const maxPeriod = maxPeriodParam * 60 * 1.15 * 1000;  // To timestamp delta (in ms)
+            const newData: any = [];
+            graphObj.data.forEach((dataArray: any, index: number) => {
+                newData.push(dataArray);
+                if (graphObj.data[index + 1] && graphObj.data[index + 1][0] - graphObj.data[index][0] > maxPeriod) {
+                    _.times(Math.round(graphObj.data[index + 1][0] / dataArray[0] + 1), (emptyIndex: number) => {
+                        const x = dataArray[0] + (maxPeriod - 4000) * (emptyIndex + 1);
+                        let emptyDataEntry = [x, null, true];
+
+                        // edit entry for Contact graphs
+                        if (isBooleanGraph) {
+                            emptyDataEntry = emptyDataEntry.slice(0, -1).concat([false, "Disabled"]);
+                        }
+
+                        newData.push(emptyDataEntry);
+                    });
+                }
+            });
+
+            return {
+                ...graphObj,
+                data: newData,
+            };
+        });
+    };
 
     const sensorGraphData = insertEmptySlots(sensorGraphDataInitial, 12);
 
@@ -66,6 +98,7 @@ const RenderGraph: React.FC<RenderGraphProps> = ({
 
                 return objToReturn;
             }).sort((a: any, b: any) => a.x - b.x);
+
 
             return {
                 ...seriesParams,
@@ -177,11 +210,11 @@ const RenderGraph: React.FC<RenderGraphProps> = ({
                 this.points.forEach((item: any) => {
 
                     const formatters = {
-                        'Minutes': (value: any) => `${Math.floor(value / 60)}h:${value % 60}m`
+                        "Minutes": (value: any) => `${Math.floor(value / 60)}h:${value % 60}m`,
                     };
 
                     // eslint-disable-next-line no-useless-concat
-                    res += '<span style="color:' + item.point.series.color + '">' + ' ' + item.point.series.name + '</span>: <b>';
+                    res += "<span style=\"color:" + item.point.series.color + "\">" + " " + item.point.series.name + "</span>: <b>";
 
                     // get formatting function or return unchached
                     // @ts-ignore
@@ -189,9 +222,9 @@ const RenderGraph: React.FC<RenderGraphProps> = ({
 
                     if (item.point.series.yAxis.userOptions.contactAxis) {
                         item.point.status = item.point.status || fmt(item.point.y, valueLabel);
-                        res += item.point.status + '</b><br/>';
+                        res += item.point.status + "</b><br/>";
                     } else {
-                        res += fmt(item.point.y, valueLabel) + '</b> ' + item.point.status + '<br/>';
+                        res += fmt(item.point.y, valueLabel) + "</b> " + item.point.status + "<br/>";
                     }
                 });
 

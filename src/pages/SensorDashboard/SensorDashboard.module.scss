@@ -124,6 +124,25 @@
   }
 }
 
+.warningMaintenance {
+  background: #FFF1E6;
+  width: 100%;
+  border: 1px solid #F47E21;
+  box-sizing: border-box;
+  border-radius: 5px;
+  display: flex;
+
+  .icon {
+    padding: 20px;
+  }
+
+  .description {
+    font-weight: 500;
+    color: #2D3C43;
+    padding: 20px;
+  }
+}
+
 .headerTitle {
   margin-left: 8px;
 }
@@ -133,6 +152,59 @@
   border: 1px solid #F14D49;
   box-shadow: 0px 0px 12px rgba(241, 77, 73, 0.4);
   border-radius: 3px;
+}
+.sensorWrapMaintenance {
+  width: 210px;
+  height: 195px;
+  margin: 15px 12px 25px 12px;
+  padding: 10px 13px;
+  border: 1px solid #CAD0D3;
+  border-radius: 3px;
+  background: #FFFFFF;
+  cursor: pointer;
+
+  .head {
+    margin-bottom: 10px;
+    height: 47px;
+
+    .title {
+      font-weight: bold;
+      font-size: 14px;
+      color: #0F435A;
+      width: 70%;
+      overflow: hidden;
+    }
+  }
+
+  .content {
+    margin-bottom: 10px;
+    height: 80px;
+
+    .device {
+      width: 80%;
+    }
+
+    .infoButton {
+      padding-left: 8px;
+    }
+  }
+
+  .foot {
+    color: #00C09E;
+    font-weight: 600;
+
+    .info {
+      width: 80%;
+      font-size: 14px;
+    }
+  }
+}
+.sensorWrapMaintenance:hover {
+    background: #FFFFFF !important;
+    border: 1px solid #F47E21 !important;
+    box-sizing: border-box !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+    border-radius: 3px !important;
 }
 
 .sensorWrapWarning {
@@ -329,8 +401,43 @@
   width: 25%;
 }
 
+.ambientUnits {
+  font-size: 20px !important;
+  font-weight: bold;
+  align-items: center;
+  color: #27AE60;
+  margin-left: 5px;
+}
+
 :global {
   .ant-collapse > .ant-collapse-item > .ant-collapse-header {
     color: #27AE60 !important;
+  }
+}
+
+.alreadyInMaintenanceWrap {
+  background: #FFF1E6;
+  border: 1px solid #F47E21;
+  box-sizing: border-box;
+  border-radius: 3px;
+  width: 210px;
+  height: 195px;
+  margin: 15px 12px 25px 12px;
+  padding: 10px 13px;
+  text-align: center;
+  cursor: pointer;
+
+  .clock {
+    padding-top: 20px;
+  }
+  .timer {
+    padding-top: 10px;
+    font-weight: 900;
+    color: #F47E21;
+  }
+  .descript {
+    padding-top: 15px;
+    font-weight: bold;
+    color: #F47E21;
   }
 }

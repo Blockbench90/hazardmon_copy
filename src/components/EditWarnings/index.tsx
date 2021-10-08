@@ -1,6 +1,5 @@
 import React, {useEffect} from "react";
 import clsx from "clsx";
-import Empty from "antd/lib/empty";
 import {useDispatch, useSelector} from "react-redux";
 
 import {LoadingStatus} from "../../store/status";
@@ -49,6 +48,9 @@ const EditWarnings: React.FC = () => {
         dispatch(sensorsAC.fetchWarnings(device.id.toString()));
         dispatch(sensorsAC.fetchSensors(device.id.toString()));
 
+        return () => {
+            dispatch(sensorsAC.setWarningsSign(null))
+        }
     }, [dispatch, device]);
 
 
@@ -64,6 +66,7 @@ const EditWarnings: React.FC = () => {
 
                     <WarningForm warning_sensors={warning_sensors}
                                  warnings={warnings}
+                                 device={device}
                                  signOption={signOption}
                                  onSubmit={onSubmit}
                     />
@@ -72,7 +75,16 @@ const EditWarnings: React.FC = () => {
             </React.Fragment>
         );
     }
-    return <Empty description="Warnings is empty!"/>;
+    return <div className={clsx("header-link", classes.editDeviceWrap)}>
+
+        <WarningForm warning_sensors={warning_sensors}
+                     warnings={warnings}
+                     device={device}
+                     signOption={signOption}
+                     onSubmit={onSubmit}
+        />
+
+    </div>;
 };
 
 export default EditWarnings;

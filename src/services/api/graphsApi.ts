@@ -8,7 +8,6 @@ interface APIResponse {
 export const GraphsApi = {
     async getGraphs(payload: { device_id: number, timescale: string }): Promise<APIResponse> {
         const {data} = await axios.get<APIResponse>(`api/v1/graphs/device/${payload.device_id}/?timescale=${payload.timescale}`);
-        console.log("get grahps ==>", data)
         return data;
     },
     async getCustomGraphs(payload: FetchCustomGraphs): Promise<APIResponse> {
@@ -21,7 +20,7 @@ export const GraphsApi = {
     },
     async getLiveGraphsData(id: number): Promise<APIResponse> {
         const {data} = await axios.get<APIResponse>(`api/v1/graphs/device/${id}/live-update/`);
-        console.log("lige graphs ==>", data)
+        // console.log("lige graphs ==>", data)
         return data;
     },
 

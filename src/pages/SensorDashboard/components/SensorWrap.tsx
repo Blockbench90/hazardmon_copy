@@ -20,7 +20,8 @@ const SensorWrap: React.FC<SensorWrapProps> = ({
                                                    isAlignment,
                                                    filter_status,
                                                }) => {
-    const isTemperature = sensor?.Meta?.Units?.split("").includes("C") || sensor?.Meta?.Units?.split("").includes("F");
+    
+    const isTemperature = sensor?.Meta?.Units && sensor?.Meta?.Units === ("°С" || "°F");
     const isBoolean = ["BOOL", "ENUM"].indexOf(sensor.Type) !== -1;
 
     const contactSensor = () => {

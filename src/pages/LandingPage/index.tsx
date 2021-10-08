@@ -7,7 +7,7 @@ import RealTime from "../../components/LandingInfoBlocks/components/RealTime";
 import AlarmAndNotification from "../../components/LandingInfoBlocks/components/AlarmAndNotification";
 import DataTrending from "../../components/LandingInfoBlocks/components/DataTrending";
 
-import arrowUp from "../../assets/icons/arrowUp.svg"
+import arrowUp from "../../assets/icons/arrowUp.svg";
 
 import LandingHeader from "../../components/LandingHeader";
 import InfoBlock from "../../components/InfoBlock";
@@ -15,17 +15,17 @@ import LandingFooterBlock from "../../components/LandingFooterBlock";
 import LandingFooter from "../../components/LandingFooter";
 import AuthBlock from "../../components/AuthBlock";
 import LoginAlert from "../../components/Alerts/registration";
-import RegistrationAlert from "../../components/Alerts/registration"
+import RegistrationAlert from "../../components/Alerts/registration";
 
-import classes from "./LandingPage.module.scss"
+import classes from "./LandingPage.module.scss";
 
 
 export const LandingPage: React.FC = () => {
-    const [isRegister, setIsRegister] = useState<boolean>(false)
+    const [isRegister, setIsRegister] = useState<boolean>(false);
 
-    const realTimeRef = useRef(null)
-    const dataTrendingRef = useRef(null)
-    const alarmLogRef = useRef(null)
+    const realTimeRef = useRef(null);
+    const dataTrendingRef = useRef(null);
+    const alarmLogRef = useRef(null);
 
 
     return (
@@ -76,5 +76,5 @@ export const LandingPage: React.FC = () => {
 
             </div>
         </div>
-    )
-}
+    );
+};

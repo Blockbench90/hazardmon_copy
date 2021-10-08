@@ -23,21 +23,25 @@ const {TabPane} = Tabs;
 const TabsSensorGraphs: React.FC = () => {
     const history = useHistory();
     const dispatch = useDispatch();
-
-    const [active, setActive] = useState<boolean>(true);
-    const [modal, setModal] = useState(false);
-
-    const [isLive, setLive] = useState(false);
-    const [intervalId, setIntervalId] = useState<NodeJS.Timeout>();
-
     const {device} = useCurrentSelection();
+
+    const [modal, setModal] = useState(false);
 
     const handleCustomGraphs = () => {
         setModal(true);
     };
 
-    const onChangeTab = () => {
-        setActive(!active);
+    const onLive = () => {
+        dispatch(graphsAC.setLiveGraphsDataTab(true));
+    };
+
+    const onCloseLive = () => {
+        dispatch(graphsAC.setLiveGraphsDataTab(false));
+    };
+
+    const onChangeTab = (activeKey: string) => {
+        activeKey === "live" ? onLive() : onCloseLive();
+
         history.push("/graphs");
     };
 
@@ -69,31 +73,11 @@ const TabsSensorGraphs: React.FC = () => {
         WinStorage.setTimescale(date);
     };
 
-    const onLive = () => {
-        console.log("device ===>", device.id, "<=== done");
-        setLive(true);
-        dispatch(graphsAC.getLiveGraphsData(device.id));
-    };
-
     useEffect(() => {
-        if (isLive) {
-            if (!device) {
-                dispatch(graphsAC.setGraphsStatusOperation(LoadingStatus.WITHOUT_SELECTED_DEVICE_GRAPHS_ERROR));
-                return;
-            }
-            const id: NodeJS.Timeout = setInterval(() => {
-                dispatch(graphsAC.updateLiveGraphsData(device.id));
-                console.log("tik ===> ", id);
-            }, 2000);
-            setIntervalId(id);
-        }
-
         return () => {
-            clearInterval(intervalId);
-            setLive(false)
-            console.log("clear interval id ==>", intervalId)
+            dispatch(graphsAC.setLiveGraphsDataTab(false));
         };
-    }, [isLive, device, dispatch, intervalId]);
+    }, [dispatch]);
 
     return (
         <div className={classes.wrap}>
@@ -112,16 +96,17 @@ const TabsSensorGraphs: React.FC = () => {
 
                         <TabPane className={classes.tab}
                                  tab={
-                                     <div className={classes.tabTitleWrap} onClick={onLive}>
+                                     <div className={classes.tabTitleWrap}>
                                          <Live/>
                                          <span className={classes.title}>Live</span>
                                      </div>
                                  }
-                                 key="1"/>
+                                 key="live"/>
 
                         <TabPane className={classes.tab}
                                  tab={
-                                     <div className={classes.tabTitleWrap} onClick={() => onChoiceDate(GraphsDate.hour)}>
+                                     <div className={classes.tabTitleWrap}
+                                          onClick={() => onChoiceDate(GraphsDate.hour)}>
                                          <HR/>
                                          <span className={classes.title}>1 HR</span>
                                      </div>
@@ -139,8 +124,9 @@ const TabsSensorGraphs: React.FC = () => {
 
                         <TabPane className={classes.tab}
                                  tab={
-                                     <div className={classes.tabTitleWrap} onClick={() => onChoiceDate(GraphsDate.week)}>
-                                             <Day/>
+                                     <div className={classes.tabTitleWrap}
+                                          onClick={() => onChoiceDate(GraphsDate.week)}>
+                                         <Day/>
                                          <span className={classes.title}>7 Days</span>
 
                                      </div>
@@ -149,7 +135,8 @@ const TabsSensorGraphs: React.FC = () => {
 
                         <TabPane className={classes.tab}
                                  tab={
-                                     <div className={classes.tabTitleWrap} onClick={() => onChoiceDate(GraphsDate.month)}>
+                                     <div className={classes.tabTitleWrap}
+                                          onClick={() => onChoiceDate(GraphsDate.month)}>
                                          <Day/>
                                          <span className={classes.title}>30 Days</span>
                                      </div>

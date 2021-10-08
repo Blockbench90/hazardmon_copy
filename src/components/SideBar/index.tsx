@@ -72,6 +72,10 @@ const SideBarComponent: React.FC<SideBarProps> = ({
         return location.pathname.split("/")[1];
     };
 
+    const navTo = (path: string) => {
+        history.push(path);
+    };
+
 
     return (
         <div className={classes.sidebar}>
@@ -124,49 +128,38 @@ const SideBarComponent: React.FC<SideBarProps> = ({
                         )
                     }
 
-                    <Menu.Item key="sites" icon={<Sites/>}>
-                        <Link to="/sites">
-                            Sites
-                        </Link>
+                    <Menu.Item key="sites" icon={<Sites/>} onClick={() => navTo("/sites")}>
+                        Sites
                     </Menu.Item>
 
-                    <Menu.Item key="devices" icon={<Devices/>}>
-                        <Link to="/devices">
-                            Devices
-                        </Link>
+                    <Menu.Item key="devices" icon={<Devices/>} onClick={() => navTo("/devices")}>
+                        Devices
                     </Menu.Item>
 
-                    <Menu.Item key="dashboard" icon={<Sensor/>}>
-                        <Link to="/dashboard">
-                            Sensor Dashboard
-                        </Link>
+                    <Menu.Item key="dashboard" icon={<Sensor/>} onClick={() => navTo("/dashboard")}>
+                        Sensor Dashboard
                     </Menu.Item>
 
-                    <Menu.Item key="graphs" icon={<Graphs/>}>
-                        <Link to="/graphs">
-                            Sensor Graphs
-                        </Link>
+                    <Menu.Item key="graphs" icon={<Graphs/>} onClick={() => navTo("/graphs")}>
+                        Sensor Graphs
                     </Menu.Item>
                     <div className={classes.lineBottom}/>
 
-                    <Menu.Item key="notifications" icon={<Notifications/>}>
-                        <Link to="/notifications">
+                    <Menu.Item key="notifications" icon={<Notifications/>} onClick={() => navTo("/notifications")}>
                             <span className={classes.sideTitle}>
                                 Notifications
                             </span>
-                        </Link>
                     </Menu.Item>
 
                     {
                         (isSuperUser || isOEM) && isCorrectDevice &&
                         <Menu.Item key="analytics"
                                    icon={<Analytics/>}
-                                   className={classes.hoverNone}>
-                            <Link to="/analytics">
+                                   className={classes.hoverNone}
+                                   onClick={() => navTo("/analytics")}>
                             <span className={classes.sideTitle}>
                                 Analytics
                             </span>
-                            </Link>
                         </Menu.Item>
                     }
 
@@ -175,33 +168,30 @@ const SideBarComponent: React.FC<SideBarProps> = ({
                         &&
                         <Menu.Item key="visual-dashboard" icon={<Visual/>}
                                    className={clsx(classes.visual,
-                                       collapsed ? classes.sizeVisualSmall : classes.sizeVisualBig)}>
-                            <Link to="/visual-dashboard/site/4/schemas">
+                                       collapsed ? classes.sizeVisualSmall : classes.sizeVisualBig)}
+                                   onClick={() => navTo("/visual-dashboard/site/4/schemas")}
+                        >
                                  <span className={classes.sideTitle}>
                                     Visual Dashboard
                                 </span>
-                            </Link>
                         </Menu.Item>
                     }
 
                     {
                         !collapsed
                         &&
-                        <Menu.Item key="set1" className={clsx(classes.setting, classes.modify)}>
-                            <Link to="/modify-homepage">
-                                Modify homepage
-                            </Link>
+                        <Menu.Item key="set1" className={clsx(classes.setting, classes.modify)}
+                                   onClick={() => navTo("/modify-homepage")}>
+                            Modify homepage
                         </Menu.Item>
-
                     }
 
                     {
                         !collapsed
                         &&
-                        <Menu.Item key="set2" className={clsx(classes.setting, classes.settingLink)}>
-                            <Link to="/oem/setting">
-                                Settings
-                            </Link>
+                        <Menu.Item key="set2" className={clsx(classes.setting, classes.settingLink)}
+                                   onClick={() => navTo("/oem/setting")}>
+                            Settings
                         </Menu.Item>
                     }
 

@@ -17,6 +17,7 @@ const {Option, OptGroup} = Select;
 interface WarningFormProps {
     warning_sensors: WarningsSensors[]
     warnings: Warning[]
+    device: { id: number, title: string, udf_id: string, device_type: string }
     signOption: string[]
     onSubmit?: (values: any) => void
 }
@@ -25,6 +26,7 @@ const WarningForm: React.FC<WarningFormProps> = ({
                                                      warning_sensors,
                                                      warnings,
                                                      signOption,
+                                                     device,
                                                      onSubmit,
                                                  }) => {
     const [form] = useForm();
@@ -34,7 +36,6 @@ const WarningForm: React.FC<WarningFormProps> = ({
         form.resetFields();
         history.push("/dashboard");
     };
-
 
     return (
         <React.Fragment>
@@ -68,16 +69,21 @@ const WarningForm: React.FC<WarningFormProps> = ({
                                                                        }]}>
                                                                 <Select>
                                                                     {warning_sensors && warning_sensors?.map((item: any, index: number) => {
-                                                                        if (item.name.split("-").includes("T500")) {
-                                                                            return <OptGroup label={item?.name}
-                                                                                             key={`sensor_id_${item.id}_${index}`}>
-                                                                                {item?.groups?.map((item: WarningSensor, index: number) => (
-                                                                                    <Option value={item?.id}
-                                                                                            key={`warning_sensor_${item.id}${index}}`}>
-                                                                                        {item?.name}
-                                                                                    </Option>
-                                                                                ))}
-                                                                            </OptGroup>;
+                                                                        if (device?.device_type === "F500-UDF") {
+                                                                            return <React.Fragment>
+                                                                                <span>{item.name}</span>
+                                                                                    {
+                                                                                        item.groups && item?.groups.map((item: any, index: number) => (
+                                                                                            <OptGroup label={item?.name} key={`sensor_id_${item.id}_${index}`}>
+                                                                                                {item?.sensors?.map((item: WarningSensor, index: number) => (
+                                                                                                    <Option value={item?.id} key={`warning_sensor_${item.id}${index}}`}>
+                                                                                                        {item.name || ""}
+                                                                                                    </Option>
+                                                                                                ))}
+                                                                                            </OptGroup>
+                                                                                        ))
+                                                                                    }
+                                                                            </React.Fragment>;
                                                                         } else if (item.name.split(" ").includes("Alignment")) {
                                                                             return <OptGroup label={item?.name}
                                                                                              key={`sensor_id_${item.id}_${index}`}>
@@ -89,6 +95,7 @@ const WarningForm: React.FC<WarningFormProps> = ({
                                                                                 ))}
                                                                             </OptGroup>;
                                                                         } else {
+                                                                            console.log("item ==>", item);
                                                                             return <OptGroup label={item?.name}
                                                                                              key={`sensor_id_${item.id}_${index}`}>
                                                                                 {item?.sensors?.map((sensor: WarningSensor, index: number) => (

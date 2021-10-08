@@ -10,7 +10,13 @@
 
 .widgetBody {
   padding: 12px;
-  //background-color: #ffffff;
+  flex: 1 1 auto;
+  margin-bottom: 50px;
+}
+
+.widgetLiveBody {
+  padding: 12px;
+  height: 400vh;
   flex: 1 1 auto;
   margin-bottom: 50px;
 }

@@ -26,11 +26,11 @@ export function* getSelectedSitesRequest({payload}: SelectSitesAI) {
         yield put(sitesAC.setSitesLoadingStatus(LoadingStatus.LOADING));
         const status = yield call(SitesApi.selectSites, payload);
         yield put(userAC.fetchUserData());
-        const timezones = yield call(SitesApi.getTimezones);
+        // const timezones = yield call(SitesApi.getTimezones);
         if (status === 200) {
             const selectSites = yield call(SitesApi.getSites);
             yield put(sitesAC.setSites(selectSites));
-            yield put(sitesAC.setTimezones(timezones));
+            // yield put(sitesAC.setTimezones(timezones));
             yield put(sitesAC.setSitesLoadingStatus(LoadingStatus.LOADED));
             history.push("/sites");
             yield put(sitesAC.setOperationStatusSite(LoadingStatus.SELECT_SITE_SUCCESS));
@@ -47,9 +47,9 @@ export function* fetchSitesRequest() {
     try {
         yield put(sitesAC.setSitesLoadingStatus(LoadingStatus.LOADING));
         const data = yield call(SitesApi.getSites);
-        const timezones = yield call(SitesApi.getTimezones);
+        // const timezones = yield call(SitesApi.getTimezones);
         yield put(sitesAC.setSites(data));
-        yield put(sitesAC.setTimezones(timezones));
+        // yield put(sitesAC.setTimezones(timezones));
     } catch (error) {
         yield put(sitesAC.setSitesLoadingStatus(LoadingStatus.ERROR));
     }

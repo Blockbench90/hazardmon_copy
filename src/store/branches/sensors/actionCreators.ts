@@ -18,9 +18,9 @@ import {
     SetSensorUnitsAI,
     SetWarningsAI,
     SetWarningsSensorsAI,
-    SetWsDataSensorsAI,
+    SetWsDataSensorsAI, ShowConfirmModalAI, StopSensorMaintenanceAI,
 } from "./actionTypes";
-import {AddWarning, FilterStatus, SensorNames, SensorsState, Unit} from "./stateTypes";
+import {AddWarning, FilterStatus, Maintenance, SensorNames, SensorsState, Unit, WsSensor} from "./stateTypes";
 import {LoadingStatus} from "../../status";
 
 
@@ -137,9 +137,19 @@ export const sensorsAC = {
         payload,
     }),
 
-    setMaintenance: (payload: string): SetMaintenanceAI => ({
+    setMaintenance: (payload: Maintenance): SetMaintenanceAI => ({
         type: SensorsAT.SET_MAINTENANCE,
         payload,
+    }),
+
+    stopSensorMaintenance: (payload: Maintenance): StopSensorMaintenanceAI => ({
+        type: SensorsAT.STOP_SENSOR_MAINTENANCE,
+        payload,
+    }),
+
+    showConfirmModal: (payload: {isShow: boolean, sensor?: WsSensor}): ShowConfirmModalAI => ({
+        type: SensorsAT.SHOW_CONFIRM_MAINTENANCE_MODAL,
+        payload
     }),
 
     clearWsSensorsData: (): ClearWsDataSensorsAI => ({
@@ -172,3 +182,5 @@ export type SensorsActions =
     | SetMaintenanceStatusOperationAI
     | SetMaintenancePageAI
     | SetMaintenanceAI
+    | ShowConfirmModalAI
+    | StopSensorMaintenanceAI

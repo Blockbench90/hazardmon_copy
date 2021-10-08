@@ -161,6 +161,15 @@ export enum FilterStatus {
     ALL_NODES = "all_nodes"
 }
 
+export interface Maintenance {
+    device_id: number,
+    event_type: string,
+    sensor_id: string,
+    sensor_name: string,
+    comment: string,
+    maintenance_time: number
+};
+
 export interface SensorsState {
     sensorsData: {
         count: number | null
@@ -179,8 +188,9 @@ export interface SensorsState {
     historical_data: HistoricalData
     status: LoadingStatus
     status_operation: LoadingStatus
-    maintenanceIdArray: string[]
+    maintenanceSensorsArray: Maintenance[]
     isMaintenance: boolean
+    showConfirmMaintenance: {isShow: boolean, sensor?: WsSensor}
     maintenance_status_operation: LoadingStatus
     isSelected: boolean
 }

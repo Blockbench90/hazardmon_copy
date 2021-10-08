@@ -493,7 +493,7 @@ export function* runCurrentUserSocket (data: any) {
 }
 
 export function* watchToggleCurrentUserSocket() {
-    yield takeLatest(schemasConstants.TOGGLE_CURRENT_USER_SOCKET, runCurrentUserSocket);
+    // yield takeLatest(schemasConstants.TOGGLE_CURRENT_USER_SOCKET, runCurrentUserSocket);
 }
 
 // ---------------------------------------

@@ -42,7 +42,7 @@ const HeaderComponent: React.FC<HeaderProps> = ({className}) => {
     useEffect(() => {
         if (notifications.length > 0) {
             setNotification(notifications[0]);
-            dispatch(userAC.fetchHeaderNotificationCount());
+            // dispatch(userAC.fetchHeaderNotificationCount());
             return;
         }
     }, [dispatch, notifications]);

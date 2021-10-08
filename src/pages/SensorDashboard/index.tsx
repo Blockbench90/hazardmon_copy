@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {Alert, Empty} from "antd";
+import {Empty} from "antd";
 
 import HeaderSection from "./components/HeaderSection";
 import SensorsGroups from "./components/SensorsGroups";
@@ -12,24 +12,39 @@ import {useSocketSensors} from "../../hooks/useSocketTestSensors";
 import {useCurrentSelection} from "../../hooks/useCurrentSelection";
 import {sensorsAC} from "../../store/branches/sensors/actionCreators";
 
+import {Maintenance} from "../../store/branches/sensors/stateTypes";
 import {LoadingStatus} from "../../store/status";
 import {selectSensorsState} from "../../store/selectors";
 import Preloader from "../../components/Preloader";
 import Spinner from "../../components/Spinner";
+import {ReactComponent as Warning} from "../../assets/icons/maintanence_warning.svg";
+import MaintenanceModal from "../../components/MaintenanceModal";
 
 import classes from "./SensorDashboard.module.scss";
+
+const maintenanceTime = process.env.REACT_APP_MAINTENANCE_TIME;
 
 const SensorDashboard: React.FC = () => {
     const dispatch = useDispatch();
 
     const {
-        ws_data,
-        filter_status,
-        status,
-        maintenance_status_operation,
-        isMaintenance,
+        ws_data, filter_status, status, maintenance_status_operation,
+        maintenanceSensorsArray, isMaintenance, showConfirmMaintenance,
     } = useSelector(selectSensorsState);
     const {device} = useCurrentSelection();
+
+    const onSubmitComment = (message: string) => {
+        dispatch(sensorsAC.showConfirmModal({isShow: false}));
+        dispatch(sensorsAC.stopSensorMaintenance({
+            device_id: device.id,
+            event_type: "maintenance_canceled",
+            sensor_id: showConfirmMaintenance.sensor.Id,
+            sensor_name: showConfirmMaintenance.sensor.Name,
+            comment: message,
+            maintenance_time: new Date().getTime(),
+        }));
+    };
+
 
     useEffect(() => {
         if (!device) {
@@ -40,15 +55,28 @@ const SensorDashboard: React.FC = () => {
         };
     }, [dispatch, device]);
 
-    useEffect(() => {
-        if (device) {
-            dispatch(sensorsAC.fetchWarnings(device.id.toString()));
-            dispatch(sensorsAC.fetchSensors(device.id.toString()));
+    const checkTime = (sensorsArray: Maintenance[]) => {
+        if (sensorsArray.length > 0) {
+            sensorsArray.map((item: Maintenance, index: number) => {
+                const now = new Date().getTime(); // now moment in seconds
+                const differenceTime = (now - item.maintenance_time) / 1000; //find out the difference between start and now
+                if (+differenceTime.toFixed() > +maintenanceTime) {
+                    dispatch(sensorsAC.stopSensorMaintenance({...item, event_type: "maintenance_failed"}));
+                }
+                return null;
+            });
         }
-    }, [dispatch, device]);
+        return null;
+    };
+    useEffect(() => {
+        if (isMaintenance && maintenanceSensorsArray?.length > 0) {
+            checkTime(maintenanceSensorsArray);
+        }
+    });
 
     // fix this after backand will change
-    useSocketSensors(`ws/device-data/${device?.udf_id}/`);
+    useSocketSensors(device ? `ws/device-data/${device?.udf_id}/` : "");
+
 
     if (maintenance_status_operation === LoadingStatus.LOADING) {
         return <Spinner/>;
@@ -59,23 +87,24 @@ const SensorDashboard: React.FC = () => {
             <div className={classes.SensorDashboardWrap}>
                 <DashboardAlert/>
                 <HeaderSection/>
+                <MaintenanceModal isModal={showConfirmMaintenance.isShow} onSubmit={onSubmitComment}/>
                 {
                     !ws_data
                     &&
-                    <Empty description="Device is Offline! No notifications can occur until the device is back online! Please check the device’s internet connection"/>
+                    <Empty
+                        description="Device is Offline! No notifications can occur until the device is back online! Please check the device’s internet connection"/>
                 }
 
                 {
                     isMaintenance
                     &&
-                    <div>
-                        <Alert
-                            message={"Please click on the sensor to start the maintenance test."}
-                            type="warning"
-                            showIcon
-                            closable
-                            className={classes.alert}
-                        />
+                    <div className={classes.warningMaintenance}>
+                        <div className={classes.icon}>
+                            <Warning/>
+                        </div>
+                        <div className={classes.description}>
+                            <span>Please click on the sensor to start the maintenance test.</span>
+                        </div>
                     </div>
                 }
 

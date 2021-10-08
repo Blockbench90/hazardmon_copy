@@ -8,18 +8,20 @@ import {selectSensorsState} from "../../store/selectors";
 import {WinStorage} from "../../services/AuthSrorage";
 
 import classes from "./Alert.module.scss";
+import {usePermissions} from "../../hooks/usePermissions";
 
 type AlertNotification = "success" | "info" | "warning" | "error"
 
 const DashboardAlert = () => {
     const {status_operation} = useSelector(selectSensorsState);
+    const {isSuperUser} = usePermissions();
     const dispatch = useDispatch();
-    const errorMessage = WinStorage.getErrorMessage()
+    const errorMessage = WinStorage.getErrorMessage();
 
     const setTimer = () => {
         setTimeout(() => {
             dispatch(sensorsAC.setSensorsStatusOperation(LoadingStatus.NEVER));
-            WinStorage.removeErrorMessage()
+            WinStorage.removeErrorMessage();
         }, 5000);
     };
 
@@ -35,22 +37,32 @@ const DashboardAlert = () => {
 
     if (status_operation === LoadingStatus.FETCH_SENSORS_ERROR) {
         setTimer();
-        return alertNotification(errorMessage || "You do not have permission to edit warnings!", "warning")
+        return alertNotification(errorMessage || "You do not have permission to edit warnings!", "warning");
     }
 
     if (status_operation === LoadingStatus.FETCH_SENSORS_NAMES_ERROR) {
         setTimer();
-        return alertNotification(errorMessage || "Please select device before!", "warning")
+        return alertNotification(errorMessage || "Please select device before!", "warning");
     }
 
     if (status_operation === LoadingStatus.FETCH_SENSORS_WITHOUT_DEVICE) {
         setTimer();
-        return alertNotification(errorMessage || "Please select device before!", "warning")
+        return alertNotification(errorMessage || "Please select device before!", "warning");
     }
 
     if (status_operation === LoadingStatus.FETCH_SENSORS_HISTORICAL_DATE) {
         setTimer();
-        return alertNotification(errorMessage || "Please select time before!", "warning")
+        return alertNotification(errorMessage || "Please select time before!", "warning");
+    }
+
+    if (status_operation === LoadingStatus.MAINTENANCE_SENSORS_ERROR) {
+        setTimer();
+        return alertNotification(`${
+                isSuperUser
+                    ? "Something went wrong. Please try to refresh the page and check your current client and site selection"
+                    : "Something went wrong. Please try to refresh the page"
+            }`,
+            "warning");
     }
 
     return null;

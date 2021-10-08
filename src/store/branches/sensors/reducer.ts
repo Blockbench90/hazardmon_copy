@@ -19,7 +19,11 @@ const initialSensorsState: SensorsState = {
     status: LoadingStatus.NEVER,
     status_operation: LoadingStatus.NEVER,
     isMaintenance: false,
-    maintenanceIdArray: [],
+    showConfirmMaintenance: {
+        isShow: false,
+        sensor: null
+    },
+    maintenanceSensorsArray: [],
     maintenance_status_operation: LoadingStatus.NEVER,
     isSelected: false,
 };
@@ -86,7 +90,17 @@ export const sensorsReducer = produce((draft: Draft<SensorsState>, action: Senso
             break;
 
         case SensorsAT.SET_MAINTENANCE:
-            draft.maintenanceIdArray.push(action.payload)
+            draft.maintenanceSensorsArray.push(action.payload)
+            break;
+
+        case SensorsAT.SHOW_CONFIRM_MAINTENANCE_MODAL:
+            draft.showConfirmMaintenance = action.payload
+            break;
+
+        case SensorsAT.STOP_SENSOR_MAINTENANCE:
+            const newArray = draft.maintenanceSensorsArray.filter((item) => item.sensor_id !== action.payload.sensor_id)
+            draft.maintenanceSensorsArray = newArray
+            console.log("reducer draft.maintenanceSensorsArray ==>", draft.maintenanceSensorsArray)
             break;
 
         default:

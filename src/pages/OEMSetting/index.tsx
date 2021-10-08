@@ -51,7 +51,7 @@ const OEMSetting: React.FC = () => {
                            }
                 />
 
-                <BlockWrap title="Static Pages and CSS"
+                <BlockWrap title="Custom Styles"
                            description="Add static pages the site. Links to these pages are added at the bottom of the page"
                            node={
                                <CustomButton width="250px"

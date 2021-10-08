@@ -6,7 +6,6 @@ import SensorWrap from "./SensorWrap";
 import success from "../../../assets/icons/success_sensor.svg";
 import notify from "../../../assets/icons/notify_sensor.svg";
 import not_scanned from "../../../assets/icons/not_scaned.svg";
-import {ReactComponent as Celsium} from "../../../assets/icons/celsium.svg";
 
 import classes from "../SensorDashboard.module.scss";
 
@@ -27,8 +26,10 @@ const SensorsType500: React.FC<SensorsType500Props> = ({
                                                            isAlarmedGroup,
                                                        }) => {
     let ambient;
+    let ambientUnits;
     wsGroup?.sensors?.forEach((item, index) => {
         if (item?.Name === "Ambient") {
+            ambientUnits = item?.Meta?.Units;
             ambient = item.Value;
             return;
         }
@@ -72,7 +73,7 @@ const SensorsType500: React.FC<SensorsType500Props> = ({
                                     &&
                                     <React.Fragment>
                                         <span className={classes.groupDegrees}>{ambient ? ambient : ""}</span>
-                                        <Celsium className={classes.groupCelsium}/>
+                                        <span className={classes.ambientUnits}>{ambientUnits ? ambientUnits : ""}</span>
                                     </React.Fragment>
                                 }
                             </span>

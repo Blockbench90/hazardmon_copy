@@ -1,5 +1,5 @@
 import {axios} from "../axios";
-import {AddWarning} from "../../store/branches/sensors/stateTypes";
+import {AddWarning, Maintenance} from "../../store/branches/sensors/stateTypes";
 
 interface APIResponse {
     data: any;
@@ -45,6 +45,16 @@ export const SensorsApi = {
     },
     async fetchHistoricalGraphs(payload: { device_id: number, date: string, time: string, limit: number, offset: number }): Promise<any> {
         const data = await axios.get<APIResponse>(`/api/v1/devices/${payload.device_id}/historical/graphs/?timestamp=${payload.date}%20${payload.time}:00&limit=${payload.limit}&offset=${payload.offset}`)
+        return data
+    },
+    async setMaintenance(payload: Maintenance): Promise<any> {
+        const data = await axios.post<APIResponse>(`api/v1/devices/${payload.device_id}/maintenance/`, {
+            event_type: payload.event_type,
+            sensor_id: payload.sensor_id,
+            sensor_name: payload.sensor_name,
+            comment: payload.comment || "test",
+            maintenance_time: payload.maintenance_time
+        } )
         return data
     },
 }

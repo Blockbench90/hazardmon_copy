@@ -1,6 +1,6 @@
 import {Action} from "redux";
 import {LoadingStatus} from "../../status";
-import {AddWarning, FilterStatus, SensorNames, SensorsState, Unit} from "./stateTypes";
+import {AddWarning, FilterStatus, Maintenance, SensorNames, SensorsState, Unit, WsSensor} from "./stateTypes";
 
 
 export enum SensorsAT {
@@ -27,6 +27,8 @@ export enum SensorsAT {
     SET_MAINTENANCE_PAGE = "sensors_dashboard/SET_MAINTENANCE_PAGE",
     SET_MAINTENANCE_STATUS_OPERATION = "sensors_dashboard/SET_MAINTENANCE_STATUS_OPERATION",
     SET_MAINTENANCE = "sensors_dashboard/SET_MAINTENANCE",
+    SHOW_CONFIRM_MAINTENANCE_MODAL = "sensors_dashboard/SHOW_CONFIRM_MAINTENANCE_MODAL",
+    STOP_SENSOR_MAINTENANCE = "STOP_SENSOR_MAINTENANCE"
 }
 
 export interface FetchWsDataSensorsAI extends Action<SensorsAT> {
@@ -136,7 +138,17 @@ export interface SetMaintenanceStatusOperationAI extends Action<SensorsAT> {
 
 export interface SetMaintenanceAI extends Action<SensorsAT> {
     type: SensorsAT.SET_MAINTENANCE;
-    payload: string;
+    payload: Maintenance
+}
+
+export interface StopSensorMaintenanceAI extends Action<SensorsAT> {
+    type: SensorsAT.STOP_SENSOR_MAINTENANCE;
+    payload: Maintenance
+}
+
+export interface ShowConfirmModalAI extends Action<SensorsAT> {
+    type: SensorsAT.SHOW_CONFIRM_MAINTENANCE_MODAL;
+    payload: {isShow: boolean, sensor?: WsSensor}
 }
 
 export interface ClearWsDataSensorsAI extends Action<SensorsAT> {

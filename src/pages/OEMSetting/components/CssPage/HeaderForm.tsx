@@ -14,7 +14,7 @@ const HeaderForm: React.FC<HeaderFormProps> = ({onCancel, onSubmit}) => {
     return (
         <div className={clsx("d-flex", "d-flex-w")}>
             <div>
-                <Title level={2}>Static Pages</Title>
+                <Title level={2}>Custom Styles</Title>
             </div>
 
             <div className="d-flex">

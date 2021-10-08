@@ -28,6 +28,8 @@ export interface Graphs {
 
 export interface GraphsState {
     graphsData: Graphs
+    liveData: Graphs
+    isLivePage: boolean
     status: LoadingStatus
     status_operation: LoadingStatus
 }

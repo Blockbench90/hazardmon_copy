@@ -44,30 +44,8 @@ const TabsSensorDashboard: React.FC = () => {
         }
     }, [isMaintenance]);
 
-    const liveMaintenance = () => {
+    const outMaintenancePage = () => {
         dispatch(sensorsAC.setMaintenancePage(false));
-    };
-
-    const setVisibleModal = () => {
-        setModal(true);
-        liveMaintenance();
-    };
-
-    const onLive = () => {
-        history.push("/dashboard");
-        liveMaintenance();
-    };
-
-    const setTimer = () => {
-        setTimeout(() => {
-            dispatch(sensorsAC.setMaintenanceStatusOperation(LoadingStatus.NEVER));
-        }, 1500);
-    };
-
-    const onMaintenance = () => {
-        dispatch(sensorsAC.setMaintenanceStatusOperation(LoadingStatus.LOADING));
-        dispatch(sensorsAC.setMaintenancePage(true));
-        setTimer();
     };
 
     const handleSelectNodes = (values: any) => {
@@ -77,7 +55,7 @@ const TabsSensorDashboard: React.FC = () => {
     const onSwitchNodes = (e: any) => {
         e.target.checked
             ? dispatch(sensorsAC.changeFilterStatusSensors(FilterStatus.ACTIVE))
-            : dispatch(sensorsAC.changeFilterStatusSensors(FilterStatus.ALL_NODES))
+            : dispatch(sensorsAC.changeFilterStatusSensors(FilterStatus.ALL_NODES));
     };
 
     const onCancel = () => {
@@ -99,8 +77,28 @@ const TabsSensorDashboard: React.FC = () => {
     };
 
     const onChangeTab = (activeKey: any) => {
+        if (activeKey === "live") {
+            history.push("/dashboard");
+            outMaintenancePage();
+        }
+        if (activeKey === "historical") {
+            setModal(true);
+            outMaintenancePage();
+        }
+        if (activeKey === "maintenance") {
+            history.push("/dashboard");
+            dispatch(sensorsAC.setMaintenancePage(true));
+        }
+        console.log("active key ==>", activeKey);
         setPath(activeKey);
     };
+
+    useEffect(() => {
+
+        return () => {
+            dispatch(sensorsAC.setMaintenancePage(false));
+        };
+    }, [dispatch]);
 
     return (
         <div className={classes.wrap}>
@@ -113,7 +111,7 @@ const TabsSensorDashboard: React.FC = () => {
                     >
                         <TabPane className={classes.tab}
                                  tab={
-                                     <div onClick={onLive}>
+                                     <div>
                                          <Live/>
                                          <span className={classes.title}>Live</span>
                                      </div>
@@ -122,7 +120,7 @@ const TabsSensorDashboard: React.FC = () => {
 
                         <TabPane className={classes.tab}
                                  tab={
-                                     <div onClick={setVisibleModal}>
+                                     <div>
                                          <Historical/>
                                          <span className={classes.title}>Historical</span>
                                      </div>
@@ -131,15 +129,15 @@ const TabsSensorDashboard: React.FC = () => {
 
                         <TabPane className={classes.tab}
                                  tab={
-                                     <div onClick={onMaintenance}>
+                                     <div>
                                          <Maintenance/>
                                          <span className={classes.title}>Maintenance</span>
                                      </div>
                                  }
                                  key="maintenance"/>
-
                     </Tabs>
                 </div>
+
 
                 {
                     ws_data?.device?.deviceType === "f500"
@@ -155,7 +153,8 @@ const TabsSensorDashboard: React.FC = () => {
                         :
                         <div>
                             <span className={classes.switchNodes}>Hide disabled sensors</span>
-                            <Checkbox onChange={onSwitchNodes} defaultChecked={true} className={classes.hideSensorsCheckbox}/>
+                            <Checkbox onChange={onSwitchNodes} defaultChecked={true}
+                                      className={classes.hideSensorsCheckbox}/>
                         </div>
                 }
 

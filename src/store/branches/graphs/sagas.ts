@@ -27,8 +27,6 @@ export function* liveGraphsDataRequest({payload}: GetLiveGraphsDataAI) {
     try {
         yield put(graphsAC.setGraphsLoadingStatus(LoadingStatus.LOADING));
         const data = yield call(GraphsApi.getLiveGraphsData, payload);
-        // const data = yield getLiveGraphsData(payload);
-        // console.log("graphs data ===>", data, "<=== done");
         if (data) {
             yield put(graphsAC.setGraphsData(data));
         } else {
@@ -44,7 +42,6 @@ export function* liveGraphsDataRequest({payload}: GetLiveGraphsDataAI) {
 export function* updateGraphsDataRequest({payload}: UpdateLiveGraphsDataAI) {
     try {
         const data = yield call(GraphsApi.getLiveGraphsData, payload);
-        console.log("graphs data update===>", data, "<=== done");
         if (data) {
             yield put(graphsAC.updateOldGraphsData(data));
         } else {

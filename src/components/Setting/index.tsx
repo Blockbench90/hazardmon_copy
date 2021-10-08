@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import clsx from "clsx";
-import {Dropdown, Menu, Modal} from "antd";
-import {useSelector} from "react-redux";
+import {Dropdown, Menu, Modal, Spin} from "antd";
+import {useDispatch, useSelector} from "react-redux";
 import {Link, useHistory} from "react-router-dom";
 import {DownOutlined, SettingFilled, ToolFilled} from "@ant-design/icons";
 
@@ -10,22 +10,33 @@ import {ReactComponent as Key} from "../../assets/icons/key_setting.svg";
 import {CustomButton} from "../Button";
 import {useCurrentSelection} from "../../hooks/useCurrentSelection";
 import {selectSensorsState} from "../../store/selectors";
+import {sensorsAC} from "../../store/branches/sensors/actionCreators";
 
 import classes from "./SettingPopup.module.scss";
+import {LoadingStatus} from "../../store/status";
 
 const SettingPopup: React.FC = () => {
     const [modal, setModal] = useState(false);
     const history = useHistory();
+    const dispatch = useDispatch();
 
-    const {warnings} = useSelector(selectSensorsState);
+    const {warnings, status} = useSelector(selectSensorsState);
     const {device} = useCurrentSelection();
 
-    const setVisible = () => {
+    const isWarningLoading = status === LoadingStatus.LOADING;
+
+    const openWarningsModal = () => {
+        if (!device) {
+            dispatch(sensorsAC.setSensorsStatusOperation(LoadingStatus.FETCH_SENSORS_WITHOUT_DEVICE));
+            return;
+        }
+        dispatch(sensorsAC.fetchWarnings(device.id.toString()));
         setModal(true);
     };
 
     const onCancel = () => {
         setModal(false);
+        dispatch(sensorsAC.setWarningsSign(null))
     };
 
     const onAddWarning = () => {
@@ -40,7 +51,7 @@ const SettingPopup: React.FC = () => {
 
     const menu = (
         <Menu>
-            <Menu.Item key="0" icon={<ToolFilled/>} onClick={setVisible}>
+            <Menu.Item key="0" icon={<ToolFilled/>} onClick={openWarningsModal}>
                 <span>Warnings</span>
             </Menu.Item>
             <Menu.Divider className={classes.driver}/>
@@ -107,7 +118,12 @@ const SettingPopup: React.FC = () => {
                     <span className={classes.modalSubTitle}>{device && (device?.title || "Device")}</span>
                 </div>
                 <div className={classes.modalDescriptionWrap}>
-                    <span className={classes.modalDescription}>
+                    {
+                        isWarningLoading
+                            ?
+                            <Spin/>
+                            :
+                            <span className={classes.modalDescription}>
                         {
                             warnings?.length > 0
                                 ?
@@ -121,6 +137,8 @@ const SettingPopup: React.FC = () => {
                                 "There are no warnings for this device"
                         }
                     </span>
+                    }
+
                 </div>
                 <div className={classes.modalButton}>
                     <CustomButton width="70px"

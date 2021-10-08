@@ -1,11 +1,11 @@
 import {
-    ClearGraphsStateAI,
+    ClearGraphsStateAI, ClearLiveDataAI,
     ExportGraphsPNGAI, FetchCustomGraphsDataAI,
     FetchGraphsDataAI, GetLiveGraphsDataAI,
     GraphsAT,
     SetGraphsDataAI,
     SetGraphsLoadingStatusAI,
-    SetGraphsStatusOperationAI, UpdateLiveGraphsDataAI, UpdateOldLiveGraphsDataAI,
+    SetGraphsStatusOperationAI, SetLiveGraphsDataTabAI, UpdateLiveGraphsDataAI, UpdateOldLiveGraphsDataAI,
 } from "./actionTypes";
 import {LoadingStatus} from "../../status";
 import {FetchCustomGraphs, FetchGraphs} from "./stateTypes"
@@ -34,9 +34,8 @@ export const graphsAC = {
         payload,
     }),
 
-    updateGraphsData: (payload: any): SetGraphsDataAI => ({
-        type: GraphsAT.SET_GRAPHS_DATA,
-        payload,
+    clearLiveData: (): ClearLiveDataAI => ({
+        type: GraphsAT.CLEAR_LIVE_DATA,
     }),
 
     setGraphsLoadingStatus: (payload: LoadingStatus): SetGraphsLoadingStatusAI => ({
@@ -58,6 +57,11 @@ export const graphsAC = {
         payload
     }),
 
+    setLiveGraphsDataTab : (payload: boolean): SetLiveGraphsDataTabAI => ({
+        type: GraphsAT.SET_LIVE_GRAPHS_DATA_TAB,
+        payload
+    }),
+
     updateLiveGraphsData : (payload: number): UpdateLiveGraphsDataAI => ({
         type: GraphsAT.UPDATE_GRAPHS_DATA,
         payload
@@ -76,3 +80,5 @@ export type GraphsActions =
     | ClearGraphsStateAI
     | UpdateLiveGraphsDataAI
     | UpdateOldLiveGraphsDataAI
+    | SetLiveGraphsDataTabAI
+    | ClearLiveDataAI
