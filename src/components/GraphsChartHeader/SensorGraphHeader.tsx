@@ -48,7 +48,7 @@ const SensorGraphHeader: React.FC<SensorGraphHeaderProps> = ({
                         {isLoading ? <Spin/> : <PNG/>}
                     </div>
                     <div className={classes.button}>
-                        <ExportGraphsCSV payload={{device_id: +device?.id, timescale: timeScale, sensor_id: sensorId}}/>
+                        <ExportGraphsCSV payload={{device_id: +device?.id, timescale: timeScale || "day", sensor_id: sensorId}}/>
                     </div>
                 </div>
             </div>

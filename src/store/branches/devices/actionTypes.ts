@@ -1,9 +1,10 @@
 import {Action} from "redux"
 import {LoadingStatus} from "../../status"
-import {Device, DevicesState} from "./stateTypes"
+import {Device, DevicesState, FetchNextPortionDevices} from "./stateTypes";
 
 export enum DevicesAT {
     FETCH_DEVICES = "devices/FETCH_DEVICES",
+    FETCH_NEXT_PORTION_DEVICES = "devices/FETCH_NEXT_PORTION_DEVICES",
     FETCH_CURRENT_DEVICE = "devices/FETCH_CURRENT_DEVICE",
     FETCH_ALL_DEVICES = "devices/FETCH_ALL_DEVICES",
     UPDATE_CURRENT_DEVICE = "devices/UPDATE_CURRENT_DEVICE",
@@ -51,6 +52,11 @@ export interface ChangeActiveCurDevAI extends Action<DevicesAT> {
 
 export interface FetchDevicesAI extends Action<DevicesAT> {
     type: DevicesAT.FETCH_DEVICES
+}
+
+export interface FetchNextPortionDevicesAI extends Action<DevicesAT> {
+    type: DevicesAT.FETCH_NEXT_PORTION_DEVICES,
+    payload: FetchNextPortionDevices
 }
 
 export interface FetchAllDevicesAI extends Action<DevicesAT> {

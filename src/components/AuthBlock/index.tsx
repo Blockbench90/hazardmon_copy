@@ -32,7 +32,7 @@ const AuthBlock: React.FC<AuthProps> = ({isRegister, onRegister}) => {
             >
                 <TabPane className={classes.tab}
                          tab={
-                             <div>
+                             <div className={classes.tabTitleWrap}>
                                  <Register/>
                                  <span className={classes.title}>Register</span>
                              </div>
@@ -44,7 +44,7 @@ const AuthBlock: React.FC<AuthProps> = ({isRegister, onRegister}) => {
 
                 <TabPane className={classes.tab}
                          tab={
-                             <div>
+                             <div className={classes.tabTitleWrap}>
                                  <Login/>
                                  <span className={classes.title}>Login</span>
                              </div>

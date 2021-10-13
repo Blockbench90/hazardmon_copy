@@ -13,7 +13,7 @@ import {
     FetchWsDataSensorsAI,
     SensorsAT,
     SetMaintenanceAI,
-    StopSensorMaintenanceAI,
+    StopSensorMaintenanceAI, UpdateArrangementAI,
 } from "./actionTypes";
 import {SensorsApi} from "../../../services/api/sensorsApi";
 import history from "../../../helpers/history";
@@ -162,7 +162,6 @@ export function* fetchHistoricalGraphsRequest({payload}: FetchHistoricalGraphsAI
 export function* setMaintenanceRequest({payload}: SetMaintenanceAI) {
     try {
         const data = yield call(SensorsApi.setMaintenance, payload);
-        console.log("data main ==>", data);
         if (data.status !== 200) {
             yield put(sensorsAC.setSensorsStatusOperation(LoadingStatus.MAINTENANCE_SENSORS_ERROR));
         }
@@ -174,11 +173,43 @@ export function* setMaintenanceRequest({payload}: SetMaintenanceAI) {
 export function* stopSensorMaintenanceRequest({payload}: StopSensorMaintenanceAI) {
     try {
         const data = yield call(SensorsApi.setMaintenance, payload);
-        console.log("saga stopSensorMaintenanceRequest=>", payload);
-        console.log("set saga data setMaintenanceRequest=>", data);
+        // console.log("saga stopSensorMaintenanceRequest=>", payload);
+        // console.log("set saga data setMaintenanceRequest=>", data);
 
         if (data.status !== 200) {
             yield put(sensorsAC.setSensorsStatusOperation(LoadingStatus.MAINTENANCE_SENSORS_ERROR));
+        }
+    } catch {
+        yield put(sensorsAC.setSensorsLoadingStatus(LoadingStatus.ERROR));
+    }
+}
+
+export function* updateArrangementRequest({payload}: UpdateArrangementAI) {
+    try {
+        yield put(sensorsAC.setSensorsLoadingStatus(LoadingStatus.LOADING));
+        const nodes = yield call(SensorsApi.getF500Nodes, payload.device_id);
+        let node;
+        if (nodes) {
+            nodes.forEach((item: any) => {
+                item.sensors.forEach((sensor: any) => {
+                    if (sensor.id === Number(payload.sensor)) {
+                        node = item.number
+                    }
+                });
+            });
+        }
+
+        const data = yield call(SensorsApi.updateArrangement, {
+            action: payload.action,
+            graph_type: "live",
+            node: node,
+            sensor: payload.sensor,
+            device_id: payload.device_id,
+        });
+        if (data.status === 200) {
+            history.push(`/graphs/${payload.sensor}`);
+        } else {
+            yield put(sensorsAC.setSensorsLoadingStatus(LoadingStatus.ERROR));
         }
     } catch {
         yield put(sensorsAC.setSensorsLoadingStatus(LoadingStatus.ERROR));
@@ -198,4 +229,5 @@ export function* sensorsSaga() {
     yield takeLatest(SensorsAT.FETCH_HISTORICAL_GRAPHS_SENSORS, fetchHistoricalGraphsRequest);
     yield takeLatest(SensorsAT.SET_MAINTENANCE, setMaintenanceRequest);
     yield takeLatest(SensorsAT.STOP_SENSOR_MAINTENANCE, stopSensorMaintenanceRequest);
+    yield takeLatest(SensorsAT.UPDATE_ARRANGEMENT, updateArrangementRequest);
 }

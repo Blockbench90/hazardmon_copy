@@ -83,6 +83,7 @@ const SensorsGroups: React.FC<Sensors> = ({
                             group={group}
                             status={group?.Status}
                             isSensors={!!group?.sensors}
+                            isAlarmedGroup={group.Alarm}
                             sensorsGroupsName={sensorsGroupsName}
                         />
                         <div className={classes.mapBlock}>

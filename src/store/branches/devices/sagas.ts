@@ -5,7 +5,7 @@ import {devicesAC} from "./actionCreators";
 import {
     AddDeviceAI,
     DevicesAT,
-    FetchCurrentDeviceAI, NotificationSelectAI,
+    FetchCurrentDeviceAI, FetchNextPortionDevicesAI, NotificationSelectAI,
     RemoveDeviceAI, SelectDeviceAI,
     SelectDevicesAI,
     UpdateCurrentDeviceAI,
@@ -40,11 +40,6 @@ export function* getSelectedDeviceRequest({payload}: SelectDeviceAI) {
         const status = yield call(DevicesApi.selectDevice, payload);
         yield put(userAC.fetchUserData());
         if (status === 200) {
-
-            // change for websocket
-            // const selectDevices = yield call(DevicesApi.getDevices);
-            // yield put(setDevicesAC(selectDevices));
-
             yield put(devicesAC.setDevicesLoadingStatus(LoadingStatus.LOADED));
             history.push("/dashboard");
             yield put(devicesAC.setOperationDevices(LoadingStatus.SELECT_DEVICE_SUCCESS));
@@ -52,6 +47,16 @@ export function* getSelectedDeviceRequest({payload}: SelectDeviceAI) {
             yield put(devicesAC.setDevicesLoadingStatus(LoadingStatus.ERROR));
             yield put(sitesAC.setOperationStatusSite(LoadingStatus.SELECT_SITE_ERROR));
         }
+    } catch (error) {
+        yield put(devicesAC.setDevicesLoadingStatus(LoadingStatus.ERROR));
+    }
+}
+
+export function* getNextPortionDevicesRequest({payload}: FetchNextPortionDevicesAI) {
+    try {
+        yield put(devicesAC.setDevicesLoadingStatus(LoadingStatus.LOADING));
+        const data = yield call(DevicesApi.getNextPortionDevices, payload);
+        yield put(devicesAC.setDevices(data));
     } catch (error) {
         yield put(devicesAC.setDevicesLoadingStatus(LoadingStatus.ERROR));
     }
@@ -195,4 +200,5 @@ export function* devicesSaga() {
     yield takeLatest(DevicesAT.DEACTIVATE_CURRENT_DEVICE, deactivateDeviceRequest);
     yield takeLatest(DevicesAT.SELECT_DEVICES, getSelectedDevicesRequest);
     yield takeLatest(DevicesAT.SELECT_DEVICE, getSelectedDeviceRequest);
+    yield takeLatest(DevicesAT.FETCH_NEXT_PORTION_DEVICES, getNextPortionDevicesRequest);
 }

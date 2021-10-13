@@ -28,7 +28,7 @@ const RSSEditForm: React.FC<WrapProps> = ({
     };
 
     const handleCancel = () => {
-        history.push("/sites");
+        history.push("/oem/setting");
     };
     useEffect(() => {
         form.setFieldsValue(oem_settings);

@@ -56,7 +56,6 @@ const AddSite: React.FC = () => {
                 <SitesAlert/>
                 <div className={clsx("header-link", classes.wrap)}>
                     <Title level={5}> <Link to="/sites">{client?.company || "Client"}</Link></Title>
-
                     <HeaderFormAddSite/>
 
                     <AddSiteForm form={form}

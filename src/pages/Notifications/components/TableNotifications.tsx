@@ -19,6 +19,21 @@ const NOTIFICATION_TYPES = {
     warning_on: "Warning Detected",
 };
 
+const NOTIFICATION_TYPES_COLOR = {
+    alarm_off: "#FFB983",
+    alarm_on: "#F14D49",
+    device_administration: "#2F80ED",
+    device_offline: "#2F80ED",
+    device_online: "#00E1B9",
+    maintenance: "#2F80ED",
+    power_up: "#27AE60",
+    site_administration: "#27AE60",
+    sn2_status_change: "#27AE60",
+    test: "#27AE60",
+    warning_off: "#27AE60",
+    warning_on: "#F47E21",
+};
+
 interface TableProps {
     data: any;
     count: number;
@@ -78,7 +93,7 @@ const TableNotifications: React.FC<TableProps> = ({
             render(text: string) {
                 return {
                     props: {
-                        style: {background: text === "device_online" ? "#00E1B9" : text === "alarm_off" ? "#FFB983" : "#FF9492"},
+                        style: {background: NOTIFICATION_TYPES_COLOR[text]},
                     },
                     // @ts-ignore
                     children: <div>{NOTIFICATION_TYPES[text] || text}</div>,

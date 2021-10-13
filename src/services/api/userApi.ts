@@ -20,6 +20,10 @@ export const UserApi = {
         const {status} = await axios.patch<Promise<any>>(`api/v1/users/${payload.user_id}/`, payload.data);
         return status;
     },
+    async resetPassword(payload: string): Promise<any> {
+        const {status} = await axios.post<Promise<any>>(`api/v1/accounts/password/reset/`, {email: payload});
+        return status;
+    },
     async updateUserPassword(payload: ChangePassword): Promise<any> {
         const {status} = await axios.post<Promise<any>>(`api/v1/accounts/password/change/`, payload);
         return status;
@@ -38,7 +42,6 @@ export const UserApi = {
     },
     async searchNotifications(payload: any): Promise<any> {
         const url = concatUrl(payload);
-
         const data = await axios.get<Promise<any>>(`api/v1/notifications/?${url}`);
         return data;
     },
@@ -60,7 +63,7 @@ export const UserApi = {
         return data;
     },
     async updateEmailNotification(payload: { id: number, data: EmailNotification }): Promise<any> {
-        const data = await axios.patch<Promise<any>>(`api/v1/notification-settings/${payload.id}/`);
+        const data = await axios.patch<Promise<any>>(`api/v1/notification-settings/${payload.id}/`, payload.data);
         return data;
     },
     async removeEmailNotification(payload: number): Promise<any> {
@@ -71,7 +74,7 @@ export const UserApi = {
         const data = await axios.get<Promise<any>>(`api/v1/notification-settings/${payload}`);
         return data;
     },
-    async sendFeedback(payload: {about: string, text: string}): Promise<any> {
+    async sendFeedback(payload: { about: string, text: string }): Promise<any> {
         const {status} = await axios.post<Promise<any>>(`api/v1/feedback/`, payload);
         return status;
     },

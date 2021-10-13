@@ -31,6 +31,11 @@ const HeaderComponent: React.FC<HeaderProps> = ({className}) => {
 
     useEffect(() => {
         dispatch(userAC.fetchHeaderNotificationCount());
+        dispatch(userAC.searchNotifications({
+            offset: 0,
+            is_active: true,
+            ordering: `-date_created`,
+        }));
     }, [dispatch]);
 
     const [wsNotification, setNotification] = useState<WsNotification | null>(null);
@@ -42,7 +47,6 @@ const HeaderComponent: React.FC<HeaderProps> = ({className}) => {
     useEffect(() => {
         if (notifications.length > 0) {
             setNotification(notifications[0]);
-            // dispatch(userAC.fetchHeaderNotificationCount());
             return;
         }
     }, [dispatch, notifications]);

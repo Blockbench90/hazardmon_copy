@@ -1,11 +1,11 @@
-import {Device, DevicesState} from "./stateTypes"
+import {Device, DevicesState, FetchNextPortionDevices} from "./stateTypes";
 import {
     AddDeviceAI, ChangeActiveCurDevAI,
     ClearDevicesAI,
     ClearSelectDevicesAI, DeactivateDeviceAI,
     DevicesAT, FetchAllDevicesAI,
     FetchCurrentDeviceAI,
-    FetchDevicesAI, NotificationSelectAI, RemoveDeviceAI,
+    FetchDevicesAI, FetchNextPortionDevicesAI, NotificationSelectAI, RemoveDeviceAI,
     SelectDeviceAI,
     SelectDevicesAI,
     SetAllDevicesAI,
@@ -29,6 +29,11 @@ export const devicesAC = {
 
     fetchDevices: (): FetchDevicesAI => ({
         type: DevicesAT.FETCH_DEVICES,
+    }),
+
+    fetchNextDevicesPortion: (payload: FetchNextPortionDevices): FetchNextPortionDevicesAI => ({
+        type: DevicesAT.FETCH_NEXT_PORTION_DEVICES,
+        payload
     }),
 
     fetchAllDevices: (): FetchAllDevicesAI => ({
@@ -126,3 +131,4 @@ export type DevicesActions =
     | ClearSelectDevicesAI
     | SetDevicesLoadingStatusAI
     | SetOperationStatusDevicesAI
+    | FetchNextPortionDevicesAI

@@ -169,6 +169,7 @@ export interface IWsNotify {
     device: number
     location: number
     notifications: WsNotification[]
+    count?: number
 
 }
 
@@ -178,7 +179,9 @@ export interface UserState {
     status: LoadingStatus
     registerStatus: LoadingStatus
     notifications: INotificationsResponse;
-    headerNotificationCount: number | null;
+    hasAlarm: Notification[]
+    hasWarning: Notification[]
+    headerNotificationCount: number;
     ws_notify: IWsNotify
     current_email_notification: EmailNotification
     email_notifications: EmailNotification[]

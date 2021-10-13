@@ -1,6 +1,8 @@
 import React, {useCallback} from "react";
 import clsx from "clsx";
 import {useDispatch, useSelector} from "react-redux";
+import {useHistory} from "react-router-dom";
+import moment from "moment";
 
 import success from "../../../assets/icons/success_sensor.svg";
 import notify from "../../../assets/icons/notify_sensor.svg";
@@ -19,7 +21,6 @@ import {useCurrentSelection} from "../../../hooks/useCurrentSelection";
 import {sensorsAC} from "../../../store/branches/sensors/actionCreators";
 
 import classes from "../SensorDashboard.module.scss";
-import moment from "moment";
 
 interface SensorProps {
     sensor: WsSensor,
@@ -48,7 +49,7 @@ const Sensor: React.FC<SensorProps> = ({
                                            ContactName,
                                        }) => {
 
-
+        const history = useHistory();
         const dispatch = useDispatch();
         const {maintenanceSensorsArray, isMaintenance} = useSelector(selectSensorsState);
         const {device} = useCurrentSelection();
@@ -56,46 +57,85 @@ const Sensor: React.FC<SensorProps> = ({
         const isDisabledForMaintenance = ["18000", "21000"].includes(sensor.Id);
         const alreadyInMaintenance = maintenanceSensorsArray.find(item => item.sensor_id === sensor.Id);
 
-
         const timer = () => {
-            const currentTime = new Date().getTime()
-            const startMaintenance = alreadyInMaintenance?.maintenance_time
-            const time = currentTime - startMaintenance
-            const duration = moment.duration(time, 'milliseconds');
-            const minutes = 8 - duration.minutes()
+            const currentTime = new Date().getTime();
+            const startMaintenance = alreadyInMaintenance?.maintenance_time;
+            const time = currentTime - startMaintenance;
+            const duration = moment.duration(time, "milliseconds");
+            const minutes = 8 - duration.minutes();
             const seconds = 59 - duration.seconds();
-            return `${minutes} m: ${seconds < 10 ? "0" : ''}${seconds} s`
+            return `${(minutes > 0) ? minutes : 0} m: ${seconds < 10 ? "0" : ""}${seconds} s`;
         };
+
+        const stopMaintenance = () => {
+            if (sensor?.Alarm) {
+                return;
+            }
+            dispatch(sensorsAC.showConfirmModal({
+                isShow: true,
+                device_id: device.id,
+                event_type: "maintenance_canceled",
+                sensor_id: sensor.Id,
+                sensor_name: sensor.Name,
+            }));
+        };
+
+        // const changeEventTypeMaintenance = useCallback((sensor: WsSensor) => {
+        //     console.log("changeEventTypeMaintenance() ==>");
+        //     dispatch(sensorsAC.changeEventTypeMaintenance({
+        //         event_type: "maintenance_expect_alarm_off",
+        //         sensor_id: sensor.Id,
+        //     }));
+        // }, [dispatch]);
+
+
+        // useEffect(() => {
+        //     if (isMaintenance) {
+        //         if (sensor?.Alarm && alreadyInMaintenance) {
+        //             console.log("sensor Alarm ==>", sensor);
+        //             console.log("stopMaintenance() ==>");
+        //             changeEventTypeMaintenance(sensor);
+        //         }
+        //     }
+        // });
 
         const setMaintenance = useCallback(() => {
             if (isDisabledForMaintenance) {
                 return;
             }
+
+            dispatch(sensorsAC.setMaintenance({
+                device_id: device.id,
+                event_type: "maintenance_expect_alarm_on",
+                sensor_id: sensor.Id,
+                sensor_name: sensor.Name,
+                maintenance_time: new Date().getTime(),
+            }));
+        }, [sensor, isDisabledForMaintenance, device?.id, dispatch]);
+
+        const onSensorClick = () => {
             if (isMaintenance) {
-
-                if (alreadyInMaintenance) {
-                    dispatch(sensorsAC.showConfirmModal({isShow: true, sensor}));
-                } else {
-                    dispatch(sensorsAC.setMaintenance({
-                        device_id: device.id,
-                        event_type: "maintenance_expect_alarm_on",
-                        sensor_id: sensor.Id,
-                        sensor_name: sensor.Name,
-                        comment: "start",
-                        maintenance_time: new Date().getTime(),
+                setMaintenance();
+            } else {
+                if (device.device_type === "F500-UDF") {
+                    dispatch(sensorsAC.updateArrangement({
+                        action: "append",
+                        sensor: sensor.Id,
+                        graph_type: sensor.Type,
+                        device_id: device?.id,
                     }));
-
+                } else {
+                    history.push(`/graphs/?id=${sensor.Id}`);
                 }
             }
-        }, [sensor, isDisabledForMaintenance, device?.id, dispatch, isMaintenance, alreadyInMaintenance]);
-
+        };
 
         return (
             <React.Fragment>
                 {
                     alreadyInMaintenance && isMaintenance
                         ?
-                        <div className={classes.alreadyInMaintenanceWrap} onClick={setMaintenance}>
+                        <div className={classes.alreadyInMaintenanceWrap} onClick={stopMaintenance}>
                             <div className={classes.clock}>
                                 <Clock/>
                             </div>
@@ -103,7 +143,15 @@ const Sensor: React.FC<SensorProps> = ({
                                 {alreadyInMaintenance && timer()}
                             </div>
                             <div className={classes.descript}>
-                                Sensor maintenance started. Please cause an alarm. Click to cancel
+                                {
+                                    (sensor?.Alarm && alreadyInMaintenance && isMaintenance)
+                                        // (sensor?.Id === "1000" && alreadyInMaintenance && isMaintenance)
+                                        ?
+                                        <span className={classes.alarmTest}>Alarm detected! Please clear alarm to finish test. Click to cancel</span>
+                                        :
+                                        <span>Sensor maintenance started. Please cause an alarm. Click to cancel</span>
+                                }
+
                             </div>
                         </div>
                         :
@@ -113,7 +161,7 @@ const Sensor: React.FC<SensorProps> = ({
                                 sensor?.Alarm && classes.sensorWrapDanger,
                                 isAlignment && classes.AlignmentSensorWrap,
                             )}
-                            onClick={setMaintenance}
+                            onClick={onSensorClick}
                         >
 
                             <div className={clsx("d-flex-100", classes.head)}>
@@ -168,8 +216,9 @@ const Sensor: React.FC<SensorProps> = ({
                                     {
                                         sensor?.Meta?.State !== "Disabled"
                                         &&
-                                        <div
-                                            className={clsx(classes.statusInfo, sensor?.Status === "WARNING" && classes.statusInfoDanger)}>
+                                        <div className={clsx(classes.statusInfo,
+                                            sensor?.Alarm && classes.statusInfoDanger,
+                                            sensor?.Status === "WARNING" && classes.sensorWarning)}>
                             <span className={classes.statusValue}>
                                 {!isBoolean && ((sensor.Meta.Units === "Minutes") ? `${Math.floor(sensor.Value / 60)}h:${sensor.Value % 60}m` : sensor.Value)}
                             </span>

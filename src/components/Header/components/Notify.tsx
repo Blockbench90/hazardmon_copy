@@ -12,7 +12,7 @@ interface NotifyProps {
     wsNotification?: any
 }
 
-const Notify: React.FC<NotifyProps> = React.memo(({
+const Notify: React.FC<NotifyProps> = ({
                                                       messageCount,
                                                       openNotification,
                                                       wsNotification,
@@ -32,7 +32,6 @@ const Notify: React.FC<NotifyProps> = React.memo(({
                 </Link>
             </React.Fragment>
         );
-    },
-);
+    }
 
 export default Notify;

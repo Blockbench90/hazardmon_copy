@@ -153,6 +153,7 @@
   box-shadow: 0px 0px 12px rgba(241, 77, 73, 0.4);
   border-radius: 3px;
 }
+
 .sensorWrapMaintenance {
   width: 210px;
   height: 195px;
@@ -199,12 +200,13 @@
     }
   }
 }
+
 .sensorWrapMaintenance:hover {
-    background: #FFFFFF !important;
-    border: 1px solid #F47E21 !important;
-    box-sizing: border-box !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
-    border-radius: 3px !important;
+  background: #FFFFFF !important;
+  border: 1px solid #F47E21 !important;
+  box-sizing: border-box !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+  border-radius: 3px !important;
 }
 
 .sensorWrapWarning {
@@ -214,6 +216,14 @@
 }
 
 .sensorWrap:hover {
+  cursor: pointer;
+  filter: drop-shadow(0px 4px 20px rgba(0, 0, 0, 0.15));
+}
+.alarmTest {
+  color: red;
+}
+
+.selectedSensor {
   border: 1px solid #00C09E !important;
   background-image: url("../../assets/icons/flag.svg") !important;
   background-repeat: no-repeat !important;
@@ -235,6 +245,11 @@
   font-size: 24px;
   align-items: center;
   color: #F14D49;
+}
+.sensorWarning {
+  font-size: 24px;
+  align-items: center;
+  color: #F47E21;
 }
 
 .closed {
@@ -292,7 +307,7 @@
     .groupTitleAlarm {
       font-weight: bold;
       font-size: 16px;
-      color: #F14D49;
+      color: #F14D49 !important;
     }
 
     .groupDegrees {
@@ -326,6 +341,12 @@
     flex-wrap: wrap;
   }
 }
+.groupTitleAlarm {
+  font-weight: bold;
+  font-size: 16px;
+  color: #F14D49 !important;
+}
+
 
 .deviceType500Block {
   max-width: 100%;
@@ -430,11 +451,13 @@
   .clock {
     padding-top: 20px;
   }
+
   .timer {
     padding-top: 10px;
     font-weight: 900;
     color: #F47E21;
   }
+
   .descript {
     padding-top: 15px;
     font-weight: bold;

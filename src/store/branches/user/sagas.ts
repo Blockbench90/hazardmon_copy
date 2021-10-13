@@ -7,7 +7,7 @@ import {userAC} from "./actionCreators";
 import {
     AddEmailNotificationAI, AddOEMSettingAI, AddSupportContactAI,
     FetchCurrentEmailNotification,
-    RemoveCurrentEmailNotification,
+    RemoveCurrentEmailNotification, ResetPasswordAI,
     SearchNotificationsAI, SendFeedbackAI,
     SignInAI,
     SignUpAI,
@@ -46,10 +46,19 @@ export function* fetchUserDataRequest() {
 export function* fetchNotificationsCountRequest() {
     try {
         const count = yield call(UserApi.getNotificationsCount);
-        if (count) {
-            yield put(userAC.setHeaderNotificationCount(count));
+        yield put(userAC.setHeaderNotificationCount(count));
+    } catch (error) {
+        yield put(userAC.setUserLoadingStatus(LoadingStatus.ERROR));
+    }
+}
+
+export function* resetPasswordRequest({payload}: ResetPasswordAI) {
+    try {
+        const status = yield call(UserApi.resetPassword, payload);
+        if (status === 201) {
+            yield put(userAC.setUserRegisterStatus(LoadingStatus.RESET_PASSWORD_SUCCESS));
         } else {
-            yield put(userAC.setUserLoadingStatus(LoadingStatus.ERROR));
+            yield put(userAC.setUserRegisterStatus(LoadingStatus.RESET_PASSWORD_ERROR));
         }
     } catch (error) {
         yield put(userAC.setUserLoadingStatus(LoadingStatus.ERROR));
@@ -179,8 +188,8 @@ export function* updateEmailNotificationRequest({payload}: UpdateCurrentEmailNot
         yield put(userAC.setUserLoadingStatus(LoadingStatus.LOADING));
         const data = yield call(UserApi.updateEmailNotification, payload);
         if (data.status === 200) {
+            yield put(userAC.setCurrentEmailNotification(data.data));
             history.push("/user/setting/notification");
-            yield put(userAC.setUserLoadingStatus(LoadingStatus.LOADED));
         } else {
             yield put(userAC.setUserLoadingStatus(LoadingStatus.UPDATED_USER_ERROR));
         }
@@ -208,7 +217,7 @@ export function toggleNotificationSocket(path: string, device_udf_id?: string) {
     return eventChannel((emitter: any) => {
         const ws: any = new WebSocket(`${process.env.REACT_APP_WS_SERVER_URL}${path}`);
         const token = window.localStorage.getItem("_token");
-        
+
         const authCmd = {
             cmd: "auth",
             token: token,
@@ -282,7 +291,7 @@ export function* sendFeedbackRequest({payload}: SendFeedbackAI) {
     try {
         yield put(userAC.setUserLoadingStatus(LoadingStatus.LOADING));
         const status = yield call(UserApi.sendFeedback, payload);
-        console.log("status ==>", status)
+        console.log("status ==>", status);
         if (status === 201) {
             history.push("/");
             yield put(userAC.setUserLoadingStatus(LoadingStatus.SEND_FEEDBACK_SUCCESS));
@@ -322,7 +331,7 @@ export function* fetchSupportContactsRequest() {
     }
 }
 
-export function* addOEMSettingsRequest({payload}: AddOEMSettingAI ) {
+export function* addOEMSettingsRequest({payload}: AddOEMSettingAI) {
     try {
         yield put(userAC.setUserLoadingStatus(LoadingStatus.LOADING));
         const status = yield call(UserApi.addOEMSettings, payload);
@@ -337,7 +346,7 @@ export function* addOEMSettingsRequest({payload}: AddOEMSettingAI ) {
 }
 
 
-export function* addSupportContactsRequest({payload}: AddSupportContactAI ) {
+export function* addSupportContactsRequest({payload}: AddSupportContactAI) {
     try {
         yield put(userAC.setUserLoadingStatus(LoadingStatus.LOADING));
         const data = yield call(UserApi.addSupportContacts, payload);
@@ -372,4 +381,5 @@ export function* userSaga() {
     yield takeLatest(UserAT.FETCH_SUPPORT_CONTACTS, fetchSupportContactsRequest);
     yield takeLatest(UserAT.ADD_OEM_SETTING, addOEMSettingsRequest);
     yield takeLatest(UserAT.ADD_SUPPORT_CONTACT, addSupportContactsRequest);
+    yield takeLatest(UserAT.RESET_PASSWORD, resetPasswordRequest);
 }

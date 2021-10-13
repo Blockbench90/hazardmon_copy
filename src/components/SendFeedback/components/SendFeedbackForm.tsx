@@ -15,7 +15,7 @@ interface AddSiteProps {
 const {Option} = Select;
 
 const SendFeedbackForm: React.FC<AddSiteProps> = ({form, onSubmit, onCancel}) => {
-    const selectChoice = ["Other", "Feature request", "Issue", "Website usage"];
+    const selectChoice = ["Website usage", "Feature request", "Issue", "Other"];
 
     return (
         <div className={classes.wrap}>
@@ -30,7 +30,7 @@ const SendFeedbackForm: React.FC<AddSiteProps> = ({form, onSubmit, onCancel}) =>
                         <div className={classes.blockWrap}>
                             <InputWrap title="About">
                                 <Form.Item name="about"
-                                           initialValue={selectChoice[3]}
+                                           initialValue={selectChoice[0]}
                                            rules={[
                                                {
                                                    required: true,
@@ -74,7 +74,7 @@ const SendFeedbackForm: React.FC<AddSiteProps> = ({form, onSubmit, onCancel}) =>
                                                   htmlType="submit"
                                                   className="mar-right-10"
                                     >
-                                        SAVE
+                                        SEND
                                     </CustomButton>
                                 </Form.Item>
                                 <Form.Item>

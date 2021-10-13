@@ -14,6 +14,14 @@ export interface Device {
     "location"?: number
     "is_emulated_as"?: any | []
     "sensors_settings"?: any
+    selectedDevice?: number
+
+}
+
+export interface FetchNextPortionDevices {
+    device_id: number
+    limit: number
+    offset: number
 }
 
 export interface DevicesState {

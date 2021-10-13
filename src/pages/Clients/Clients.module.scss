@@ -8,36 +8,6 @@
     margin: 16px 25px 0 !important;
   }
 
-  .ant-table-row > td {
-    border-bottom: 1px solid transparent !important;
-    border-top: 1px solid transparent !important;
-
-  }
-
-  .ant-table-row > td:first-child {
-    border-left: 1px solid transparent !important;
-  }
-
-  .ant-table-row > td:last-child {
-    border-right: 1px solid transparent !important;
-  }
-
-  .ant-table-row:hover > td {
-    border-bottom: 1px solid #00C09E !important;
-    border-top: 1px solid #00C09E !important;
-
-  }
-
-  .ant-table-row:hover > td:first-child {
-    border-left: 1px solid #00C09E !important;
-    background-image: url("../../assets/icons/flag.svg") !important;
-    background-repeat: no-repeat !important;
-  }
-
-  .ant-table-row:hover > td:last-child {
-    border-right: 1px solid #00C09E !important;
-  }
-
   .ant-table-row > td:first-child {
     color: #00C09E !important;
   }
@@ -65,30 +35,34 @@
     }
 
   }
-    .ant-pagination-item-active {
-      background: #2D3C43 !important;
-      border-color: #2D3C43 !important;
-      border-radius: 5px !important;
-      a {
-        color: white !important;
-      }
-    }
-    .ant-pagination.mini .ant-pagination-item:not(.ant-pagination-item-active) {
-      background: #FFFFFF !important;
-      border: 1px solid #7C90B1 !important;
-      border-radius: 5px !important;
-    }
-    .ant-pagination.mini .ant-pagination-prev, .ant-pagination.mini .ant-pagination-next {
-      background: #FFFFFF !important;
-      border: 1px solid #7C90B1 !important;
-      border-radius: 5px !important;
-    }
 
-    .ant-pagination, .mini, .ant-table-pagination, .ant-table-pagination-center {
-      li {
-        margin: 0 5px;
-      }
+  .ant-pagination-item-active {
+    background: #2D3C43 !important;
+    border-color: #2D3C43 !important;
+    border-radius: 5px !important;
+
+    a {
+      color: white !important;
     }
+  }
+
+  .ant-pagination.mini .ant-pagination-item:not(.ant-pagination-item-active) {
+    background: #FFFFFF !important;
+    border: 1px solid #7C90B1 !important;
+    border-radius: 5px !important;
+  }
+
+  .ant-pagination.mini .ant-pagination-prev, .ant-pagination.mini .ant-pagination-next {
+    background: #FFFFFF !important;
+    border: 1px solid #7C90B1 !important;
+    border-radius: 5px !important;
+  }
+
+  .ant-pagination, .mini, .ant-table-pagination, .ant-table-pagination-center {
+    li {
+      margin: 0 5px;
+    }
+  }
 
 }
 
@@ -98,18 +72,60 @@
 
 .row {
   cursor: pointer;
-
 }
 
 .changeClient {
   font-size: 12px;
   @media screen and (max-width: 949px) {
-   font-size: 11px !important;
+    font-size: 11px !important;
     height: 20px !important;
     width: 60px !important;
   }
 }
 
-//.btn:hover .class svg {
-//
-//}
+.selectedClient {
+  height: 55px;
+  margin: -16px;
+  padding: 10px 16px;
+  border-bottom: 1px solid #00C09E !important;
+  border-top: 1px solid #00C09E !important;
+
+  @media screen and (max-width: 1195px) {
+    height: 50px;
+    margin: -12px;
+    padding: 10px 16px;
+  }
+  @media screen and (max-width: 1060px) {
+    height: 55px;
+    margin: -5px;
+    padding: 17px 6px;
+  }
+  @media screen and (max-width: 800px) {
+    height: 50px;
+    margin: -3px;
+    padding: 17px 2px;
+  }
+}
+
+.selectedClientLeft {
+  border-left: 1px solid #00C09E !important;
+  background-image: url("../../assets/icons/flag.svg") !important;
+  background-repeat: no-repeat !important;
+}
+
+.selectedClientRight {
+  border-right: 1px solid #00C09E !important;
+
+  @media screen and (max-width: 1191px) {
+    padding: 10px 11px !important;
+  }
+  @media screen and (max-width: 1060px) {
+    padding: 10px 4px !important;
+  }
+  @media screen and (max-width: 950px) {
+    padding: 17px 4px !important;
+  }
+  @media screen and (max-width: 800px) {
+    padding: 14px 2px !important;
+  }
+}

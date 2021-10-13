@@ -15,6 +15,7 @@ interface InfoBlockProps {
     isSensors: boolean
     group: WsGroup
     isAlignment?: boolean
+    isAlarmedGroup?: boolean
 
 }
 
@@ -23,6 +24,7 @@ const InfoBlock: React.FC<InfoBlockProps> = ({
                                                  sensorsGroupsName,
                                                  groupName,
                                                  isSensors,
+                                                 isAlarmedGroup,
                                                  group,
                                                  isAlignment,
                                              }) => {
@@ -47,11 +49,18 @@ const InfoBlock: React.FC<InfoBlockProps> = ({
                         {
                             ["OK", "Alarm"].includes(status)
                                 ?
-                                <span
-                                    className={clsx(classes.groupTitleAlignment, status === "Alarm" && classes.groupTitleAlarm)}>{`${group.Name}: ${sensorGroupStatus}`}</span>
+                                <span className={clsx(classes.groupTitleAlignment,
+                                    status === "Alarm" && classes.groupTitleAlarm,
+                                    isAlarmedGroup && classes.groupTitleAlarm,
+                                )}>
+                                    {`${group.Name}: ${sensorGroupStatus}`}
+                                </span>
                                 :
-                                <span
-                                    className={classes.groupTitleAlignment}>{`${group.Name}: ${sensorGroupStatus}`}</span>
+                                <span className={clsx(classes.groupTitleAlignment,
+                                    isAlarmedGroup && classes.groupTitleAlarm
+                                )}>
+                                    {`${group.Name}: ${sensorGroupStatus}`}
+                                </span>
                         }
                     </div>
                 </div>

@@ -22,7 +22,7 @@ const CssPage: React.FC = () => {
         }
     };
     const handleCancel = () => {
-        history.push("/sites");
+        history.push("/oem/setting");
     };
 
     useEffect(() => {

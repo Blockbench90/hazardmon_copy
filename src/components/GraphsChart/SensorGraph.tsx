@@ -1,4 +1,5 @@
-import React, {useCallback, useEffect, useRef} from "react";
+import React, {useCallback, useEffect, useMemo, useRef} from "react";
+import {useParams} from "react-router-dom";
 import _ from "lodash";
 import {useDispatch} from "react-redux";
 import Empty from "antd/lib/empty";
@@ -57,6 +58,9 @@ const defaultOptions = {
     },
 };
 
+type TParams = {
+    id: string
+}
 
 const SensorGraph: React.FC<SensorGraphProps> = ({
                                                      sensorsGraphData,
@@ -67,6 +71,7 @@ const SensorGraph: React.FC<SensorGraphProps> = ({
                                                  }) => {
     const dispatch = useDispatch();
     const intervalId = useRef<NodeJS.Timeout>(null);
+    const {id} = useParams<TParams>();
 
     const fetchLiveData = useCallback(() => {
         dispatch(graphsAC.updateLiveGraphsData(device.id));
@@ -88,6 +93,44 @@ const SensorGraph: React.FC<SensorGraphProps> = ({
         };
     }, [isLivePage, fetchLiveData, dispatch]);
 
+    const currentSensorGraphData: any = useMemo(() => {
+        const data = isLivePage ? liveData : sensorsGraphData;
+
+        if(!id) {
+            return data;
+        }
+
+        if(!data) {
+            return {};
+        }
+
+        const graphs = Object.entries(data.graphs);
+
+        for(let [nodeId, graph] of graphs) {
+            const { series } = graph as any;
+
+            for(let currentSeries of series) {
+                const { sensor } = currentSeries;
+                const [reducedSensorId] = sensor.toString().split(".").slice(-1);
+
+                if(reducedSensorId === id) {
+                    return {
+                        ...data,
+                        graphs: {
+                            [nodeId] : {
+                                ...graph as any,
+                                series: [
+                                    currentSeries
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return {};
+    }, [id, sensorsGraphData, isLivePage, liveData])
 
     const isLostComms = (state: string) => {
         return state === "Lost Communication Between T500 and node" || state === "Sensor Not Scanned by T500" || state === "Disabled";
@@ -108,7 +151,7 @@ const SensorGraph: React.FC<SensorGraphProps> = ({
             return (
                 <div className={classes.widget}>
                     <div className={classes.widgetLiveBody}>
-                        {_.map(liveData?.graphs, (sensorGraphDataArray: any, index: number) => {
+                        {_.map(currentSensorGraphData?.graphs, (sensorGraphDataArray: any, index: number) => {
                             return (
                                 <div className={classes.deviceBlock} key={`deviceName{index}`}>
                                     <RenderGraph sensorGraphDataInitial={sensorGraphDataArray.series}
@@ -129,10 +172,12 @@ const SensorGraph: React.FC<SensorGraphProps> = ({
         }
     }
 
+
+
     return (
         <div className={classes.widget}>
             <div className={classes.widgetBody}>
-                {_.map(sensorsGraphData?.graphs, (sensorGraphDataArray: any, index: number) => {
+                {_.map(currentSensorGraphData?.graphs, (sensorGraphDataArray: any, sensorId: number) => {
                     return (
                         <div className={classes.deviceBlock} key={`deviceName{index}`}>
                             <RenderGraph sensorGraphDataInitial={sensorGraphDataArray.series}
@@ -141,7 +186,7 @@ const SensorGraph: React.FC<SensorGraphProps> = ({
                                          isLivePage={isLivePage}
                                          isLostComms={isLostComms}
                                          defaultOptions={defaultOptions}
-                                         sensorId={index}
+                                         sensorId={sensorId}
                             />
                         </div>);
                 })}

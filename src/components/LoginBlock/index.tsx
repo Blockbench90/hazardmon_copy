@@ -1,12 +1,13 @@
-import React from "react"
-import {Form, Input} from "antd"
+import React, {useState} from "react";
+import {Form, Input} from "antd";
 import {useForm} from "antd/lib/form/Form";
 import {useDispatch} from "react-redux";
 
-import {CustomButton} from "../Button"
+import {CustomButton} from "../Button";
 import {userAC} from "../../store/branches/user/actionCreators";
 
-import classes from "./Login.module.scss"
+import classes from "./Login.module.scss";
+import ForgotPassword from "../ForgotPasswordModal";
 
 export interface LoginValues {
     username: string
@@ -14,18 +15,32 @@ export interface LoginValues {
 }
 
 const LoginForm: React.FC = () => {
-    const [form] = useForm()
-    const dispatch = useDispatch()
+    const [form] = useForm();
+    const dispatch = useDispatch();
+
+    const [isModal, setModal] = useState<boolean>(false);
 
     const onSubmit = (values: LoginValues) => {
         if (values) {
             dispatch(userAC.signIn({
                 username: values.username,
-                password: values.password
-            }))
+                password: values.password,
+            }));
         }
-        form.resetFields()
-    }
+        form.resetFields();
+    };
+    const onForgotPassword = () => {
+        setModal((isModal) => !isModal);
+    };
+
+    const onSendEmail = (message: string) => {
+        dispatch(userAC.resetPassword(message));
+        setModal(false);
+    };
+
+    const onCancel = () => {
+        setModal(false);
+    };
 
     return (
         <React.Fragment>
@@ -40,7 +55,7 @@ const LoginForm: React.FC = () => {
                 <Form.Item name="username"
                            rules={[{
                                required: true,
-                               message: "Please input your Email Or Username!"
+                               message: "Please input your Email Or Username!",
                            }]}>
                     <Input placeholder="Email Or Username" className={classes.loginInput}/>
                 </Form.Item>
@@ -49,7 +64,7 @@ const LoginForm: React.FC = () => {
                 <Form.Item name="password"
                            rules={[{
                                required: true,
-                               message: "Please input your Password!"
+                               message: "Please input your Password!",
                            }]}>
                     <Input.Password type="password" placeholder="Password" className={classes.loginInput}/>
                 </Form.Item>
@@ -64,11 +79,13 @@ const LoginForm: React.FC = () => {
                 </Form.Item>
             </Form>
 
-            <div className={classes.forgotPassword}>
+            <div className={classes.forgotPassword} onClick={onForgotPassword}>
                 Forgot your password?
             </div>
 
+            <ForgotPassword isModal={isModal} onSubmit={onSendEmail} onCancel={onCancel}/>
+
         </React.Fragment>
-    )
-}
-export default LoginForm
+    );
+};
+export default LoginForm;

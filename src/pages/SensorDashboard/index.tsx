@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useCallback, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {Empty} from "antd";
 
@@ -23,33 +23,41 @@ import MaintenanceModal from "../../components/MaintenanceModal";
 import classes from "./SensorDashboard.module.scss";
 
 const maintenanceTime = process.env.REACT_APP_MAINTENANCE_TIME;
+// const maintenanceTime = 5;
 
 const SensorDashboard: React.FC = () => {
     const dispatch = useDispatch();
 
     const {
         ws_data, filter_status, status, maintenance_status_operation,
-        maintenanceSensorsArray, isMaintenance, showConfirmMaintenance,
+        maintenanceSensorsArray, isMaintenance, confirmMaintenance,
     } = useSelector(selectSensorsState);
     const {device} = useCurrentSelection();
 
     const onSubmitComment = (message: string) => {
         dispatch(sensorsAC.showConfirmModal({isShow: false}));
         dispatch(sensorsAC.stopSensorMaintenance({
-            device_id: device.id,
-            event_type: "maintenance_canceled",
-            sensor_id: showConfirmMaintenance.sensor.Id,
-            sensor_name: showConfirmMaintenance.sensor.Name,
+            device_id: confirmMaintenance.device_id,
+            event_type: confirmMaintenance.event_type,
+            sensor_id: confirmMaintenance.sensor_id,
+            sensor_name: confirmMaintenance.sensor_name,
             comment: message,
             maintenance_time: new Date().getTime(),
         }));
     };
 
 
+    const failedMaintenance = useCallback((item: Maintenance) => {
+        dispatch(sensorsAC.showConfirmModal({
+            isShow: true,
+            device_id: item.device_id,
+            event_type: "maintenance_failed",
+            sensor_id: item.sensor_id,
+            sensor_name: item.sensor_name,
+        }));
+    }, [dispatch])
+
     useEffect(() => {
-        if (!device) {
-            dispatch(sensorsAC.setSensorsStatusOperation(LoadingStatus.FETCH_SENSORS_WITHOUT_DEVICE));
-        }
         return () => {
             dispatch(sensorsAC.clearWsSensorsData());
         };
@@ -60,8 +68,9 @@ const SensorDashboard: React.FC = () => {
             sensorsArray.map((item: Maintenance, index: number) => {
                 const now = new Date().getTime(); // now moment in seconds
                 const differenceTime = (now - item.maintenance_time) / 1000; //find out the difference between start and now
-                if (+differenceTime.toFixed() > +maintenanceTime) {
-                    dispatch(sensorsAC.stopSensorMaintenance({...item, event_type: "maintenance_failed"}));
+                if (Number(differenceTime.toFixed()) > Number(maintenanceTime)) {
+                    failedMaintenance(item);
+                    dispatch(sensorsAC.failedMaintenance({...item}));
                 }
                 return null;
             });
@@ -87,7 +96,7 @@ const SensorDashboard: React.FC = () => {
             <div className={classes.SensorDashboardWrap}>
                 <DashboardAlert/>
                 <HeaderSection/>
-                <MaintenanceModal isModal={showConfirmMaintenance.isShow} onSubmit={onSubmitComment}/>
+                <MaintenanceModal isModal={confirmMaintenance.isShow} onSubmit={onSubmitComment}/>
                 {
                     !ws_data
                     &&

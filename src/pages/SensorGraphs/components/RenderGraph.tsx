@@ -1,10 +1,12 @@
 import React, {useMemo, useRef} from "react";
-import classes from "../../../components/GraphsChart/SensorGraph.module.scss";
+import moment from "moment";
+import _ from "lodash";
+
 import SensorGraphHeader from "../../../components/GraphsChartHeader/SensorGraphHeader";
 // @ts-ignore
 import ReactHighstock from "react-highcharts/ReactHighstock";
-import moment from "moment";
-import _ from "lodash";
+
+import classes from "../../../components/GraphsChart/SensorGraph.module.scss";
 
 interface RenderGraphProps {
     sensorGraphDataInitial: any,
@@ -26,7 +28,6 @@ const RenderGraph: React.FC<RenderGraphProps> = ({
                                                      isLivePage,
                                                  }) => {
     const chartRef = useRef();
-
 
     const insertEmptySlots = (sensorGraphData: any, maxPeriodParam: number) => {
         return _.map(sensorGraphData, (graphObj: any) => {

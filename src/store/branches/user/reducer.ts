@@ -8,8 +8,10 @@ const initialUserState: UserState = {
     userData: undefined,
     auth_key: null,
     notifications: {results: [], count: 0},
+    hasAlarm: [],
+    hasWarning: [],
     headerNotificationCount: null,
-    ws_notify: {device: null, location: null, notifications: []},
+    ws_notify: {device: null, location: null, notifications: [], count: null},
     email_notifications: null,
     current_email_notification: null,
     oem_settings: null,
@@ -29,11 +31,12 @@ export const userReducer = produce((draft: Draft<UserState>, action: UserActions
 
         case UserAT.SET_NOTIFICATIONS:
             draft.notifications = action.payload;
+            draft.hasWarning = action.payload.results.filter((notification: any) => "warning_on" === notification.event_type);
+            draft.hasAlarm = action.payload.results.filter((notification: any) => "alarm_on" === notification.event_type);
             draft.status = LoadingStatus.SUCCESS;
             break;
 
         case UserAT.SET_HEADER_NOTIFICATIONS:
-            // @ts-ignore
             draft.headerNotificationCount = action.payload;
             draft.status = LoadingStatus.SUCCESS;
             break;
@@ -71,6 +74,9 @@ export const userReducer = produce((draft: Draft<UserState>, action: UserActions
             break;
 
         case UserAT.SET_WS_NOTIFICATION:
+            if (action.payload.count) {
+                draft.headerNotificationCount = action.payload.count;
+            }
             draft.ws_notify = action.payload;
             break;
 

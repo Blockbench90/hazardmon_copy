@@ -30,6 +30,8 @@ const TabsSensorDashboard: React.FC = () => {
     const {ws_data, isMaintenance} = useSelector(selectSensorsState);
     const {device} = useCurrentSelection();
 
+    const isHideMaintenance = ["0005", "0006"].includes(device?.device_type);
+
     useEffect(() => {
         if (pathname.split("/").includes("historical")) {
             setPath("historical");
@@ -111,7 +113,7 @@ const TabsSensorDashboard: React.FC = () => {
                     >
                         <TabPane className={classes.tab}
                                  tab={
-                                     <div>
+                                     <div className={classes.tabTitleWrap}>
                                          <Live/>
                                          <span className={classes.title}>Live</span>
                                      </div>
@@ -120,21 +122,26 @@ const TabsSensorDashboard: React.FC = () => {
 
                         <TabPane className={classes.tab}
                                  tab={
-                                     <div>
+                                     <div className={classes.tabTitleWrap}>
                                          <Historical/>
                                          <span className={classes.title}>Historical</span>
                                      </div>
                                  }
                                  key="historical"/>
 
-                        <TabPane className={classes.tab}
-                                 tab={
-                                     <div>
-                                         <Maintenance/>
-                                         <span className={classes.title}>Maintenance</span>
-                                     </div>
-                                 }
-                                 key="maintenance"/>
+                        {
+                            !isHideMaintenance
+                            &&
+                            <TabPane className={classes.tab}
+                                     tab={
+                                         <div className={classes.tabTitleWrap}>
+                                             <Maintenance/>
+                                             <span className={classes.title}>Maintenance</span>
+                                         </div>
+                                     }
+                                     key="maintenance"/>
+                        }
+
                     </Tabs>
                 </div>
 

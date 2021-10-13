@@ -85,7 +85,11 @@ const AddEmailNotification: React.FC = () => {
                 devices: isAllDevices ? allDevices : values.devices,
             };
             if(current){
-                dispatch(userAC.updateCurrentEmailNotification({id, data}))
+                const arrayStringDeviceId =  values.devices?.map((item: Device) => item.toString());
+                const updateData = {...data, devices: arrayStringDeviceId}
+                console.log("values ==>", values)
+                console.log("updateData ==>", updateData)
+                dispatch(userAC.updateCurrentEmailNotification({id, data: updateData}))
                 return
             }
 
@@ -115,11 +119,12 @@ const AddEmailNotification: React.FC = () => {
         }, [dispatch, id, current]);
 
         useEffect(() => {
+            console.log("current ==>", current)
             if (current) {
                 setCheckedSend(current.send_to_alternative);
                 setEventType(current.event_type);
                 setCheckedSmart(current.number_per_hour > 0);
-                setAllDevices(current.all_devices);
+                setAllDevices(current?.devices?.length === 0);
                 setNumberX(current.x);
                 setTimeAlarm(contactWhenType.get(current.contact_when))
             }

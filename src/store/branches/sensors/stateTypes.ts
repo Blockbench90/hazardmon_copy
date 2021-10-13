@@ -114,7 +114,7 @@ export interface WsGroup {
 }
 
 export interface WsDataSensors {
-    Alarm?: false
+    Alarm?: boolean
     Id?: string
     Name?: string
     Status?: string
@@ -166,7 +166,7 @@ export interface Maintenance {
     event_type: string,
     sensor_id: string,
     sensor_name: string,
-    comment: string,
+    comment?: string,
     maintenance_time: number
 };
 
@@ -190,7 +190,13 @@ export interface SensorsState {
     status_operation: LoadingStatus
     maintenanceSensorsArray: Maintenance[]
     isMaintenance: boolean
-    showConfirmMaintenance: {isShow: boolean, sensor?: WsSensor}
+    confirmMaintenance: {
+        isShow: boolean,
+        device_id?: number,
+        event_type?: string
+        sensor_id?: string
+        sensor_name?: string
+    }
     maintenance_status_operation: LoadingStatus
     isSelected: boolean
 }

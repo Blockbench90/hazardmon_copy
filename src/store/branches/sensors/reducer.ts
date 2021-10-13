@@ -1,6 +1,6 @@
 import produce, {Draft} from "immer";
 import {LoadingStatus} from "../../status";
-import {FilterStatus, SensorsState} from "./stateTypes";
+import {FilterStatus, Maintenance, SensorsState} from "./stateTypes";
 import {SensorsActions} from "./actionCreators";
 import {SensorsAT} from "./actionTypes";
 
@@ -19,9 +19,12 @@ const initialSensorsState: SensorsState = {
     status: LoadingStatus.NEVER,
     status_operation: LoadingStatus.NEVER,
     isMaintenance: false,
-    showConfirmMaintenance: {
+    confirmMaintenance: {
         isShow: false,
-        sensor: null
+        device_id: null,
+        sensor_id: null,
+        event_type: null,
+        sensor_name: null
     },
     maintenanceSensorsArray: [],
     maintenance_status_operation: LoadingStatus.NEVER,
@@ -93,14 +96,30 @@ export const sensorsReducer = produce((draft: Draft<SensorsState>, action: Senso
             draft.maintenanceSensorsArray.push(action.payload)
             break;
 
+        case SensorsAT.CHANGE_EVENT_TYPE:
+            const newData = draft.maintenanceSensorsArray.map((item: Draft<Maintenance>) => {
+                if(item.sensor_id === action.payload.sensor_id){
+                 return {...item, event_type: action.payload.event_type}
+                }
+                return item
+                })
+            draft.maintenanceSensorsArray = newData
+            break;
+
         case SensorsAT.SHOW_CONFIRM_MAINTENANCE_MODAL:
-            draft.showConfirmMaintenance = action.payload
+            draft.confirmMaintenance = action.payload
             break;
 
         case SensorsAT.STOP_SENSOR_MAINTENANCE:
             const newArray = draft.maintenanceSensorsArray.filter((item) => item.sensor_id !== action.payload.sensor_id)
             draft.maintenanceSensorsArray = newArray
-            console.log("reducer draft.maintenanceSensorsArray ==>", draft.maintenanceSensorsArray)
+            console.log("STOP_SENSOR_MAINTENANCE ==>", draft.maintenanceSensorsArray)
+            break;
+
+        case SensorsAT.FAILED_MAINTENANCE:
+            const withoutFailed = draft.maintenanceSensorsArray.filter((item) => item.sensor_id !== action.payload.sensor_id)
+            draft.maintenanceSensorsArray = withoutFailed
+            console.log("FAILED_MAINTENANCE ==>", draft.maintenanceSensorsArray)
             break;
 
         default:

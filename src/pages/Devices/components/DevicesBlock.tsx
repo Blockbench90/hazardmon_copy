@@ -1,5 +1,5 @@
 import React from "react";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useHistory} from "react-router-dom";
 import {Tooltip, Typography} from "antd";
 import clsx from "clsx";
@@ -9,6 +9,7 @@ import device from "../../../assets/icons/devices_color.svg";
 import success from "../../../assets/icons/succsess_green.svg";
 import notify from "../../../assets/icons/red_notify.svg";
 import active from "../../../assets/icons/active.svg";
+import warning from "../../../assets/icons/warning_icon_big.svg";
 import offline from "../../../assets/icons/offline.svg";
 import suspended_device from "../../../assets/icons/suspended_device.svg";
 
@@ -16,9 +17,10 @@ import {ReactComponent as Edit} from "../../../assets/icons/device_edit.svg";
 
 import {devicesAC} from "../../../store/branches/devices/actionCreators";
 import {Device} from "../../../store/branches/devices/stateTypes";
+import {usePermissions} from "../../../hooks/usePermissions";
+import {selectUserState} from "../../../store/selectors";
 
 import classes from "../Devices.module.scss";
-import {usePermissions} from "../../../hooks/usePermissions";
 
 const {Title} = Typography;
 
@@ -27,10 +29,15 @@ const DevicesBlock: React.FC<Device> = ({
                                             title,
                                             is_suspended,
                                             is_online,
+                                            selectedDevice,
                                         }) => {
     const history = useHistory();
     const dispatch = useDispatch();
     const {isOEM, isSuperUser} = usePermissions();
+    const {hasAlarm, hasWarning} = useSelector(selectUserState);
+
+    const isAlarmDevice = hasAlarm.some(item => item.device.id === id);
+    const isWarningDevice = hasWarning.some(item => item.device.id === id);
 
     const onEdit = (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
         event.preventDefault();
@@ -53,17 +60,30 @@ const DevicesBlock: React.FC<Device> = ({
 
     return (
         <div className={clsx({
-            [classes.devicesBlockWrap]: true,
-            [classes.offlineBlockWrap]: !is_online,
-            [classes.suspendedBlockWrap]: is_suspended,
-        })}
+                [classes.devicesBlockWrap]: true,
+                [classes.suspendedBlockWrap]: is_suspended,
+                [classes.selectedDevice]: (id === selectedDevice),
+            }, isAlarmDevice ? classes.hasAlarmedSensor :
+            isWarningDevice ? classes.hasWarningSensor : "",
+            classes.OEMCursor && (isOEM || isSuperUser))}
 
              onClick={(event) => handleSelect(event)}
         >
 
             <div className={classes.pic}>
                 <img src={is_suspended ? suspended_device : device} alt="powerHold" className={classes.devicesPic}/>
-                <img src={is_online ? success : is_suspended ? "" : notify} alt="" className={classes.notify}/>
+                {
+                    isAlarmDevice
+                        ?
+                        <img src={notify} alt="" className={classes.notify}/>
+                        :
+                        isWarningDevice
+                            ?
+                            <img src={warning} alt="" className={classes.notify}/>
+
+                            :
+                            is_online && <img src={success} alt="" className={classes.notify}/>
+                }
             </div>
 
             <div className={classes.activation}>
@@ -86,6 +106,11 @@ const DevicesBlock: React.FC<Device> = ({
                     </Tooltip>
                 </div>
             </div>
+            {
+                (id === selectedDevice)
+                &&
+                <div className={classes.flagIcon}/>
+            }
         </div>
     );
 };

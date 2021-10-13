@@ -2,7 +2,7 @@ import React from "react";
 import clsx from "clsx";
 import {LeftCircleFilled, RightCircleFilled} from "@ant-design/icons";
 import {Layout, Menu} from "antd";
-import {Link, useHistory, useLocation} from "react-router-dom";
+import {useHistory, useLocation} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 
 
@@ -107,7 +107,7 @@ const SideBarComponent: React.FC<SideBarProps> = ({
                         <Menu.Item key="7"
                                    onClick={onSettingUser}
                                    className={clsx(collapsed ? classes.smallSubmenu : classes.profileInfoColumn)}>
-                            Setting
+                            Settings
                         </Menu.Item>
                         <Menu.Item key="8"
                                    onClick={onLogout}
@@ -120,10 +120,8 @@ const SideBarComponent: React.FC<SideBarProps> = ({
 
                     {
                         (isSuperUser || isOEM) && (
-                            <Menu.Item key={"clients"} icon={<Clients/>}>
-                                <Link to="/clients">
-                                    Clients
-                                </Link>
+                            <Menu.Item key={"clients"} icon={<Clients/>} onClick={() => navTo("/clients")}>
+                                Clients
                             </Menu.Item>
                         )
                     }

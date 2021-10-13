@@ -1,5 +1,6 @@
 import {axios} from "../axios"
-import {Device, DevicesState} from "../../store/branches/devices/stateTypes"
+import {Device, DevicesState, FetchNextPortionDevices} from "../../store/branches/devices/stateTypes";
+import {concatUrl} from "../../helpers/concatUrl";
 
 interface APIResponse {
     data: any;
@@ -18,6 +19,11 @@ export const DevicesApi = {
     async selectDevice(id: string): Promise<number> {
         const {status} = await axios.post<APIResponse>(`/api/v1/devices/${id}/select/`)
         return status
+    },
+    async getNextPortionDevices(payload: FetchNextPortionDevices): Promise<any> {
+        const url = concatUrl(payload)
+        const {data} = await axios.get<DevicesState["devicesDate"]>(`api/v1/devices/?${url}`)
+        return data
     },
     async getCurrentDevice(id: any): Promise<any> {
         const {data} = await axios.get<Promise<any>>(`api/v1/devices/${id}/`)

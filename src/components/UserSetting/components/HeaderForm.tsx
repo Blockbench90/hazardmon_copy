@@ -13,7 +13,7 @@ const HeaderFormUserSetting: React.FC<HeaderFormProps> = ({onCancel}) => {
     return (
         <div className={clsx("d-flex", "d-flex-w")}>
             <div>
-                <Title level={2}>User Setting</Title>
+                <Title level={2}>User Settings</Title>
             </div>
 
             <div className="d-flex">

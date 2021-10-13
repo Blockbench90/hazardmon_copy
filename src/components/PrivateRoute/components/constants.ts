@@ -15,12 +15,11 @@ export const DEVICES = "/devices"
 export const ADD_DEVICE = "/devices/add/device"
 export const EDIT_DEVICE = "/devices/edit/device/:id"
 export const CURRENT_DEVICES = "/devices/:id"
-//TODO: need to discussion
-// export const SENSOR_DASHBOARD = ["/dashboard/:id", "/dashboard"]
 export const SENSOR_DASHBOARD = "/dashboard"
 export const FEEDBACK = "/feedback"
 export const SENSOR_GRAPHS = "/graphs"
-export const CUSTOM_HISTORICAL_GRAPHS = ["/graphs/historical/graphs", "/graphs/historical/graphs/:times"]
+export const SENSOR_GRAPHS_BY_ID = "/graphs/:id"
+export const CUSTOM_HISTORICAL_GRAPHS = ["/graphs/historical/graphs", "/graphs/historical/graphs/:times", "/graphs/historical/graphs/:times/:id"]
 export const NOTIFICATIONS = "/notifications"
 export const ANALYTICS = "/analytics"
 export const VISUAL_DASHBOARD = "/visual-dashboard/site/:siteId/schemas"

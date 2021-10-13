@@ -1,6 +1,6 @@
 import {Action} from "redux";
 import {LoadingStatus} from "../../status";
-import {AddWarning, FilterStatus, Maintenance, SensorNames, SensorsState, Unit, WsSensor} from "./stateTypes";
+import {AddWarning, FilterStatus, Maintenance, SensorNames, SensorsState, Unit} from "./stateTypes";
 
 
 export enum SensorsAT {
@@ -27,8 +27,11 @@ export enum SensorsAT {
     SET_MAINTENANCE_PAGE = "sensors_dashboard/SET_MAINTENANCE_PAGE",
     SET_MAINTENANCE_STATUS_OPERATION = "sensors_dashboard/SET_MAINTENANCE_STATUS_OPERATION",
     SET_MAINTENANCE = "sensors_dashboard/SET_MAINTENANCE",
+    CHANGE_EVENT_TYPE = "sensors_dashboard/CHANGE_EVENT_TYPE",
     SHOW_CONFIRM_MAINTENANCE_MODAL = "sensors_dashboard/SHOW_CONFIRM_MAINTENANCE_MODAL",
-    STOP_SENSOR_MAINTENANCE = "STOP_SENSOR_MAINTENANCE"
+    STOP_SENSOR_MAINTENANCE = "sensors_dashboard/STOP_SENSOR_MAINTENANCE",
+    FAILED_MAINTENANCE = "sensors_dashboard/FAILED_MAINTENANCE",
+    UPDATE_ARRANGEMENT = "sensors_dashboard/UPDATE_ARRANGEMENT"
 }
 
 export interface FetchWsDataSensorsAI extends Action<SensorsAT> {
@@ -141,16 +144,31 @@ export interface SetMaintenanceAI extends Action<SensorsAT> {
     payload: Maintenance
 }
 
+export interface ChangeEventTypeMaintenanceAI extends Action<SensorsAT> {
+    type: SensorsAT.CHANGE_EVENT_TYPE;
+    payload: {sensor_id: string, event_type: string }
+}
+
 export interface StopSensorMaintenanceAI extends Action<SensorsAT> {
     type: SensorsAT.STOP_SENSOR_MAINTENANCE;
     payload: Maintenance
 }
 
+export interface FailedMaintenanceAI extends Action<SensorsAT> {
+    type: SensorsAT.FAILED_MAINTENANCE;
+    payload: Maintenance
+}
+
 export interface ShowConfirmModalAI extends Action<SensorsAT> {
     type: SensorsAT.SHOW_CONFIRM_MAINTENANCE_MODAL;
-    payload: {isShow: boolean, sensor?: WsSensor}
+    payload: SensorsState["confirmMaintenance"]
 }
 
 export interface ClearWsDataSensorsAI extends Action<SensorsAT> {
     type: SensorsAT.CLEAR_WS_DATA_SENSORS;
+}
+
+export interface UpdateArrangementAI extends Action<SensorsAT> {
+    type: SensorsAT.UPDATE_ARRANGEMENT;
+    payload: {action: string, sensor: string, device_id: number, graph_type: string}
 }

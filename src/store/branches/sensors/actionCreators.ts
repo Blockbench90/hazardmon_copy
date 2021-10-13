@@ -1,8 +1,9 @@
 import {
-    AddSensorNamesAI, AddSensorSettingsAI,
-    AddWarningAI,
+    AddSensorNamesAI,
+    AddSensorSettingsAI,
+    AddWarningAI, ChangeEventTypeMaintenanceAI,
     ChangeFilterSensorsStatusAI,
-    ClearWsDataSensorsAI,
+    ClearWsDataSensorsAI, FailedMaintenanceAI,
     FetchHistoricalGraphsAI,
     FetchSensorNamesAI,
     FetchSensorsAI,
@@ -10,7 +11,10 @@ import {
     FetchWarningsAI,
     FetchWsDataSensorsAI,
     SensorsAT,
-    SetHistoricalGraphsDataAI, SetMaintenanceAI, SetMaintenancePageAI, SetMaintenanceStatusOperationAI,
+    SetHistoricalGraphsDataAI,
+    SetMaintenanceAI,
+    SetMaintenancePageAI,
+    SetMaintenanceStatusOperationAI,
     SetSensorNamesAI,
     SetSensorSettingsAI,
     SetSensorsLoadingStatusAI,
@@ -18,11 +22,13 @@ import {
     SetSensorUnitsAI,
     SetWarningsAI,
     SetWarningsSensorsAI,
-    SetWsDataSensorsAI, ShowConfirmModalAI, StopSensorMaintenanceAI,
+    SetWsDataSensorsAI,
+    ShowConfirmModalAI,
+    StopSensorMaintenanceAI,
+    UpdateArrangementAI,
 } from "./actionTypes";
-import {AddWarning, FilterStatus, Maintenance, SensorNames, SensorsState, Unit, WsSensor} from "./stateTypes";
+import {AddWarning, FilterStatus, Maintenance, SensorNames, SensorsState, Unit} from "./stateTypes";
 import {LoadingStatus} from "../../status";
-
 
 
 export const sensorsAC = {
@@ -142,21 +148,35 @@ export const sensorsAC = {
         payload,
     }),
 
+    changeEventTypeMaintenance: (payload: {sensor_id: string, event_type: string }): ChangeEventTypeMaintenanceAI => ({
+        type: SensorsAT.CHANGE_EVENT_TYPE,
+        payload,
+    }),
+
     stopSensorMaintenance: (payload: Maintenance): StopSensorMaintenanceAI => ({
         type: SensorsAT.STOP_SENSOR_MAINTENANCE,
         payload,
     }),
 
-    showConfirmModal: (payload: {isShow: boolean, sensor?: WsSensor}): ShowConfirmModalAI => ({
+    failedMaintenance: (payload: Maintenance): FailedMaintenanceAI => ({
+        type: SensorsAT.FAILED_MAINTENANCE,
+        payload,
+    }),
+
+    showConfirmModal: (payload: SensorsState["confirmMaintenance"]): ShowConfirmModalAI => ({
         type: SensorsAT.SHOW_CONFIRM_MAINTENANCE_MODAL,
-        payload
+        payload,
     }),
 
     clearWsSensorsData: (): ClearWsDataSensorsAI => ({
         type: SensorsAT.CLEAR_WS_DATA_SENSORS,
     }),
+    updateArrangement: (payload: { action: string, sensor: string, device_id: number, graph_type: string }): UpdateArrangementAI => ({
+        type: SensorsAT.UPDATE_ARRANGEMENT,
+        payload,
+    }),
 
-}
+};
 
 export type SensorsActions =
     | FetchSensorsAI
@@ -184,3 +204,6 @@ export type SensorsActions =
     | SetMaintenanceAI
     | ShowConfirmModalAI
     | StopSensorMaintenanceAI
+    | UpdateArrangementAI
+    | FailedMaintenanceAI
+    | ChangeEventTypeMaintenanceAI

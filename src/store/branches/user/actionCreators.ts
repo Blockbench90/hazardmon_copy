@@ -5,6 +5,7 @@ import {
     FetchHeaderNotificationsAI, FetchOEMSettingsAI, FetchSupportContactsAI,
     FetchUserDataAI,
     LogOutAI, RemoveCurrentEmailNotification,
+    ResetPasswordAI,
     SearchNotificationsAI, SendFeedbackAI, SetCurrentEmailNotification,
     SetEmailNotificationsAI,
     SetHeaderNotificationsAI,
@@ -37,6 +38,11 @@ export const userAC = {
     setNotificationsFilter: (isActive: boolean): SetNotificationsFilterAI => ({
         type: UserAT.SET_NOTIFICATIONS_FILTER,
         payload: {isActive},
+    }),
+
+    resetPassword: (payload: string): ResetPasswordAI => ({
+        type: UserAT.RESET_PASSWORD,
+        payload,
     }),
 
     searchNotifications: (payload: SearchValues): SearchNotificationsAI => ({
@@ -72,10 +78,15 @@ export const userAC = {
         type: UserAT.FETCH_HEADER_NOTIFICATIONS_COUNT,
     }),
 
-    setHeaderNotificationCount: (payload: { count: number; results: Notification[] }) => ({
+    setHeaderNotificationCount: (payload: number) => ({
         type: UserAT.SET_HEADER_NOTIFICATIONS,
         payload,
     }),
+
+    // setCurrentEmailNotifications: (payload: any) => ({
+    //     type: UserAT.,
+    //     payload,
+    // }),
     setIsApplyNotifications: (payload: boolean): SetIsApplyNotificationsAI => ({
         type: UserAT.SET_IS_APPLY_NOTIFICATIONS,
         payload,
@@ -205,3 +216,4 @@ export type UserActions =
     | FetchSupportContactsAI
     | SetSupportContactsAI
     | AddSupportContactAI
+    | ResetPasswordAI

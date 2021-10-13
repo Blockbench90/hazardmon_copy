@@ -14,6 +14,8 @@ import SitesAlert from "../../components/Alerts/sites";
 import UserAlert from "../../components/Alerts/user";
 
 import classes from "./Sites.module.scss";
+import {userAC} from "../../store/branches/user/actionCreators";
+import {usePermissions} from "../../hooks/usePermissions";
 
 
 const Sites: React.FC = () => {
@@ -21,13 +23,14 @@ const Sites: React.FC = () => {
     const history = useHistory();
 
     const {status, isSelected, sitesData} = useSelector(selectSitesState);
+    const {isOEM, isSuperUser} = usePermissions();
     const sites = sitesData?.results;
 
     const isUpdatedSuccess = status === LoadingStatus.EDIT_SITE_SUCCESS;
 
     const onAddSite = (event: React.MouseEvent<HTMLDivElement>) => {
-        event.preventDefault()
-        event.stopPropagation()
+        event.preventDefault();
+        event.stopPropagation();
         history.push("/sites/add/site");
     };
 
@@ -35,6 +38,11 @@ const Sites: React.FC = () => {
         if (!isSelected) {
             dispatch(sitesAC.fetchSites());
         }
+        dispatch(userAC.searchNotifications({
+            offset: 0,
+            is_active: true,
+            ordering: `-date_created`,
+        }));
 
         return () => {
             dispatch(sitesAC.clearSelectSites());
@@ -66,8 +74,12 @@ const Sites: React.FC = () => {
                                     <SitesBlock {...site} key={`${site.title}${index}${site.id}`}/>)
                         }
                     </div>
+                    {
+                        (isOEM || isSuperUser)
+                        &&
+                        <AddNewBlock text="Add New Site" onClick={onAddSite}/>
+                    }
 
-                    <AddNewBlock text="Add New Site" onClick={onAddSite}/>
                 </div>
             </div>
         </Preloader>

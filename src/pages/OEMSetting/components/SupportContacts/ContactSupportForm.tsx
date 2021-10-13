@@ -28,7 +28,7 @@ const ContactSupportForm: React.FC<WrapProps> = ({
     };
 
     const handleCancel = () => {
-        history.push("/sites");
+        history.push("/oem/setting");
     };
 
     useEffect(() => {

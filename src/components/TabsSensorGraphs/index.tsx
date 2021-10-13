@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Tabs} from "antd";
 import {useDispatch} from "react-redux";
-import {useHistory} from "react-router-dom";
+import {useHistory, useLocation, useParams} from "react-router-dom";
 
 import {ReactComponent as Live} from "../../assets/icons/graphs_live.svg";
 import {ReactComponent as HR} from "../../assets/icons/HR.svg";
@@ -24,7 +24,9 @@ const TabsSensorGraphs: React.FC = () => {
     const history = useHistory();
     const dispatch = useDispatch();
     const {device} = useCurrentSelection();
-
+    // const {pathname} = useLocation<string>();
+    // const id = pathname.split("/")[length -1];
+    const {id} = useParams<any>();
     const [modal, setModal] = useState(false);
 
     const handleCustomGraphs = () => {
@@ -40,9 +42,13 @@ const TabsSensorGraphs: React.FC = () => {
     };
 
     const onChangeTab = (activeKey: string) => {
+        console.log(activeKey, "ac");
+        console.log(id);
         activeKey === "live" ? onLive() : onCloseLive();
 
-        history.push("/graphs");
+        if (id) {
+            history.push(`/graphs/${id}`);
+        }
     };
 
     const onCancelModal = () => {
@@ -55,11 +61,16 @@ const TabsSensorGraphs: React.FC = () => {
             setModal(false);
             return;
         }
-        const payload = {
-            date, time, id: device?.id,
-        };
-        dispatch(graphsAC.fetchCustomGraphsData(payload));
+        // const payload = {
+        //     date, time, id: device?.id,
+        // };
+        console.log("request");
+        // dispatch(graphsAC.fetchCustomGraphsData(payload));
         setModal(false);
+        if (id) {
+            history.push(`/graphs/historical/graphs/${date}&${time}/?id=${id}`);
+            return;
+        }
         history.push(`/graphs/historical/graphs/${date}&${time}`);
     };
 

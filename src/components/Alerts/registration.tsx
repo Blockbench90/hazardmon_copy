@@ -48,10 +48,20 @@ const RegistrationAlert = () => {
         return alertNotification(errorMessage || "The email address is already registered or problems with network.", "error");
     }
 
+    if (registerStatus === LoadingStatus.RESET_PASSWORD_ERROR) {
+        setTimer();
+        return alertNotification("The e-mail address is not assigned to any user account", "error");
+    }
+
 
     if (status === LoadingStatus.SEND_FEEDBACK_SUCCESS) {
         setTimer();
         return alertNotification("Your feedback has been saved successfully.", "success");
+    }
+
+    if (status === LoadingStatus.RESET_PASSWORD_SUCCESS) {
+        setTimer();
+        return alertNotification("Your password has been reset successfully. Please check your email.", "success");
     }
 
 

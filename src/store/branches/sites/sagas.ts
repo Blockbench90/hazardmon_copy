@@ -32,6 +32,7 @@ export function* getSelectedSitesRequest({payload}: SelectSitesAI) {
             yield put(sitesAC.setSites(selectSites));
             // yield put(sitesAC.setTimezones(timezones));
             yield put(sitesAC.setSitesLoadingStatus(LoadingStatus.LOADED));
+            yield put(userAC.fetchHeaderNotificationCount());
             history.push("/sites");
             yield put(sitesAC.setOperationStatusSite(LoadingStatus.SELECT_SITE_SUCCESS));
         } else {

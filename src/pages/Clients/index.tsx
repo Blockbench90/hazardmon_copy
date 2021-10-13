@@ -11,6 +11,7 @@ import TableClients from "./components/TableClients";
 import {selectClientsState} from "../../store/selectors";
 import {clientsAC} from "../../store/branches/clients/actionCreators";
 import {mapClientsData} from "./components/Colums";
+import {useCurrentSelection} from "../../hooks/useCurrentSelection";
 
 
 const Clients: React.FC = () => {
@@ -19,6 +20,7 @@ const Clients: React.FC = () => {
     let pageNumber = useRef<number>(1);
 
     const {clientsData, status} = useSelector(selectClientsState);
+    const {client} = useCurrentSelection();
     const clients = mapClientsData(clientsData?.results);
 
     const onSelectClient = (id: string) => {
@@ -52,6 +54,7 @@ const Clients: React.FC = () => {
                 <HeaderClients/>
 
                 <TableClients clients={clients}
+                              selectedClient={client}
                               clientsData={clientsData}
                               onSelectSites={onSelectClient}
                               onChangeClient={onChangeClient}

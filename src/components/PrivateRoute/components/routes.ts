@@ -32,7 +32,7 @@ import {
     OEM_SETTING, OEM_SETTING_CONTACTS,
     OEM_SETTING_RSS_EDIT,
     SENSOR_DASHBOARD,
-    SENSOR_GRAPHS,
+    SENSOR_GRAPHS, SENSOR_GRAPHS_BY_ID,
     SITES,
     USER_SETTING,
     VISUAL_DASHBOARD,
@@ -137,6 +137,10 @@ export const privateRoutes = [
     },
     {
         path: SENSOR_GRAPHS,
+        Component: SensorGraphsPage,
+    },
+    {
+        path: SENSOR_GRAPHS_BY_ID,
         Component: SensorGraphsPage,
     },
     {

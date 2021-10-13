@@ -17,6 +17,7 @@ export enum UserAT {
     SET_USER_DATA = "user/SET_USER_DATA",
     SET_USER_AUTH_KEY = "user/SET_USER_AUTH_KEY",
     FETCH_SIGN_IN = "user/FETCH_SIGN_IN",
+    RESET_PASSWORD = "user/RESET_PASSWORD",
     SET_NOTIFICATIONS = "user/SET_NOTIFICATIONS",
     SET_HEADER_NOTIFICATIONS = "user/SET_HEADER_NOTIFICATIONS",
     SET_IS_APPLY_NOTIFICATIONS = "user/SET_IS_APPLY_NOTIFICATIONS",
@@ -71,6 +72,11 @@ export interface FetchUserDataAI extends Action<UserAT> {
 export interface SetNotificationsFilterAI extends Action<UserAT> {
     type: UserAT.SET_NOTIFICATIONS_FILTER;
     payload: { isActive: boolean };
+}
+
+export interface ResetPasswordAI extends Action<UserAT> {
+    type: UserAT.RESET_PASSWORD;
+    payload: string;
 }
 
 export interface FetchHeaderNotificationsAI extends Action<UserAT> {
@@ -128,7 +134,7 @@ export interface SetNotificationsAI extends Action<UserAT> {
 
 export interface SetHeaderNotificationsAI extends Action<UserAT> {
     type: UserAT.SET_HEADER_NOTIFICATIONS;
-    payload: UserState["notifications"];
+    payload: number;
 }
 
 
