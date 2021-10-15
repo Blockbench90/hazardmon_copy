@@ -4,7 +4,7 @@ import {sensorsAC} from "./actionCreators";
 import {
     AddSensorNamesAI,
     AddSensorSettingsAI,
-    AddWarningAI,
+    AddWarningAI, ChangeEventTypeMaintenanceAI,
     FetchHistoricalGraphsAI,
     FetchSensorNamesAI,
     FetchSensorsAI,
@@ -170,6 +170,17 @@ export function* setMaintenanceRequest({payload}: SetMaintenanceAI) {
     }
 }
 
+export function* setMaintenanceExpectOffRequest({payload}: ChangeEventTypeMaintenanceAI) {
+    try {
+        const data = yield call(SensorsApi.setMaintenance, payload);
+        if (data.status !== 200) {
+            yield put(sensorsAC.setSensorsStatusOperation(LoadingStatus.MAINTENANCE_SENSORS_ERROR));
+        }
+    } catch {
+        yield put(sensorsAC.setSensorsLoadingStatus(LoadingStatus.ERROR));
+    }
+}
+
 export function* stopSensorMaintenanceRequest({payload}: StopSensorMaintenanceAI) {
     try {
         const data = yield call(SensorsApi.setMaintenance, payload);
@@ -228,6 +239,7 @@ export function* sensorsSaga() {
     yield takeLatest(SensorsAT.FETCH_WS_DATA_SENSORS, fetchWsDataSensorsRequest);
     yield takeLatest(SensorsAT.FETCH_HISTORICAL_GRAPHS_SENSORS, fetchHistoricalGraphsRequest);
     yield takeLatest(SensorsAT.SET_MAINTENANCE, setMaintenanceRequest);
+    yield takeLatest(SensorsAT.CHANGE_EVENT_TYPE_ALARM_OFF, setMaintenanceExpectOffRequest);
     yield takeLatest(SensorsAT.STOP_SENSOR_MAINTENANCE, stopSensorMaintenanceRequest);
     yield takeLatest(SensorsAT.UPDATE_ARRANGEMENT, updateArrangementRequest);
 }

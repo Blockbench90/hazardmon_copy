@@ -148,8 +148,8 @@ export const sensorsAC = {
         payload,
     }),
 
-    changeEventTypeMaintenance: (payload: {sensor_id: string, event_type: string }): ChangeEventTypeMaintenanceAI => ({
-        type: SensorsAT.CHANGE_EVENT_TYPE,
+    setMaintenanceExpectOff: (payload: Maintenance): ChangeEventTypeMaintenanceAI => ({
+        type: SensorsAT.CHANGE_EVENT_TYPE_ALARM_OFF,
         payload,
     }),
 
@@ -158,7 +158,7 @@ export const sensorsAC = {
         payload,
     }),
 
-    failedMaintenance: (payload: Maintenance): FailedMaintenanceAI => ({
+    clearMaintenanceArray: (payload: string): FailedMaintenanceAI => ({
         type: SensorsAT.FAILED_MAINTENANCE,
         payload,
     }),

@@ -27,7 +27,7 @@ export enum SensorsAT {
     SET_MAINTENANCE_PAGE = "sensors_dashboard/SET_MAINTENANCE_PAGE",
     SET_MAINTENANCE_STATUS_OPERATION = "sensors_dashboard/SET_MAINTENANCE_STATUS_OPERATION",
     SET_MAINTENANCE = "sensors_dashboard/SET_MAINTENANCE",
-    CHANGE_EVENT_TYPE = "sensors_dashboard/CHANGE_EVENT_TYPE",
+    CHANGE_EVENT_TYPE_ALARM_OFF = "sensors_dashboard/CHANGE_EVENT_TYPE_ALARM_OFF",
     SHOW_CONFIRM_MAINTENANCE_MODAL = "sensors_dashboard/SHOW_CONFIRM_MAINTENANCE_MODAL",
     STOP_SENSOR_MAINTENANCE = "sensors_dashboard/STOP_SENSOR_MAINTENANCE",
     FAILED_MAINTENANCE = "sensors_dashboard/FAILED_MAINTENANCE",
@@ -145,8 +145,8 @@ export interface SetMaintenanceAI extends Action<SensorsAT> {
 }
 
 export interface ChangeEventTypeMaintenanceAI extends Action<SensorsAT> {
-    type: SensorsAT.CHANGE_EVENT_TYPE;
-    payload: {sensor_id: string, event_type: string }
+    type: SensorsAT.CHANGE_EVENT_TYPE_ALARM_OFF;
+    payload: Maintenance
 }
 
 export interface StopSensorMaintenanceAI extends Action<SensorsAT> {
@@ -156,7 +156,7 @@ export interface StopSensorMaintenanceAI extends Action<SensorsAT> {
 
 export interface FailedMaintenanceAI extends Action<SensorsAT> {
     type: SensorsAT.FAILED_MAINTENANCE;
-    payload: Maintenance
+    payload: string
 }
 
 export interface ShowConfirmModalAI extends Action<SensorsAT> {

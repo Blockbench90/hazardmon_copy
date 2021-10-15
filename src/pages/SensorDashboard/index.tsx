@@ -23,7 +23,6 @@ import MaintenanceModal from "../../components/MaintenanceModal";
 import classes from "./SensorDashboard.module.scss";
 
 const maintenanceTime = process.env.REACT_APP_MAINTENANCE_TIME;
-// const maintenanceTime = 5;
 
 const SensorDashboard: React.FC = () => {
     const dispatch = useDispatch();
@@ -48,6 +47,7 @@ const SensorDashboard: React.FC = () => {
 
 
     const failedMaintenance = useCallback((item: Maintenance) => {
+        console.log("failedMaintenance ==>")
         dispatch(sensorsAC.showConfirmModal({
             isShow: true,
             device_id: item.device_id,
@@ -70,7 +70,7 @@ const SensorDashboard: React.FC = () => {
                 const differenceTime = (now - item.maintenance_time) / 1000; //find out the difference between start and now
                 if (Number(differenceTime.toFixed()) > Number(maintenanceTime)) {
                     failedMaintenance(item);
-                    dispatch(sensorsAC.failedMaintenance({...item}));
+                    dispatch(sensorsAC.clearMaintenanceArray(item.sensor_id));
                 }
                 return null;
             });
@@ -127,6 +127,7 @@ const SensorDashboard: React.FC = () => {
                 {
                     ws_data && ws_data?.groups?.map((item, index) => (
                         <SensorsGroups group={item}
+                                       parentID={ws_data.Id}
                                        key={`${item?.Id}sensor_group${index}`}
                                        sensorsGroupsName={ws_data.Name}
                                        groupNumber={index + 1}

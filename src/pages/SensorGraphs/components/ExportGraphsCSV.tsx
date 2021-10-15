@@ -5,13 +5,16 @@ import {Spin} from "antd";
 import {ReactComponent as CSV} from "../../../assets/icons/CSV.svg";
 import {GraphsApi} from "../../../services/api/graphsApi";
 import {FetchGraphs} from "../../../store/branches/graphs/stateTypes";
+import {useCurrentSelection} from "../../../hooks/useCurrentSelection";
 
 
 const ExportGraphsCSV: React.FC<{ payload: FetchGraphs }> = ({payload}) => {
+    const {device} = useCurrentSelection()
     const [graphsData, setGraphsData] = useState([]);
     const [loading, setLoading] = useState(false);
     const csvLink = useRef();
 
+    const exportNameFile = device ? `sensor_names_${device?.device_type}_${device?.id}.csv` : "graphs.csv"
     const getGraphsData = async () => {
         setLoading(true);
         await GraphsApi.exportCSV(payload)
@@ -35,7 +38,7 @@ const ExportGraphsCSV: React.FC<{ payload: FetchGraphs }> = ({payload}) => {
             }
             <CSVLink
                 data={graphsData}
-                filename="graphs.csv"
+                filename={exportNameFile}
                 className="hidden"
                 ref={csvLink}
                 target="_blank"

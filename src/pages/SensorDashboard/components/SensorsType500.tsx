@@ -11,6 +11,10 @@ import classes from "../SensorDashboard.module.scss";
 
 interface SensorsType500Props {
     wsGroup?: WsGroups
+    parentID: string
+    f500GroupID: string
+    alignmentID?: string
+    WsGroupID?: string
     groupNumber?: number
     isAlignment?: boolean
     filter_status?: FilterStatus
@@ -20,6 +24,10 @@ interface SensorsType500Props {
 
 const SensorsType500: React.FC<SensorsType500Props> = ({
                                                            wsGroup,
+                                                           parentID,
+                                                           f500GroupID,
+                                                           WsGroupID,
+                                                           alignmentID,
                                                            groupNumber,
                                                            isAlignment,
                                                            filter_status,
@@ -102,6 +110,11 @@ const SensorsType500: React.FC<SensorsType500Props> = ({
                         return (
                             <SensorWrap sensor={item} key={`${item.Id}${index}1-1`}
                                         sensorNumber={index + 1}
+                                        parentID={parentID}
+                                        f500GroupID={f500GroupID}
+                                        alignmentID={alignmentID}
+                                        alignmentSensorID={item?.Id}
+                                        WsGroupID={WsGroupID}
                                         isAlignment={isAlignment}
                                         filter_status={filter_status}
                                         groupNumber={groupNumber}/>

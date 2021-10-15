@@ -57,6 +57,16 @@ export const SensorsApi = {
         });
         return data;
     },
+    async setMaintenanceExpectOff(payload: Maintenance): Promise<any> {
+        const data = await axios.post<APIResponse>(`api/v1/devices/${payload.device_id}/maintenance/`, {
+            event_type: payload.event_type,
+            sensor_id: payload.sensor_id,
+            sensor_name: payload.sensor_name,
+            comment: payload.comment || "test",
+            maintenance_time: payload.maintenance_time,
+        });
+        return data;
+    },
     async getF500Nodes(payload: number): Promise<any> {
         const {data} = await axios.get<APIResponse>(`api/v1/devices/${payload}/graphs/nodes/`);
         return data;

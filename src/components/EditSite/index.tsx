@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Link, useParams} from "react-router-dom";
+import {Link, useLocation, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import clsx from "clsx";
 import {Typography} from "antd";
@@ -26,8 +26,11 @@ const EditSite: React.FC = () => {
     const {current_location: currentLocation} = useSelector(selectSitesState);
     const {status} = useSelector(selectSitesState);
     const {client} = useCurrentSelection();
+    const loc = useLocation()
+    console.log("loc ==>", loc)
 
     const {id}: any = useParams();
+    console.log("id ==>", id)
 
     const onDeactivateSite = () => {
         dispatch(sitesAC.deactivateCurrentLocation(id));

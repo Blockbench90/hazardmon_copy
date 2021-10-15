@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect} from "react";
 import clsx from "clsx";
 import {useDispatch, useSelector} from "react-redux";
 import {useHistory} from "react-router-dom";
@@ -21,9 +21,15 @@ import {useCurrentSelection} from "../../../hooks/useCurrentSelection";
 import {sensorsAC} from "../../../store/branches/sensors/actionCreators";
 
 import classes from "../SensorDashboard.module.scss";
+import {concatIds} from "../../../helpers/concatUrl";
 
 interface SensorProps {
     sensor: WsSensor,
+    parentID?: string
+    f500GroupID?: string
+    alignmentID?: string
+    alignmentSensorID?: string
+    WsGroupID?: string
     isAlignment?: boolean,
     sensorNumber?: number,
     groupNumber?: number
@@ -38,6 +44,11 @@ interface SensorProps {
 
 const Sensor: React.FC<SensorProps> = ({
                                            sensor,
+                                           parentID,
+                                           f500GroupID,
+                                           WsGroupID,
+                                           alignmentID,
+                                           alignmentSensorID,
                                            sensorNumber,
                                            groupNumber,
                                            isAlignment,
@@ -49,13 +60,24 @@ const Sensor: React.FC<SensorProps> = ({
                                            ContactName,
                                        }) => {
 
+        // console.log("data ==>", parentID, f500GroupID, WsGroupID )
+
         const history = useHistory();
         const dispatch = useDispatch();
         const {maintenanceSensorsArray, isMaintenance} = useSelector(selectSensorsState);
         const {device} = useCurrentSelection();
 
         const isDisabledForMaintenance = ["18000", "21000"].includes(sensor.Id);
-        const alreadyInMaintenance = maintenanceSensorsArray.find(item => item.sensor_id === sensor.Id);
+
+        // const getParentsIds = useCallback(() => {
+        //     if (device?.device_type === "F500-UDF") {
+        //         return `${parentID}.${f500GroupID}.${WsGroupID}`;
+        //     }
+        //     return `${parentID}.${WsGroupID}`;
+        // }, [parentID, f500GroupID, WsGroupID, device?.device_type]);
+
+        const parentIds = concatIds({parentID, f500GroupID, WsGroupID, alignmentID, alignmentSensorID})
+        const alreadyInMaintenance = maintenanceSensorsArray.find(item => item.sensor_id === `${parentIds}.${sensor.Id}`);
 
         const timer = () => {
             const currentTime = new Date().getTime();
@@ -75,29 +97,33 @@ const Sensor: React.FC<SensorProps> = ({
                 isShow: true,
                 device_id: device.id,
                 event_type: "maintenance_canceled",
-                sensor_id: sensor.Id,
+                sensor_id: `${parentIds}.${sensor.Id}`,
                 sensor_name: sensor.Name,
             }));
         };
 
-        // const changeEventTypeMaintenance = useCallback((sensor: WsSensor) => {
-        //     console.log("changeEventTypeMaintenance() ==>");
-        //     dispatch(sensorsAC.changeEventTypeMaintenance({
-        //         event_type: "maintenance_expect_alarm_off",
-        //         sensor_id: sensor.Id,
-        //     }));
-        // }, [dispatch]);
+        const changeEventTypeMaintenance = useCallback((sensor: WsSensor) => {
+            console.log("setMaintenanceExpectOff() ==>");
+            dispatch(sensorsAC.setMaintenanceExpectOff({
+                device_id: device?.id,
+                sensor_id: `${parentIds}.${sensor.Id}`,
+                sensor_name: sensor?.Name,
+                event_type: "maintenance_expect_alarm_off",
+                maintenance_time: new Date().getTime(),
+            }));
+        }, [dispatch, parentIds, device?.id]);
 
+        const successMaintenance = useCallback((sensor: WsSensor) => {
+            console.log("successMaintenance ==>");
+            dispatch(sensorsAC.showConfirmModal({
+                isShow: true,
+                device_id: device?.id,
+                event_type: "maintanance_succeeded",
+                sensor_id: `${parentIds}.${sensor.Id}`,
+                sensor_name: sensor?.Name,
+            }));
+        }, [dispatch, parentIds, device?.id]);
 
-        // useEffect(() => {
-        //     if (isMaintenance) {
-        //         if (sensor?.Alarm && alreadyInMaintenance) {
-        //             console.log("sensor Alarm ==>", sensor);
-        //             console.log("stopMaintenance() ==>");
-        //             changeEventTypeMaintenance(sensor);
-        //         }
-        //     }
-        // });
 
         const setMaintenance = useCallback(() => {
             if (isDisabledForMaintenance) {
@@ -107,14 +133,14 @@ const Sensor: React.FC<SensorProps> = ({
             dispatch(sensorsAC.setMaintenance({
                 device_id: device.id,
                 event_type: "maintenance_expect_alarm_on",
-                sensor_id: sensor.Id,
+                sensor_id: `${parentIds}.${sensor.Id}`,
                 sensor_name: sensor.Name,
                 maintenance_time: new Date().getTime(),
             }));
-        }, [sensor, isDisabledForMaintenance, device?.id, dispatch]);
+        }, [sensor, isDisabledForMaintenance, parentIds, device?.id, dispatch]);
 
         const onSensorClick = () => {
-            if (isMaintenance) {
+            if (isMaintenance && !alreadyInMaintenance && !sensor?.Alarm) {
                 setMaintenance();
             } else {
                 if (device.device_type === "F500-UDF") {
@@ -124,11 +150,36 @@ const Sensor: React.FC<SensorProps> = ({
                         graph_type: sensor.Type,
                         device_id: device?.id,
                     }));
+                    history.push(`/graphs/${sensor.Id}`);
                 } else {
-                    history.push(`/graphs/?id=${sensor.Id}`);
+                    history.push(`/graphs/${sensor.Id}`);
                 }
             }
         };
+
+
+        useEffect(() => {
+            if (isMaintenance && alreadyInMaintenance) {
+                if (sensor?.Alarm && (alreadyInMaintenance.event_type === "maintenance_expect_alarm_on")) {
+                    console.log("sensor Alarm ==>", sensor);
+                    console.log("stopMaintenance() ==>");
+                    changeEventTypeMaintenance(sensor);
+                }
+            }
+        });
+
+
+        useEffect(() => {
+            if (isMaintenance && alreadyInMaintenance) {
+                if ((alreadyInMaintenance.event_type === "maintenance_expect_alarm_off") && !sensor?.Alarm) {
+                    console.log("maintenance_expect_alarm_off ==>", sensor);
+                    console.log("successMaintenance() ==>");
+                    successMaintenance(sensor);
+                    dispatch(sensorsAC.clearMaintenanceArray(`${parentIds}.${sensor?.Id}`));
+                }
+            }
+        });
+
 
         return (
             <React.Fragment>
@@ -145,7 +196,6 @@ const Sensor: React.FC<SensorProps> = ({
                             <div className={classes.descript}>
                                 {
                                     (sensor?.Alarm && alreadyInMaintenance && isMaintenance)
-                                        // (sensor?.Id === "1000" && alreadyInMaintenance && isMaintenance)
                                         ?
                                         <span className={classes.alarmTest}>Alarm detected! Please clear alarm to finish test. Click to cancel</span>
                                         :
