@@ -91,26 +91,30 @@ class SchemaDetailsPage extends React.Component<SchemaDetailsProps> {
             <Menu.Item key="0" icon={<ToolFilled/>}>
                 <Link to={urls.schemasList.replace(":siteId", `${currentLocation}`)}>Show versions</Link>
             </Menu.Item>
-            <Menu.Divider className={classes.driver}/>
-
-            <Menu.Item key="1" icon={<ToolFilled/>}>
-                {schemaDetails && !schemaDetails.is_published && <Link to={modifyLink}>Modify schema</Link>}
-            </Menu.Item>
-            <Menu.Divider className={classes.driver}/>
-            <Menu.Item key="2" icon={<ToolFilled/>}>
-                {schemaDetails && !schemaDetails.is_published &&
-                <span onClick={this.modalRef && this.modalRef.showModal}>
+            {(schemaDetails && !schemaDetails.is_published)
+            &&
+            <React.Fragment>
+                <Menu.Divider className={classes.driver}/>
+                <Menu.Item key="1" icon={<ToolFilled/>}>
+                    <Link to={modifyLink}>Modify schema</Link>
+                </Menu.Item>
+                <Menu.Divider className={classes.driver}/>
+                <Menu.Item key="2" icon={<ToolFilled/>}>
+                    {schemaDetails && !schemaDetails.is_published &&
+                    <span onClick={this.modalRef && this.modalRef.showModal}>
                     Delete schema
                 </span>}
-            </Menu.Item>
-            <Menu.Divider className={classes.driver}/>
-            <Menu.Item key="3" icon={<ToolFilled/>}>
-                {schemaDetails && !schemaDetails.is_published && <Link
-                    to={urls.tabNew.replace(":siteId", `${currentLocation}`)
-                        .replace(":schemaId", `${schemaDetails && schemaDetails.id}`)}>
-                    Add tab
-                </Link>}
-            </Menu.Item>
+                </Menu.Item>
+                <Menu.Divider className={classes.driver}/>
+                <Menu.Item key="3" icon={<ToolFilled/>}>
+                    <Link
+                        to={urls.tabNew.replace(":siteId", `${currentLocation}`)
+                            .replace(":schemaId", `${schemaDetails && schemaDetails.id}`)}>
+                        Add tab
+                    </Link>
+                </Menu.Item>
+            </React.Fragment>
+            }
         </Menu>;
 
         return (
@@ -239,11 +243,12 @@ class SchemaDetailsPage extends React.Component<SchemaDetailsProps> {
                                     };
 
                                     const tabClassNames = classNames({
-                                        "schema-tabs-wrap": true,
+                                        // "schema-tabs-wrap": true,
 
                                         // change color tabs with selected
                                         // "schema-tab": true,
                                         // selected: `${tab.id}` === match.params.tabId,
+                                        "tab": `${tab.id}` === match.params.tabId,
                                     });
 
                                     // const notificationsForThisTab = schemaNotifications.filter((notification: any) => _.some(tab.sensors_ids, (sensorIdObj: any) => {
@@ -280,14 +285,17 @@ class SchemaDetailsPage extends React.Component<SchemaDetailsProps> {
                                                     canEdit
                                                     &&
                                                     <div className="d-flex">
-                                                        <div onClick={handleEditClick} className="schema-tab__button mar-right-10">
+                                                        <div onClick={handleEditClick}
+                                                             className="schema-tab__button mar-right-10">
                                                             <Edit/>
                                                         </div>
-                                                        <div className="schema-tab__button mar-right-10" onClick={handleCloneClick}>
+                                                        <div className="schema-tab__button mar-right-10"
+                                                             onClick={handleCloneClick}>
                                                             <Copy/>
                                                         </div>
                                                         {Boolean(schemaDetails.schema_tabs.length) && !schemaDetails.is_published &&
-                                                        <div className="schema-tab__button mar-right-10" onClick={handleDeleteClick}>
+                                                        <div className="schema-tab__button mar-right-10"
+                                                             onClick={handleDeleteClick}>
                                                             <Delete/>
                                                         </div>
                                                         }

@@ -41,34 +41,33 @@ const VisualDachBlock: React.FC<VisualDashProps> = ({
                                                     }) => {
     const menu = (
         <Menu>
-            <Menu.Item key="1" onClick={onCloneClick} style={{color: "#2D3C43", fontWeight: 800, width: "94px"}}>Clone</Menu.Item>
+            <Menu.Item key="clone" onClick={onCloneClick} style={{color: "#2D3C43", fontWeight: 800, width: "94px"}}>Clone</Menu.Item>
             {
                 !schema.is_published
                 &&
                 <React.Fragment>
                     <Menu.Divider/>
-                    <Menu.Item key="2" onClick={onPublish} style={{color: "#27AE60", fontWeight: 800, width: "94px"}}>Publish</Menu.Item>
+                    <Menu.Item key="publish" onClick={onPublish} style={{color: "#27AE60", fontWeight: 800, width: "94px"}}>Publish</Menu.Item>
                     <Menu.Divider/>
-                    <Menu.Item key="3" onClick={onDeleteClick} style={{color: "#7C90B1", fontWeight: 800, width: "94px"}}>Delete</Menu.Item>
+                    <Menu.Item key="delete" onClick={onDeleteClick} style={{color: "#7C90B1", fontWeight: 800, width: "94px"}}>Delete</Menu.Item>
                 </React.Fragment>
             }
         </Menu>
-    );
+    )
 
     return (
         <React.Fragment>
-            {Boolean(schema.schema_tabs.length) &&
-            <Link className={classes.visualLink}
-                  to={
-                      urls.schemaDetails
-                          .replace(":siteId", `${match.params.siteId}`)
-                          .replace(":schemaId", `${schema.id}`)
-                          .replace(":tabId", `${schema.schema_tabs[0].id}`)
-                  }
-            >
-
                 <div className={clsx(classes.visualDashBlockWrap)}>
-                    <div>
+                    {Boolean(schema.schema_tabs.length) &&
+                    <Link className={classes.visualLink}
+                          to={
+                              urls.schemaDetails
+                                  .replace(":siteId", `${match.params.siteId}`)
+                                  .replace(":schemaId", `${schema.id}`)
+                                  .replace(":tabId", `${schema.schema_tabs[0].id}`)
+                          }
+                    >
+                    <div className={classes.content}>
 
                         <div>
                             <Title level={4}>{title}</Title>
@@ -91,14 +90,16 @@ const VisualDachBlock: React.FC<VisualDashProps> = ({
 
                         <CustomButton width="81px"
                                       height="20px"
-                                      color={isPublished ? "gray" : "green"}
+                                      color={isPublished ? "green" : "gray"}
                                       fontSize="12px"
                                       padding="0"
                                       borderRadius="100px"
                         >
-                            {isPublished ? "Saved" : "Published"}
+                            {isPublished ? "Published" : "Saved"}
                         </CustomButton>
                     </div>
+                    </Link>
+                    }
 
                     <div className={classes.editButton}>
                         <Dropdown overlay={menu} trigger={["click"]} placement="bottomRight">
@@ -108,8 +109,6 @@ const VisualDachBlock: React.FC<VisualDashProps> = ({
                 </div>
 
 
-            </Link>
-            }
         </React.Fragment>
     );
 };

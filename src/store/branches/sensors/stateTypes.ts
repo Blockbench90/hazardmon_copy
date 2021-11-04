@@ -165,6 +165,7 @@ export interface Maintenance {
     device_id: number,
     event_type: string,
     sensor_id: string,
+    current_sensor_id?: string
     sensor_name: string,
     comment?: string,
     maintenance_time: number

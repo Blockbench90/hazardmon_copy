@@ -10,6 +10,7 @@ import Editor from "../../containers/Editor/Editor";
 import SchemaDetails from "../../containers/SchemaDetails/SchemaDetails";
 import MachineDetails from "../../containers/MachineDetails/MachineDetails";
 import AppWrapper from "../../components/AppWrapper/AppWrapper";
+// import '../../styles/general-styles.scss';
 
 const DashboardRoute = (props: any) => {
     const Component = props.component;

@@ -46,6 +46,7 @@ import LabelNodeModel from "../../components/LabelNode/LabelNodeModel";
 // images
 import editIcon from "../../assets/img/edit-icon-green.png";
 import tabIcon from "../../assets/img/tab-icon.png";
+import clsx from "clsx";
 
 export interface SchemaEditorState {
     name: string
@@ -82,41 +83,43 @@ class Editor extends React.Component<SchemaEditorProps, SchemaEditorState> {
         const {tabDetails, match, schemaDetails} = this.props;
         const {name} = this.state;
 
-        return ((tabDetails && tabDetails.id !== props.tab.id) || !tabDetails) ? (
-            <Link
-                to={urls.tabEdit.replace(":siteId", `${match.params.siteId}`).replace(":schemaId", `${schemaDetails.id}`).replace(":tabId", `${props.tab.id}`)}
-                key={props.index}
-                className="schema-tab"
-            >
-                <img src={tabIcon} className="schema-tab__icon" alt={"schema"}/>
-                <div className="schema-tab__body">
-                    <div>
-                        {props.tab.name}
+        return ((tabDetails && tabDetails.id !== props.tab.id) || !tabDetails)
+            ?
+            (
+                <Link
+                    to={urls.tabEdit.replace(":siteId", `${match.params.siteId}`).replace(":schemaId", `${schemaDetails.id}`).replace(":tabId", `${props.tab.id}`)}
+                    key={props.index}
+                    className="schema-tab"
+                >
+                    {/*<img src={tabIcon} className="schema-tab__icon" alt={"schema"}/>*/}
+                    <div className="schema-tab__body">
+                        <div>
+                            {props.tab.name}
+                        </div>
                     </div>
+                </Link>
+            )
+            :
+            tabDetails && (
+                <div className="schema-tab selected" key={props.index}>
+                    {/*<img src={tabIcon} className="schema-tab__icon" alt={"schema"}/>*/}
+                    <input type="text" name="name" value={name ? name : ""} onChange={this.handleNameInputChange}/>
                 </div>
-            </Link>
-        ) : tabDetails && (
-            <div className="schema-tab selected" key={props.index}>
-                <img src={tabIcon} className="schema-tab__icon" alt={"schema"}/>
-                <input type="text" name="name" value={name ? name : ""} onChange={this.handleNameInputChange}/>
-            </div>
-        );
+            );
 
     });
 
     public SortableList = SortableContainer(() => {
         const {schemaTabs, name} = this.state;
         const {tabDetails} = this.props;
-        console.log("tabDetails ===>", tabDetails, "<=== done");
-        console.log("schemaTabs, name ===>", schemaTabs, name, "<=== done");
 
         return (
-            <div className="schema-tabs">
+            <div>
                 {schemaTabs.map((tab: TabInList, index: number) => (
                     <this.SortableItem key={`item-${index}`} index={index} tab={tab} disabled={!tabDetails}/>
                 ))}
                 {!tabDetails &&
-                <div className="schema-tab selected">
+                <div>
                     <img src={tabIcon} className="schema-tab__icon" alt={"schema"}/>
                     <input type="text" name="name" value={name ? name : ""} onChange={this.handleNameInputChange}/>
                 </div>
@@ -333,8 +336,8 @@ class Editor extends React.Component<SchemaEditorProps, SchemaEditorState> {
                             onDrop={this.onDrop}
                             onDragOver={this.onDragOver}
                         >
-                            {/*<this.SortableList onSortEnd={this.onSortEnd} axis="x" pressDelay={100}*/}
-                            {/*                   helperClass="dragging"/>*/}
+                            <this.SortableList onSortEnd={this.onSortEnd} axis="x" pressDelay={100}
+                                               helperClass="dragging"/>
                             {/*<div className="dimensions">*/}
                             {/*    <div>*/}
                             {/*        <label htmlFor="inputHeight">Height</label>*/}
@@ -355,7 +358,7 @@ class Editor extends React.Component<SchemaEditorProps, SchemaEditorState> {
                             </div>
                             <div className="save-button-container">
                                 <Link to={cancelLink} className="btn small">Cancel</Link>
-                                <button onClick={handleSavePress} className="btn btn-success small">Save</button>
+                                <button onClick={handleSavePress}>Save</button>
                             </div>
                         </div>
                     }
@@ -372,7 +375,7 @@ class Editor extends React.Component<SchemaEditorProps, SchemaEditorState> {
 
         return match.params.schemaId ? (
             <div>
-                <div className="editor-title">
+                <div className={clsx("editor-title")}>
                     <span>
                         Editor: Edit
                     </span>

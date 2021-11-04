@@ -11,7 +11,7 @@ import {
     FetchWarningsAI,
     FetchWsDataSensorsAI,
     SensorsAT,
-    SetHistoricalGraphsDataAI,
+    SetHistoricalGraphsDataAI, SetMaintenanceAfterReloadAI,
     SetMaintenanceAI,
     SetMaintenancePageAI,
     SetMaintenanceStatusOperationAI,
@@ -148,6 +148,11 @@ export const sensorsAC = {
         payload,
     }),
 
+    setMaintenanceAfterReload: (payload: Maintenance): SetMaintenanceAfterReloadAI => ({
+        type: SensorsAT.SET_MAINTENANCE_AFTER_RELOAD,
+        payload,
+    }),
+
     setMaintenanceExpectOff: (payload: Maintenance): ChangeEventTypeMaintenanceAI => ({
         type: SensorsAT.CHANGE_EVENT_TYPE_ALARM_OFF,
         payload,
@@ -197,6 +202,7 @@ export type SensorsActions =
     | SetSensorsLoadingStatusAI
     | SetSensorsStatusOperationAI
     | FetchWsDataSensorsAI
+    | SetMaintenanceAfterReloadAI
     | SetWsDataSensorsAI
     | ClearWsDataSensorsAI
     | SetMaintenanceStatusOperationAI

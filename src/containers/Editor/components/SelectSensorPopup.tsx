@@ -105,7 +105,7 @@ class SelectSensorPopup extends React.Component<SelectSensorPopupProps, SelectSe
         } = this.props;
         const {excludeDevices, excludeGroup} = this.state;
 
-        const availableDevices = locations.find((location: Location) => location.id === parseFloat(match.params.siteId)).devices;
+        const availableDevices = locations.find((location: Location) => location?.id === parseFloat(match?.params?.siteId))?.devices;
 
         const handleSelectSensor = (sensor: any) => {
             const appData = app.serialize();
@@ -236,11 +236,11 @@ class SelectSensorPopup extends React.Component<SelectSensorPopupProps, SelectSe
                                 <li>
                                     <label>
                                         <input type="checkbox" name="excludeDevices" onChange={this.toggleFilterAll}
-                                               checked={!excludeDevices.length}/>
+                                               checked={!excludeDevices?.length}/>
                                         <div>Select All</div>
                                     </label>
                                 </li>
-                                {availableDevices.map((device: any) =>
+                                {availableDevices?.map((device: any) =>
                                     <li key={device.id}>
                                         <label>
                                             <input type="checkbox" value={device.id} name="excludeDevices"
@@ -291,7 +291,7 @@ class SelectSensorPopup extends React.Component<SelectSensorPopupProps, SelectSe
 
     private toggleFilterAll = (e: any) => {
         const {suggestionsInputValue, match, locations} = this.props;
-        const availableDevices = locations.find((location: Location) => location.id === parseFloat(match.params.siteId)).devices;
+        const availableDevices = locations?.find((location: Location) => location?.id === parseFloat(match?.params?.siteId))?.devices;
         const fieldName = e.target.name;
         let newFieldValue = [];
 
@@ -299,7 +299,7 @@ class SelectSensorPopup extends React.Component<SelectSensorPopupProps, SelectSe
             if (fieldName === "excludeGroup") {
                 newFieldValue = sensorGroups.map((groupObj: any) => groupObj.value);
             } else if (fieldName === "excludeDevices") {
-                newFieldValue = availableDevices.map((device: any) => device.id.toString());
+                newFieldValue = availableDevices?.map((device: any) => device?.id.toString());
             }
         }
 

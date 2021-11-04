@@ -8,6 +8,7 @@ import App from "./App"
 
 import "antd/dist/antd.css"
 import "./styles/globals.scss"
+import './styles/general-styles.scss';
 import history from "./helpers/history"
 
 ReactDOM.render(

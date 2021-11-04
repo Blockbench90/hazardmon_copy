@@ -37,7 +37,6 @@ import {
     SENSOR_GRAPHS,
     SITES,
     USER_SETTING,
-    VISUAL_DASHBOARD,
 } from "./constants";
 import AddUser from "../../AddUser";
 import UserSetting from "../../UserSetting";
@@ -165,8 +164,23 @@ export const adminRoutes = [
         path: ANALYTICS,
         Component: Analytics,
     },
+    // {
+    //     path: VISUAL_DASHBOARD,
+    //     Component: VisualDashboard,
+    // },
+    // schemasList: '/site/:siteId/schemas/',
+    // machineDetails: '/site/:siteId/schemas/:schemaId/tabs/:tabId/machines/:machineId/',
+    // newSchema: '/site/:siteId/schemas/new',
+    // schemaDetails: '/site/:siteId/schemas/:schemaId/tabs/:tabId',
+    // schemaEdit: '/site/:siteId/schemas/:schemaId/edit',
+    // tabEdit: '/site/:siteId/schemas/:schemaId/tabs/:tabId/edit',
+    // tabNew: '/site/:siteId/schemas/:schemaId/new-tab',
     {
-        path: VISUAL_DASHBOARD,
+        path: urls.schemasList,
+        Component: VisualDashboard,
+    },
+    {
+        path: urls.schemaEdit,
         Component: VisualDashboard,
     },
     {

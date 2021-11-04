@@ -57,8 +57,8 @@ class SchemasList extends React.Component<SchemasListProps, SchemasListState> {
     public renderSidebar() {
         const { match } = this.props;
         return (
-            <div className="sidebar">
-                <Link to={urls.newSchema.replace(':siteId', match.params.siteId)} className="btn btn-success small">
+            <div>
+                <Link to={urls.newSchema.replace(':siteId', match.params.siteId)}>
                     <AddNewBlock text="Add new schema"/>
                 </Link>
             </div>

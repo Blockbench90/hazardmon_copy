@@ -70,13 +70,10 @@ const AddEmailNotificationForm: React.FC<AddEmailNotificationFormProps> = ({
             })
         }
 
-        console.log("site ==>", sitesData);
         useEffect(() => {
             if (!!current) {
                 setCurrent(current);
             }
-
-            // form.setFieldsValue(currentNotify);
 
             return () => {
                 setCurrent(null);

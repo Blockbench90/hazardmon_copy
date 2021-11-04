@@ -1,5 +1,6 @@
 .tab-editor .editor-title {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .editor-title__editor {
@@ -118,6 +119,41 @@
     color: #000;
 }
 
+
+@media screen and (max-width: 1290px) {
+    .tab-editor .machines-types .machine-type__image-container {
+        height: 78px;
+        width: 30px;
+    }
+    .dashboard-base .main-wrapper aside {
+         width: 17%;
+    }
+    .tab-editor .machines-types .machine-type {
+        flex-wrap: wrap;
+    }
+    .machine-type__image-container img {
+        width: 20px;
+    }
+    .tab-editor {
+        padding: 2px;
+        font-size: 10px;
+    }
+    .tab-editor .machines-types .machine-type__image-container .rectangle {
+        height: 32px;
+        width: 32px;
+    }
+
+    .tab-editor .machines-types .machine-type__image-container .circle {
+        height: 32px;
+        width: 32px;
+    }
+
+    .tab-editor .machines-types .machine-type__image-container .line {
+        height: 3px;
+        width: 32px;
+    }
+}
+
 .tab-editor .machines-types .machine-type > div {
     font-size: 13px;
     font-weight: 600;
@@ -130,6 +166,11 @@
 
 .dimensions {
     display: flex;
+}
+@media screen and (max-width: 1230px) {
+    .dimensions {
+        margin-top: 15px;
+    }
 }
 
 .dimensions-input__title {

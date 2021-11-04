@@ -22,7 +22,8 @@
     .machine .sensor_point.filled {
       background-color: #333; }
     .machine .sensor_point.NA, .machine .sensor_point.OK {
-      background-color: #00b48d; }
+      background-color: #00b48d;
+      border-bottom: #00b48d; }
     .machine .sensor_point.WARNING {
       background-color: #ffbf00; }
     .machine .sensor_point.Alarm {

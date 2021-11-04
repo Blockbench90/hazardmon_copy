@@ -1,95 +1,74 @@
 @import "variables";
 @import "buttons";
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-  box-sizing: border-box;
-}
-
-sup {
-  top: -0.5em;
-}
-sub, sup {
-  position: relative;
-  font-size: 75%;
-  line-height: 0;
-  vertical-align: baseline;
-}
-
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-  display: block;
-}
-
-html, body {
-  height: 100%;
-
-  #root {
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
-
-    .fullscreen {
-      flex: 1 0 auto;
-    }
-  }
-}
-
-body {
-  line-height: 1;
-  font-family: 'Helvetica';
-  background-color: #e9f2f9;
-}
-ol, ul {
-  list-style: none;
-}
-blockquote, q {
-  quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-  content: '';
-  content: none;
-}
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-  border: 1px solid $border-color;
-
-  thead {
-    th {
-      border: 1px solid $border-color;
-      background-color: #eeeeee;
-      padding: 10px;
-    }
-  }
-
-  tbody {
-    td {
-      border: 1px solid $border-color;
-      padding: 10px;
-      text-align: center;
-    }
-  }
-}
+//
+//sup {
+//  top: -0.5em;
+//}
+//sub, sup {
+//  position: relative;
+//  font-size: 75%;
+//  line-height: 0;
+//  vertical-align: baseline;
+//}
+//
+///* HTML5 display-role reset for older browsers */
+//article, aside, details, figcaption, figure,
+//footer, header, hgroup, menu, nav, section {
+//  display: block;
+//}
+//
+//html, body {
+//  height: 100%;
+//
+//  #root {
+//    min-height: 100%;
+//    display: flex;
+//    flex-direction: column;
+//
+//    .fullscreen {
+//      flex: 1 0 auto;
+//    }
+//  }
+//}
+//
+//body {
+//  line-height: 1;
+//  font-family: 'Helvetica';
+//  background-color: #e9f2f9;
+//}
+//ol, ul {
+//  list-style: none;
+//}
+//blockquote, q {
+//  quotes: none;
+//}
+//blockquote:before, blockquote:after,
+//q:before, q:after {
+//  content: '';
+//  content: none;
+//}
+//table {
+//  border-collapse: collapse;
+//  border-spacing: 0;
+//  border: 1px solid $border-color;
+//
+//  thead {
+//    th {
+//      border: 1px solid $border-color;
+//      background-color: #eeeeee;
+//      padding: 10px;
+//    }
+//  }
+//
+//  tbody {
+//    td {
+//      border: 1px solid $border-color;
+//      padding: 10px;
+//      text-align: center;
+//    }
+//  }
+//}
 
 input {
   box-sizing: border-box;
@@ -125,10 +104,12 @@ a {
 .schema-tabs {
   display: flex;
   overflow: auto;
+  border-radius: 5px;
 }
 
 .schema-tab {
-  background-color: $main-blue;
+  //background-color: $main-blue;
+  border-bottom: $main-blue;
   padding-right: 15px;
   display: flex;
   color: #ffffff;
@@ -140,11 +121,12 @@ a {
   text-decoration: none;
 
   &.dragging {
-    opacity: 0.6;
+    opacity: 0.2;
   }
 
   &.selected {
-    background-color: $light-blue;
+    //background-color: $light-blue;
+    border-bottom: $light-blue;
   }
 
   &__icon {

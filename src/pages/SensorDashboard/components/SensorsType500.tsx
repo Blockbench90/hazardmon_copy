@@ -11,10 +11,11 @@ import classes from "../SensorDashboard.module.scss";
 
 interface SensorsType500Props {
     wsGroup?: WsGroups
-    parentID: string
+    wsDataId: string
+    groupId: string
+    groupsId?: string
     f500GroupID: string
     alignmentID?: string
-    WsGroupID?: string
     groupNumber?: number
     isAlignment?: boolean
     filter_status?: FilterStatus
@@ -24,9 +25,10 @@ interface SensorsType500Props {
 
 const SensorsType500: React.FC<SensorsType500Props> = ({
                                                            wsGroup,
-                                                           parentID,
+                                                           wsDataId,
+                                                           groupId,
+                                                           groupsId,
                                                            f500GroupID,
-                                                           WsGroupID,
                                                            alignmentID,
                                                            groupNumber,
                                                            isAlignment,
@@ -110,11 +112,12 @@ const SensorsType500: React.FC<SensorsType500Props> = ({
                         return (
                             <SensorWrap sensor={item} key={`${item.Id}${index}1-1`}
                                         sensorNumber={index + 1}
-                                        parentID={parentID}
+                                        wsDataId={wsDataId}
+                                        groupId={groupId}
+                                        groupsId={groupsId}
+                                        sensorId={item?.Id}
                                         f500GroupID={f500GroupID}
                                         alignmentID={alignmentID}
-                                        alignmentSensorID={item?.Id}
-                                        WsGroupID={WsGroupID}
                                         isAlignment={isAlignment}
                                         filter_status={filter_status}
                                         groupNumber={groupNumber}/>

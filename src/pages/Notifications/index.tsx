@@ -47,7 +47,11 @@ const Notifications: React.FC = () => {
 
     const [searchData, setSearchData] = useState<IFilterData>(initialFilterData);
 
-    const {status, notifications: {results: notifications = [], count: countNotifications}, notificationsFilter: {isActive}} = useSelector(selectUserState);
+    const {
+        status,
+        notifications: {results: notifications = [], count: countNotifications},
+        notificationsFilter: {isActive},
+    } = useSelector(selectUserState);
 
     const [searchTerm, setSearchTerm] = useState("");
     const [pagination, setPagination] = useState({page: 1, pageSize: 20});
@@ -87,6 +91,7 @@ const Notifications: React.FC = () => {
 
     const onChangeLocation = useCallback((value: any, option: any) => {
         if (option.props === "All") {
+            setSearchData(prev => ({...prev, location: null}));
             return;
         }
         setSearchData(prev => ({...prev, location: option.props}));
@@ -123,6 +128,7 @@ const Notifications: React.FC = () => {
 
     const handSelectDevice = (value: any, option: any) => {
         if (option.props === "All") {
+            setSearchData(prev => ({...prev, device: null}));
             return;
         }
         setSearchData(prev => ({...prev, device: option.props}));
@@ -130,6 +136,7 @@ const Notifications: React.FC = () => {
 
     const handSelectType = (value: any, option: any) => {
         if (option.props === "All") {
+            setSearchData(prev => ({...prev, event_type: null}));
             return;
         }
         setSearchData(prev => ({...prev, event_type: option.props}));

@@ -18,6 +18,12 @@ export interface Device {
 
 }
 
+export interface MaintenanceInfo {
+    time: number,
+    engineer: string,
+    state: string
+}
+
 export interface FetchNextPortionDevices {
     device_id: number
     limit: number
@@ -32,6 +38,7 @@ export interface DevicesState {
         results: Device[]
     }
     current_device: Device
+    maintenanceInfo: any
     all_devices: Device[]
     status: LoadingStatus
     status_operation: LoadingStatus

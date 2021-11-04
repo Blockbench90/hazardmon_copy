@@ -11,7 +11,8 @@ import classes from "../SensorDashboard.module.scss";
 
 interface Sensors {
     group: WsGroup
-    parentID: string
+    wsDataId: string
+    groupId: string
     sensorsGroupsName?: string
     groupNumber: number
     deviceType: string
@@ -21,15 +22,14 @@ interface Sensors {
 
 const SensorsGroups: React.FC<Sensors> = ({
                                               group,
-                                              parentID,
+                                              wsDataId,
+                                              groupId,
                                               sensorsGroupsName,
                                               groupNumber,
                                               deviceType,
                                               groupName,
                                               filter_status,
                                           }) => {
-
-    // console.log("gropu ==>", group.Id);
     return (
         <div className={clsx(deviceType === "f500"
             ? classes.deviceType500Block
@@ -54,9 +54,10 @@ const SensorsGroups: React.FC<Sensors> = ({
                                     }
                                     return <SensorsType500 groupNumber={groupNumber}
                                                            filter_status={filter_status}
-                                                           parentID={parentID}
+                                                           wsDataId={wsDataId}
+                                                           groupId={groupId}
+                                                           groupsId={item.Id}
                                                            f500GroupID={group.Id}
-                                                           WsGroupID={item.Id}
                                                            wsGroup={item}
                                                            isAlarmedGroup={group.Alarm}
                                                            key={`sensor_f500_group${index}`}
@@ -67,9 +68,10 @@ const SensorsGroups: React.FC<Sensors> = ({
                                     if (item.Alarm) {
                                         return <SensorsType500 groupNumber={groupNumber}
                                                                filter_status={filter_status}
-                                                               parentID={parentID}
+                                                               wsDataId={wsDataId}
+                                                               groupId={groupId}
+                                                               groupsId={item.Id}
                                                                f500GroupID={group.Id}
-                                                               WsGroupID={item.Id}
                                                                wsGroup={item}
                                                                isAlarmedGroup={group.Alarm}
                                                                key={`sensor_f500_group${index}`}
@@ -80,9 +82,10 @@ const SensorsGroups: React.FC<Sensors> = ({
 
                                 return <SensorsType500 groupNumber={groupNumber}
                                                        filter_status={filter_status}
-                                                       parentID={parentID}
+                                                       wsDataId={wsDataId}
+                                                       groupId={groupId}
+                                                       groupsId={item.Id}
                                                        f500GroupID={group.Id}
-                                                       WsGroupID={item.Id}
                                                        wsGroup={item}
                                                        isAlarmedGroup={group.Alarm}
                                                        key={`sensor_f500_group${index}`}
@@ -102,8 +105,10 @@ const SensorsGroups: React.FC<Sensors> = ({
                         <div className={classes.mapBlock}>
                             {group?.sensors?.map((item, index) => (
                                 <SensorWrap sensor={item}
-                                            parentID={parentID}
-                                            WsGroupID={item.Id}
+                                            wsDataId={wsDataId}
+                                            groupId={groupId}
+                                            sensorsId={item.Id}
+                                            groupsId={item.Id}
                                             key={`${item.Id}${index}1-1`}
                                             sensorNumber={index + 1}
                                             filter_status={filter_status}
@@ -132,9 +137,10 @@ const SensorsGroups: React.FC<Sensors> = ({
                             return <SensorsType500 groupNumber={groupNumber}
                                                    wsGroup={item}
                                                    key={`alignment_${index}`}
-                                                   parentID={parentID}
+                                                   wsDataId={wsDataId}
+                                                   groupId={groupId}
+                                                   groupsId={item.Id}
                                                    f500GroupID={group.Id}
-                                                   WsGroupID={item.Id}
                                                    alignmentID={item.Id}
                                                    filter_status={filter_status}
                                                    isAlignment={true}

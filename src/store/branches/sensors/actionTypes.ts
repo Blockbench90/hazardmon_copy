@@ -27,6 +27,7 @@ export enum SensorsAT {
     SET_MAINTENANCE_PAGE = "sensors_dashboard/SET_MAINTENANCE_PAGE",
     SET_MAINTENANCE_STATUS_OPERATION = "sensors_dashboard/SET_MAINTENANCE_STATUS_OPERATION",
     SET_MAINTENANCE = "sensors_dashboard/SET_MAINTENANCE",
+    SET_MAINTENANCE_AFTER_RELOAD = "sensors_dashboard/SET_MAINTENANCE_AFTER_RELOAD",
     CHANGE_EVENT_TYPE_ALARM_OFF = "sensors_dashboard/CHANGE_EVENT_TYPE_ALARM_OFF",
     SHOW_CONFIRM_MAINTENANCE_MODAL = "sensors_dashboard/SHOW_CONFIRM_MAINTENANCE_MODAL",
     STOP_SENSOR_MAINTENANCE = "sensors_dashboard/STOP_SENSOR_MAINTENANCE",
@@ -141,6 +142,11 @@ export interface SetMaintenanceStatusOperationAI extends Action<SensorsAT> {
 
 export interface SetMaintenanceAI extends Action<SensorsAT> {
     type: SensorsAT.SET_MAINTENANCE;
+    payload: Maintenance
+}
+
+export interface SetMaintenanceAfterReloadAI extends Action<SensorsAT> {
+    type: SensorsAT.SET_MAINTENANCE_AFTER_RELOAD;
     payload: Maintenance
 }
 

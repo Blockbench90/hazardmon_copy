@@ -1,6 +1,6 @@
 import {Action} from "redux"
 import {LoadingStatus} from "../../status"
-import {Device, DevicesState, FetchNextPortionDevices} from "./stateTypes";
+import {Device, DevicesState, FetchNextPortionDevices, MaintenanceInfo} from "./stateTypes";
 
 export enum DevicesAT {
     FETCH_DEVICES = "devices/FETCH_DEVICES",
@@ -8,8 +8,10 @@ export enum DevicesAT {
     FETCH_CURRENT_DEVICE = "devices/FETCH_CURRENT_DEVICE",
     FETCH_ALL_DEVICES = "devices/FETCH_ALL_DEVICES",
     UPDATE_CURRENT_DEVICE = "devices/UPDATE_CURRENT_DEVICE",
+    GET_MAINTENANCE_INFO = "devices/GET_MAINTENANCE_INFO",
     ADD_DEVICE = "devices/ADD_DEVICE",
     SET_CURRENT_DEVICE = "devices/SET_CURRENT_DEVICE",
+    SET_MAINTENANCE_INFO = "devices/SET_MAINTENANCE_INFO",
     SET_ALL_DEVICES = "devices/SET_ALL_DEVICES",
     REMOVE_CURRENT_DEVICE = "devices/REMOVE_CURRENT_DEVICE",
     DEACTIVATE_CURRENT_DEVICE = "devices/DEACTIVATE_CURRENT_DEVICE",
@@ -20,6 +22,7 @@ export enum DevicesAT {
     SET_DEVICES = "devices/SET_DEVICES",
     CLEAR_DEVICES = "devices/CLEAR_DEVICES",
     CLEAR_SELECT_DEVICES = "devices/CLEAR_SELECT_DEVICES",
+    STOP_DEVICE_MAINTENANCE = "devices/STOP_DEVICE_MAINTENANCE",
     SET_LOADING_STATE = "devices/SET_LOADING_STATE",
     SET_DEVICES_OPERATION_STATUS = "devices/SET_DEVICES_OPERATION_STATUS",
 }
@@ -32,6 +35,11 @@ export interface SelectDevicesAI extends Action<DevicesAT> {
 
 export interface SelectDeviceAI extends Action<DevicesAT> {
     type: DevicesAT.SELECT_DEVICE
+    payload: string
+}
+
+export interface GetMaintenanceInfoAI extends Action<DevicesAT> {
+    type: DevicesAT.GET_MAINTENANCE_INFO
     payload: string
 }
 
@@ -78,6 +86,11 @@ export interface SetCurrentDeviceAI extends Action<DevicesAT> {
     payload: Device
 }
 
+export interface SetMaintenanceInfoAI extends Action<DevicesAT> {
+    type: DevicesAT.SET_MAINTENANCE_INFO;
+    payload: MaintenanceInfo[]
+}
+
 export interface SetAllDevicesAI extends Action<DevicesAT> {
     type: DevicesAT.SET_ALL_DEVICES;
     payload: Device[]
@@ -106,6 +119,11 @@ export interface NotificationSelectAI extends Action<DevicesAT> {
 export interface SetOperationStatusDevicesAI extends Action<DevicesAT> {
     type: DevicesAT.SET_DEVICES_OPERATION_STATUS;
     payload: LoadingStatus;
+}
+
+export interface StopDeviceMaintenanceAI extends Action<DevicesAT> {
+    type: DevicesAT.STOP_DEVICE_MAINTENANCE;
+    payload: string;
 }
 
 export interface ClearDevicesAI extends Action<DevicesAT> {

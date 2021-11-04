@@ -8,6 +8,7 @@ import {DevicesAT} from "./actionTypes";
 const initialDevicesState: DevicesState = {
     devicesDate: null,
     current_device: null,
+    maintenanceInfo: null,
     all_devices: null,
     status: LoadingStatus.NEVER,
     status_operation: LoadingStatus.NEVER,
@@ -39,6 +40,10 @@ export const devicesReducer = produce((draft: Draft<DevicesState>, action: Devic
             draft.status = LoadingStatus.LOADED;
             break;
 
+        case DevicesAT.SET_MAINTENANCE_INFO:
+            draft.maintenanceInfo = action.payload;
+            break;
+
         case DevicesAT.SELECT_DEVICES:
             draft.isSelected = true;
             break;
@@ -55,6 +60,10 @@ export const devicesReducer = produce((draft: Draft<DevicesState>, action: Devic
             draft.devicesDate = null;
             draft.status = LoadingStatus.NEVER;
             draft.isSelected = false;
+            break;
+
+        case DevicesAT.STOP_DEVICE_MAINTENANCE:
+            draft.maintenanceInfo[action.payload] = null;
             break;
 
         default:

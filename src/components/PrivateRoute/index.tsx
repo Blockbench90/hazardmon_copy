@@ -34,6 +34,7 @@ const PrivateRoute: React.FC<{ isTablet: boolean }> = ({isTablet}) => {
     const {
         isSuperUser,
         isOEM,
+        isManager, isAccountManager
     } = usePermissions();
 
     useEffect(() => {
@@ -58,7 +59,7 @@ const PrivateRoute: React.FC<{ isTablet: boolean }> = ({isTablet}) => {
                                     <Route key={path + "private"} path={path} component={Component} exact/>,
                                 )}
 
-                                {(isSuperUser || isOEM) && adminRoutes.map(({path, Component}: RouteProps) =>
+                                {(isSuperUser || isOEM || isManager || isAccountManager) && adminRoutes.map(({path, Component}: RouteProps) =>
                                     <Route key={path + "admin"} path={path} component={Component} exact/>,
                                 )}
                             </LayoutComponent>

@@ -16,20 +16,22 @@ import {ReactComponent as Off} from "../../../assets/icons/button_off.svg";
 import {ReactComponent as Clock} from "../../../assets/icons/clock.svg";
 
 import {FilterStatus, WsSensor} from "../../../store/branches/sensors/stateTypes";
-import {selectSensorsState} from "../../../store/selectors";
+import {selectDevicesState, selectSensorsState} from "../../../store/selectors";
 import {useCurrentSelection} from "../../../hooks/useCurrentSelection";
 import {sensorsAC} from "../../../store/branches/sensors/actionCreators";
+import {concatIds} from "../../../helpers/concatUrl";
 
 import classes from "../SensorDashboard.module.scss";
-import {concatIds} from "../../../helpers/concatUrl";
 
 interface SensorProps {
     sensor: WsSensor,
-    parentID?: string
+    wsDataId?: string
+    groupId?: string
+    groupsId?: string
+    sensorsId?: string
+    sensorId?: string
     f500GroupID?: string
     alignmentID?: string
-    alignmentSensorID?: string
-    WsGroupID?: string
     isAlignment?: boolean,
     sensorNumber?: number,
     groupNumber?: number
@@ -41,14 +43,15 @@ interface SensorProps {
     ContactName?: React.ReactNode
 }
 
-
 const Sensor: React.FC<SensorProps> = ({
                                            sensor,
-                                           parentID,
+                                           wsDataId,
+                                           groupId,
+                                           groupsId,
+                                           sensorsId,
+                                           sensorId,
                                            f500GroupID,
-                                           WsGroupID,
                                            alignmentID,
-                                           alignmentSensorID,
                                            sensorNumber,
                                            groupNumber,
                                            isAlignment,
@@ -59,25 +62,22 @@ const Sensor: React.FC<SensorProps> = ({
                                            isBoolean,
                                            ContactName,
                                        }) => {
-
-        // console.log("data ==>", parentID, f500GroupID, WsGroupID )
-
         const history = useHistory();
         const dispatch = useDispatch();
         const {maintenanceSensorsArray, isMaintenance} = useSelector(selectSensorsState);
+        const {maintenanceInfo} = useSelector(selectDevicesState);
         const {device} = useCurrentSelection();
 
         const isDisabledForMaintenance = ["18000", "21000"].includes(sensor.Id);
 
-        // const getParentsIds = useCallback(() => {
-        //     if (device?.device_type === "F500-UDF") {
-        //         return `${parentID}.${f500GroupID}.${WsGroupID}`;
-        //     }
-        //     return `${parentID}.${WsGroupID}`;
-        // }, [parentID, f500GroupID, WsGroupID, device?.device_type]);
-
-        const parentIds = concatIds({parentID, f500GroupID, WsGroupID, alignmentID, alignmentSensorID})
-        const alreadyInMaintenance = maintenanceSensorsArray.find(item => item.sensor_id === `${parentIds}.${sensor.Id}`);
+        const parentIds = concatIds({
+            wsDataId,
+            groupId,
+            groupsId,
+            sensorsId,
+            sensorId,
+        });
+        const alreadyInMaintenance = maintenanceSensorsArray.find(item => item.sensor_id === parentIds);
 
         const timer = () => {
             const currentTime = new Date().getTime();
@@ -97,29 +97,28 @@ const Sensor: React.FC<SensorProps> = ({
                 isShow: true,
                 device_id: device.id,
                 event_type: "maintenance_canceled",
-                sensor_id: `${parentIds}.${sensor.Id}`,
+                sensor_id: parentIds,
                 sensor_name: sensor.Name,
             }));
         };
 
         const changeEventTypeMaintenance = useCallback((sensor: WsSensor) => {
-            console.log("setMaintenanceExpectOff() ==>");
             dispatch(sensorsAC.setMaintenanceExpectOff({
                 device_id: device?.id,
-                sensor_id: `${parentIds}.${sensor.Id}`,
+                sensor_id: parentIds,
                 sensor_name: sensor?.Name,
                 event_type: "maintenance_expect_alarm_off",
                 maintenance_time: new Date().getTime(),
             }));
         }, [dispatch, parentIds, device?.id]);
 
+
         const successMaintenance = useCallback((sensor: WsSensor) => {
-            console.log("successMaintenance ==>");
             dispatch(sensorsAC.showConfirmModal({
                 isShow: true,
                 device_id: device?.id,
                 event_type: "maintanance_succeeded",
-                sensor_id: `${parentIds}.${sensor.Id}`,
+                sensor_id: parentIds,
                 sensor_name: sensor?.Name,
             }));
         }, [dispatch, parentIds, device?.id]);
@@ -133,11 +132,37 @@ const Sensor: React.FC<SensorProps> = ({
             dispatch(sensorsAC.setMaintenance({
                 device_id: device.id,
                 event_type: "maintenance_expect_alarm_on",
-                sensor_id: `${parentIds}.${sensor.Id}`,
+                sensor_id: parentIds,
+                current_sensor_id: sensor.Id,
                 sensor_name: sensor.Name,
                 maintenance_time: new Date().getTime(),
             }));
         }, [sensor, isDisabledForMaintenance, parentIds, device?.id, dispatch]);
+
+        useEffect(() => {
+            if (isMaintenance && maintenanceInfo) {
+                const IdsInfo = Object.keys(maintenanceInfo);
+                const alreadyMaintenanceSensor = IdsInfo.includes(alreadyInMaintenance?.current_sensor_id);
+                if (IdsInfo.includes(sensor.Id)) {
+                    if (alreadyMaintenanceSensor) {
+                        return;
+                    }
+                    if (maintenanceInfo[sensor.Id] === null) {
+                        return;
+                    }
+
+                    dispatch(sensorsAC.setMaintenanceAfterReload({
+                        device_id: device.id,
+                        event_type: maintenanceInfo[sensor.Id]?.state,
+                        sensor_id: parentIds,
+                        current_sensor_id: sensor.Id,
+                        sensor_name: sensor.Name,
+                        maintenance_time: maintenanceInfo[sensor.Id]?.time,
+                    }));
+                }
+            }
+            // eslint-disable-next-line
+        }, [maintenanceInfo, maintenanceInfo?.sensor]);
 
         const onSensorClick = () => {
             if (isMaintenance && !alreadyInMaintenance && !sensor?.Alarm) {
@@ -161,8 +186,6 @@ const Sensor: React.FC<SensorProps> = ({
         useEffect(() => {
             if (isMaintenance && alreadyInMaintenance) {
                 if (sensor?.Alarm && (alreadyInMaintenance.event_type === "maintenance_expect_alarm_on")) {
-                    console.log("sensor Alarm ==>", sensor);
-                    console.log("stopMaintenance() ==>");
                     changeEventTypeMaintenance(sensor);
                 }
             }
@@ -172,10 +195,8 @@ const Sensor: React.FC<SensorProps> = ({
         useEffect(() => {
             if (isMaintenance && alreadyInMaintenance) {
                 if ((alreadyInMaintenance.event_type === "maintenance_expect_alarm_off") && !sensor?.Alarm) {
-                    console.log("maintenance_expect_alarm_off ==>", sensor);
-                    console.log("successMaintenance() ==>");
                     successMaintenance(sensor);
-                    dispatch(sensorsAC.clearMaintenanceArray(`${parentIds}.${sensor?.Id}`));
+                    dispatch(sensorsAC.clearMaintenanceArray(parentIds));
                 }
             }
         });
@@ -269,19 +290,19 @@ const Sensor: React.FC<SensorProps> = ({
                                         <div className={clsx(classes.statusInfo,
                                             sensor?.Alarm && classes.statusInfoDanger,
                                             sensor?.Status === "WARNING" && classes.sensorWarning)}>
-                            <span className={classes.statusValue}>
-                                {!isBoolean && ((sensor.Meta.Units === "Minutes") ? `${Math.floor(sensor.Value / 60)}h:${sensor.Value % 60}m` : sensor.Value)}
-                            </span>
+                                            <span className={classes.statusValue}>
+                                                {!isBoolean && ((sensor.Meta.Units === "Minutes") ? `${Math.floor(sensor.Value / 60)}h:${sensor.Value % 60}m` : sensor.Value)}
+                                            </span>
 
                                             <span>
-                                {!isBoolean
-                                &&
-                                (sensor.Meta.Units === "Minutes")
-                                    ? ""
-                                    : sensor.Meta.Units === "Seconds"
-                                        ? "Sec" :
-                                        sensor.Meta.Units === "C" ? <span>&deg;C</span> : sensor.Meta.Units}
-                            </span>
+                                                {!isBoolean
+                                                &&
+                                                (sensor.Meta.Units === "Minutes")
+                                                    ? ""
+                                                    : sensor.Meta.Units === "Seconds"
+                                                        ? "Sec" :
+                                                        sensor.Meta.Units === "C" ? <span>&deg;C</span> : sensor.Meta.Units}
+                                            </span>
                                         </div>
                                     }
                                 </div>
@@ -293,14 +314,13 @@ const Sensor: React.FC<SensorProps> = ({
                                 </div>
 
                                 <div>
-                    <span>
-                        #{groupNumber}.{sensorNumber}
-                    </span>
+                                    <span>
+                                        #{groupNumber}.{sensorNumber}
+                                    </span>
                                 </div>
                             </div>
                         </div>
                 }
-
             </React.Fragment>
         );
     }

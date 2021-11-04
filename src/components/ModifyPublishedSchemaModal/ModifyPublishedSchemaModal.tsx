@@ -49,7 +49,7 @@ class ModifyPublishedSchemaModal extends React.Component<PublishModalProps> {
                     <Field component="input" name="new_name" required={true}/>
                     <div className="buttons-container">
                         <button className="btn small" type="submit" onClick={handleCloseModal}>Cancel</button>
-                        <button className="btn btn-success small" type="submit">Continue</button>
+                        <button type="submit">Continue</button>
                     </div>
                 </form>
             </Modal>

@@ -70,7 +70,6 @@ const HistoricalTable: React.FC<TableProps> = ({
 
     const handleSelectCollum = (collum: any) => {
         const timescale = collum.key.split(" ");
-        console.log("colum ===>", collum.key.split(" "), "<=== done");
         history.push(`/graphs/historical/graphs/${timescale[0]}&${timescale[1]}`);
     };
 

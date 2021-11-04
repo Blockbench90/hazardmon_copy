@@ -22,10 +22,10 @@ export class Application {
         this.diagramEngine = new SRD.DiagramEngine();
         this.diagramEngine.installDefaultFactories();
 
-        this.diagramEngine.registerPortFactory(new SimplePortFactory("custom", () => new CustomPortModel()));
-        this.diagramEngine.registerNodeFactory(new CustomNodeFactory());
-        this.diagramEngine.registerNodeFactory(new ShapesNodeFactory());
-        this.diagramEngine.registerNodeFactory(new LabelNodeFactory());
+        this.diagramEngine?.registerPortFactory(new SimplePortFactory("custom", () => new CustomPortModel()));
+        this.diagramEngine?.registerNodeFactory(new CustomNodeFactory());
+        this.diagramEngine?.registerNodeFactory(new ShapesNodeFactory());
+        this.diagramEngine?.registerNodeFactory(new LabelNodeFactory());
 
         this.tabDetails = tabDetails;
 
@@ -127,7 +127,7 @@ export class Application {
     public removeNode(node: any) {
         this.activeModel.removeNode(node);
         const links = _.filter(this.activeModel.links, (link: any) => {
-            return link.sourcePort.parent.id === node.id || link.targetPort.parent.id === node.id;
+            return link?.sourcePort?.parent?.id === node?.id || link?.targetPort?.parent?.id === node?.id;
         });
         links.forEach((link: any) => {
             this.activeModel.removeLink(link);

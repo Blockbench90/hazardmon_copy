@@ -1,28 +1,28 @@
 import * as _ from "lodash";
-import { DefaultLinkModel, DiagramEngine, LinkModel, PortModel } from "storm-react-diagrams";
+import {DefaultLinkModel, DiagramEngine, LinkModel, PortModel} from "storm-react-diagrams";
 
 export default class CustomPortModel extends PortModel {
+    constructor(pos?: any) {
+        super(pos?.name, "custom");
+        if (pos) {
+            this.positionName = pos?.name;
+            this.portId = pos?.portId;
+            this.xPosition = pos?.xPosition;
+            this.yPosition = pos?.yPosition;
+        }
+    }
+
     protected positionName: string;
     protected portId: number;
     protected xPosition: number;
     protected yPosition: number;
-
-    constructor(pos?: any) {
-        if (pos) {
-            super(pos.name, "custom");
-            this.positionName = pos.name;
-            this.portId = pos.portId;
-            this.xPosition = pos.xPosition;
-            this.yPosition = pos.yPosition;
-        }
-    }
 
     public serialize() {
         return _.merge(super.serialize(), {
             portId: this.portId,
             positionName: this.positionName,
             xPosition: this.xPosition,
-            yPosition: this.yPosition
+            yPosition: this.yPosition,
         });
     }
 
@@ -48,6 +48,6 @@ export default class CustomPortModel extends PortModel {
     }
 
     public removeAllLinks() {
-        this.links = {}
+        this.links = {};
     }
 }

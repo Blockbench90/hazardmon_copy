@@ -47,7 +47,7 @@ export const SensorsApi = {
         const data = await axios.get<APIResponse>(`/api/v1/devices/${payload.device_id}/historical/graphs/?timestamp=${payload.date}%20${payload.time}:00&limit=${payload.limit}&offset=${payload.offset}`);
         return data;
     },
-    async setMaintenance(payload: Maintenance): Promise<any> {
+    async setMaintenance(payload: any): Promise<any> {
         const data = await axios.post<APIResponse>(`api/v1/devices/${payload.device_id}/maintenance/`, {
             event_type: payload.event_type,
             sensor_id: payload.sensor_id,

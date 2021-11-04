@@ -69,7 +69,7 @@ class DashboardBase extends React.Component<DashboardBaseProps, DashboardBaseSta
                     {
                         !isDetails
                         &&
-                        <aside id="sidebar" className={classNames(isEditor && "editor-types")}>
+                        <aside  className={classNames(isEditor && "editor-types")}>
                             {/*{!isSchemaList*/}
                             {/*&&*/}
                             {/*<div className="extend-sidebar-button-container">*/}

@@ -95,7 +95,6 @@ const WarningForm: React.FC<WarningFormProps> = ({
                                                                                 ))}
                                                                             </OptGroup>;
                                                                         } else {
-                                                                            console.log("item ==>", item);
                                                                             return <OptGroup label={item?.name}
                                                                                              key={`sensor_id_${item.id}_${index}`}>
                                                                                 {item?.sensors?.map((sensor: WarningSensor, index: number) => (

@@ -43,7 +43,7 @@ class PublishModal extends React.Component<PublishModalProps> {
                     <label>Comment:</label>
                     <Field component="textarea" name="comment" required={true}/>
                     <div className="buttons-container">
-                        <button className="btn btn-success small" type="submit">Publish</button>
+                        <button type="submit">Publish</button>
                     </div>
                 </form>
             </Modal>

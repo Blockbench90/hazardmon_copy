@@ -1,17 +1,27 @@
-import {Device, DevicesState, FetchNextPortionDevices} from "./stateTypes";
+import {Device, DevicesState, FetchNextPortionDevices, MaintenanceInfo} from "./stateTypes";
 import {
-    AddDeviceAI, ChangeActiveCurDevAI,
+    AddDeviceAI,
+    ChangeActiveCurDevAI,
     ClearDevicesAI,
-    ClearSelectDevicesAI, DeactivateDeviceAI,
-    DevicesAT, FetchAllDevicesAI,
+    ClearSelectDevicesAI,
+    DeactivateDeviceAI,
+    DevicesAT,
+    FetchAllDevicesAI,
     FetchCurrentDeviceAI,
-    FetchDevicesAI, FetchNextPortionDevicesAI, NotificationSelectAI, RemoveDeviceAI,
+    FetchDevicesAI,
+    FetchNextPortionDevicesAI,
+    GetMaintenanceInfoAI,
+    NotificationSelectAI,
+    RemoveDeviceAI,
     SelectDeviceAI,
     SelectDevicesAI,
     SetAllDevicesAI,
     SetCurrentDeviceAI,
     SetDevicesAI,
-    SetDevicesLoadingStatusAI, SetOperationStatusDevicesAI,
+    SetDevicesLoadingStatusAI,
+    SetMaintenanceInfoAI,
+    SetOperationStatusDevicesAI,
+    StopDeviceMaintenanceAI,
     UpdateCurrentDeviceAI,
 } from "./actionTypes";
 
@@ -24,6 +34,11 @@ export const devicesAC = {
 
     selectDevice: (payload: string): SelectDeviceAI => ({
         type: DevicesAT.SELECT_DEVICE,
+        payload,
+    }),
+
+    getMaintenanceInfo: (payload: string): GetMaintenanceInfoAI => ({
+        type: DevicesAT.GET_MAINTENANCE_INFO,
         payload,
     }),
 
@@ -53,6 +68,11 @@ export const devicesAC = {
 
     setCurrentDevice: (payload: Device): SetCurrentDeviceAI => ({
         type: DevicesAT.SET_CURRENT_DEVICE,
+        payload,
+    }),
+
+    setMaintenanceInfo: (payload: MaintenanceInfo[]): SetMaintenanceInfoAI => ({
+        type: DevicesAT.SET_MAINTENANCE_INFO,
         payload,
     }),
 
@@ -101,6 +121,11 @@ export const devicesAC = {
         payload,
     }),
 
+    stopDeviceMaintenance: (payload: string): StopDeviceMaintenanceAI => ({
+        type: DevicesAT.STOP_DEVICE_MAINTENANCE,
+        payload,
+    }),
+
     clearDevices: (): ClearDevicesAI => ({
         type: DevicesAT.CLEAR_DEVICES,
     }),
@@ -118,9 +143,11 @@ export type DevicesActions =
     | FetchAllDevicesAI
     | UpdateCurrentDeviceAI
     | SetCurrentDeviceAI
+    | SetMaintenanceInfoAI
     | SetAllDevicesAI
     | DeactivateDeviceAI
     | RemoveDeviceAI
+    | GetMaintenanceInfoAI
     | ChangeActiveCurDevAI
     | AddDeviceAI
     | SetDevicesAI
@@ -131,4 +158,5 @@ export type DevicesActions =
     | ClearSelectDevicesAI
     | SetDevicesLoadingStatusAI
     | SetOperationStatusDevicesAI
+    | StopDeviceMaintenanceAI
     | FetchNextPortionDevicesAI

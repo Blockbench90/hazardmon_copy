@@ -64,6 +64,11 @@ const SitesAlert = () => {
         return alertNotification(errorMessage || "An error occured, please try again!", "warning");
     }
 
+    if (status_operation === LoadingStatus.VISUAL_DASHBOARD_WITHOUT_LOCATION) {
+        setTimer();
+        return alertNotification("please select a location first", "error");
+    }
+
     return null;
 };
 export default SitesAlert;

@@ -15,6 +15,7 @@ import {useCurrentSelection} from "../../hooks/useCurrentSelection";
 import {selectSensorsState} from "../../store/selectors";
 
 import classes from "./modal.module.scss";
+import {devicesAC} from "../../store/branches/devices/actionCreators";
 
 const {Option} = Select;
 const {TabPane} = Tabs;
@@ -90,8 +91,10 @@ const TabsSensorDashboard: React.FC = () => {
         if (activeKey === "maintenance") {
             history.push("/dashboard");
             dispatch(sensorsAC.setMaintenancePage(true));
+            if(device?.id){
+                dispatch(devicesAC.getMaintenanceInfo(device?.id.toString()))
+            }
         }
-        console.log("active key ==>", activeKey);
         setPath(activeKey);
     };
 

@@ -18,11 +18,19 @@ export const concatUrl = (obj: {}) => {
     return url.join("").slice(0, -1);
 };
 
+const removeEmptyValues = (obj: {}) => {
+    return Object.entries(obj).filter(([_, v]) => v != null)
+        .filter(([_, v]) => v !== undefined)
+        .filter(([_, v]) => v !== "")
+        .reduce((acc, [k, v]) => ({...acc, [k]: v}), {});
+};
+
 export const concatIds = (obj: {}) => {
-    const clear = removeEmpty(obj);
-    const url = [];
+    const clear = removeEmptyValues(obj);
+    const ids = [];
     for (let key in clear) {
-        url.push(`${clear[key]}.`);
+        ids.push(`${clear[key]}.`);
     }
-    return url.join("").slice(0, -1);
+    const uniq = Array.from(new Set(ids));
+    return uniq.join("").slice(0, -1);
 };

@@ -20,6 +20,10 @@ export const DevicesApi = {
         const {status} = await axios.post<APIResponse>(`/api/v1/devices/${id}/select/`)
         return status
     },
+    async getMaintenanceIfo(id: string): Promise<any> {
+        const {data} = await axios.get<APIResponse>(`api/v1/devices/${id}/get-maintenance-info/`)
+        return data
+    },
     async getNextPortionDevices(payload: FetchNextPortionDevices): Promise<any> {
         const url = concatUrl(payload)
         const {data} = await axios.get<DevicesState["devicesDate"]>(`api/v1/devices/?${url}`)

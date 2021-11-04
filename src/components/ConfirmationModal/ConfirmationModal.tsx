@@ -66,7 +66,7 @@ class ConfirmationModal extends React.Component<ConfirmationModalProps, Confirma
                 <div className="body">{message}</div>
                 <div className="buttons-container">
                     <button className="btn small" type="submit" onClick={handleCloseModal}>No</button>
-                    <button className="btn btn-success small" type="submit" onClick={handleConfirmClick}>Yes</button>
+                    <button type="submit" onClick={handleConfirmClick}>Yes</button>
                 </div>
             </Modal>
         );

@@ -25,6 +25,8 @@ import {useCurrentSelection} from "../../hooks/useCurrentSelection";
 import {selectUserState} from "../../store/selectors";
 
 import classes from "./SideBar.module.scss";
+import {sitesAC} from "../../store/branches/sites/actionCreators";
+import {LoadingStatus} from "../../store/status";
 
 interface SideBarProps {
     collapsed: boolean;
@@ -48,7 +50,7 @@ const SideBarComponent: React.FC<SideBarProps> = ({
     const {userData} = useSelector(selectUserState);
 
     const {isSuperUser, isOEM, isVisualDashboard} = usePermissions();
-    const {device} = useCurrentSelection();
+    const {device, site} = useCurrentSelection();
 
     const DEVICE_TYPE = ["F500", "0300", "F500-UDF"];
     const isCorrectDevice = DEVICE_TYPE.includes(device?.device_type);
@@ -76,6 +78,13 @@ const SideBarComponent: React.FC<SideBarProps> = ({
         history.push(path);
     };
 
+    const navToVisualDashboard = () => {
+        if(!site?.id){
+            dispatch(sitesAC.setOperationStatusSite(LoadingStatus.VISUAL_DASHBOARD_WITHOUT_LOCATION));
+            return
+        }
+        navTo(`/visual-dashboard/site/${site.id}/schemas/`)
+    }
 
     return (
         <div className={classes.sidebar}>
@@ -167,7 +176,7 @@ const SideBarComponent: React.FC<SideBarProps> = ({
                         <Menu.Item key="visual-dashboard" icon={<Visual/>}
                                    className={clsx(classes.visual,
                                        collapsed ? classes.sizeVisualSmall : classes.sizeVisualBig)}
-                                   onClick={() => navTo("/visual-dashboard/site/4/schemas")}
+                                   onClick={() => navToVisualDashboard()}
                         >
                                  <span className={classes.sideTitle}>
                                     Visual Dashboard

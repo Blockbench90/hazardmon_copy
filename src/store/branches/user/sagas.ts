@@ -291,7 +291,6 @@ export function* sendFeedbackRequest({payload}: SendFeedbackAI) {
     try {
         yield put(userAC.setUserLoadingStatus(LoadingStatus.LOADING));
         const status = yield call(UserApi.sendFeedback, payload);
-        console.log("status ==>", status);
         if (status === 201) {
             history.push("/");
             yield put(userAC.setUserLoadingStatus(LoadingStatus.SEND_FEEDBACK_SUCCESS));

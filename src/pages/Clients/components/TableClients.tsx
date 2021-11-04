@@ -71,6 +71,9 @@ const TableClients: React.FC<TableProps> = ({
             dataIndex: "company",
             maxWidth: "15%",
             editable: true,
+            sorter: (a, b) => a.company.localeCompare(b.company),
+            defaultSortOrder: "descend" as any,
+            sortDirections: ["ascend", "descend"] as any,
             render: (_: any, record: any) => {
                 return <div className={clsx((record.id === selectedClient?.id) && classes.selectedClient)}>{_}</div>;
             },
@@ -130,9 +133,6 @@ const TableClients: React.FC<TableProps> = ({
         <React.Fragment>
             <Table bordered
                    rowClassName={classes.row}
-                //    rowClassName={(record: any, index: number) => {
-                //        console.log("record ==>", record);
-                //        return clsx(classes.row, (record.id === selectedClient?.id) && classes.selectedClient);
                    onRow={(collum) => {
                        return {
                            onClick: () => {

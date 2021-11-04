@@ -96,6 +96,10 @@ export const sensorsReducer = produce((draft: Draft<SensorsState>, action: Senso
             draft.maintenanceSensorsArray.push(action.payload)
             break;
 
+        case SensorsAT.SET_MAINTENANCE_AFTER_RELOAD:
+            draft.maintenanceSensorsArray.push(action.payload)
+            break;
+
         case SensorsAT.CHANGE_EVENT_TYPE_ALARM_OFF:
             const newData = draft.maintenanceSensorsArray.map((item: Draft<Maintenance>) => {
                 if(item.sensor_id === action.payload.sensor_id){
@@ -113,13 +117,11 @@ export const sensorsReducer = produce((draft: Draft<SensorsState>, action: Senso
         case SensorsAT.STOP_SENSOR_MAINTENANCE:
             const newArray = draft.maintenanceSensorsArray.filter((item) => item.sensor_id !== action.payload.sensor_id)
             draft.maintenanceSensorsArray = newArray
-            console.log("STOP_SENSOR_MAINTENANCE ==>", draft.maintenanceSensorsArray)
             break;
 
         case SensorsAT.FAILED_MAINTENANCE:
             const withoutFailed = draft.maintenanceSensorsArray.filter((item) => item.sensor_id !== action.payload)
             draft.maintenanceSensorsArray = withoutFailed
-            console.log("cleared_MAINTENANCE ==>", draft.maintenanceSensorsArray)
             break;
 
         default:

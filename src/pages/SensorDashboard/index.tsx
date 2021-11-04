@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {Empty} from "antd";
 
@@ -12,17 +12,19 @@ import {useSocketSensors} from "../../hooks/useSocketTestSensors";
 import {useCurrentSelection} from "../../hooks/useCurrentSelection";
 import {sensorsAC} from "../../store/branches/sensors/actionCreators";
 
+import {ReactComponent as Warning} from "../../assets/icons/maintanence_warning.svg";
 import {Maintenance} from "../../store/branches/sensors/stateTypes";
 import {LoadingStatus} from "../../store/status";
-import {selectSensorsState} from "../../store/selectors";
+import {selectDevicesState, selectSensorsState} from "../../store/selectors";
 import Preloader from "../../components/Preloader";
 import Spinner from "../../components/Spinner";
-import {ReactComponent as Warning} from "../../assets/icons/maintanence_warning.svg";
 import MaintenanceModal from "../../components/MaintenanceModal";
+import FailedMaintenanceModal from "../../components/MaintenanceModal/failedMaintenanceModal";
 
 import classes from "./SensorDashboard.module.scss";
 
-const maintenanceTime = process.env.REACT_APP_MAINTENANCE_TIME;
+// const maintenanceTime = process.env.REACT_APP_MAINTENANCE_TIME;
+const maintenanceTime = 20
 
 const SensorDashboard: React.FC = () => {
     const dispatch = useDispatch();
@@ -31,7 +33,13 @@ const SensorDashboard: React.FC = () => {
         ws_data, filter_status, status, maintenance_status_operation,
         maintenanceSensorsArray, isMaintenance, confirmMaintenance,
     } = useSelector(selectSensorsState);
+    const {maintenanceInfo} = useSelector(selectDevicesState);
     const {device} = useCurrentSelection();
+
+    const [isLoading, setLoading] = useState<boolean>(true);
+    const failed = useRef<any>();
+
+    const isDoneMaintenanceAfterReload = !!maintenanceInfo && (!!Object.values(maintenanceInfo).filter(item => item !== null).length);
 
     const onSubmitComment = (message: string) => {
         dispatch(sensorsAC.showConfirmModal({isShow: false}));
@@ -45,9 +53,18 @@ const SensorDashboard: React.FC = () => {
         }));
     };
 
+    const failedMaintenance = (item: Maintenance) => {
+        failed.current = {
+            isShow: true,
+            device_id: item.device_id,
+            event_type: "maintenance_failed",
+            current_sensor_id: item.current_sensor_id,
+            sensor_id: item.sensor_id,
+            sensor_name: item.sensor_name,
+        };
+    };
 
-    const failedMaintenance = useCallback((item: Maintenance) => {
-        console.log("failedMaintenance ==>")
+    const failedMaintenanceClientSide = useCallback((item: Maintenance) => {
         dispatch(sensorsAC.showConfirmModal({
             isShow: true,
             device_id: item.device_id,
@@ -55,13 +72,7 @@ const SensorDashboard: React.FC = () => {
             sensor_id: item.sensor_id,
             sensor_name: item.sensor_name,
         }));
-    }, [dispatch])
-
-    useEffect(() => {
-        return () => {
-            dispatch(sensorsAC.clearWsSensorsData());
-        };
-    }, [dispatch, device]);
+    }, [dispatch]);
 
     const checkTime = (sensorsArray: Maintenance[]) => {
         if (sensorsArray.length > 0) {
@@ -69,7 +80,11 @@ const SensorDashboard: React.FC = () => {
                 const now = new Date().getTime(); // now moment in seconds
                 const differenceTime = (now - item.maintenance_time) / 1000; //find out the difference between start and now
                 if (Number(differenceTime.toFixed()) > Number(maintenanceTime)) {
-                    failedMaintenance(item);
+                    if (!isDoneMaintenanceAfterReload) {
+                        failedMaintenanceClientSide(item);
+                    } else {
+                        failedMaintenance(item);
+                    }
                     dispatch(sensorsAC.clearMaintenanceArray(item.sensor_id));
                 }
                 return null;
@@ -77,17 +92,33 @@ const SensorDashboard: React.FC = () => {
         }
         return null;
     };
+
     useEffect(() => {
         if (isMaintenance && maintenanceSensorsArray?.length > 0) {
             checkTime(maintenanceSensorsArray);
         }
+        if (isMaintenance && maintenanceInfo && !isDoneMaintenanceAfterReload) {
+            failed.current = {isShow: false};
+        }
     });
+
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false);
+        }, 3000);
+    }, []);
+
+    useEffect(() => {
+        return () => {
+            dispatch(sensorsAC.clearWsSensorsData());
+        };
+    }, [dispatch, device]);
 
     // fix this after backand will change
     useSocketSensors(device ? `ws/device-data/${device?.udf_id}/` : "");
 
 
-    if (maintenance_status_operation === LoadingStatus.LOADING) {
+    if ((maintenance_status_operation === LoadingStatus.LOADING) || isLoading) {
         return <Spinner/>;
     }
 
@@ -96,7 +127,20 @@ const SensorDashboard: React.FC = () => {
             <div className={classes.SensorDashboardWrap}>
                 <DashboardAlert/>
                 <HeaderSection/>
+
                 <MaintenanceModal isModal={confirmMaintenance.isShow} onSubmit={onSubmitComment}/>
+
+                {
+                    failed.current?.isShow
+                    &&
+                    <FailedMaintenanceModal isShow={failed.current.isShow}
+                                            device_id={failed.current.device_id}
+                                            event_type={failed.current.event_type}
+                                            sensor_id={failed.current.sensor_id}
+                                            current_sensor_id={failed.current.current_sensor_id}
+                                            sensor_name={failed.current.sensor_name}
+                    />
+                }
                 {
                     !ws_data
                     &&
@@ -127,7 +171,8 @@ const SensorDashboard: React.FC = () => {
                 {
                     ws_data && ws_data?.groups?.map((item, index) => (
                         <SensorsGroups group={item}
-                                       parentID={ws_data.Id}
+                                       wsDataId={ws_data.Id}
+                                       groupId={item.Id}
                                        key={`${item?.Id}sensor_group${index}`}
                                        sensorsGroupsName={ws_data.Name}
                                        groupNumber={index + 1}

@@ -87,8 +87,6 @@ const AddEmailNotification: React.FC = () => {
             if(current){
                 const arrayStringDeviceId =  values.devices?.map((item: Device) => item.toString());
                 const updateData = {...data, devices: arrayStringDeviceId}
-                console.log("values ==>", values)
-                console.log("updateData ==>", updateData)
                 dispatch(userAC.updateCurrentEmailNotification({id, data: updateData}))
                 return
             }
@@ -119,7 +117,6 @@ const AddEmailNotification: React.FC = () => {
         }, [dispatch, id, current]);
 
         useEffect(() => {
-            console.log("current ==>", current)
             if (current) {
                 setCheckedSend(current.send_to_alternative);
                 setEventType(current.event_type);

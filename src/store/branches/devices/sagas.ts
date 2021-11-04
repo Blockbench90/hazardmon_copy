@@ -5,7 +5,7 @@ import {devicesAC} from "./actionCreators";
 import {
     AddDeviceAI,
     DevicesAT,
-    FetchCurrentDeviceAI, FetchNextPortionDevicesAI, NotificationSelectAI,
+    FetchCurrentDeviceAI, FetchNextPortionDevicesAI, GetMaintenanceInfoAI, NotificationSelectAI,
     RemoveDeviceAI, SelectDeviceAI,
     SelectDevicesAI,
     UpdateCurrentDeviceAI,
@@ -38,6 +38,8 @@ export function* getSelectedDeviceRequest({payload}: SelectDeviceAI) {
     try {
         yield put(devicesAC.setDevicesLoadingStatus(LoadingStatus.LOADING));
         const status = yield call(DevicesApi.selectDevice, payload);
+        const info = yield call(DevicesApi.getMaintenanceIfo, payload);
+        yield put(devicesAC.setMaintenanceInfo(info));
         yield put(userAC.fetchUserData());
         if (status === 200) {
             yield put(devicesAC.setDevicesLoadingStatus(LoadingStatus.LOADED));
@@ -113,6 +115,19 @@ export function* updateDeviceRequest({payload}: UpdateCurrentDeviceAI) {
         } else {
             yield put(devicesAC.setOperationDevices(LoadingStatus.UPDATE_DEVICE_ERROR));
             yield put(devicesAC.setDevicesLoadingStatus(LoadingStatus.LOADED));
+        }
+    } catch (error) {
+        yield put(devicesAC.setDevicesLoadingStatus(LoadingStatus.ERROR));
+    }
+}
+
+export function* getMaintenanceInfoRequest({payload}: GetMaintenanceInfoAI) {
+    try {
+        const info = yield call(DevicesApi.getMaintenanceIfo, payload);
+        if (info) {
+            yield put(devicesAC.setMaintenanceInfo(info));
+        } else {
+            yield put(devicesAC.setDevicesLoadingStatus(LoadingStatus.ERROR));
         }
     } catch (error) {
         yield put(devicesAC.setDevicesLoadingStatus(LoadingStatus.ERROR));
@@ -195,6 +210,7 @@ export function* devicesSaga() {
     yield takeLatest(DevicesAT.FETCH_ALL_DEVICES, fetchAllDevicesRequest);
     yield takeLatest(DevicesAT.NOTIFICATION_SELECT, fetchNotificationSelectRequest);
     yield takeLatest(DevicesAT.UPDATE_CURRENT_DEVICE, updateDeviceRequest);
+    yield takeLatest(DevicesAT.GET_MAINTENANCE_INFO, getMaintenanceInfoRequest);
     yield takeLatest(DevicesAT.ADD_DEVICE, addDeviceRequest);
     yield takeLatest(DevicesAT.REMOVE_CURRENT_DEVICE, removeDeviceRequest);
     yield takeLatest(DevicesAT.DEACTIVATE_CURRENT_DEVICE, deactivateDeviceRequest);

@@ -4,7 +4,8 @@ import {sensorsAC} from "./actionCreators";
 import {
     AddSensorNamesAI,
     AddSensorSettingsAI,
-    AddWarningAI, ChangeEventTypeMaintenanceAI,
+    AddWarningAI,
+    ChangeEventTypeMaintenanceAI,
     FetchHistoricalGraphsAI,
     FetchSensorNamesAI,
     FetchSensorsAI,
@@ -13,10 +14,12 @@ import {
     FetchWsDataSensorsAI,
     SensorsAT,
     SetMaintenanceAI,
-    StopSensorMaintenanceAI, UpdateArrangementAI,
+    StopSensorMaintenanceAI,
+    UpdateArrangementAI,
 } from "./actionTypes";
 import {SensorsApi} from "../../../services/api/sensorsApi";
 import history from "../../../helpers/history";
+import {devicesAC} from "../devices/actionCreators";
 
 export function* fetchWarningsSensorsRequest({payload}: FetchSensorsAI) {
     try {
@@ -183,10 +186,12 @@ export function* setMaintenanceExpectOffRequest({payload}: ChangeEventTypeMainte
 
 export function* stopSensorMaintenanceRequest({payload}: StopSensorMaintenanceAI) {
     try {
-        const data = yield call(SensorsApi.setMaintenance, payload);
-        // console.log("saga stopSensorMaintenanceRequest=>", payload);
-        // console.log("set saga data setMaintenanceRequest=>", data);
+        const sensor_id = payload.sensor_id.split(".");
+        yield put(devicesAC.stopDeviceMaintenance(sensor_id[sensor_id.length - 1]));
+        // const payloadRequest = {...payload, sensor_id}
 
+        // const data = yield call(SensorsApi.setMaintenance, {...payload, sensor_id: sensor_id[sensor_id.length - 1]});
+        const data = yield call(SensorsApi.setMaintenance, payload);
         if (data.status !== 200) {
             yield put(sensorsAC.setSensorsStatusOperation(LoadingStatus.MAINTENANCE_SENSORS_ERROR));
         }
@@ -204,7 +209,7 @@ export function* updateArrangementRequest({payload}: UpdateArrangementAI) {
             nodes.forEach((item: any) => {
                 item.sensors.forEach((sensor: any) => {
                     if (sensor.id === Number(payload.sensor)) {
-                        node = item.number
+                        node = item.number;
                     }
                 });
             });
