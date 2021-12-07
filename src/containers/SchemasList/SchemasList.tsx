@@ -31,7 +31,8 @@ interface SchemasListProps extends SchemaRoute {
     cloneSchema: (schemaId?: number) => void,
     deleteSchema: (schemaId?: number) => void,
     schemasList: Schema[],
-    currentUser: boolean
+    currentUser: boolean,
+    match?: any
 }
 
 interface SchemasListState {
@@ -58,7 +59,7 @@ class SchemasList extends React.Component<SchemasListProps, SchemasListState> {
         const { match } = this.props;
         return (
             <div>
-                <Link to={urls.newSchema.replace(':siteId', match.params.siteId)}>
+                <Link to={urls.newSchema.replace(':siteId', match?.params.siteId)}>
                     <AddNewBlock text="Add new schema"/>
                 </Link>
             </div>
@@ -68,7 +69,7 @@ class SchemasList extends React.Component<SchemasListProps, SchemasListState> {
     public render() {
         const { schemasList, togglePublishModal, deleteSchema, match, toggleModifyPublishedModal, currentUser } = this.props;
 
-        const canEdit = hasEditPermissions(currentUser, parseFloat(match.params.siteId));
+        const canEdit = hasEditPermissions(currentUser, parseFloat(match?.params?.siteId));
 
         if (!canEdit) {
             Notification.error('You are not allowed to visit this page');
@@ -93,7 +94,7 @@ class SchemasList extends React.Component<SchemasListProps, SchemasListState> {
 
         return (
             <DashboardBase className="schemas-list-page" sidebar={this.renderSidebar()} isSchemaList={true}>
-                <PublishModal siteId={match.params.siteId}/>
+                <PublishModal siteId={match?.params.siteId}/>
                 <ConfirmationModal ref={confirmationModalRef} handleConfirm={handleDeleteSchema} message="Are you sure you want to delete this schema?"/>
                 <ConfirmationModal ref={confirmationAgainModalRef} handleConfirm={handleConfirmDeleteSchema} message="This action can't be undone. Do you want to continue?"/>
                 <ModifyPublishedSchemaModal title="Do you realy want to clone this schema?" />
@@ -163,7 +164,7 @@ const mapDispatchToProps = (dispatch: any, ownProps: any) => {
         getVersionsList: (orderBy: string[]) => {
             dispatch({
                 payload: {
-                    location: ownProps.match.params.siteId,
+                    location: ownProps?.match?.params.siteId,
                     order_by: orderBy
                 },
                 type: schemasConstants.GET_SCHEMAS_LIST

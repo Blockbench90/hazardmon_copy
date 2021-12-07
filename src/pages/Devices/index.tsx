@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {Empty, Pagination} from "antd";
+import React, {useEffect} from "react";
+import {Empty} from "antd";
 import {useDispatch, useSelector} from "react-redux";
 import {useHistory} from "react-router-dom";
 
@@ -22,11 +22,8 @@ import classes from "./Devices.module.scss";
 
 
 const Devices: React.FC = () => {
-
     const dispatch = useDispatch();
     const history = useHistory();
-
-    const [pagination, setPagination] = useState({page: 1, pageSize: 20});
 
     const {devicesDate, status, isSelected} = useSelector(selectDevicesState);
     const {isManager, isAccountManager} = usePermissions();
@@ -36,16 +33,6 @@ const Devices: React.FC = () => {
         event.preventDefault();
         event.stopPropagation();
         history.push("/devices/add/device");
-    };
-
-    const onPageChange = (page: number, pageSize: number) => {
-        setPagination({page, pageSize});
-        const payload = {
-            device_id: device?.id,
-            limit: pageSize,
-            offset: pageSize * (page - 1),
-        };
-        dispatch(devicesAC.fetchNextDevicesPortion(payload));
     };
 
     useEffect(() => {
@@ -59,6 +46,7 @@ const Devices: React.FC = () => {
             ordering: `-date_created`,
         }));
         dispatch(sensorsAC.changeFilterStatusSensors(FilterStatus.ACTIVE));
+
         return () => {
             dispatch(devicesAC.clearSelectDevices());
             dispatch(devicesAC.clearDevices());
@@ -75,28 +63,15 @@ const Devices: React.FC = () => {
                     <div className={classes.mapWrap}>
                         <div className={classes.mapBlock}>
                             {
-                                devicesDate?.results.length === 0
+                                devicesDate?.length === 0
                                     ?
                                     <Empty description="location is empty!"/>
                                     :
-                                    devicesDate?.results.map((item, index) => (
+                                    devicesDate?.map((item, index) => (
                                         <DevicesBlock {...item} key={`${item.id}${index}`} selectedDevice={device?.id}/>
                                     ))
                             }
                         </div>
-                        {
-                            devicesDate?.results.length > 0
-                            &&
-                            <div className={classes.pagination}>
-                                <Pagination total={devicesDate?.count}
-                                            showSizeChanger={false}
-                                            onChange={onPageChange}
-                                            current={pagination.page}
-                                            pageSize={20}
-                                />
-                            </div>
-                        }
-
                     </div>
                     {
                         (isManager || isAccountManager)

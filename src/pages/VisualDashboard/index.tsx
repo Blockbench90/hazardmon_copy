@@ -1,33 +1,26 @@
-import React from "react";
+// @ts-nocheck
+import React, { useEffect } from "react";
 import clsx from "clsx";
-import HeaderVisualDashboard from "./components/HeaderVisualDashaboard";
-
-import classes from "./VisualDashboard.module.scss";
 import {Route, Switch} from "react-router-dom";
+
 import urls from "../../constants/urls";
 import SchemasList from "../../containers/SchemasList/SchemasList";
 import Editor from "../../containers/Editor/Editor";
 import SchemaDetails from "../../containers/SchemaDetails/SchemaDetails";
 import MachineDetails from "../../containers/MachineDetails/MachineDetails";
 import AppWrapper from "../../components/AppWrapper/AppWrapper";
-// import '../../styles/general-styles.scss';
+import HeaderVisualDashboard from "./components/HeaderVisualDashaboard";
 
-const DashboardRoute = (props: any) => {
-    const Component = props.component;
-    const render = (matchProps: any) => (
-        <Component {...matchProps} />
-    );
-
-    return (
-        <Route
-            {...props}
-            component={undefined}
-            render={render}
-        />
-    );
-};
+import classes from "./VisualDashboard.module.scss";
+import { useDispatch } from "react-redux";
+import * as authConstants from "../../constants/actions/authConstants";
 
 const VisualDashboard: React.FC = () => {
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch({type: authConstants.GET_LAYOUT_SETTINGS});
+    }, [dispatch])
 
     return (
         <div className={clsx("header-link", classes.wrap)}>
@@ -35,12 +28,12 @@ const VisualDashboard: React.FC = () => {
 
             <AppWrapper>
                 <Switch>
-                    <DashboardRoute path={urls.schemasList} component={SchemasList} exact={true}/>
-                    <DashboardRoute path={urls.newSchema} component={Editor} />
-                    <DashboardRoute path={urls.schemaDetails} component={SchemaDetails} exact={true} />
-                    <DashboardRoute path={urls.tabNew} component={Editor} />
-                    <DashboardRoute path={urls.tabEdit} component={Editor} />
-                    <DashboardRoute path={urls.machineDetails} component={MachineDetails} />
+                    <Route path={urls.schemasList} component={SchemasList} exact={true}/>
+                    <Route path={urls.newSchema} component={Editor}/>
+                    <Route path={urls.schemaDetails} component={SchemaDetails} exact={true}/>
+                    <Route path={urls.tabNew} component={Editor}/>
+                    <Route path={urls.tabEdit} component={Editor}/>
+                    <Route path={urls.machineDetails} component={MachineDetails} exact/>
                 </Switch>
             </AppWrapper>
         </div>

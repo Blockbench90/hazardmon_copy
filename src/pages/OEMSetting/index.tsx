@@ -17,17 +17,17 @@ const {Title} = Typography;
 
 
 const OEMSetting: React.FC = () => {
-    const history = useHistory()
+    const history = useHistory();
 
     const handleEditFields = () => {
-        history.push(OEM_SETTING_RSS_EDIT)
+        history.push(OEM_SETTING_RSS_EDIT);
     };
 
     const handleSupportContacts = () => {
-        history.push(OEM_SETTING_CONTACTS)
+        history.push(OEM_SETTING_CONTACTS);
     };
     const handlePageCss = () => {
-        history.push(OEM_PAGE_CSS)
+        history.push(OEM_PAGE_CSS);
     };
 
     return (

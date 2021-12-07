@@ -16,7 +16,8 @@ import {useCurrentSelection} from "../../hooks/useCurrentSelection";
 import {WinStorage} from "../../services/AuthSrorage";
 import {graphsAC} from "../../store/branches/graphs/actionCreators";
 
-import classes from "../TabsSensorDashboard/modal.module.scss";
+import classes from "./HeaderTabs.module.scss";
+import clsx from "clsx";
 
 const {TabPane} = Tabs;
 
@@ -55,6 +56,7 @@ const TabsSensorGraphs: React.FC = () => {
     };
 
     const onSearchModal = ({date, time}: { date: string, time: string }) => {
+        debugger
         if (!device) {
             dispatch(graphsAC.setGraphsStatusOperation(LoadingStatus.FETCH_GRAPHS_TIME_ERROR));
             setModal(false);
@@ -67,8 +69,10 @@ const TabsSensorGraphs: React.FC = () => {
         dispatch(graphsAC.fetchCustomGraphsData(payload));
         setModal(false);
         if (id) {
-            history.push(`/graphs/historical/graphs/${date}&${time}/${id}`);
-            return;
+            if (id !== "graphs") {
+                history.push(`/graphs/historical/graphs/${date}&${time}/${id}`);
+                return;
+            }
         }
         history.push(`/graphs/historical/graphs/${date}&${time}`);
     };
@@ -106,7 +110,7 @@ const TabsSensorGraphs: React.FC = () => {
 
                         <TabPane className={classes.tab}
                                  tab={
-                                     <div className={classes.tabTitleWrap}>
+                                     <div className={clsx(classes.tabTitleWrap, "pad-3-0")}>
                                          <Live/>
                                          <span className={classes.title}>Live</span>
                                      </div>
@@ -115,7 +119,7 @@ const TabsSensorGraphs: React.FC = () => {
 
                         <TabPane className={classes.tab}
                                  tab={
-                                     <div className={classes.tabTitleWrap}
+                                     <div className={clsx(classes.tabTitleWrap, "pad-3-0")}
                                           onClick={() => onChoiceDate(GraphsDate.hour)}>
                                          <HR/>
                                          <span className={classes.title}>1 HR</span>
@@ -125,7 +129,8 @@ const TabsSensorGraphs: React.FC = () => {
 
                         <TabPane className={classes.tab}
                                  tab={
-                                     <div className={classes.tabTitleWrap} onClick={() => onChoiceDate(GraphsDate.day)}>
+                                     <div className={clsx(classes.tabTitleWrap, "pad-3-0")}
+                                          onClick={() => onChoiceDate(GraphsDate.day)}>
                                          <HR/>
                                          <span className={classes.title}>24 HR</span>
                                      </div>
@@ -134,7 +139,7 @@ const TabsSensorGraphs: React.FC = () => {
 
                         <TabPane className={classes.tab}
                                  tab={
-                                     <div className={classes.tabTitleWrap}
+                                     <div className={clsx(classes.tabTitleWrap, "pad-3-0")}
                                           onClick={() => onChoiceDate(GraphsDate.week)}>
                                          <Day/>
                                          <span className={classes.title}>7 Days</span>
@@ -145,7 +150,7 @@ const TabsSensorGraphs: React.FC = () => {
 
                         <TabPane className={classes.tab}
                                  tab={
-                                     <div className={classes.tabTitleWrap}
+                                     <div className={clsx(classes.tabTitleWrap, "pad-3-0")}
                                           onClick={() => onChoiceDate(GraphsDate.month)}>
                                          <Day/>
                                          <span className={classes.title}>30 Days</span>
@@ -155,7 +160,8 @@ const TabsSensorGraphs: React.FC = () => {
 
                         <TabPane className={classes.tab}
                                  tab={
-                                     <div className={classes.tabTitleWrap} onClick={handleCustomGraphs}>
+                                     <div className={clsx(classes.tabTitleWrap, "pad-3-0")}
+                                          onClick={handleCustomGraphs}>
                                          <Custom/>
                                          <span className={classes.title}>Custom</span>
                                      </div>

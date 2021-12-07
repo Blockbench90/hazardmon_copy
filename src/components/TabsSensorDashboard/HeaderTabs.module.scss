@@ -1,0 +1,85 @@
+.graphsWrap {
+  color: #28a745;
+
+  :global {
+    .ant-tabs-ink-bar {
+      background: #A9CC13;
+    }
+
+    .ant-tabs-tab,
+    .ant-tabs-tab-active,
+    .ant-tabs-tab-btn {
+      color: #598253 !important;
+
+    }
+
+    .ant-tabs-tab-active {
+      path {
+        fill: #A9CC13 !important;
+      }
+    }
+
+    .ant-select {
+      color: #00C09E !important;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    @media screen and (max-width: 900px) {
+      .ant-tabs-tab, .ant-tabs-tab {
+        margin: 0 0 0 8px !important;
+      }
+    }
+
+  }
+}
+
+
+.graphsTabs {
+  ////padding-top: 15px;
+  //padding-left: 10px;
+}
+
+.graphsTab {
+  //padding: 0 50px;
+}
+
+.tabTitleWrap {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.title {
+  font-family: Lato, serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 19px;
+  color: #014B3E;
+  text-shadow: none;
+  margin-left: 10px;
+  @media screen and (max-width: 940px) {
+    font-size: 12px !important;
+
+  }
+}
+
+.hideSensorsCheckbox {
+  :global {
+    .ant-checkbox-checked .ant-checkbox-inner {
+      background-color: #A9CC13;
+    }
+  }
+}
+
+.switchNodes {
+  color: #00C09E !important;
+  font-weight: bold;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.headerDashboardSelect {
+  padding-top: 15px;
+}

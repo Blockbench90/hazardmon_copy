@@ -7,6 +7,10 @@ export const ClientsApi = {
         const {data} = await axios.get<ClientsState["clientsData"]>(`api/v1/clients/?limit=${payload.limit}&offset=${payload.offset}`)
         return data
     },
+    async searchClients(payload: string): Promise<ClientsState["clientsData"]> {
+        const {data} = await axios.get<ClientsState["clientsData"]>(`api/v1/clients/?q=${payload}`)
+        return data
+    },
     async getAccountNumber(): Promise<any> {
         const {data} = await axios.get<any>("/api/v1/clients/get-next-number/")
         return data

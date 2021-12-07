@@ -1,8 +1,7 @@
 import arrayMove from "array-move";
 import * as React from "react";
 import {connect} from "react-redux";
-import {Prompt, Redirect} from "react-router";
-import {Link} from "react-router-dom";
+import {Link, Prompt, Redirect} from "react-router-dom";
 import {SortableContainer, SortableElement} from "react-sortable-hoc";
 import {DiagramWidget} from "storm-react-diagrams";
 import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
@@ -47,6 +46,7 @@ import LabelNodeModel from "../../components/LabelNode/LabelNodeModel";
 import editIcon from "../../assets/img/edit-icon-green.png";
 import tabIcon from "../../assets/img/tab-icon.png";
 import clsx from "clsx";
+import {CustomButton} from "../../components/Button";
 
 export interface SchemaEditorState {
     name: string
@@ -73,9 +73,11 @@ export interface SchemaEditorProps extends SchemaRoute {
     schemaDetailsLoading: boolean
     showEditorPromt: boolean
     toggleShowEditorPromt: () => void
+    getLocations: () => void
     changeTabsOrder: (orderArray: any) => void
     onTabSensors: number[]
     currentUser: any
+    match?: any
 }
 
 class Editor extends React.Component<SchemaEditorProps, SchemaEditorState> {
@@ -90,6 +92,7 @@ class Editor extends React.Component<SchemaEditorProps, SchemaEditorState> {
                     to={urls.tabEdit.replace(":siteId", `${match.params.siteId}`).replace(":schemaId", `${schemaDetails.id}`).replace(":tabId", `${props.tab.id}`)}
                     key={props.index}
                     className="schema-tab"
+                    style={{paddingLeft: "15px"}}
                 >
                     {/*<img src={tabIcon} className="schema-tab__icon" alt={"schema"}/>*/}
                     <div className="schema-tab__body">
@@ -103,7 +106,7 @@ class Editor extends React.Component<SchemaEditorProps, SchemaEditorState> {
             tabDetails && (
                 <div className="schema-tab selected" key={props.index}>
                     {/*<img src={tabIcon} className="schema-tab__icon" alt={"schema"}/>*/}
-                    <input type="text" name="name" value={name ? name : ""} onChange={this.handleNameInputChange}/>
+                    <input type="text" name="name" style={{margin: "10px"}} value={name ? name : ""} onChange={this.handleNameInputChange}/>
                 </div>
             );
 
@@ -114,13 +117,13 @@ class Editor extends React.Component<SchemaEditorProps, SchemaEditorState> {
         const {tabDetails} = this.props;
 
         return (
-            <div>
+            <div className="schema-tabs">
                 {schemaTabs.map((tab: TabInList, index: number) => (
                     <this.SortableItem key={`item-${index}`} index={index} tab={tab} disabled={!tabDetails}/>
                 ))}
                 {!tabDetails &&
-                <div>
-                    <img src={tabIcon} className="schema-tab__icon" alt={"schema"}/>
+                <div className="schema-tab selected">
+                    <img src={tabIcon} className="schema-tab__icon" alt="schema-tab"/>
                     <input type="text" name="name" value={name ? name : ""} onChange={this.handleNameInputChange}/>
                 </div>
                 }
@@ -158,6 +161,7 @@ class Editor extends React.Component<SchemaEditorProps, SchemaEditorState> {
             getMachineTypesList,
             clearTabDetails,
             toggleShowEditorPromt,
+            getLocations,
         } = this.props;
 
         if (match.params.tabId) {
@@ -169,7 +173,7 @@ class Editor extends React.Component<SchemaEditorProps, SchemaEditorState> {
         if (match.params.schemaId) {
             getSchemaDetails(match.params.schemaId);
         }
-
+        getLocations()
         getMachineTypesList();
         toggleShowEditorPromt();
     }
@@ -338,17 +342,17 @@ class Editor extends React.Component<SchemaEditorProps, SchemaEditorState> {
                         >
                             <this.SortableList onSortEnd={this.onSortEnd} axis="x" pressDelay={100}
                                                helperClass="dragging"/>
-                            {/*<div className="dimensions">*/}
-                            {/*    <div>*/}
-                            {/*        <label htmlFor="inputHeight">Height</label>*/}
-                            {/*        <input type="number" id="inputHeight" value={height}*/}
-                            {/*               onChange={this.onHeightChange}/>*/}
-                            {/*    </div>*/}
-                            {/*    <div>*/}
-                            {/*        <label htmlFor="inputWidth">Width</label>*/}
-                            {/*        <input type="number" id="inputWidth" value={width} onChange={this.onWidthChange}/>*/}
-                            {/*    </div>*/}
-                            {/*</div>*/}
+                            <div className="dimensions">
+                                <div>
+                                    <label htmlFor="inputHeight">Height</label>
+                                    <input type="number" id="inputHeight" value={height}
+                                           onChange={this.onHeightChange}/>
+                                </div>
+                                <div>
+                                    <label htmlFor="inputWidth">Width</label>
+                                    <input type="number" id="inputWidth" value={width} onChange={this.onWidthChange}/>
+                                </div>
+                            </div>
                             <div className="canvas-wrapper">
                                 <div className="size-controller" style={{height, width}}
                                      onMouseEnter={this.mouseOnEditor} onMouseLeave={this.mouseOffEditor}>
@@ -357,8 +361,28 @@ class Editor extends React.Component<SchemaEditorProps, SchemaEditorState> {
                                 {selectedSensorInfo && <SelectSensorPopup tabName={name}/>}
                             </div>
                             <div className="save-button-container">
-                                <Link to={cancelLink} className="btn small">Cancel</Link>
-                                <button onClick={handleSavePress}>Save</button>
+                                <Link to={cancelLink}>
+                                    <CustomButton width="81px"
+                                                  height="40px"
+                                                  padding="0"
+                                                  htmlType="button"
+                                                  className="mar-right-10"
+                                                  color="gray"
+                                    >
+                                        CANCEL
+                                    </CustomButton>
+                                </Link>
+
+                                <CustomButton width="81px"
+                                              height="40px"
+                                              padding="0"
+                                              htmlType="button"
+                                              className="mar-right-10"
+                                              color="green"
+                                              onClick={handleSavePress}
+                                >
+                                    SAVE
+                                </CustomButton>
                             </div>
                         </div>
                     }
@@ -391,7 +415,7 @@ class Editor extends React.Component<SchemaEditorProps, SchemaEditorState> {
                                     {schemaName}
                                 </span>
                                 <button onClick={this.onEditSchemaNameClick}>
-                                    <img src={editIcon} alt="edit"/>
+                                    <img src={editIcon} alt="edit" style={{marginTop: "-7px"}}/>
                                 </button>
                             </React.Fragment>
                     }
@@ -407,7 +431,7 @@ class Editor extends React.Component<SchemaEditorProps, SchemaEditorState> {
                     <span className="editor-title__editor">
                         Editor: Create
                     </span>
-                    <input type="text" value={schemaName ? schemaName : ""}
+                    <input type="text" style={{fontSize: "14px", padding: "10px 15px"}} value={schemaName ? schemaName : ""}
                            onChange={this.handleSchemaNameInputChange}/>
                 </div>
 
@@ -416,12 +440,13 @@ class Editor extends React.Component<SchemaEditorProps, SchemaEditorState> {
                 <div className="dimensions">
                     <div>
                         <label htmlFor="inputHeight" className="dimensions-input__title">Height</label>
-                        <input type="number" id="inputHeight" value={height}
+                        <input type="number" id="inputHeight" style={{width: "100px", fontSize: "14px", padding: "10px 15px"}} value={height}
                                onChange={this.onHeightChange}/>
                     </div>
                     <div>
                         <label htmlFor="inputWidth" className="dimensions-input__title">Width</label>
-                        <input type="number" id="inputWidth" value={width} onChange={this.onWidthChange}/>
+                        <input type="number" id="inputWidth" style={{width: "100px", fontSize: "14px", padding: "10px 15px"}} value={width}
+                               onChange={this.onWidthChange}/>
                     </div>
                 </div>
             </div>
@@ -511,6 +536,9 @@ const mapDispatchToProps = (dispatch: any, ownProps: any) => {
         },
         getSchemaDetails: (id: string) => {
             dispatch({type: schemasConstants.GET_SCHEMA_DETAILS, payload: id});
+        },
+        getLocations: () => {
+            dispatch({type: schemasConstants.GET_LOCATIONS_LIST})
         },
         getTabDetails: (id: string) => {
             dispatch({type: schemasConstants.GET_TAB_DETAILS, payload: id});

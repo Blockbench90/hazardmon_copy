@@ -24,6 +24,7 @@ import * as schemasConstants from '../../constants/actions/schemasConstants';
 // interfaces
 import {MachineExtended} from '../../interfaces/schemasReducer';
 import SensorGraph from './components/SensorGraph/SensorGraph';
+import {CustomButton} from "../../components/Button";
 
 interface MachineDetailsProps extends SchemaRoute {
     getMachineDetails: () => void;
@@ -37,6 +38,7 @@ interface MachineDetailsProps extends SchemaRoute {
     machineDetailsNotifications: any[]
     machineDetailsMaintenance: any[]
     currentUser: any
+    match?: any
 }
 
 class MachineDetails extends React.Component<MachineDetailsProps> {
@@ -65,7 +67,13 @@ class MachineDetails extends React.Component<MachineDetailsProps> {
     public renderSidebar() {
         const { match } = this.props;
         return (
-            <Link to={urls.schemaDetails.replace(':siteId', match.params.siteId).replace(':schemaId', match.params.schemaId).replace(':tabId', match.params.tabId)} className="btn small">{'<'} Back</Link>
+            <Link to={urls.schemaDetails.replace(':siteId', match.params.siteId)
+                .replace(':schemaId', match.params.schemaId)
+                .replace(':tabId', match.params.tabId)}>
+                <CustomButton htmlType="button" color="gray" width="80px" height="40px" padding="0">
+                Back
+                </CustomButton>
+            </Link>
         );
     }
 

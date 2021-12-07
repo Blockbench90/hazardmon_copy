@@ -127,6 +127,7 @@ export interface WsDataSensors {
 export interface HistoricalItem {
     timestamp: string
     status: string
+    record_id?: string
 }
 export interface Unit {
     id: number
@@ -171,6 +172,13 @@ export interface Maintenance {
     maintenance_time: number
 };
 
+export enum ConfirmStatus {
+    success = "success",
+    failed = "failed",
+    not_cleared = "clear",
+    cancel = "cancel"
+}
+
 export interface SensorsState {
     sensorsData: {
         count: number | null
@@ -191,12 +199,14 @@ export interface SensorsState {
     status_operation: LoadingStatus
     maintenanceSensorsArray: Maintenance[]
     isMaintenance: boolean
+    isSnapshot: boolean
     confirmMaintenance: {
         isShow: boolean,
         device_id?: number,
         event_type?: string
         sensor_id?: string
         sensor_name?: string
+        status?: ConfirmStatus
     }
     maintenance_status_operation: LoadingStatus
     isSelected: boolean

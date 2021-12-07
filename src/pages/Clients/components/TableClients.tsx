@@ -72,7 +72,7 @@ const TableClients: React.FC<TableProps> = ({
             maxWidth: "15%",
             editable: true,
             sorter: (a, b) => a.company.localeCompare(b.company),
-            defaultSortOrder: "descend" as any,
+            defaultSortOrder: "ascend" as any,
             sortDirections: ["ascend", "descend"] as any,
             render: (_: any, record: any) => {
                 return <div className={clsx((record.id === selectedClient?.id) && classes.selectedClient)}>{_}</div>;

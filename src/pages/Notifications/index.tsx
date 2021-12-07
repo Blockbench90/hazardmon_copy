@@ -19,6 +19,7 @@ import DeviceAlert from "../../components/Alerts/device";
 import {selectDevicesState, selectSitesState, selectUserState} from "../../store/selectors";
 
 import classes from "./Notifications.module.scss";
+import {useCurrentSelection} from "../../hooks/useCurrentSelection";
 
 interface ISorting {
     column: string;
@@ -52,10 +53,15 @@ const Notifications: React.FC = () => {
         notifications: {results: notifications = [], count: countNotifications},
         notificationsFilter: {isActive},
     } = useSelector(selectUserState);
+    const {device, site} = useCurrentSelection();
 
     const [searchTerm, setSearchTerm] = useState("");
     const [pagination, setPagination] = useState({page: 1, pageSize: 20});
     const [sorting, setSorting] = useState<ISorting>({column: "date_created", order: "descend"});
+
+    useEffect(() => {
+        setSearchData(prev => ({...prev, location: site?.id.toString(), device: device?.id.toString()}));
+    }, [site, device]);
 
     useEffect(() => {
         dispatch(userAC.searchNotifications({
@@ -164,16 +170,20 @@ const Notifications: React.FC = () => {
                              }}
                 />
 
-                <NotificationsForm form={form}
-                                   onClearFilters={onClearFilters}
-                                   isClearFilters={searchTerm !== "" || !isEqual(initialFilterData, searchData)}
-                                   handSelectDate={handSelectDate}
-                                   handSelectSite={onChangeLocation}
-                                   handSelectDevice={handSelectDevice}
-                                   handSelectType={handSelectType}
-                                   sites={sites}
-                                   devices={devicesDate?.results}
-                />
+                {
+                    (sites && devicesDate)
+                    &&
+                    <NotificationsForm form={form}
+                                       onClearFilters={onClearFilters}
+                                       isClearFilters={searchTerm !== "" || !isEqual(initialFilterData, searchData)}
+                                       handSelectDate={handSelectDate}
+                                       handSelectSite={onChangeLocation}
+                                       handSelectDevice={handSelectDevice}
+                                       handSelectType={handSelectType}
+                                       sites={sites}
+                                       devices={devicesDate}
+                    />
+                }
 
                 <TableNotifications data={tableData}
                                     count={countNotifications}

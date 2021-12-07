@@ -11,14 +11,8 @@ import {LoadingStatus} from "../../../store/status";
 
 import classes from "../Historical.module.scss";
 
-interface SearchProps {
-    limit: number
-    offset: number
-    setCurrentTime: ({date, time}: { date: string, time: string }) => void
-    setPagination: ({page, pageSize}: { page: number, pageSize: number }) => void
-}
 
-const SearchBlock: React.FC<SearchProps> = ({limit, offset, setCurrentTime, setPagination}) => {
+const SearchBlock: React.FC = () => {
     const dispatch = useDispatch();
     const {device} = useCurrentSelection();
     const history = useHistory()
@@ -35,17 +29,12 @@ const SearchBlock: React.FC<SearchProps> = ({limit, offset, setCurrentTime, setP
     const timeFormat = "HH:mm";
 
     const onSearch = () => {
-        setCurrentTime({date, time});
-        setPagination({page: 1, pageSize: 60});
-
         if (!device) {
             dispatch(sensorsAC.setSensorsStatusOperation(LoadingStatus.FETCH_SENSORS_WITHOUT_DEVICE));
             return;
         }
 
-        const payload = {
-            date, time, device_id: device?.id, limit: 60, offset: 0,
-        };
+        const payload = { date, time, device_id: device?.id, limit: 10000, offset: 0};
         dispatch(sensorsAC.fetchHistoricalGraphs(payload));
         history.push(`/dashboard/historical/${date}&${time}`);
 

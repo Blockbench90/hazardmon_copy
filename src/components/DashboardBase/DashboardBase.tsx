@@ -36,14 +36,6 @@ class DashboardBase extends React.Component<DashboardBaseProps, DashboardBaseSta
         };
     }
 
-    public componentWillReceiveProps(nextProps: Readonly<DashboardBaseProps>, nextContext: any) {
-        if (nextProps.isFullScreen !== this.props.isFullScreen) {
-            this.setState({
-                sidebarHided: nextProps.isFullScreen,
-            });
-        }
-    }
-
     public render() {
         const {sidebar, children, className, isFullScreen, isSchemaList, pageTitle, isDetails, isEditor} = this.props;
         const {sidebarHided} = this.state;
@@ -51,12 +43,10 @@ class DashboardBase extends React.Component<DashboardBaseProps, DashboardBaseSta
         const wrapperClasses = classNames({
             "dashboard-base": true,
             "full-screen": isFullScreen,
-            // 'main': true,
             [className]: true,
             "sidebar-hided": sidebarHided,
         });
 
-        // const handleToggleSidebar = () => this.setState({sidebarHided: !sidebarHided});
 
         return (
             <div className={wrapperClasses}>

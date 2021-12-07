@@ -3,7 +3,6 @@ import * as _ from "lodash";
 import * as React from "react";
 import * as Modal from "react-modal";
 import {connect} from "react-redux";
-import {withRouter} from "react-router";
 import {modalStyles, parentSelector} from "../../../constants/modalStyles";
 
 // icons
@@ -14,6 +13,7 @@ import {Application} from "./Application";
 
 // interfaces
 import {Location, SchemaDetails, SelectedSensorInfo, TabDetails} from "../../../interfaces/schemasReducer";
+import { withRouter } from "react-router-dom";
 
 // constants
 const sensorGroups = [
@@ -81,6 +81,7 @@ export interface SelectSensorPopupProps extends SchemaRoute {
     locations: Location[]
     currentLocationId: number
     tabName: string
+    match?: any
 }
 
 export interface SelectSensorPopupState {
@@ -106,6 +107,8 @@ class SelectSensorPopup extends React.Component<SelectSensorPopupProps, SelectSe
         const {excludeDevices, excludeGroup} = this.state;
 
         const availableDevices = locations.find((location: Location) => location?.id === parseFloat(match?.params?.siteId))?.devices;
+
+        console.log("locations ==>", locations)
 
         const handleSelectSensor = (sensor: any) => {
             const appData = app.serialize();
@@ -141,6 +144,7 @@ class SelectSensorPopup extends React.Component<SelectSensorPopupProps, SelectSe
 
         const handleInputChange = (e: any) => this.search(e.target.value);
 
+        console.log("availableDevices ==>", availableDevices)
         return (
             // @ts-ignore
             <Modal
@@ -213,17 +217,17 @@ class SelectSensorPopup extends React.Component<SelectSensorPopupProps, SelectSe
                                     <label>
                                         <input type="checkbox" name="excludeGroup" onChange={this.toggleFilterAll}
                                                checked={!excludeGroup.length}/>
-                                        <div>Select All</div>
+                                        <div style={{marginLeft: "4px"}}>Select All</div>
                                     </label>
                                 </li>
-                                {sensorGroups.map((groupObj: any) => {
+                                {sensorGroups?.map((groupObj: any) => {
                                     return (
                                         <li key={groupObj.value}>
                                             <label>
                                                 <input type="checkbox" value={groupObj.value} name="excludeGroup"
                                                        onChange={this.handleFilterChange}
                                                        checked={!excludeGroup.includes(groupObj.value)}/>
-                                                <div>{groupObj.label}</div>
+                                                <div style={{marginLeft: "4px"}}>{groupObj.label}</div>
                                             </label>
                                         </li>
                                     );
@@ -237,7 +241,7 @@ class SelectSensorPopup extends React.Component<SelectSensorPopupProps, SelectSe
                                     <label>
                                         <input type="checkbox" name="excludeDevices" onChange={this.toggleFilterAll}
                                                checked={!excludeDevices?.length}/>
-                                        <div>Select All</div>
+                                        <div style={{marginLeft: "4px"}}>Select All</div>
                                     </label>
                                 </li>
                                 {availableDevices?.map((device: any) =>
@@ -246,7 +250,7 @@ class SelectSensorPopup extends React.Component<SelectSensorPopupProps, SelectSe
                                             <input type="checkbox" value={device.id} name="excludeDevices"
                                                    onChange={this.handleFilterChange}
                                                    checked={!excludeDevices.includes(device.id.toString())}/>
-                                            <div>{device.name}</div>
+                                            <div style={{marginLeft: "4px"}}>{device.name}</div>
                                         </label>
                                     </li>,
                                 )}

@@ -8,6 +8,7 @@ import {useDispatch} from "react-redux";
 import {userAC} from "../../store/branches/user/actionCreators";
 import LandingFooter from "../LandingFooter";
 
+
 import classes from "./SendFeedback.module.scss";
 import {WinStorage} from "../../services/AuthSrorage";
 import {Typography} from "antd";
@@ -19,7 +20,6 @@ const SendFeedback: React.FC = () => {
     const history = useHistory();
 
     const token = WinStorage.getToken();
-
 
     const onSubmit = (values: any) => {
         const data = {
@@ -34,7 +34,6 @@ const SendFeedback: React.FC = () => {
         history.push("/");
     };
 
-
     return (
         <React.Fragment>
             <UserAlert/>
@@ -46,6 +45,8 @@ const SendFeedback: React.FC = () => {
                               onSubmit={onSubmit}
                               onCancel={onCancel}
             />
+
+
             {
                 !token
                 &&

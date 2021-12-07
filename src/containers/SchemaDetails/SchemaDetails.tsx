@@ -47,6 +47,7 @@ export interface SchemaDetailsProps extends SchemaRoute {
     cloneTab: (tabId: number) => void,
     schemaNotifications: any[]
     currentUser: any
+    match?: any
 }
 
 class SchemaDetailsPage extends React.Component<SchemaDetailsProps> {
@@ -201,7 +202,7 @@ class SchemaDetailsPage extends React.Component<SchemaDetailsProps> {
                 <div className="notifications-wrapper">
                     <div className="schema-wrapper">
                         <div className="schema-tabs-container">
-                            <div className="schema-tabs">
+                            <div className="schema-tabs" style={{marginBottom: "10px"}}>
                                 {schemaDetails.schema_tabs.map((tab: TabInList, index: number) => {
                                     const handleDeleteClick = () => {
                                         if (this.confirmationDeleteTabModalRef) {
@@ -312,7 +313,7 @@ class SchemaDetailsPage extends React.Component<SchemaDetailsProps> {
                                               width="181px"
                                               height="40px"
                                               padding="0"
-                                              className="custom-button"
+                                              margin="5px 0 0 20px"
                                               htmlType="button"
                                 >
                                     ADD NEW SCHEMA

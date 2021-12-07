@@ -37,9 +37,9 @@
 //  font-family: 'Helvetica';
 //  background-color: #e9f2f9;
 //}
-//ol, ul {
-//  list-style: none;
-//}
+ol, ul {
+  list-style: none;
+}
 //blockquote, q {
 //  quotes: none;
 //}
@@ -148,6 +148,7 @@ a {
   input {
     border: none;
     margin: 10px 0;
+    color: black;
   }
 
   &__body {

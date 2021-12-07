@@ -2,7 +2,7 @@ import React from "react";
 import Modal from "antd/lib/modal";
 import {CustomButton} from "../Button";
 
-import classes from "../TabsSensorDashboard/modal.module.scss";
+import classes from "./DataModal.module.scss";
 
 interface ModalProps {
     is_modal: boolean

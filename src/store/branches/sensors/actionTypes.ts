@@ -5,6 +5,8 @@ import {AddWarning, FilterStatus, Maintenance, SensorNames, SensorsState, Unit} 
 
 export enum SensorsAT {
     FETCH_WARNINGS_SENSORS = "sensors_dashboard/FETCH_WARNINGS_SENSORS",
+    GET_SNAPSHOT_SENSORS = "sensors_dashboard/GET_SNAPSHOT_SENSORS",
+    GET_OUT_SNAPSHOT_SENSORS = "sensors_dashboard/GET_OUT_SNAPSHOT_SENSORS",
     FETCH_WS_DATA_SENSORS = "sensors_dashboard/FETCH_WS_DATA_SENSORS",
     FETCH_HISTORICAL_GRAPHS_SENSORS = "sensors_dashboard/FETCH_HISTORICAL_GRAPHS_SENSORS",
     SET_HISTORICAL_GRAPHS_SENSORS_DATA = "sensors_dashboard/SET_HISTORICAL_GRAPHS_SENSORS_DATA",
@@ -38,6 +40,15 @@ export enum SensorsAT {
 export interface FetchWsDataSensorsAI extends Action<SensorsAT> {
     type: SensorsAT.FETCH_WS_DATA_SENSORS,
     payload: any
+}
+
+export interface GetSnapshotSensorsAI extends Action<SensorsAT> {
+    type: SensorsAT.GET_SNAPSHOT_SENSORS,
+    payload: {isSnapshot: boolean, device_id: number, record_id: string}
+}
+
+export interface GetOutSnapshotSensorsAI extends Action<SensorsAT> {
+    type: SensorsAT.GET_OUT_SNAPSHOT_SENSORS,
 }
 
 export interface SetWsDataSensorsAI extends Action<SensorsAT> {
@@ -107,7 +118,7 @@ export interface ChangeFilterSensorsStatusAI extends Action<SensorsAT> {
 
 export interface FetchHistoricalGraphsAI extends Action<SensorsAT> {
     type: SensorsAT.FETCH_HISTORICAL_GRAPHS_SENSORS;
-    payload: { device_id: number, date: string, time: string, limit: number, offset: number }
+    payload: { device_id: number, date: string, time: string, limit?: number, offset?: number }
 }
 
 export interface SetHistoricalGraphsDataAI extends Action<SensorsAT> {

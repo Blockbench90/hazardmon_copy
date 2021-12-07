@@ -14,6 +14,7 @@ import {modalStyles, parentSelector} from "../../../../constants/modalStyles";
 
 // styles {
 import "./PublishModal.css";
+import {CustomButton} from "../../../../components/Button";
 
 // interfaces
 interface PublishModalProps extends InjectedFormProps {
@@ -43,7 +44,16 @@ class PublishModal extends React.Component<PublishModalProps> {
                     <label>Comment:</label>
                     <Field component="textarea" name="comment" required={true}/>
                     <div className="buttons-container">
-                        <button type="submit">Publish</button>
+                        <CustomButton width="181px"
+                                      height="40px"
+                                      padding="0"
+                                      color="green"
+                                      className="custom-button"
+                                      htmlType="submit"
+                        >
+                            PUBLISH
+                        </CustomButton>
+                        {/*<button type="submit">Publish</button>*/}
                     </div>
                 </form>
             </Modal>

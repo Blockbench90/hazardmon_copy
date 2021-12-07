@@ -19,6 +19,7 @@ const initialSensorsState: SensorsState = {
     status: LoadingStatus.NEVER,
     status_operation: LoadingStatus.NEVER,
     isMaintenance: false,
+    isSnapshot: false,
     confirmMaintenance: {
         isShow: false,
         device_id: null,
@@ -86,6 +87,14 @@ export const sensorsReducer = produce((draft: Draft<SensorsState>, action: Senso
 
         case SensorsAT.SET_MAINTENANCE_STATUS_OPERATION:
             draft.maintenance_status_operation = action.payload
+            break;
+
+        case SensorsAT.GET_SNAPSHOT_SENSORS:
+            draft.isSnapshot = action.payload.isSnapshot
+            break;
+
+        case SensorsAT.GET_OUT_SNAPSHOT_SENSORS:
+            draft.isSnapshot = false
             break;
 
         case SensorsAT.SET_MAINTENANCE_PAGE:

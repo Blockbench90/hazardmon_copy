@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect} from "react";
 import clsx from "clsx";
 import {useDispatch, useSelector} from "react-redux";
-import {useHistory} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 import moment from "moment";
 
 import success from "../../../assets/icons/success_sensor.svg";
@@ -15,13 +15,14 @@ import {ReactComponent as On} from "../../../assets/icons/button_on.svg";
 import {ReactComponent as Off} from "../../../assets/icons/button_off.svg";
 import {ReactComponent as Clock} from "../../../assets/icons/clock.svg";
 
-import {FilterStatus, WsSensor} from "../../../store/branches/sensors/stateTypes";
+import {ConfirmStatus, FilterStatus, WsSensor} from "../../../store/branches/sensors/stateTypes";
 import {selectDevicesState, selectSensorsState} from "../../../store/selectors";
 import {useCurrentSelection} from "../../../hooks/useCurrentSelection";
 import {sensorsAC} from "../../../store/branches/sensors/actionCreators";
 import {concatIds} from "../../../helpers/concatUrl";
 
 import classes from "../SensorDashboard.module.scss";
+import {graphsAC} from "../../../store/branches/graphs/actionCreators";
 
 interface SensorProps {
     sensor: WsSensor,
@@ -67,6 +68,7 @@ const Sensor: React.FC<SensorProps> = ({
         const {maintenanceSensorsArray, isMaintenance} = useSelector(selectSensorsState);
         const {maintenanceInfo} = useSelector(selectDevicesState);
         const {device} = useCurrentSelection();
+        const {time}: any = useParams();
 
         const isDisabledForMaintenance = ["18000", "21000"].includes(sensor.Id);
 
@@ -95,6 +97,7 @@ const Sensor: React.FC<SensorProps> = ({
             }
             dispatch(sensorsAC.showConfirmModal({
                 isShow: true,
+                status: ConfirmStatus.cancel,
                 device_id: device.id,
                 event_type: "maintenance_canceled",
                 sensor_id: parentIds,
@@ -116,6 +119,7 @@ const Sensor: React.FC<SensorProps> = ({
         const successMaintenance = useCallback((sensor: WsSensor) => {
             dispatch(sensorsAC.showConfirmModal({
                 isShow: true,
+                status: ConfirmStatus.success,
                 device_id: device?.id,
                 event_type: "maintanance_succeeded",
                 sensor_id: parentIds,
@@ -165,6 +169,16 @@ const Sensor: React.FC<SensorProps> = ({
         }, [maintenanceInfo, maintenanceInfo?.sensor]);
 
         const onSensorClick = () => {
+            if(time){
+                const selectedDate = time.split(" ")[0]
+                const selectedTime = time.split(" ")[1].split(":").slice(0,2).join(":")
+                const payload = {
+                    date: selectedDate, time: selectedTime , id: device?.id,
+                };
+                dispatch(graphsAC.fetchCustomGraphsData(payload));
+                history.push(`/graphs/historical/graphs/${selectedDate}&${selectedTime}/${sensor.Id}`)
+                return
+            }
             if (isMaintenance && !alreadyInMaintenance && !sensor?.Alarm) {
                 setMaintenance();
             } else {
@@ -301,7 +315,8 @@ const Sensor: React.FC<SensorProps> = ({
                                                     ? ""
                                                     : sensor.Meta.Units === "Seconds"
                                                         ? "Sec" :
-                                                        sensor.Meta.Units === "C" ? <span>&deg;C</span> : sensor.Meta.Units}
+                                                        sensor.Meta.Units === "C" ?
+                                                            <span>&deg;C</span> : sensor.Meta.Units}
                                             </span>
                                         </div>
                                     }

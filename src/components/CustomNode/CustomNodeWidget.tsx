@@ -3,7 +3,6 @@ import * as _ from "lodash";
 import * as React from "react";
 import {connect} from "react-redux";
 import { Rnd } from 'react-rnd';
-import {withRouter} from 'react-router';
 import { PortWidget } from 'storm-react-diagrams';
 
 import CustomNodeModel from "./CustomNodeModel";
@@ -20,6 +19,7 @@ import {Application} from "../../containers/Editor/components/Application";
 // images
 import flipIcon from '../../assets/img/flip-icon.png';
 import resizeIcon from '../../assets/img/resize-icon.png';
+import { withRouter } from 'react-router-dom';
 
 export interface CustomNodeWidgetProps {
     node: CustomNodeModel;

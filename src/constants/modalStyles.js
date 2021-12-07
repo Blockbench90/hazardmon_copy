@@ -13,6 +13,7 @@ export const modalStyles = {
         position: 'relative',
         right: 'auto',
         top: 'auto',
+        borderRadius: "15px"
     },
     overlay: {
         alignItems: 'center',

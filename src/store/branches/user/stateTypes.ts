@@ -62,11 +62,11 @@ export interface HeaderNotification {
 }
 
 export interface EmailDevice {
-    device_type: string
-    id: number
-    is_online: boolean
-    title: string
-    udf_id: string
+    device_type?: string
+    id?: number
+    is_online?: boolean
+    title?: string
+    udf_id?: string
 }
 
 export interface EmailNotification {
@@ -119,6 +119,7 @@ export interface User {
     is_accounts_management: boolean
     is_manager: boolean
     is_oem: boolean
+    is_engineer: boolean
     is_superuser: boolean
     last_name: string
     locations_roles: any

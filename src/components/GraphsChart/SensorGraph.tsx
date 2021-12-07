@@ -58,9 +58,6 @@ const defaultOptions = {
     },
 };
 
-type TParams = {
-    id: string
-}
 
 const SensorGraph: React.FC<SensorGraphProps> = ({
                                                      sensorsGraphData,
@@ -71,7 +68,9 @@ const SensorGraph: React.FC<SensorGraphProps> = ({
                                                  }) => {
     const dispatch = useDispatch();
     const intervalId = useRef<NodeJS.Timeout>(null);
-    const {id} = useParams<TParams>();
+    const {id}: any = useParams();
+
+        console.log("GRAPHS DATA ==>", sensorsGraphData)
 
     const fetchLiveData = useCallback(() => {
         dispatch(graphsAC.updateLiveGraphsData(device.id));
@@ -153,7 +152,7 @@ const SensorGraph: React.FC<SensorGraphProps> = ({
                     <div className={classes.widgetLiveBody}>
                         {_.map(currentSensorGraphData?.graphs, (sensorGraphDataArray: any, index: number) => {
                             return (
-                                <div className={classes.deviceBlock} key={`deviceName{index}`}>
+                                <div className={classes.deviceBlock} key={`deviceName${index}`}>
                                     <RenderGraph sensorGraphDataInitial={sensorGraphDataArray.series}
                                                  groupName={sensorGraphDataArray.units}
                                                  sensorGraphDataArray={sensorGraphDataArray}
@@ -178,8 +177,9 @@ const SensorGraph: React.FC<SensorGraphProps> = ({
         <div className={classes.widget}>
             <div className={classes.widgetBody}>
                 {_.map(currentSensorGraphData?.graphs, (sensorGraphDataArray: any, sensorId: number) => {
+                    console.log("MAP ==>", sensorGraphDataArray)
                     return (
-                        <div className={classes.deviceBlock} key={`deviceName{index}`}>
+                        <div className={classes.deviceBlock} key={`deviceName${sensorId}`}>
                             <RenderGraph sensorGraphDataInitial={sensorGraphDataArray.series}
                                          groupName={sensorGraphDataArray.units}
                                          sensorGraphDataArray={sensorGraphDataArray}

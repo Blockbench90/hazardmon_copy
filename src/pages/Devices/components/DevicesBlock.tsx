@@ -60,12 +60,12 @@ const DevicesBlock: React.FC<Device> = ({
 
     return (
         <div className={clsx({
-                [classes.devicesBlockWrap]: true,
-                [classes.suspendedBlockWrap]: is_suspended,
-                [classes.selectedDevice]: (id === selectedDevice),
-            }, isAlarmDevice ? classes.hasAlarmedSensor :
-            isWarningDevice ? classes.hasWarningSensor : "",
-            classes.OEMCursor && (isOEM || isSuperUser))}
+            [classes.devicesBlockWrap]: true,
+            [classes.suspendedBlockWrap]: is_suspended,
+            [classes.OEMCursor]: isOEM || isSuperUser,
+            [classes.selectedDevice]: (id === selectedDevice),
+        }, isAlarmDevice ? classes.hasAlarmedSensor :
+            isWarningDevice ? classes.hasWarningSensor : "")}
 
              onClick={(event) => handleSelect(event)}
         >

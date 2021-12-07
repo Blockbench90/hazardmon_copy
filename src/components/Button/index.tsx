@@ -18,6 +18,7 @@ interface ButtonProps {
     height?: string
     width?: string
     padding?: string
+    margin?: string
     fontSize?: string
     borderRadius?: string
     htmlType?: "submit" | "button" | "reset"
@@ -33,6 +34,7 @@ export const CustomButton: React.FC<ButtonProps> = ({
                                                         height = "50px",
                                                         width = "150px",
                                                         padding,
+                                                        margin,
                                                         borderRadius,
                                                         htmlType = "submit"
                                                     }) => {
@@ -44,6 +46,7 @@ export const CustomButton: React.FC<ButtonProps> = ({
                 width: `${width}`,
                 height: `${height}`,
                 padding: `${padding}`,
+                margin: `${margin}`,
                 fontSize: `${fontSize}`,
                 borderRadius: `${borderRadius}`
             }}

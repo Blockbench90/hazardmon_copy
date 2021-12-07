@@ -109,7 +109,7 @@ export interface SetCurrentEmailNotification extends Action<UserAT> {
 
 export interface UpdateCurrentEmailNotification extends Action<UserAT> {
     type: UserAT.UPDATE_CURRENT_EMAIL_NOTIFICATION
-    payload: { id: number, data: EmailNotification }
+    payload: { id: number, data: any }
 }
 
 export interface RemoveCurrentEmailNotification extends Action<UserAT> {

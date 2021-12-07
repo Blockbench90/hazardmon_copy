@@ -121,6 +121,10 @@
   .ant-layout-sider .ant-menu-dark .ant-menu-item {
     color: #7C90B1;
   }
+
+  .ant-layout-sider .ant-menu-dark .ant-menu-item:hover {
+    color: white !important;
+  }
 }
 
 .lineBottom {
@@ -132,12 +136,12 @@
 
 .userSetting {
   :global {
-    .ant-menu-title-content {
-      color: #A9CC13 !important;
-    }
-    .ant-menu-inline-collapsed-noicon {
-      color: #A9CC13 !important;
-    }
+    //.ant-menu-title-content {
+    //  color: #A9CC13 !important;
+    //}
+    //.ant-menu-inline-collapsed-noicon {
+    //  color: #A9CC13 !important;
+    //}
     .ant-menu-submenu, .ant-menu-submenu-vertical, .ant-menu-submenu-arrow:before, .ant-menu-submenu-arrow:after {
       background: #A9CC13 !important;
     }

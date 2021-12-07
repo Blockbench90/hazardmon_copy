@@ -31,12 +31,7 @@ export interface FetchNextPortionDevices {
 }
 
 export interface DevicesState {
-    devicesDate: {
-        count: number | null
-        next: number | null
-        previous: number | null
-        results: Device[]
-    }
+    devicesDate: Device[]
     current_device: Device
     maintenanceInfo: any
     all_devices: Device[]

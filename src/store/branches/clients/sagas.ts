@@ -5,7 +5,7 @@ import {
     ClientsAT,
     FetchClientsAI,
     FetchCurrentClientAI,
-    RemoveClientAI,
+    RemoveClientAI, SearchClientsAI,
     UpdateCurrentClientAI,
 } from "./actionTypes";
 import {ClientsApi} from "../../../services/api/clientsApi";
@@ -16,6 +16,16 @@ export function* fetchClientsRequest({payload}: FetchClientsAI) {
     try {
         yield put(clientsAC.setClientsLoadingStatus(LoadingStatus.LOADING))
         const data = yield call(ClientsApi.getClients, payload)
+        yield put(clientsAC.setClients(data))
+    } catch (error) {
+        yield put(clientsAC.setClientsLoadingStatus(LoadingStatus.ERROR))
+    }
+}
+
+export function* searchClientsRequest({payload}: SearchClientsAI) {
+    try {
+        yield put(clientsAC.setClientsLoadingStatus(LoadingStatus.LOADING))
+        const data = yield call(ClientsApi.searchClients, payload)
         yield put(clientsAC.setClients(data))
     } catch (error) {
         yield put(clientsAC.setClientsLoadingStatus(LoadingStatus.ERROR))
@@ -96,6 +106,7 @@ export function* updateCurrentClientRequest({payload}: UpdateCurrentClientAI) {
 
 export function* clientsSaga() {
     yield takeLatest(ClientsAT.FETCH_CLIENTS, fetchClientsRequest)
+    yield takeLatest(ClientsAT.SEARCH_CLIENTS, searchClientsRequest)
     yield takeLatest(ClientsAT.FETCH_CURRENT_CLIENT, fetchCurrentClientRequest)
     yield takeLatest(ClientsAT.FETCH_ACCOUNT_NUMBER, fetchAccountNumberRequest)
     yield takeLatest(ClientsAT.UPDATE_CURRENT_CLIENT, updateCurrentClientRequest)

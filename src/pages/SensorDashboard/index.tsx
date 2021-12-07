@@ -13,7 +13,7 @@ import {useCurrentSelection} from "../../hooks/useCurrentSelection";
 import {sensorsAC} from "../../store/branches/sensors/actionCreators";
 
 import {ReactComponent as Warning} from "../../assets/icons/maintanence_warning.svg";
-import {Maintenance} from "../../store/branches/sensors/stateTypes";
+import {ConfirmStatus, Maintenance} from "../../store/branches/sensors/stateTypes";
 import {LoadingStatus} from "../../store/status";
 import {selectDevicesState, selectSensorsState} from "../../store/selectors";
 import Preloader from "../../components/Preloader";
@@ -23,8 +23,7 @@ import FailedMaintenanceModal from "../../components/MaintenanceModal/failedMain
 
 import classes from "./SensorDashboard.module.scss";
 
-// const maintenanceTime = process.env.REACT_APP_MAINTENANCE_TIME;
-const maintenanceTime = 20
+const maintenanceTime = process.env.REACT_APP_MAINTENANCE_TIME;
 
 const SensorDashboard: React.FC = () => {
     const dispatch = useDispatch();
@@ -32,6 +31,7 @@ const SensorDashboard: React.FC = () => {
     const {
         ws_data, filter_status, status, maintenance_status_operation,
         maintenanceSensorsArray, isMaintenance, confirmMaintenance,
+        isSnapshot,
     } = useSelector(selectSensorsState);
     const {maintenanceInfo} = useSelector(selectDevicesState);
     const {device} = useCurrentSelection();
@@ -67,6 +67,7 @@ const SensorDashboard: React.FC = () => {
     const failedMaintenanceClientSide = useCallback((item: Maintenance) => {
         dispatch(sensorsAC.showConfirmModal({
             isShow: true,
+            status: ConfirmStatus.failed,
             device_id: item.device_id,
             event_type: "maintenance_failed",
             sensor_id: item.sensor_id,
@@ -111,11 +112,12 @@ const SensorDashboard: React.FC = () => {
     useEffect(() => {
         return () => {
             dispatch(sensorsAC.clearWsSensorsData());
+            dispatch(sensorsAC.getOutSnapshotSensors());
         };
     }, [dispatch, device]);
 
     // fix this after backand will change
-    useSocketSensors(device ? `ws/device-data/${device?.udf_id}/` : "");
+    useSocketSensors((device && !isSnapshot) ? `ws/device-data/${device?.udf_id}/` : "");
 
 
     if ((maintenance_status_operation === LoadingStatus.LOADING) || isLoading) {
@@ -128,7 +130,9 @@ const SensorDashboard: React.FC = () => {
                 <DashboardAlert/>
                 <HeaderSection/>
 
-                <MaintenanceModal isModal={confirmMaintenance.isShow} onSubmit={onSubmitComment}/>
+                <MaintenanceModal isModal={confirmMaintenance.isShow}
+                                  status={confirmMaintenance.status}
+                                  onSubmit={onSubmitComment}/>
 
                 {
                     failed.current?.isShow

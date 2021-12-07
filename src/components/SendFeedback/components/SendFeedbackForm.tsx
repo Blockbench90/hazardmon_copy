@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useState} from "react";
 import {Form, Select} from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import InputWrap from "../../InputWrap";
 import {CustomButton} from "../../Button";
+import ReCAPTCHA from "react-google-recaptcha";
 
 import classes from "../SendFeedback.module.scss";
 
@@ -12,10 +13,20 @@ interface AddSiteProps {
     onSubmit: (values: any) => void
     onCancel: () => void
 }
+
 const {Option} = Select;
 
 const SendFeedbackForm: React.FC<AddSiteProps> = ({form, onSubmit, onCancel}) => {
+    const [isEnabled, setEnabled] = useState<boolean>(true)
     const selectChoice = ["Website usage", "Feature request", "Issue", "Other"];
+    const recaptchaKey = process.env.NODE_ENV === "development" ? "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" : process.env.REACT_APP_RECAPTCHA_KEY;
+
+    function onChange(value) {
+        if(value){
+            setEnabled(false)
+        }
+        console.log("Captcha value:", value);
+    }
 
     return (
         <div className={classes.wrap}>
@@ -65,6 +76,13 @@ const SendFeedbackForm: React.FC<AddSiteProps> = ({form, onSubmit, onCancel}) =>
                                     <TextArea autoSize={{minRows: 6, maxRows: 15}}/>
                                 </Form.Item>
                             </InputWrap>
+
+                            <div className={classes.captcha}>
+                                <ReCAPTCHA
+                                    sitekey={recaptchaKey}
+                                    onChange={onChange}
+                                />
+                            </div>
                             <div className={classes.button}>
                                 <Form.Item>
                                     <CustomButton width="123px"
@@ -73,6 +91,7 @@ const SendFeedbackForm: React.FC<AddSiteProps> = ({form, onSubmit, onCancel}) =>
                                                   fontSize="13px"
                                                   htmlType="submit"
                                                   className="mar-right-10"
+                                                  disabled={isEnabled}
                                     >
                                         SEND
                                     </CustomButton>
@@ -97,4 +116,5 @@ const SendFeedbackForm: React.FC<AddSiteProps> = ({form, onSubmit, onCancel}) =>
         </div>
     );
 };
+
 export default SendFeedbackForm;

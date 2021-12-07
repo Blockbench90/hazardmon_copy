@@ -17,6 +17,7 @@ const NOTIFICATION_TYPES = {
     test: "Test Email",
     warning_off: "Warning Cleared",
     warning_on: "Warning Detected",
+    sensor_disappeared: "Sensor Disappeared"
 };
 
 const NOTIFICATION_TYPES_COLOR = {
@@ -26,6 +27,7 @@ const NOTIFICATION_TYPES_COLOR = {
     device_offline: "#2F80ED",
     device_online: "#00E1B9",
     maintenance: "#2F80ED",
+    sensor_disappeared: "#2F80ED",
     power_up: "#27AE60",
     site_administration: "#27AE60",
     sn2_status_change: "#27AE60",
@@ -65,6 +67,7 @@ const TableNotifications: React.FC<TableProps> = ({
             dataIndex: "date_created",
             key: "date",
             sorter: true,
+            ellipsis: false,
         },
         {
             title: "TIME",
@@ -75,6 +78,7 @@ const TableNotifications: React.FC<TableProps> = ({
             dataIndex: "location",
             key: "site",
             sorter: true,
+            filterDropdownVisible: false
         },
         {
             title: "DEVICE",
@@ -109,6 +113,10 @@ const TableNotifications: React.FC<TableProps> = ({
             title: "IN ALARM",
             dataIndex: "in_alarm",
             key: "in_alarm",
+            render: (_: any, record: any) => {
+                const in_alarm = record?.in_alarm?.split(":").slice(0,2).join(":")
+                return <div>{in_alarm}</div>;
+            },
         },
     ];
 
@@ -117,7 +125,6 @@ const TableNotifications: React.FC<TableProps> = ({
             ...col,
             sortOrder: col.sorter && sorting.column === col.dataIndex ? sorting.order : false,
             onCell: () => ({
-                title: col.title,
                 className:
                     clsx(col.title === "DATE" && classes.date,
                         col.title === "TIME" && classes.date,
@@ -131,6 +138,7 @@ const TableNotifications: React.FC<TableProps> = ({
             <div className={classes.tableWrap}>
                 <Table columns={mergedColumns}
                        dataSource={data}
+                       className={classes.tableNotifications}
                        onChange={handleChange}
                        size="small"
                        pagination={{

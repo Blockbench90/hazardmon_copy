@@ -12,6 +12,7 @@ import {
     FetchSensorSettingsAI,
     FetchWarningsAI,
     FetchWsDataSensorsAI,
+    GetSnapshotSensorsAI,
     SensorsAT,
     SetMaintenanceAI,
     StopSensorMaintenanceAI,
@@ -64,6 +65,20 @@ export function* fetchWsDataSensorsRequest({payload}: FetchWsDataSensorsAI) {
     try {
         if (payload) {
             yield put(sensorsAC.setWsSensorsData(payload));
+        }
+    } catch (error) {
+        yield put(sensorsAC.setSensorsLoadingStatus(LoadingStatus.ERROR));
+    }
+}
+
+export function* getSnapshotSensorRequest({payload}: GetSnapshotSensorsAI) {
+    try {
+        yield put(sensorsAC.setSensorsLoadingStatus(LoadingStatus.LOADING));
+        const data = yield call(SensorsApi.getSnapshotSensors, payload);
+        if (data) {
+            yield put(sensorsAC.setWsSensorsData(data));
+        } else {
+            yield put(sensorsAC.setSensorsLoadingStatus(LoadingStatus.ERROR));
         }
     } catch (error) {
         yield put(sensorsAC.setSensorsLoadingStatus(LoadingStatus.ERROR));
@@ -242,6 +257,7 @@ export function* sensorsSaga() {
     yield takeLatest(SensorsAT.ADD_SENSOR_NAMES, addSensorNamesRequest);
     yield takeLatest(SensorsAT.ADD_SENSOR_SETTINGS, addSensorSettingsRequest);
     yield takeLatest(SensorsAT.FETCH_WS_DATA_SENSORS, fetchWsDataSensorsRequest);
+    yield takeLatest(SensorsAT.GET_SNAPSHOT_SENSORS, getSnapshotSensorRequest);
     yield takeLatest(SensorsAT.FETCH_HISTORICAL_GRAPHS_SENSORS, fetchHistoricalGraphsRequest);
     yield takeLatest(SensorsAT.SET_MAINTENANCE, setMaintenanceRequest);
     yield takeLatest(SensorsAT.CHANGE_EVENT_TYPE_ALARM_OFF, setMaintenanceExpectOffRequest);

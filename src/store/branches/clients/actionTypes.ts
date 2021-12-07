@@ -4,6 +4,7 @@ import {Client, ClientsState, PageRequest} from "./stateTypes"
 
 export enum ClientsAT {
     FETCH_CLIENTS = "clients/FETCH_CLIENTS",
+    SEARCH_CLIENTS = "clients/SEARCH_CLIENTS",
     FETCH_ACCOUNT_NUMBER = "clients/FETCH_ACCOUNT_NUMBER",
     FETCH_CURRENT_CLIENT = "clients/FETCH_CURRENT_CLIENT",
     SET_CURRENT_CLIENT = "clients/SET_CURRENT_CLIENT",
@@ -22,6 +23,11 @@ export enum ClientsAT {
 export interface FetchClientsAI extends Action<ClientsAT> {
     type: ClientsAT.FETCH_CLIENTS
     payload: PageRequest
+}
+
+export interface SearchClientsAI extends Action<ClientsAT> {
+    type: ClientsAT.SEARCH_CLIENTS
+    payload: string
 }
 
 export interface FetchAccountNumberAI extends Action<ClientsAT> {

@@ -10,5 +10,6 @@ export const usePermissions = () => {
         isAccountManager: user?.is_accounts_management || false,
         isManager: user?.is_manager || false,
         isVisualDashboard: user?.visual_dashboard_enabled || false,
+        isEngineer: user?.is_engineer || false,
     };
 };

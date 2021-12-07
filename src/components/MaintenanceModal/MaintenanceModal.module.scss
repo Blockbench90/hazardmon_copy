@@ -69,3 +69,15 @@
     }
   }
 }
+
+.editInput {
+  input {
+    width: 50px;
+  }
+}
+
+.modalButtonsSuccess {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 20px;
+}

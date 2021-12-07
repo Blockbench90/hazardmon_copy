@@ -1,5 +1,5 @@
 import React from "react";
-import {Pagination, Table} from "antd";
+import {Table} from "antd";
 
 import {mergedColumns} from "./Colums";
 import {HistoricalData, HistoricalItem} from "../../../store/branches/sensors/stateTypes";
@@ -7,28 +7,30 @@ import {TableDataItem} from "../index";
 import {generationDate, generationTime} from "../../../pages/Notifications/components/Colums";
 
 import classes from "../Historical.module.scss";
-import {useHistory} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
+import { useDispatch } from "react-redux";
+import {sensorsAC} from "../../../store/branches/sensors/actionCreators";
+import {useCurrentSelection} from "../../../hooks/useCurrentSelection";
 
 
 interface TableProps {
-    historical_data: HistoricalData
-    onPageChange: (page: number, pageSize: number) => void
-    pagination: { page: number, pageSize: number }
-
+    historical_data: HistoricalData;
 }
 
-const HistoricalTable: React.FC<TableProps> = ({
-                                                   historical_data,
-                                                   onPageChange,
-                                                   pagination,
-                                               }) => {
+const HistoricalTable: React.FC<TableProps> = ({ historical_data}) => {
     const history = useHistory();
+    const dispatch = useDispatch()
+    const {device} = useCurrentSelection()
+    const {times}: any = useParams();
+    const initTime = times?.split("&");
 
     const tableData1: TableDataItem[] = [];
     const tableData2: TableDataItem[] = [];
     const tableData3: TableDataItem[] = [];
 
-    const tableSize = 20;
+    const tableSize = Math.floor(historical_data?.count / 3);
+    const tableSize2 = tableSize * 2;
+    const tableSize3 = tableSize * 3;
 
     historical_data?.results?.forEach((item: HistoricalItem, index: number) => {
         if (index < tableSize) {
@@ -38,39 +40,43 @@ const HistoricalTable: React.FC<TableProps> = ({
                 date: generationDate(item.timestamp),
                 time: generationTime(item.timestamp),
                 alarmed: item.status,
+                record_id: item.record_id
             };
-            tableData1.push(tableItem);
-            return;
+            return tableData1.push(tableItem);
         }
-        if (index < tableSize * 2) {
+        if (index <= tableSize2) {
             const tableItem: TableDataItem = {
                 id: `id${index}`,
                 key: item.timestamp,
                 date: generationDate(item.timestamp),
                 time: generationTime(item.timestamp),
                 alarmed: item.status,
+                record_id: item.record_id
             };
-            tableData2.push(tableItem);
-            return;
+            return tableData2.push(tableItem);
         }
-        if (index < tableSize * 3) {
+
+        if (index <= tableSize3) {
             const tableItem: TableDataItem = {
                 id: `id${index}`,
                 key: item.timestamp,
+
                 date: generationDate(item.timestamp),
                 time: generationTime(item.timestamp),
                 alarmed: item.status,
+                record_id: item.record_id
             };
             tableData3.push(tableItem);
-            return;
         }
-        return;
-
+        return null;
     });
 
     const handleSelectCollum = (collum: any) => {
-        const timescale = collum.key.split(" ");
-        history.push(`/graphs/historical/graphs/${timescale[0]}&${timescale[1]}`);
+        // console.log("collum ==>", collum?.key)
+        dispatch(sensorsAC.getSnapshotSensors({isSnapshot: true, device_id: device?.id, record_id: collum?.record_id}))
+        // const timescale = collum.key.split(" ");
+        // history.push(`/graphs/historical/graphs/${timescale[0]}&${timescale[1]}`);
+        history.push(`/dashboard/${collum?.key}`);
     };
 
     return (
@@ -96,7 +102,10 @@ const HistoricalTable: React.FC<TableProps> = ({
                     <Table bordered
                            rowClassName={classes.row}
                            onRow={(collum) => {
+                               const itemTime = collum.time.split(":").slice(0, 2).join(":")
+                               const isCurrentTime = itemTime === initTime[1]
                                return {
+                                   className: isCurrentTime && classes.currentTime,
                                    onClick: () => {
                                        handleSelectCollum(collum);
                                    },
@@ -123,15 +132,6 @@ const HistoricalTable: React.FC<TableProps> = ({
                            columns={mergedColumns}
                     />
                 </div>
-            </div>
-
-            <div className={classes.pagination}>
-                <Pagination total={historical_data?.count}
-                            showSizeChanger={false}
-                            onChange={onPageChange}
-                            current={pagination.page}
-                            pageSize={60}
-                />
             </div>
         </React.Fragment>
     );

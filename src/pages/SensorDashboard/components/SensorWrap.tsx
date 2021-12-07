@@ -36,7 +36,10 @@ const SensorWrap: React.FC<SensorWrapProps> = ({
                                                }) => {
     // const compareUnits = sensor?.Meta?.Units && sensor?.Meta?.Units.split("")[1] === ("С" || "F")
 
-    const isTemperature = sensor?.Meta?.Units && sensor?.Meta?.Units === ("°С" || "°F");
+    const unit =(sensor?.Meta?.Units && typeof sensor?.Meta?.Units === "string") && sensor?.Meta?.Units.split("")[1]
+    // const isTemperature = sensor?.Meta?.Units && sensor?.Meta?.Units.split("")[1] === "F";
+    const isTemperature = unit === "F" || unit === "C";
+
     const isBoolean = ["BOOL", "ENUM"].indexOf(sensor.Type) !== -1;
 
     const contactSensor = () => {

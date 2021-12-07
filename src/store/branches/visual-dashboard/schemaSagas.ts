@@ -277,7 +277,7 @@ export function* deleteSchema(data: any) {
         const response = yield schemaService.deleteSchema(data.payload.id);
         yield put({type: schemasConstants.DELETE_SCHEMA_SUCCESS, payload: response.data});
         if (history.location.pathname === urls.schemasList.replace(':siteId', data.payload.siteId)) {
-            yield put({type: schemasConstants.GET_SCHEMAS_LIST, payload: data.payload.siteId});
+            yield put({type: schemasConstants.GET_SCHEMAS_LIST, payload: {location: data.payload.siteId, order_by: null}});
         } else {
             history.push(urls.schemasList.replace(':siteId', data.payload.siteId));
         }

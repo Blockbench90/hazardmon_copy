@@ -9,7 +9,8 @@ import {
     FetchSensorsAI,
     FetchSensorSettingsAI,
     FetchWarningsAI,
-    FetchWsDataSensorsAI,
+    FetchWsDataSensorsAI, GetOutSnapshotSensorsAI,
+    GetSnapshotSensorsAI,
     SensorsAT,
     SetHistoricalGraphsDataAI, SetMaintenanceAfterReloadAI,
     SetMaintenanceAI,
@@ -123,7 +124,16 @@ export const sensorsAC = {
         payload,
     }),
 
-    fetchHistoricalGraphs: (payload: { device_id: number, date: string, time: string, limit: number, offset: number }): FetchHistoricalGraphsAI => ({
+    getSnapshotSensors: (payload: {isSnapshot: boolean, device_id: number, record_id: string}): GetSnapshotSensorsAI => ({
+        type: SensorsAT.GET_SNAPSHOT_SENSORS,
+        payload,
+    }),
+
+    getOutSnapshotSensors: (): GetOutSnapshotSensorsAI => ({
+        type: SensorsAT.GET_OUT_SNAPSHOT_SENSORS,
+    }),
+
+    fetchHistoricalGraphs: (payload: { device_id: number, date: string, time: string, limit?: number, offset?: number }): FetchHistoricalGraphsAI => ({
         type: SensorsAT.FETCH_HISTORICAL_GRAPHS_SENSORS,
         payload,
     }),
@@ -185,6 +195,8 @@ export const sensorsAC = {
 
 export type SensorsActions =
     | FetchSensorsAI
+    | GetSnapshotSensorsAI
+    | GetOutSnapshotSensorsAI
     | SetWarningsSensorsAI
     | AddWarningAI
     | FetchWarningsAI

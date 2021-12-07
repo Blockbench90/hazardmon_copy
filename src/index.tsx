@@ -12,6 +12,7 @@ import './styles/general-styles.scss';
 import history from "./helpers/history"
 
 ReactDOM.render(
+// @ts-ignore
     <Router history={history}>
         <Provider store={store}>
             <App/>

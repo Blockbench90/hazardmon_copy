@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 
 import {LoadingStatus} from "../../store/status";
@@ -12,12 +12,16 @@ import {selectClientsState} from "../../store/selectors";
 import {clientsAC} from "../../store/branches/clients/actionCreators";
 import {mapClientsData} from "./components/Colums";
 import {useCurrentSelection} from "../../hooks/useCurrentSelection";
+import {Input} from "antd";
 
+const {Search} = Input;
 
 const Clients: React.FC = () => {
     const dispatch = useDispatch();
 
     let pageNumber = useRef<number>(1);
+
+    const [searchString, setSearchString] = useState<string>("");
 
     const {clientsData, status} = useSelector(selectClientsState);
     const {client} = useCurrentSelection();
@@ -47,11 +51,32 @@ const Clients: React.FC = () => {
         };
     }, [dispatch]);
 
+    const onSearch = (value) => {
+        dispatch(clientsAC.searchClients(value));
+    };
+
+    const onSearchChange = (e) => {
+        setSearchString(e?.target?.value);
+    };
+
     return (
         <Preloader isLoaded={status === LoadingStatus.LOADING}>
             <React.Fragment>
                 <ClientAlert/>
                 <HeaderClients/>
+
+
+                <div style={{display: "flex", justifyContent: "flex-end", margin: "15px 0"}}>
+                    <Search
+                        placeholder="search"
+                        enterButton="Search"
+                        size="large"
+                        onChange={onSearchChange}
+                        value={searchString}
+                        style={{width: 300}}
+                        onSearch={onSearch}
+                    />
+                </div>
 
                 <TableClients clients={clients}
                               selectedClient={client}

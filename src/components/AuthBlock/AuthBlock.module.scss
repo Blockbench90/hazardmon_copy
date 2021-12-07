@@ -1,4 +1,4 @@
-.wrap {
+.authBlockWrap {
   width: 454px;
   height: 624px;
   background: white;
@@ -50,49 +50,53 @@
     }
   }
 
+}
 
-  .tabs {
-    @media screen and (max-width: 700px), (max-height: 700px) {
-      :global {
-        .ant-tabs-nav {
-          margin: 0 0 4px 0 !important;
-        }
-        .ant-form-item-explain-error {
-          font-size: 8px !important;
-        }
+
+.authBlockTabs {
+  @media screen and (max-width: 700px), (max-height: 700px) {
+    :global {
+      .ant-tabs-nav {
+        margin: 0 0 4px 0 !important;
       }
-    }
-  }
 
-  .tab {
-    padding: 0 50px;
-    @media screen and (max-width: 700px), (max-height: 700px) {
-      padding: 0 15px;
-    }
-  }
-
-  .tabTitleWrap {
-    display: flex;
-    align-items: center;
-  }
-
-
-  .historical {
-    padding: 50px;
-  }
-
-  .title {
-    font-weight: bold;
-    font-size: 16px;
-    color: #014B3E;
-    margin-left: 10px;
-
-    @media screen and (max-width: 700px), (max-height: 700px) {
-      font-size: 12px !important;
-      margin-left: 5px;
+      .ant-form-item-explain-error {
+        font-size: 8px !important;
+      }
     }
   }
 }
 
+.authBlockTab {
+  @media screen and (max-width: 700px), (max-height: 700px) {
+    padding: 0 15px;
+  }
+}
 
+.innerWrap {
+  padding: 15px 50px;
+}
 
+.authBlockFormWrap {
+  padding: 0 50px;
+  @media screen and (max-width: 700px), (max-height: 700px) {
+    padding: 0 20px;
+  }
+}
+
+.authBlockTabTitleWrap {
+  display: flex;
+  align-items: center;
+}
+
+.authBlockTabTitle {
+  font-weight: bold;
+  font-size: 16px;
+  color: #014B3E;
+  margin-left: 10px;
+
+  @media screen and (max-width: 700px), (max-height: 700px) {
+    font-size: 12px !important;
+    margin-left: 5px;
+  }
+}

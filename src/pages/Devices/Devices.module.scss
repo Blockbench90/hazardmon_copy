@@ -40,6 +40,10 @@
   width: 90%;
 }
 
+.OEMCursor {
+  cursor: pointer !important;
+}
+
 .devicesBlockWrap {
   width: 290px;
   height: 140px;
@@ -49,10 +53,7 @@
   border: 1px solid #CAD0D3;
   border-radius: 3px;
   background: #FFFFFF;
-
-  .OEMCursor {
-    cursor: pointer !important;
-  }
+  cursor: pointer;
 
   .pic {
     width: 40%;
@@ -129,7 +130,7 @@
 }
 
 .devicesBlockWrap:hover {
-  cursor: pointer;
+  //cursor: pointer;
   filter: drop-shadow(0px 4px 20px rgba(0, 0, 0, 0.15));
 }
 

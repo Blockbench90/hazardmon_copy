@@ -8,6 +8,7 @@ import Notify from "./Notify";
 import {WsNotification} from "../../../store/branches/user/stateTypes";
 import {CloseOutlined} from "@ant-design/icons";
 import {devicesAC} from "../../../store/branches/devices/actionCreators";
+import audio from "../../../helpers/audio";
 
 
 interface NotificationsProps {
@@ -19,6 +20,7 @@ const HeaderNotifications: React.FC<NotificationsProps> = ({
                                                                messageCount,
                                                                wsNotification,
                                                            }) => {
+    console.log("wsNOTIFY ==>", wsNotification);
     const dispatch = useDispatch();
 
     const onRedirect = useCallback(() => {
@@ -27,6 +29,9 @@ const HeaderNotifications: React.FC<NotificationsProps> = ({
             deviceId: wsNotification.device_pk,
         }));
     }, [wsNotification, dispatch]);
+
+    const hasWarning = ["Warning Detected", "Warning Changed"].includes(wsNotification?.event_type);
+    const hasAlarm = ["Alarm Detected", "Alarm Changed"].includes(wsNotification?.event_type);
 
     const openNotification = useCallback(() => {
         notification.open({
@@ -46,7 +51,9 @@ const HeaderNotifications: React.FC<NotificationsProps> = ({
                 </div>
             ),
         });
-    }, [wsNotification, onRedirect]);
+
+        (hasWarning || hasAlarm) && audio.play();
+    }, [wsNotification, onRedirect, hasWarning, hasAlarm]);
 
 
     useEffect(() => {

@@ -8,7 +8,7 @@ import {ReactComponent as Historical} from "../../assets/icons/devices_historica
 import {userAC} from "../../store/branches/user/actionCreators";
 import {selectUserState} from "../../store/selectors";
 
-import classes from "../TabsSensorDashboard/modal.module.scss";
+import classes from "./HeaderTabs.module.scss";
 
 const {TabPane} = Tabs;
 

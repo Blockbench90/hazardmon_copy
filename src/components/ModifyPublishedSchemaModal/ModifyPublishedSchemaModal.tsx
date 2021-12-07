@@ -14,6 +14,8 @@ import {modalStyles, parentSelector} from "../../constants/modalStyles";
 
 // styles {
 import "./ModifyPublishedSchemaModal.css";
+import {CustomButton} from "../Button";
+import classes from "../MaintenanceModal/MaintenanceModal.module.scss";
 
 // interfaces
 interface PublishModalProps extends InjectedFormProps {
@@ -39,17 +41,37 @@ class ModifyPublishedSchemaModal extends React.Component<PublishModalProps> {
                 isOpen={showModifyPublishedModal}
                 onRequestClose={handleCloseModal}
                 style={modalStyles}
+                className="confirmation-modal"
                 parentSelector={parentSelector}
             >
                 <button className="close-icon" onClick={handleCloseModal} type="button">&#215;</button>
                 <form onSubmit={handleSubmit} className="modify-published-modal">
-                    <h3>{title}</h3>
-                    <h4>Do you want to clone current schema with the new name and continue editing?</h4>
+                    <h3 className={classes.modalTitle}>{title}</h3>
+                    <h4 className={classes.modalTitle}>Do you want to clone current schema with the new name and continue editing?</h4>
                     <label>New name:</label>
                     <Field component="input" name="new_name" required={true}/>
                     <div className="buttons-container">
-                        <button className="btn small" type="submit" onClick={handleCloseModal}>Cancel</button>
-                        <button type="submit">Continue</button>
+                        <CustomButton color="gray"
+                                      htmlType="submit"
+                                      className="mar-right-10"
+                                      width="90px"
+                                      height="40px"
+                                      padding="0"
+                                      onClick={handleCloseModal}
+                        >
+                            CANCEL
+                        </CustomButton>
+
+                        <CustomButton htmlType="submit"
+                                      color="green"
+                                      width="120px"
+                                      height="40px"
+                                      padding="0"
+                        >
+                            CONTINUE
+                        </CustomButton>
+                        {/*<button className="btn small" type="submit" onClick={handleCloseModal}>Cancel</button>*/}
+                        {/*<button type="submit">Continue</button>*/}
                     </div>
                 </form>
             </Modal>

@@ -9,6 +9,7 @@ import classes from "../Notifications.module.scss";
 import {Site} from "../../../store/branches/sites/stateTypes";
 import {Device} from "../../../store/branches/devices/stateTypes";
 import clsx from "clsx";
+import {useCurrentSelection} from "../../../hooks/useCurrentSelection";
 
 const {Option} = Select;
 const {RangePicker} = DatePicker;
@@ -51,7 +52,14 @@ const NotificationsForm: React.FC<NotificationsFormProps> = ({
                                                                  sites,
                                                                  devices,
                                                              }) => {
+    const {site, device} = useCurrentSelection();
     const [dates, setDates] = useState([]);
+
+    const selectedSite = sites?.filter(item => item?.id === site?.id)[0]?.title;
+    const selectedDevice = devices?.filter(item => item?.id === device?.id)[0]?.title;
+
+    const initialSite = sites[0]?.title;
+    const initialDevices = devices[0]?.title;
 
     const disabledDate = (current: any) => {
         if (!dates || dates.length === 0) {
@@ -67,8 +75,7 @@ const NotificationsForm: React.FC<NotificationsFormProps> = ({
             <Form name="notifications_form"
                   form={form}
                   className={classes.formWrap}
-                  initialValues={{remember: true}}
-            >
+                  initialValues={{remember: true}}>
                 <div className={classes.dateIcon}>
                     <Date/>
                 </div>
@@ -88,7 +95,7 @@ const NotificationsForm: React.FC<NotificationsFormProps> = ({
 
                 <div className={classes.select}>
                     <InputWrap title="Site" className={classes.options}>
-                        <Form.Item name="site" initialValue={"ALL"}>
+                        <Form.Item name="site" initialValue={selectedSite || initialSite}>
 
                             <Select onSelect={handSelectSite} size="large" placeholder="Select">
                                 <Option value={"All"}
@@ -114,7 +121,8 @@ const NotificationsForm: React.FC<NotificationsFormProps> = ({
 
                 <div className={classes.select}>
                     <InputWrap title="Device" className={classes.options}>
-                        <Form.Item name="device" initialValue={"ALL"}>
+                        <Form.Item name="device" initialValue={selectedDevice || initialDevices}
+                        >
 
                             <Select onSelect={handSelectDevice} size="large" placeholder="Select">
                                 <Option value={"All"}

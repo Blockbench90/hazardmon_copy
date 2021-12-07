@@ -2,6 +2,7 @@ import React, {useCallback, useEffect, useState} from "react";
 import clsx from "clsx";
 import {Form} from "antd";
 import {useForm} from "antd/lib/form/Form";
+import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 
 import {ContactWhen, contactWhenType, NOTIFICATION_SETTING_TYPES} from "../../helpers/notifications_settings_type";
@@ -15,7 +16,6 @@ import AddEmailNotificationForm from "./components/AddEmailNotificationsForm";
 import UserAlert from "../Alerts/user";
 import {LoadingStatus} from "../../store/status";
 import Spinner from "../Spinner";
-import {useParams} from "react-router-dom";
 
 
 const AddEmailNotification: React.FC = () => {
@@ -27,30 +27,32 @@ const AddEmailNotification: React.FC = () => {
 
         const [isCheckedSend, setCheckedSend] = useState<boolean>(false);
         const [isCheckedSmart, setCheckedSmart] = useState<boolean>(false);
-        const [isAllDevices, setAllDevices] = useState<boolean>(true);
+        const [checkList, setList] = useState<string[]>();
+        const [isAllDevices, setAllDevices] = useState<boolean>();
         const [numberX, setNumberX] = useState<number>(current?.x || 1);
         const [eventType, setEventType] = useState<string>("alarm");
         const [timeAlarm, setTimeAlarm] = useState<string>("As Alert happens");
 
-        let allDevices: string[] = [];
+        const selectedBefore = current?.devices?.map((device) => device?.id?.toString());
+        let allDeviceIdsArray: string[] = [];
 
         sitesData?.results?.forEach(({devices}: Site) => {
             if (devices.length === 0) {
                 return;
             }
-            allDevices = devices?.map((item: Device) => item?.id.toString());
+            allDeviceIdsArray = devices?.map((item: Device) => item?.id.toString());
         });
 
         const onCheckedSend = () => {
-            setCheckedSend(!isCheckedSend);
+            setCheckedSend(isCheckedSend => !isCheckedSend);
         };
 
         const onCheckedStart = () => {
-            setCheckedSmart(!isCheckedSmart);
+            setCheckedSmart(isCheckedSmart => !isCheckedSmart);
         };
 
         const onCheckedAllDevices = () => {
-            setAllDevices(!isAllDevices);
+            setAllDevices(isAllDevices => !isAllDevices);
         };
 
         const onNumberXChange = (value: number) => {
@@ -68,7 +70,7 @@ const AddEmailNotification: React.FC = () => {
 
 
         const onSubmit = async (values: any) => {
-            if (!values.devices && !isAllDevices) {
+            if (!checkList && !isAllDevices) {
                 dispatch(userAC.setUserLoadingStatus(LoadingStatus.ADD_EMAIL_NOTIFICATION_WITHOUT_DEVICE_ERROR));
                 return;
             }
@@ -82,12 +84,10 @@ const AddEmailNotification: React.FC = () => {
                 x: numberX,
                 all_devices: isAllDevices,
                 number_per_hour: values.number_of_notifications,
-                devices: isAllDevices ? allDevices : values.devices,
+                devices: isAllDevices ? allDeviceIdsArray : checkList,
             };
             if(current){
-                const arrayStringDeviceId =  values.devices?.map((item: Device) => item.toString());
-                const updateData = {...data, devices: arrayStringDeviceId}
-                dispatch(userAC.updateCurrentEmailNotification({id, data: updateData}))
+                dispatch(userAC.updateCurrentEmailNotification({id, data}))
                 return
             }
 
@@ -95,7 +95,7 @@ const AddEmailNotification: React.FC = () => {
         };
 
         const onRemoveEmailNotification = () => {
-            dispatch(userAC.removeCurrentEmailNotification(id))
+            dispatch(userAC.removeCurrentEmailNotification(id));
         };
 
         useEffect(() => {
@@ -103,6 +103,14 @@ const AddEmailNotification: React.FC = () => {
                 dispatch(userAC.fetchEmailNotifications());
             }
         }, [dispatch, sitesData]);
+
+        useEffect(() => {
+            if (current) {
+                setList(selectedBefore);
+                setAllDevices(current?.all_devices)
+            }
+            // eslint-disable-next-line
+        }, [current]);
 
         useEffect(() => {
             if (id && !current) {
@@ -121,9 +129,9 @@ const AddEmailNotification: React.FC = () => {
                 setCheckedSend(current.send_to_alternative);
                 setEventType(current.event_type);
                 setCheckedSmart(current.number_per_hour > 0);
-                setAllDevices(current?.devices?.length === 0);
+                // setAllDevices(current?.devices?.length === 0);
                 setNumberX(current.x);
-                setTimeAlarm(contactWhenType.get(current.contact_when))
+                setTimeAlarm(contactWhenType.get(current.contact_when));
             }
         }, [current]);
 
@@ -157,6 +165,8 @@ const AddEmailNotification: React.FC = () => {
                                               onCheckedAllDevices={onCheckedAllDevices}
                                               current={current}
                                               form={form}
+                                              setList={setList}
+                                              selectedBefore={selectedBefore}
                     />
                 </Form>
             </div>

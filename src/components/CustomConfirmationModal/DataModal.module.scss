@@ -4,7 +4,7 @@
     .ant-modal {
       width: 400px !important;
       height: 260px !important;
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.13);
+      //box-shadow: 0 0 30px rgba(0, 0, 0, 0.13);
       border-radius: 20px !important;
     }
 
@@ -53,7 +53,9 @@
 
   .modalButton {
     margin-top: 40px;
-    margin-bottom: 50px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
 
     .timePicker {
       width: 84px;
@@ -67,6 +69,8 @@
 
     .buttonTitle {
       font-weight: 700;
+      margin: 0 10px;
     }
   }
 }
+

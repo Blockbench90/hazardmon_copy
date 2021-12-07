@@ -14,7 +14,7 @@ import {LoadingStatus} from "../../store/status";
 import {useCurrentSelection} from "../../hooks/useCurrentSelection";
 import {selectSensorsState} from "../../store/selectors";
 
-import classes from "./modal.module.scss";
+import classes from "./HeaderTabs.module.scss";
 import {devicesAC} from "../../store/branches/devices/actionCreators";
 
 const {Option} = Select;
@@ -106,15 +106,15 @@ const TabsSensorDashboard: React.FC = () => {
     }, [dispatch]);
 
     return (
-        <div className={classes.wrap}>
+        <div className={classes.graphsWrap}>
             <div className="d-flex">
                 <div>
-                    <Tabs className={classes.tabs}
+                    <Tabs className={classes.graphsTabs}
                           activeKey={path}
                           centered
                           onChange={onChangeTab}
                     >
-                        <TabPane className={classes.tab}
+                        <TabPane className={classes.graphsTab}
                                  tab={
                                      <div className={classes.tabTitleWrap}>
                                          <Live/>
@@ -123,7 +123,7 @@ const TabsSensorDashboard: React.FC = () => {
                                  }
                                  key="live"/>
 
-                        <TabPane className={classes.tab}
+                        <TabPane className={classes.graphsTab}
                                  tab={
                                      <div className={classes.tabTitleWrap}>
                                          <Historical/>
@@ -135,7 +135,7 @@ const TabsSensorDashboard: React.FC = () => {
                         {
                             !isHideMaintenance
                             &&
-                            <TabPane className={classes.tab}
+                            <TabPane className={classes.graphsTab}
                                      tab={
                                          <div className={classes.tabTitleWrap}>
                                              <Maintenance/>
@@ -152,7 +152,7 @@ const TabsSensorDashboard: React.FC = () => {
                 {
                     ws_data?.device?.deviceType === "f500"
                         ?
-                        <div>
+                        <div className={classes.headerDashboardSelect}>
                             <Select defaultValue={FilterStatus.ACTIVE} onSelect={handleSelectNodes} style={{width: 170}}
                                     bordered={false}>
                                 <Option value={FilterStatus.ACTIVE}>Active Nodes</Option>
@@ -161,7 +161,7 @@ const TabsSensorDashboard: React.FC = () => {
                             </Select>
                         </div>
                         :
-                        <div>
+                        <div className={classes.headerDashboardSelect}>
                             <span className={classes.switchNodes}>Hide disabled sensors</span>
                             <Checkbox onChange={onSwitchNodes} defaultChecked={true}
                                       className={classes.hideSensorsCheckbox}/>

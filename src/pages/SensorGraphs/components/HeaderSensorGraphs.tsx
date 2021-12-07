@@ -18,6 +18,7 @@ const HeaderSensorGraphs: React.FC = () => {
     const history = useHistory();
     const {pathname} = useLocation()
     const {id} = useParams<any>();
+    console.log("ID ==>", id)
 
     const allGraphsUrl = pathname.split("/").slice(0, -1).join("/")
 
@@ -35,7 +36,7 @@ const HeaderSensorGraphs: React.FC = () => {
             <div className="block-title">
                 <Title level={5} className="header-link">
                     <Link to="/sites"> {site?.title || "Site"} / </Link>
-                    <Link to="/devices">{device?.title || "Device"}</Link>
+                    <Link to="/dashboard">{device?.title || "Device"}</Link>
                 </Title>
             </div>
 

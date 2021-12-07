@@ -31,6 +31,10 @@ export const SensorsApi = {
         const {data} = await axios.get<APIResponse>("api/v1/ie-node-units/");
         return data;
     },
+    async getSnapshotSensors(payload: any): Promise<any> {
+        const {data} = await axios.get<APIResponse>(`/api/v1/devices/${payload.device_id}/historical/records/${payload.record_id}/`);
+        return data;
+    },
     async addSensorNames(payload: any): Promise<any> {
         const data = await axios.post<APIResponse>(`api/v1/devices/${payload.device_id}/settings/sensor-names`, payload.data);
         return data;
@@ -43,8 +47,8 @@ export const SensorsApi = {
         const {data} = await axios.get<APIResponse>(`api/v1/devices/${payload}/settings/export/sensor-names/`);
         return data;
     },
-    async fetchHistoricalGraphs(payload: { device_id: number, date: string, time: string, limit: number, offset: number }): Promise<any> {
-        const data = await axios.get<APIResponse>(`/api/v1/devices/${payload.device_id}/historical/graphs/?timestamp=${payload.date}%20${payload.time}:00&limit=${payload.limit}&offset=${payload.offset}`);
+    async fetchHistoricalGraphs(payload: { device_id: number, date: string, time: string, limit?: number, offset?: number }): Promise<any> {
+        const data = await axios.get<APIResponse>(`/api/v1/devices/${payload.device_id}/historical/records/?timestamp=${payload.date}%20${payload.time}:00&limit=${payload.limit}&offset=${payload.offset}`);
         return data;
     },
     async setMaintenance(payload: any): Promise<any> {
@@ -52,7 +56,7 @@ export const SensorsApi = {
             event_type: payload.event_type,
             sensor_id: payload.sensor_id,
             sensor_name: payload.sensor_name,
-            comment: payload.comment || "test",
+            comment: payload.comment || "empty area",
             maintenance_time: payload.maintenance_time,
         });
         return data;
@@ -62,13 +66,13 @@ export const SensorsApi = {
             event_type: payload.event_type,
             sensor_id: payload.sensor_id,
             sensor_name: payload.sensor_name,
-            comment: payload.comment || "test",
+            comment: payload.comment || "empty area",
             maintenance_time: payload.maintenance_time,
         });
         return data;
     },
     async getF500Nodes(payload: number): Promise<any> {
-        const {data} = await axios.get<APIResponse>(`api/v1/devices/${payload}/graphs/nodes/`);
+        const {data} = await axios.get<APIResponse>(`api/v1/graphs/device/${payload}/f500-nodes/`);
         return data;
     },
     async updateArrangement(payload: {
@@ -78,7 +82,7 @@ export const SensorsApi = {
         sensor: string,
         device_id: number
     }): Promise<any> {
-        const data = await axios.post<APIResponse>(`api/v1/devices/${payload.device_id}/graphs/update-arrangement/`, payload);
+        const data = await axios.post<APIResponse>(`api/v1/graphs/device/${payload.device_id}/f500-update-arrangement/`, payload);
         return data;
     },
 };

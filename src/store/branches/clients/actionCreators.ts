@@ -6,7 +6,7 @@ import {
     ClientsAT, FetchAccountNumberAI,
     FetchClientsAI,
     FetchCurrentClientAI,
-    RemoveClientAI, SetAccountNumberAI,
+    RemoveClientAI, SearchClientsAI, SetAccountNumberAI,
     SetClientsAI,
     SetClientsLoadingStatusAI,
     SetClientsStatusOperationAI,
@@ -21,6 +21,11 @@ export const clientsAC = {
 
     fetchClients: (payload: PageRequest): FetchClientsAI => ({
         type: ClientsAT.FETCH_CLIENTS,
+        payload
+    }),
+
+    searchClients: (payload: string): SearchClientsAI => ({
+        type: ClientsAT.SEARCH_CLIENTS,
         payload
     }),
 
@@ -85,6 +90,7 @@ export const clientsAC = {
 
 export type ClientsActions =
     | FetchClientsAI
+    | SearchClientsAI
     | SetClientsAI
     | FetchCurrentClientAI
     | FetchAccountNumberAI

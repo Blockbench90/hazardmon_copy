@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, {useEffect} from "react";
 import {Redirect, Route, Switch, useLocation} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
@@ -31,11 +32,7 @@ const PrivateRoute: React.FC<{ isTablet: boolean }> = ({isTablet}) => {
     const {status} = useSelector(selectUserState);
     const isReady = status === LoadingStatus.LOADING;
 
-    const {
-        isSuperUser,
-        isOEM,
-        isManager, isAccountManager
-    } = usePermissions();
+    const { isSuperUser, isOEM, isManager, isAccountManager, isEngineer } = usePermissions();
 
     useEffect(() => {
         if (auth_key) {
@@ -59,7 +56,7 @@ const PrivateRoute: React.FC<{ isTablet: boolean }> = ({isTablet}) => {
                                     <Route key={path + "private"} path={path} component={Component} exact/>,
                                 )}
 
-                                {(isSuperUser || isOEM || isManager || isAccountManager) && adminRoutes.map(({path, Component}: RouteProps) =>
+                                {(isSuperUser || isOEM || isManager || isAccountManager || isEngineer) && adminRoutes.map(({path, Component}: RouteProps) =>
                                     <Route key={path + "admin"} path={path} component={Component} exact/>,
                                 )}
                             </LayoutComponent>

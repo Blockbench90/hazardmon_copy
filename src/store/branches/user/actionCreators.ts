@@ -145,7 +145,7 @@ export const userAC = {
         type: UserAT.FETCH_CURRENT_EMAIL_NOTIFICATIONS,
         payload,
     }),
-    updateCurrentEmailNotification: (payload: { id: number, data: EmailNotification }): UpdateCurrentEmailNotification => ({
+    updateCurrentEmailNotification: (payload: { id: number, data: any }): UpdateCurrentEmailNotification => ({
         type: UserAT.UPDATE_CURRENT_EMAIL_NOTIFICATION,
         payload,
     }),
